@@ -17,13 +17,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $stmt->execute();
     // Mostramos los resultados
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
-    echo $pass . $arr['contraseña'];
     
     if(!empty($arr) && password_verify($pass, $arr['contraseña'])){
-        echo "Ingreso exitosamente";
-        header('Location: http://localhost/Practica%20Profesionalizante/Proyecto%20final/html/inicio.html');
+        echo'<script type="text/javascript">
+            alert("Inicio de sesión con éxito");
+            </script>';
+        echo'<script type="text/javascript">
+            setTimeout(window.location.href="http://localhost/Practica%20Profesionalizante/Proyecto%20final/html/inicio.html", 5000);
+            </script>';
     }else{
-        echo "Credenciales erronéas";
+        echo'<script type="text/javascript">
+            alert("Credenciales erróneas");
+            </script>';
+        echo'<script type="text/javascript">
+            setTimeout(window.location.href="http://localhost/Practica%20Profesionalizante/Proyecto%20final/html/login.html", 5000);
+            </script>';
+            
         
     }
     

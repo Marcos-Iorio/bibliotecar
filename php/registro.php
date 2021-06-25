@@ -37,14 +37,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         // Execute
         if($stmt->execute()){
-            echo "Se registro con exito";
-            header('Location: http://localhost/Practica%20Profesionalizante/Proyecto%20final/html/login.html');
+            echo'<script type="text/javascript">
+                alert("Registro con éxito");
+                </script>';
+            echo'<script type="text/javascript">
+                setTimeout(window.location.href="http://localhost/Practica%20Profesionalizante/Proyecto%20final/html/login.html", 5000);
+                </script>';
         }else{
             echo "Error";
         }
     }else{
-        echo('El mail ya esta siendo utilizado');
-        /* header('Location: http://localhost/Practica%20Profesionalizante/Proyecto%20final/html/login.html'); */
+        echo'<script type="text/javascript">
+            alert("El mail ya está siendo utilizado");
+            </script>';
+        echo'<script type="text/javascript">
+            setTimeout(window.location.href="http://localhost/Practica%20Profesionalizante/Proyecto%20final/html/login.html", 5000);
+            </script>';
      }
 
 }else{
