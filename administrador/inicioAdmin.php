@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://localhost/Practica%20Profesionalizante/Proyecto%20final/css/inicio.css">
+    <link rel="stylesheet" href="/css/inicio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
 </head>
@@ -12,7 +12,7 @@
     <section id="page">
         <nav id="sidebar"  onmouseover="toggleSidebar()" onmouseout="toggleSidebar()">
             <ul id="hovered">
-                <li><img class="logo" src="http://localhost/Practica%20Profesionalizante/Proyecto%20final/assets/Logo sin fondo.png" alt=""><a href=""></a></li>
+                <li><img class="logo" src="/assets/Logo sin fondo.png" alt=""><a href=""></a></li>
                 <li id="home"><a href=""><span>Home</span></a></li>
                 <li id="portal-libro"><a href=""><span>Portal de libros</span></a></li>
                 <li id="portal-gestion">Portal de Gestión
@@ -37,4 +37,4 @@
       </section>
 </body>
 </html>
-<script src="http://localhost/Practica%20Profesionalizante/Proyecto%20final/js/navbarToggle.js"></script>
+<script src="/js/navbarToggle.js"></script>

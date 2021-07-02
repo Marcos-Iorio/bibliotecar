@@ -41,7 +41,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 alert("Registro con éxito");
                 </script>';
             echo'<script type="text/javascript">
-                setTimeout(window.location.href="http://localhost/Practica%20Profesionalizante/Proyecto%20final/html/login.html", 5000);
+                setTimeout(window.location.href="/html/login.html", 5000);
                 </script>';
         }else{
             echo "Error";
@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             alert("El mail ya está siendo utilizado");
             </script>';
         echo'<script type="text/javascript">
-            setTimeout(window.location.href="http://localhost/Practica%20Profesionalizante/Proyecto%20final/html/login.html", 5000);
+            setTimeout(window.location.href="/html/login.html", 5000);
             </script>';
      }
 
