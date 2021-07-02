@@ -25,14 +25,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 alert("Inicio de sesión con éxito");
                 </script>';
             echo'<script type="text/javascript">
-                setTimeout(window.location.href="/usuario/inicioUser.php", 5000);
+                setTimeout(window.location.href="usuario/inicioUser.php", 5000);
                 </script>';
         }else{
             echo'<script type="text/javascript">
                 alert("Credenciales erróneas");
                 </script>';
             echo'<script type="text/javascript">
-                setTimeout(window.location.href="/html/login.html", 5000);
+                setTimeout(window.location.href="html/login.html", 5000);
                 </script>';  
         }
     }elseif($arr['idRol'] === '2'){
@@ -42,14 +42,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 alert("Inicio de sesión con éxito");
                 </script>';
             echo'<script type="text/javascript">
-                setTimeout(window.location.href="/colaborador/inicioColab.php", 5000);
+                setTimeout(window.location.href="colaborador/inicioColab.php", 5000);
                 </script>';
         }else{
             echo'<script type="text/javascript">
                 alert("Credenciales erróneas");
                 </script>';
             echo'<script type="text/javascript">
-                setTimeout(window.location.href="/html/login.html", 5000);
+                setTimeout(window.location.href="html/login.html", 5000);
                 </script>';  
         }
     }elseif($arr['idRol'] === '3'){
@@ -59,14 +59,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 alert("Inicio de sesión con éxito");
                 </script>';
             echo'<script type="text/javascript">
-                setTimeout(window.location.href="/administrador/inicioAdmin.php", 5000);
+                setTimeout(window.location.href="../html/inicio.html", 5000);
                 </script>';
+        
         }else{
             echo'<script type="text/javascript">
                 alert("Credenciales erróneas");
                 </script>';
             echo'<script type="text/javascript">
-                setTimeout(window.location.href="/html/login.html", 5000);
+                setTimeout(window.location.href="../html/login.html", 5000);
                 </script>';  
         }
     }else{
@@ -74,7 +75,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 alert("Usuario no registrado!");
                 </script>';
             echo'<script type="text/javascript">
-                setTimeout(window.location.href="/html/login.html", 5000);
+                setTimeout(window.location.href="html/login.html", 5000);
                 </script>';  
     }
 
