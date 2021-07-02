@@ -1,3 +1,3 @@
 <?php
-    include_once('html/login.html');
+    include_once('html/login.php');
 ?>
