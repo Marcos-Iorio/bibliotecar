@@ -12,7 +12,7 @@
     <section id="page">
         <nav id="sidebar"  onmouseover="toggleSidebar()" onmouseout="toggleSidebar()">
             <ul id="hovered">
-                <li><img class="logo" src="/assets/Logo sin fondo.png" alt=""><a href=""></a></li>
+                <li><img class="logo" src="/assets/Logo sin fondo.PNG" alt=""><a href=""></a></li>
                 <li id="home"><a href=""><span>Home</span></a></li>
                 <li id="portal-libro"><a href=""><span>Portal de libros</span></a></li>
             </ul>                   
