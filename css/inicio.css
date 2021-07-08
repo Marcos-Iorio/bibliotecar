@@ -58,11 +58,9 @@ h1, p{
   width: 70%;
   color: white;
 }
-ul#hovered{
-  margin-top:100px;
-}
 
 nav ul{
+  margin-top: 100px;
   margin-left: 10px;
   list-style: none;
   background: transparent;
@@ -88,7 +86,7 @@ nav ul.dropdown{
   margin-top: 0px !important;
 }
 
-/* ul li ul {
+ul li ul {
   visibility: hidden;
   opacity: 0;
   position: absolute;
@@ -108,7 +106,7 @@ ul li ul:hover {
 ul li ul li {
   clear: both;
   width: 100%;
-} */
+}
 
 img.logo{
   position: absolute;
@@ -122,8 +120,8 @@ img.logo{
   content: "\f015";
   font-size: 25px;
   color: gray;
-  margin-right: 40px;
-  text-align: center;
+  margin-right: 30px;
+  margin-left: -3px;
 }
 
 
@@ -133,7 +131,58 @@ img.logo{
   content: "\f02d";
   font-size: 25px;
   color: gray;
-  margin-right: 40px;
+  margin-right: 35px;
+  text-align: center;
+}
+
+#cuenta:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f007";
+  font-size: 25px;
+  color: gray;
+  margin-right: 36px;
+  text-align: center;
+}
+
+#sugerencias:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f573";
+  font-size: 25px;
+  color: gray;
+  margin-right: 31px;
+  text-align: center;
+}
+
+#contacto:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f0e0";
+  font-size: 25px;
+  color: gray;
+  margin-right: 35px;
+  text-align: center;
+}
+
+#portal-gestion:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f0ae";
+  font-size: 25px;
+  color: gray;
+  margin-right: 36px;
+  text-align: center;
+}
+
+#logout:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f2f5";
+  font-size: 25px;
+  color: gray;
+  margin-right: 35px;
+  margin-left: 4px;
   text-align: center;
 }
 
@@ -198,4 +247,17 @@ img.logo{
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+/*Administrador*/
+
+a {
+  color: white;
+  background: transparent;
+  text-decoration: none;
+}
+
+#admin-users{
+  background-color:transparent;
+  color: white;
 }
