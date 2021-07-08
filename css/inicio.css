@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(22, 22, 88);
+	font-family:'Roboto', sans-serif;
+}
+
+/*SIDEBAR*/
+#page {
+    display: grid;
+	place-content: left;
+    width: 100vw;
+    height: 100vh;
+    grid-template-areas: "nav main"
+                         "nav main";
+    grid-template-rows: 50px 1fr ;
+    grid-template-columns: 60px auto;
+    overflow-x: hidden;
+}
+  
+#page > #sidebar {
+    grid-area: nav;
+    background-color: #383838;
+    position: fixed;
+    height: 100%;
+    width: 60px;
+    transition: 0.5s;
+    overflow-x: hidden;
+    padding-top: 60px;
+    white-space: nowrap;
+    z-index: 1;
+    padding-left: 10px;
+    color: white;
+    border-right: solid 4px rgb(31, 31, 31);
+}
+  
+#page > #main {
+    grid-area: main;
+    background: linear-gradient(#0a024e, #040e7e);
+    width: 100%;
+    height: 200vh;
+    padding: 16px;
+    padding-left: 85px;
+    transition: padding-left 0.5s;
+}
+/*Fin SIDEBAR*/
+
+img{
+  width: 100px;
+  height: 100px;
+  background: #383838;
+}
+
+h1, p{
+  background: transparent;
+  width: 70%;
+  color: white;
+}
+
+nav ul{
+  margin-top: 100px;
+  margin-left: 10px;
+  list-style: none;
+  background: transparent;
+}
+nav ul li{
+  text-align: left;
+  background:transparent;
+}
+
+li{
+  margin-top: 35px;
+  transition: 0.5s ease;
+  display: block;
+}
+
+nav ul li a span {
+  text-decoration: none;
+	color: white;
+  background: #383838;
+}
+
+nav ul.dropdown{
+  margin-top: 0px !important;
+}
+
+ul li ul {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  transition: all 0.5s ease;
+  margin-top: 1rem;
+  left: 0;
+  display: none;
+}
+
+ul li:hover > ul,
+ul li ul:hover {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+}
+
+ul li ul li {
+  clear: both;
+  width: 100%;
+}
+
+img.logo{
+  position: absolute;
+  left: -15px;
+  top: 0;
+}
+
+#home:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f015";
+  font-size: 25px;
+  color: gray;
+  margin-right: 30px;
+  margin-left: -3px;
+}
+
+
+#portal-libro:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f02d";
+  font-size: 25px;
+  color: gray;
+  margin-right: 35px;
+  text-align: center;
+}
+
+#cuenta:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f007";
+  font-size: 25px;
+  color: gray;
+  margin-right: 36px;
+  text-align: center;
+}
+
+#sugerencias:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f573";
+  font-size: 25px;
+  color: gray;
+  margin-right: 31px;
+  text-align: center;
+}
+
+#contacto:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f0e0";
+  font-size: 25px;
+  color: gray;
+  margin-right: 35px;
+  text-align: center;
+}
+
+#portal-gestion:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f0ae";
+  font-size: 25px;
+  color: gray;
+  margin-right: 36px;
+  text-align: center;
+}
+
+#logout:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f2f5";
+  font-size: 25px;
+  color: gray;
+  margin-right: 35px;
+  margin-left: 4px;
+  text-align: center;
+}
+
+.buttonInfo{
+  height: 60px;
+  width: 60px;
+  z-index: 99;
+  background:transparent ;
+  border: solid 1px rgb(255, 255, 255);
+  box-shadow: -3px 3px 5px;
+  border-radius: 50%;
+  position: fixed;
+  right: 25px;
+  bottom: 10px;
+  cursor: pointer;
+}
+.fas.fa-question{
+  color: white;
+  background:transparent;
+  font-size: 25px;
+}
+
+.buttonInfo:hover{
+  background: rgba(209, 209, 209, 0.336);
+  transform: scale(1.1);
+}
+
+.tooltip {
+  position: fixed;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  top: -5px;
+  right: 110%;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+}
+
+.tooltip .tooltiptext {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/*Administrador*/
+
+a {
+  color: white;
+  background: transparent;
+  text-decoration: none;
+}
+
+#admin-users{
+  background-color:transparent;
+  color: white;
+}
