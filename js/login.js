@@ -63,5 +63,3 @@ function requerimientoPass(){
     })
 
 }
-
-console.log("adsafa")

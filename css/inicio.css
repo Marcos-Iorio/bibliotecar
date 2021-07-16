@@ -44,6 +44,7 @@
     padding: 16px;
     padding-left: 85px;
     transition: padding-left 0.5s;
+    overflow-y: hidden;
 }
 /*Fin SIDEBAR*/
 
@@ -79,7 +80,7 @@ li{
 nav ul li a span {
   text-decoration: none;
 	color: white;
-  background: #383838;
+  background: rgb(56, 56, 56);
 }
 
 nav ul.dropdown{

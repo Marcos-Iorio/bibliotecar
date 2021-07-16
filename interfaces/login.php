@@ -14,11 +14,12 @@ exit;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="../js/login.js"></script>
     <link rel="stylesheet"  href="../css/login.css">
     
 </head>
-<body onload="movimientoLogin(), mouseMove(), requerimientoPass()">
+<body onload="movimientoLogin(), mouseMove(), requerimientoPass(), swal()">
     <img id="libroIcon" src="../assets/libro-magico.svg" alt="" data-toggle="popover" title="¡CLICKEAME!" data-placement="bottom">
     <p class="pass__require hidden" id ="passRequire">La contraseña debe tener: 6 caracteres, 1 numero y 1 mayúscula</p>
     <div class="container" id="container">
@@ -36,7 +37,7 @@ exit;
         </div>
         
         <div class="form-container sign-in-container">
-            <form action="../php/login.php" method="POST">
+            <form action="../php/login-back.php" method="POST">
                 <h1>Iniciar sesión</h1>
                 <input type="email" placeholder="Email" name="mailL" id="mailL" required />
                 <input type="password" placeholder="Contraseña" name="passL" id="passL" required />
