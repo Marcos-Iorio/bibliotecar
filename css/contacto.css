@@ -1,0 +1,97 @@
+*:focus {
+	outline: 0;
+}
+
+#page{
+	overflow-y: hidden !important;
+}
+h3 {
+	font-size: 40px;
+	text-align: center;
+    color: white;
+	background: transparent;
+}
+form#contact-form{
+	background: transparent;
+}
+h4{
+    width: 50% !important;
+    font-size: 27px;
+    text-align: center;
+    margin: 40px 0 0 25%;
+    font-weight: 900;
+}
+
+.container {
+	background:transparent;
+    text-align: left;
+	padding: 12px 24px 24px 24px;
+	border-radius: 4px;
+}
+
+
+label {
+	font-size: 20px;
+	margin-left: 12px;
+    font-weight: 400;
+	color: white;
+	background:transparent;
+}
+
+
+input[type=text],input[type=email], textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+	background: transparent;
+	color: white;
+}
+
+
+input[type=text]:focus,input[type=email]:focus, textarea:focus {
+	border: 1px solid yellow;
+	background: rgba(255, 255, 255, 0.11);
+}
+
+
+input[type=submit] {
+	transition: ease 0.5s;
+	background: yellow;
+	width: 130px;
+	height: 50px;
+	margin: 0 auto;
+	outline: 0;
+	color: #333;
+	border: 0;
+	padding: 12px 24px;
+	border-radius: 4px;
+	transition: all ease-in-out 0.1s;
+	position: relative;
+	display: inline-block;
+	text-align: center;
+    font-weight: 400;
+	font-size: 18px;
+}
+
+input[type=submit]:focus {
+	background: #A5D6A7;
+	color: whitesmoke;
+}
+
+
+input[type=submit]:hover {
+	border: 1px solid yellow;
+	transition: ease 0.5s;
+	color: white;
+	background: transparent;
+}
+
+.center {
+	text-align: center;
+	background: transparent;
+}
