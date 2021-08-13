@@ -7,10 +7,14 @@
 	font-family:'Roboto', sans-serif;
 }
 
+section.contenido.wrapper{
+  width: 87%;
+  background: none;
+}
 /*SIDEBAR*/
 #page {
     display: grid;
-	place-content: left;
+	  place-content: left;
     width: 100vw;
     height: 100vh;
     grid-template-areas: "nav main"
@@ -18,6 +22,7 @@
     grid-template-rows: 50px 1fr ;
     grid-template-columns: 60px auto;
     overflow-x: hidden;
+    overflow-y: auto;
 }
   
 #page > #sidebar {
@@ -51,7 +56,7 @@
 img{
   width: 100px;
   height: 100px;
-  background: #383838;
+  background: transparent;
 }
 
 h1, p{
@@ -111,8 +116,29 @@ ul li ul li {
 
 img.logo{
   position: absolute;
+  background: transparent;
   left: -15px;
-  top: 0;
+  top: 0px;
+}
+
+#login:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f2f6";
+  font-size: 25px;
+  color: gray;
+  margin-right: 30px;
+  margin-left: 0px;
+}
+
+#usuario:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f2bd";
+  font-size: 25px;
+  color: gray;
+  margin-right: 30px;
+  margin-left: 0px;
 }
 
 #home:before{
