@@ -32,6 +32,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
     <title>Document</title>
 </head>
 <body>
@@ -40,7 +41,7 @@
             <ul id="hovered">
                 <li><img class="logo" src="assets/Logo sin fondo.png" alt=""><a href=""></a></li>
                 <li ><a href="../index.php" id="home"><span>Inicio</span></a></li>
-                <li ><a href="" id="portal-libro"><span>Portal de libros</span></a></li>
+                <li ><a href="../interfaces/libros.php" id="portal-libro"><span>Portal de libros</span></a></li>
                 <?php 
                   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     if ($pid == '1' || $pid == '2' || $pid == '3' ) {
@@ -90,8 +91,8 @@
 
         </nav>
         <main id="main">
-            <h1>BibliotecAr</h1>
-            <p>
+            <h1 class="main">BibliotecAr</h1>
+            <p class = "main">
                 <?php
                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                  echo "Bienvenido  $user!";
@@ -109,7 +110,6 @@
         </main>
       </section>
 </body>
-
-  <script src="js/navbarToggle.js"></script>
-
+  <script src="./js/navbarToggle.js"></script>
 </html>
+

@@ -28,7 +28,9 @@ h4{
 	padding: 12px 24px 24px 24px;
 	border-radius: 4px;
 }
-
+#main{
+	padding-left: 85px;
+}
 
 label {
 	font-size: 20px;
@@ -61,15 +63,16 @@ input[type=text]:focus,input[type=email]:focus, textarea:focus {
 
 input[type=submit] {
 	transition: ease 0.5s;
-	background: yellow;
 	width: 130px;
 	height: 50px;
 	margin: 0 auto;
 	outline: 0;
-	color: #333;
-	border: 0;
+	color: white;
+	border: none;
+	border-bottom: 4px solid yellow;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
 	padding: 12px 24px;
-	border-radius: 4px;
 	transition: all ease-in-out 0.1s;
 	position: relative;
 	display: inline-block;
@@ -79,16 +82,17 @@ input[type=submit] {
 }
 
 input[type=submit]:focus {
-	background: #A5D6A7;
+	background: yellow;
 	color: whitesmoke;
 }
 
 
 input[type=submit]:hover {
-	border: 1px solid yellow;
+	border: none;
+	border-bottom: 4px solid #333;
+	background: yellow;
+	color: #333;
 	transition: ease 0.5s;
-	color: white;
-	background: transparent;
 }
 
 .center {

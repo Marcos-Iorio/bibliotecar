@@ -41,7 +41,7 @@
             <ul id="hovered">
                 <li><img id="logo" class="logo" src="../assets/Logo sin fondo.png" alt=""><a href=""></a></li>
                 <li id="home"><a href="../index.php"><span>Inicio</span></a></li>
-                <li id="portal-libro"><a href=""><span>Portal de libros</span></a></li>
+                <li id="portal-libro"><a href="../interfaces/libros.php"><span>Portal de libros</span></a></li>
                 <?php 
                   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     if ($pid == '1' || $pid == '2' || $pid == '3' ) {
@@ -91,7 +91,7 @@
 
         </nav>
         <main id="main">
-            <section class="contenido wrapper">
+            <section class="contenido wrapper contenido-contacto">
         <!--formulario-->
                 <div class="container">
                     <h3>Contactanos!</h3>
@@ -120,9 +120,7 @@
         </main>
       </section>
 </body>
-
-  <script src="../js/navbarToggle.js"></script>
-
+<script src="../js/navbarToggle.js"></script>
 </html>
    
  
