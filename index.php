@@ -1,29 +1,9 @@
 <!DOCTYPE html>
-<?php
-    session_start();
-
-   /*  is_logged(); */
-   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    $user=$_SESSION['username'];
-    $pid=$_SESSION['rol'];
-
-    $tiempo = time();
-
-    if ($tiempo >= $_SESSION['expire']) {
-      session_destroy();
-       echo'<script type="text/javascript">
-              alert("Su sesion ha expirado, por favor vuelva iniciar sesion.");
-              </script>';
-      header("Refresh:0");
-    
-    }
-    
-  }
-
-?>
 
 <html lang="en">
-
+<?php 
+  include "php/islogin.php";
+ ?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -88,8 +68,10 @@
                  ?>
 
             </ul>    
+        <?php 
+          include "panel.php";
 
-        </nav>
+         ?>
         <main id="main">
             <h1 class="main">BibliotecAr</h1>
             <p class = "main">
@@ -102,6 +84,8 @@
                    echo "<a href='interfaces/login.php'><FONT style='color: white' SIZE=2>Iniciar Sesión</FONT></a> </p>";
                  }     
               ?>
+            <h1>BibliotecAr</h1>
+            <p>
             </p>
             <button onclick="contacto()" class="buttonInfo tooltip">
                 <i class="fas fa-question"></i>

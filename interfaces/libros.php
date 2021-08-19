@@ -90,6 +90,10 @@
             </ul>    
 
         </nav>
+        <?php 
+          include "panel.php";
+
+         ?>
         <main id="main">
             <section class="contenido wrapper">
                 <div class = " filtros-busqueda ">
