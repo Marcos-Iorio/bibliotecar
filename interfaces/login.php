@@ -17,6 +17,8 @@ exit;
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="../js/login.js"></script>
     <link rel="stylesheet"  href="../css/login.css">
+        <script src="js/sweetalert2.js"></script>
+    <link rel="stylesheet" href="css/sweetalert2.css">
     
 </head>
 <body onload="movimientoLogin(), mouseMove(), requerimientoPass(), swal()">
@@ -65,6 +67,8 @@ exit;
         </div>
     </div>
 </body>
+
+
 <footer>
 	
 </footer>

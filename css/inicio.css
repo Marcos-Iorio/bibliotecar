@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     background-color: rgb(22, 22, 88);
-	font-family:'Roboto', sans-serif;
+  font-family:'Roboto', sans-serif;
 }
 
 section.contenido.wrapper{
@@ -14,7 +14,7 @@ section.contenido.wrapper{
 /*SIDEBAR*/
 #page {
     display: grid;
-	  place-content: left;
+    place-content: left;
     width: 100vw;
     height: 100vh;
     grid-template-areas: "nav main"
@@ -35,7 +35,7 @@ section.contenido.wrapper{
     overflow-x: hidden;
     padding-top: 60px;
     white-space: nowrap;
-    z-index: 1;
+    z-index: 100;
     padding-left: 10px;
     color: white;
     border-right: solid 4px rgb(31, 31, 31);
@@ -43,7 +43,7 @@ section.contenido.wrapper{
   
 #page > #main {
     grid-area: main;
-    background: linear-gradient(#0a024e, #040e7e);
+    background: linear-gradient(#ACC7DB, #495F91);
     width: 100%;
     height: 200vh;
     padding: 16px;
@@ -84,7 +84,7 @@ li{
 
 nav ul li a span {
   text-decoration: none;
-	color: white;
+  color: white;
   background: rgb(56, 56, 56);
 }
 
@@ -101,6 +101,7 @@ ul li ul {
   left: 0;
   display: none;
 }
+
 
 ul li:hover > ul,
 ul li ul:hover {
@@ -202,6 +203,29 @@ img.logo{
   text-align: center;
 }
 
+#abm-libros:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f518";
+  font-size: 25px;
+  color: gray;
+  margin-left: 40px;
+  margin-right: 20px;
+
+  text-align: center;
+}
+
+#abm-usuarios:before{
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f4ff";
+  font-size: 25px;
+  color: gray;
+  margin-left: 40px;
+  margin-right: 20px;
+  text-align: center;
+}
+
 #logout:before{
   font-family: "Font Awesome 5 Free"; 
   font-weight: 900; 
@@ -288,3 +312,7 @@ a {
   background-color:transparent;
   color: white;
 }
+
+
+
+

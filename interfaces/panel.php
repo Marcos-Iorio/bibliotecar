@@ -12,12 +12,14 @@
                  }     
               ?>
                 <li id="home"><a href="../index.php"><span>Inicio</span></a></li>
-                <li id="portal-libro"><a href=""><span>Portal de libros</span></a></li>
+                <li id="portal-libro"><a href='libros.php'><span>Portal de libros</span></a></li>
 
  <?php 
                   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     if ($pid == '1' || $pid == '2' || $pid == '3' ) {
-                      echo "<li><a href=\"\"  id=\"cuenta\"><span>Cuenta</span></a></li>
+                      //echo "<li><a href=\"\"  id=\"cuenta\"><span>Cuenta</span></a></li>
+
+                      echo "
                       <li ><a href=\"\" id=\"sugerencias\"><span>Sugerencias</span></a></li>
                       <li ><a href='contacto.php' id=\"contacto\"><span>Contacto</span></a></li>";
                     }
@@ -33,7 +35,7 @@
                     }  
 
                   } else { 
-                    echo"<li ><a href=\"\" id=\"contacto\"><span>Contacto</span></a></li>";
+                    echo"<li ><a href='contacto.php' id=\"contacto\"><span>Contacto</span></a></li>";
                   }     
                 ?>
                 <!--<li id="cuenta"><a href=""><span>Cuenta</span></a></li>

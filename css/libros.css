@@ -1,0 +1,120 @@
+.filtros-busqueda{
+    position: fixed;
+    width: 115%;
+    height: 50px;
+    margin: 0px;
+    padding-left: 0px !important;
+    left: 0px;
+    top: 0px;
+    background-color: #333;
+    border-bottom: 4px solid #222;
+    z-index: 99;
+}
+
+h3 {
+    background-color: transparent;
+	font-size: 40px;
+	text-align: center;
+    color: white;
+    padding-bottom: 70px;
+}
+
+.main-libros{
+    background-color: transparent;
+    padding-top: 70px;
+    padding-left: 85px;
+}
+
+.grid-libros{
+    background-color: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.libro-prueba{
+    position: relative;
+    margin: 25px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 1px solid black;
+    width: 150px;
+    height: 250px;
+    align-self: center;
+    justify-self: center;
+}
+
+.imagen-libro{
+    position: relative;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.informacion{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40%;
+    background: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+p.libro-info{
+    margin: 0 0 0 7px !important;
+    font-size: 14px;
+    width: 86% !important;
+    padding: 5px 0 0 0;
+    background-color: transparent;
+    font-weight: bold;
+    color: #222;
+}
+
+.etiqueta{
+    border: 1px solid black;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+    position: absolute;
+    top: 4px;
+    left: 3px;
+    width: 100px;
+    height: 20px;
+}
+
+p.etiqueta-info{
+    font-size: 15px;
+    width: 100%;
+    margin-left: 7px;
+    background-color: transparent;
+    color: black;
+}
+
+.libro-prueba:hover{
+    overflow: hidden;
+    transition: ease 0.3s;
+    transform: scale(1.05);
+    mix-blend-mode: luminosity;
+}
+
+.busqueda{
+    position: relative;
+    background-color: transparent;
+}
+.filtros{
+    position: relative;
+    background-color: transparent;
+}
+.fas.fa-filter, .fas.fa-search{
+    z-index: 99;
+    position: absolute;
+    background-color: transparent;
+    color: white;
+    width: 20px;
+    height: 20px;
+}

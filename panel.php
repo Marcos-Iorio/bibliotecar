@@ -2,7 +2,7 @@
         <html>
          <nav id="sidebar"  onmouseover="toggleSidebar()" onmouseout="toggleSidebar()">
             <ul id="hovered">
-                <li><img id="logo" class="logo" src="assets/Logo sin fondo.png" alt=""><a href=""></a></li>
+                <li><img  id="logo" class="logo" src="assets/Logo sin fondo.png" alt=""><a href=""></a></li>
 
                                     <?php
                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
@@ -15,28 +15,35 @@
               ?>
                 <li id="home"><a href="index.php"><span>Inicio</span></a></li>
                 <li id="portal-libro"><a href="interfaces/libros.php"><span>Portal de libros</span></a></li>
-
+    <script>
+      function myFunction() {
+        document.getElementById("demo").innerHTML = "Hello Dear Visitor!</br> ";
+      }
+    </script>
 
  <?php 
                   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     if ($pid == '1' || $pid == '2' || $pid == '3' ) {
-                      echo "<li><a href=\"\"  id=\"cuenta\"><span>Cuenta</span></a></li>
+                      //echo "<li><a href=\"\"  id=\"cuenta\"><span>Cuenta</span></a></li>
+                      echo "
                       <li ><a href=\"\" id=\"sugerencias\"><span>Sugerencias</span></a></li>
                       <li ><a href='interfaces/contacto.php' id=\"contacto\"><span>Contacto</span></a></li>";
                     }
                     
                     if ($pid == '2' || $pid == '3') {
 
-                      echo "
-                      <li><a href=\"\" onclick=\"cambiar('portal-gestion'); return false;\"  id=\"portal-gestion\"><span>Portal de gestion</span></a></li>
-                      <br>
-                      <br>
+                    echo "<li>
+                      <a id=\"portal-gestion\" >Portal de gestion</a>
+                        <ul>
+                          <li id=\"abm-libros\"><a href=\"#\">Libros</a></li>
+                          <li id=\"abm-usuarios\"><a href=\"#\">Usuarios</a></li>
+                        </ul>
 
-                      <br>";
+                    </li>";
                     }  
 
                   } else { 
-                    echo"<li ><a href=\"\" id=\"contacto\"><span>Contacto</span></a></li>";
+                    echo"<li ><a href=interfaces/contacto.php id=\"contacto\"><span>Contacto</span></a></li>";
                   }     
                 ?>
                 <!--<li id="cuenta"><a href=""><span>Cuenta</span></a></li>
