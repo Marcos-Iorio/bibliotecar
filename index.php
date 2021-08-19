@@ -41,7 +41,7 @@
             <ul id="hovered">
                 <li><img class="logo" src="assets/Logo sin fondo.png" alt=""><a href=""></a></li>
                 <li ><a href="../index.php" id="home"><span>Inicio</span></a></li>
-                <li ><a href="../interfaces/libros.php" id="portal-libro"><span>Portal de libros</span></a></li>
+                <li ><a href="interfaces\libros.php" id="portal-libro"><span>Portal de libros</span></a></li>
                 <?php 
                   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     if ($pid == '1' || $pid == '2' || $pid == '3' ) {

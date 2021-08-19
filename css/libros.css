@@ -27,83 +27,19 @@ h3 {
 
 .grid-libros{
     background-color: transparent;
-    display: grid;
-    grid-template-areas: "libro-prueba1 libro-prueba2 libro-prueba3 libro-prueba4"
-                         "libro-prueba5 libro-prueba6 libro-prueba7 libro-prueba8 " ;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     align-content: center;
     justify-content: center;
-    row-gap: 50px;
 }
 
-.libro-prueba1{
+.libro-prueba{
     position: relative;
+    margin: 25px;
     border-radius: 5px;
     background-color: transparent;
-    grid-area: libro-prueba1;
     border: 1px solid black;
-    width: 170px;
-    height: 250px;
-    align-self: center;
-    justify-self: center;
-}
-
-.libro-prueba2{
-    position: relative;
-    border-radius: 5px;
-    background-color: transparent;
-    grid-area: libro-prueba2;
-    border: 1px solid black;
-    width: 170px;
-    height: 250px;
-    align-self: center;
-    justify-self: center;
-}
-
-.libro-prueba3{
-    position: relative;
-    border-radius: 5px;
-    background-color: transparent;
-    grid-area: libro-prueba3;
-    border: 1px solid black;
-    width: 170px;
-    height: 250px;
-    align-self: center;
-    justify-self: center;
-}
-
-.libro-prueba4{
-    position: relative;
-    border-radius: 5px;
-    background-color: transparent;
-    grid-area: libro-prueba4;
-    border: 1px solid black;
-    width: 170px;
-    height: 250px;
-    align-self: center;
-    justify-self: center;
-}
-
-.libro-prueba5{
-    position: relative;
-    border-radius: 5px;
-    background-color: transparent;
-    grid-area: libro-prueba5;
-    border: 1px solid black;
-    width: 170px;
-    height: 250px;
-    align-self: center;
-    justify-self: center;
-}
-
-.libro-prueba6{
-    position: relative;
-    border-radius: 5px;
-    background-color: transparent;
-    grid-area: libro-prueba6;
-    border: 1px solid #000000;
-    width: 170px;
+    width: 150px;
     height: 250px;
     align-self: center;
     justify-self: center;
@@ -114,7 +50,6 @@ h3 {
     border-radius: 5px;
     width: 100%;
     height: 100%;
-    background-image: url(../assets/tapa-libro.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -125,7 +60,7 @@ h3 {
     bottom: 0;
     width: 100%;
     height: 40%;
-    background: rgba(255, 255, 255, 0.205);
+    background: rgba(255, 255, 255, 0.4);
     text-align: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -133,6 +68,7 @@ h3 {
 
 p.libro-info{
     margin: 0 0 0 7px !important;
+    font-size: 14px;
     width: 86% !important;
     padding: 5px 0 0 0;
     background-color: transparent;
@@ -142,7 +78,7 @@ p.libro-info{
 
 .etiqueta{
     border: 1px solid black;
-    background: rgba(255, 255, 255, 0.192);
+    background: rgba(255, 255, 255, 0.4);
     border-radius: 5px;
     position: absolute;
     top: 4px;
@@ -152,12 +88,14 @@ p.libro-info{
 }
 
 p.etiqueta-info{
-    margin-left: 13px;
+    font-size: 15px;
+    width: 100%;
+    margin-left: 7px;
     background-color: transparent;
     color: black;
 }
 
-.libro-prueba1:hover, .libro-prueba2:hover, .libro-prueba3:hover, .libro-prueba4:hover, .libro-prueba5:hover, .libro-prueba6:hover{
+.libro-prueba:hover{
     overflow: hidden;
     transition: ease 0.3s;
     transform: scale(1.05);
