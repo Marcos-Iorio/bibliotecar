@@ -14,11 +14,7 @@ section.contenido.wrapper{
 /*SIDEBAR*/
 #page {
     display: grid;
-<<<<<<< HEAD
-	  place-content: left;
-=======
     place-content: left;
->>>>>>> Jeremias
     width: 100vw;
     height: 100vh;
     grid-template-areas: "nav main"
@@ -47,9 +43,11 @@ section.contenido.wrapper{
   
 #page > #main {
     grid-area: main;
-    background: linear-gradient(#ACC7DB, #495F91);
+    background: #ADB7F5;
     width: 100%;
     height: 200vh;
+    padding: 16px;
+    padding-left: 85px;
     transition: padding-left 0.5s;
     overflow-y: hidden;
 }
@@ -82,6 +80,7 @@ li{
   margin-top: 35px;
   transition: 0.5s ease;
   display: block;
+  cursor: pointer;
 }
 
 nav ul li a span {
@@ -90,26 +89,32 @@ nav ul li a span {
   background: rgb(56, 56, 56);
 }
 
-nav ul.dropdown{
-  margin-top: 0px !important;
-}
 
-ul li ul {
-  visibility: hidden;
-  opacity: 0;
+ul#dropdown {
+  margin-top: 0px;
+  display: none;
   position: absolute;
-  transition: all 0.5s ease;
+  transition: ease 0.5s;
   margin-top: 1rem;
   left: 0;
-  display: none;
 }
 
+li#abm-libros{
+  margin-top: 5px;
+  margin-left: 29px;
+  transition: ease 0.5s;
+}
 
-ul li:hover > ul,
-ul li ul:hover {
-  visibility: visible;
-  opacity: 1;
-  display: block;
+li#abm-usuarios{
+  margin-top: 20px;
+  margin-left: 29px;
+  transition: ease 0.5s;
+}
+
+li#logout{
+  position: fixed;
+  bottom: 10px;
+  left: 21px;
 }
 
 ul li ul li {
@@ -122,8 +127,11 @@ img.logo{
   background: transparent;
   left: -15px;
   top: 0px;
-<<<<<<< HEAD
-=======
+}
+
+span#cerrar-sesion{
+ display: none;
+ transition: ease 0.5s;
 }
 
 #login:before{
@@ -144,7 +152,6 @@ img.logo{
   color: gray;
   margin-right: 30px;
   margin-left: 0px;
->>>>>>> Jeremias
 }
 
 #home:before{
@@ -318,12 +325,6 @@ a {
   color: white;
 }
 
-<<<<<<< HEAD
-.main{
-  padding-left: 85px;
-}
-=======
 
 
 
->>>>>>> Jeremias

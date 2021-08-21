@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         
     }
 
-    $stmt = $dbh->prepare('SELECT idRol, contrasena, nombre, check_mail from usuarios where mail = "' . $mail .'" LIMIT 1');
+    $stmt = $dbh->prepare('SELECT idRol, contrasena, nombre, checkMail from usuarios where mail = "' . $mail .'" LIMIT 1');
     // Ejecutamos
     $stmt->execute();
     // Mostramos los resultados
@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if(!empty($arr) && password_verify($pass, $arr['contrasena'])){
             echo "aa";
         
-            if($arr['check_mail'] == '0'){
+            if($arr['checkMail'] == '0'){
                 
                 echo '
                 <script type="text/javascript">

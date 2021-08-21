@@ -41,63 +41,6 @@
 </head>
 <body>
     <section id="page">
-        <nav id="sidebar"  onmouseover="toggleSidebar()" onmouseout="toggleSidebar()">
-            <ul id="hovered">
-                <li><img id="logo" class="logo" src="../assets/Logo sin fondo.png" alt=""><a href=""></a></li>
-                <li id="home"><a href="../index.php"><span>Inicio</span></a></li>
-                <li id="portal-libro"><a href="../interfaces/libros.php"><span>Portal de libros</span></a></li>
-                <?php 
-                  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-                    if ($pid == '1' || $pid == '2' || $pid == '3' ) {
-                      echo "<li><a href=\"\"  id=\"cuenta\"><span>Cuenta</span></a></li>
-                      <li ><a href=\"\" id=\"sugerencias\"><span>Sugerencias</span></a></li>
-                      <li ><a href='..\"interfaces\"contacto.php' id=\"contacto\"><span>Contacto</span></a></li>";
-                    }
-                    
-                    if ($pid == '2' || $pid == '3') {
-
-                      echo "
-                      <li><a href=\"\"  id=\"portal-gestion\"><span>Portal de gestion</span></a></li>
-                      <br>
-                      <br>
-                      <br>
-                      <br>";
-                    }  
-
-                  } else { 
-                    echo"<li ><a href=\"\" id=\"contacto\"><span>Contacto</span></a></li>";
-                  }     
-                ?>
-                <!--<li id="cuenta"><a href=""><span>Cuenta</span></a></li>
-                <li id="sugerencias"><a href=""><span>Sugerencias</span></a></li>
-                <li id="contacto"><a href=""><span>Contacto</span></a></li>
-                <li id="portal-gestion"><a href=""><span>Portal de gestion</span></a></li> -->
-
-                <?php 
-                  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-                    if ($pid == '3' || $pid == '2') {
-                      echo "
-                      <li id=\"logout\"><a href=\"../php/logout.php\"><span>Cerrar sesion</span></a></li>";
-                    } elseif ($pid == '1') {
-                      echo "
-                      <br>
-                      <br>
-                      <br>
-                      <br>
-                      <br>
-                      <br>
-                      <li id=\"logout\"><a href=\"../php/logout.php\"><span>Cerrar sesion</span></a></li>";
-                    }
-                  }
-                 ?>
-            </ul>   
-        </nav>
-        <main id="main">
-            <section class="contenido wrapper contenido-contacto">
-        <!--formulario-->
-                <div class="container">
-                    <h3>Contactanos!</h3>
-                    <form action="#" name="contact_form" id="contact-form">
         <?php 
           include "panel.php";
          ?>
@@ -131,7 +74,10 @@
         </main>
       </section>
 </body>
-<script src="../js/navbarToggle.js"></script>
+
+  <script src="../js/navbarToggle.js"></script>
+ <!-- <script>swal({title:'Exito',text:'El registro fue insetado satisfactoriamente',type:'success'});</script>-->
+
 </html>
    
  

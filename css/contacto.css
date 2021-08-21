@@ -28,13 +28,9 @@ h4{
 	padding: 12px 24px 24px 24px;
 	border-radius: 4px;
 }
-<<<<<<< HEAD
 #main{
 	padding-left: 85px;
 }
-=======
-
->>>>>>> Jeremias
 
 label {
 	font-size: 20px;
@@ -60,34 +56,25 @@ input[type=text],input[type=email], textarea {
 
 
 input[type=text]:focus,input[type=email]:focus, textarea:focus {
-	border: 1px solid yellow;
+	border-bottom: 4px solid yellow;
 	background: rgba(255, 255, 255, 0.11);
 }
 
 
 input[type=submit] {
 	transition: ease 0.5s;
-<<<<<<< HEAD
-=======
-	background: yellow;
->>>>>>> Jeremias
+	background: transparent;
 	width: 130px;
 	height: 50px;
 	margin: 0 auto;
 	outline: 0;
-<<<<<<< HEAD
 	color: white;
 	border: none;
 	border-bottom: 4px solid yellow;
-	border-top-left-radius: 4px;
+	border-left: 4px solid yellow;
+	border-top-left-radius: 0px;
 	border-top-right-radius: 4px;
 	padding: 12px 24px;
-=======
-	color: #333;
-	border: 0;
-	padding: 12px 24px;
-	border-radius: 4px;
->>>>>>> Jeremias
 	transition: all ease-in-out 0.1s;
 	position: relative;
 	display: inline-block;
@@ -97,28 +84,18 @@ input[type=submit] {
 }
 
 input[type=submit]:focus {
-<<<<<<< HEAD
 	background: yellow;
-=======
-	background: #A5D6A7;
->>>>>>> Jeremias
 	color: whitesmoke;
 }
 
 
 input[type=submit]:hover {
-<<<<<<< HEAD
 	border: none;
+	border-left: 4px solid #333;
 	border-bottom: 4px solid #333;
 	background: yellow;
 	color: #333;
 	transition: ease 0.5s;
-=======
-	border: 1px solid yellow;
-	transition: ease 0.5s;
-	color: white;
-	background: transparent;
->>>>>>> Jeremias
 }
 
 .center {
