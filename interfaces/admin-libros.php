@@ -28,7 +28,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../js/mensajes.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="../css/inicio.css">
     <link rel="stylesheet" href="../css/libros.css">
@@ -54,17 +53,34 @@
         <!--Seccion de los libros-->
                 <div class="container main-libros">
                     <h3>Gestion de libros!</h3>
-                    <div class="grid-libros">
+                    <div class="tabla-libros">
+						<table>
+						<?php
+						include_once('../php/llenarLibros.php');
 
-                    <?php
-                    include_once('../php/llenarLibros.php');
-                    /* Llena el tabla con todos los libros de la base de datos */
-                    
-                    foreach($resultado as $fila):?>
-                    
-                    <?php endforeach ?>
-
-                    </div>
+						/* Llena el tabla con todos los libros de la base de datos */
+						foreach($resultado as $fila):?>
+							<thead>
+								<tr>
+									<th>Titulo</th>
+									<th>Autor</th>
+									<th>Género</th>
+									<th>Stock</th>
+									<th>Fecha de Alta</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><?php echo $fila['titulo'];?></td>
+									<td><?php echo $fila['nombreAutor'];?></td>
+									<td><?php echo $fila['nombreCategoria'];?></td>
+									<td><?php echo $fila['stock'];?></td>
+									<td><?php echo $fila['fechaAlta'];?></td>
+								</tr>
+							</tbody>
+						<?php endforeach; ?>
+						</table>
+					</div>
                 </div>
             </section>
             <section class = "subir-libro">

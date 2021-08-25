@@ -207,3 +207,62 @@ input#portada{
 .portada-libro{
     border: none;
 }
+
+.tabla-libros{
+    text-align: center;
+    padding-bottom: 100px;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 20px;
+}
+
+tbody tr{
+    border-bottom: 2px solid #222;
+    transition: ease 0.3s;
+    cursor: pointer;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: gray;
+  }
+
+tbody tr:nth-child(even) {
+    background-color: #D6EEEE;
+}
+
+tbody tr:hover{
+    background-color: rgb(206, 206, 206);
+    color: #222;
+    transition: ease 0.3s;
+}
+
+thead{
+    color: white;
+    background: #333;
+}
+
+thead th:nth-child(1) {
+    width: 40%;
+}
+
+thead th:nth-child(2) {
+    width: 40%;
+}
+
+thead th:nth-child(3) {
+    width: 40%;
+}
+
+thead th:nth-child(4) {
+    width: 20%;
+}
+thead th:nth-child(5) {
+    width: 40%;
+}

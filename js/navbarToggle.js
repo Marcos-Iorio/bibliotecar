@@ -12,7 +12,11 @@ function toggleSidebar() {
     document.getElementById("logo").style.zIndex = "1";
     document.getElementById("logo").style.top = "-30px";
     document.getElementById("logo").style.left = "0px";
-    document.getElementById("cerrar-sesion").style.display = "inline-block";
+
+    if(document.getElementById("cerrar-sesion")){
+      document.getElementById("cerrar-sesion").style.display = "inline-block";
+    }
+    
 
     this.mini = false;
   } else {
@@ -24,7 +28,11 @@ function toggleSidebar() {
     document.getElementById("logo").style.height = "100px";
     document.getElementById("logo").style.top = "0px";
     document.getElementById("logo").style.left = "-15px";
-    document.getElementById("cerrar-sesion").style.display = "none";
+
+    if(document.getElementById("cerrar-sesion")){
+      document.getElementById("cerrar-sesion").style.display = "none";
+    }
+    
 
     this.mini = true;
   }
