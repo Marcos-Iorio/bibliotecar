@@ -59,6 +59,7 @@
                     <?php
                     include_once('../php/llenarLibros.php');
                     /* Llena el tabla con todos los libros de la base de datos */
+                    
                     foreach($resultado as $fila):?>
                     
                     <?php endforeach ?>
