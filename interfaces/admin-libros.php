@@ -67,6 +67,8 @@
 									<th>Género</th>
 									<th>Stock</th>
 									<th>Fecha de Alta</th>
+                  <th><i class="fas fa-pencil-alt"></i></th>
+                  <th><i class="far fa-trash-alt"></i></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -76,6 +78,8 @@
 									<td><?php echo $fila['nombreCategoria'];?></td>
 									<td><?php echo $fila['stock'];?></td>
 									<td><?php echo $fila['fechaAlta'];?></td>
+									<td><button><i class="fas fa-pencil-alt tbody-icon"></i></button></td>
+									<td><button><i class="far fa-trash-alt tbody-icon"></i></button></td>
 								</tr>
 							</tbody>
 						<?php endforeach; ?>
@@ -109,9 +113,12 @@
                     <label for="">Pdf de libro(Opcional):</label>
                     <input class="portada-libro" type="file" name="pdf" id="pdf" multiple>
                     <br><br>
-
-                    <label for="">Imagenes, Portada(250x150):</label>
+                    <div class="separador"></div>
+                    <label for="">Portada(250x150):</label>
                     <input class="portada-libro" type="file" name="portada" id="portada" multiple>
+                    <br><br>
+                    <label for="">Imagenes:</label>
+                    <input class="portada-libro" type="file" name="imagenes-libro" id="imagenes-libro" multiple>
                     <br><br><br><br>
 
                     <div class="center">
