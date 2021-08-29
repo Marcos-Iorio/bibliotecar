@@ -1,26 +1,7 @@
 <!DOCTYPE html>
 <?php
     
-
-    session_start();
-
-   /*  is_logged(); */
-   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    $user=$_SESSION['username'];
-    $pid=$_SESSION['rol'];
-
-    $tiempo = time();
-
-    if ($tiempo >= $_SESSION['expire']) {
-      session_destroy();
-       echo'<script type="text/javascript">
-              alert("Su sesion ha expirado, por favor vuelva iniciar sesion.");
-              </script>';
-      header("Refresh:0");
-    
-    }
-    
-  }
+  include "../php/islogin.php";
 
 ?>
 
@@ -49,7 +30,10 @@
         <!--formulario-->
                 <div class="container">
                     <h3>Contactanos!</h3>
-                    <form action="../php/sendmail.php" method="POST" name="contact_form" id="contact-form">
+                    <?php 
+                    include "../php/sendmail.php";
+                     ?>
+                    <form method="POST" name="contact_form" id="contact-form">
                         <label for="first_name">Nombre</label>
                         <input name="name" type="text" required placeholder="Nombre.."/>
                         <br>
@@ -63,6 +47,11 @@
                         <textarea name="body" cols="30" rows="10" type="text" placeholder="Ingresá tu mensaje ..." required> </textarea>
                         <div class="center">
                             <input type="submit" name="contactophp" value="Enviar">
+                            <?php 
+                              if (isset($_POST['contactophp'])) {
+                                enviarMail();
+                              }
+                             ?>
                         </div>
                     </form>	
                 </div>
@@ -73,11 +62,64 @@
             </button>
         </main>
       </section>
+
 </body>
 
   <script src="../js/navbarToggle.js"></script>
- <!-- <script>swal({title:'Exito',text:'El registro fue insetado satisfactoriamente',type:'success'});</script>-->
+  <!-- <script>swal({
+    title:'Exito',
+    text:'',
+    type: 'success',
+    html:'<br><h5>Te enviamos un codigo a tu correo electrónico. Ingresalo debajo para confirmar tu usuario.</h5><br><input style="width: 150px; font-size: 36px; color: black; font-weight: bold; text-align: center;" type="text" required; maxlength = "6";"/><br><br> <div ><input type="submit" style="background-color: #495F91; color:white; margin-right: 5%;" name="confirmarCodigo" value="Confirmar"><input type="submit" style="background-color: gray; color:white;margin-left: 5%;" name="reenviarCodigo" value="Reenviar"></div>',
+   showCancelButton: false,
+      showConfirmButton: false,
 
+    cancelButtonColor: 'gray',
+    confirmButtonColor: '#495F91',
+    confirmButtonText: 'Confirmar <i name="confirmarCodigo"></i>',
+    cancelButtonText: 'Reenviar <i name="reenviarCodigo></i>',
+    width: 500,
+    padding: '3em'
+
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  }
+});</script>
+
+               <script type="text/javascript">
+
+                    swal({
+    title:"Exito",
+    text:"Te enviamos un codigo a tu correo electrónico. Ingresalo debajo para confirmar tu usuario.",
+    input: "text",
+
+   showCancelButton: true,
+    cancelButtonColor: "gray",
+    confirmButtonColor: "#495F91",
+    confirmButtonText: "Confirmar",
+    cancelButtonText: "Reenviar",
+    width: 500,
+    padding: "3em"
+
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal(
+      "Deleted!",
+      "Your file has been deleted.",
+      "success"
+    )
+  }
+}); 
+            
+               
+                </script>-->
+
+                
 </html>
    
  

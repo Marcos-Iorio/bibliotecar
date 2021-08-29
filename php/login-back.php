@@ -27,7 +27,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if($arr['idRol']){
         if(!empty($arr) && password_verify($pass, $arr['contrasena'])){
-            echo "aa";
         
             if($arr['check_mail'] == '0'){
                 
@@ -35,15 +34,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <script type="text/javascript">
                 
                 $(document).ready(function(){
-                    let timerInterval
                     Swal.fire({
                     icon: "error",
                     title: "Falta confirmar mail!",
-                    html: "Serás redireccionado en <b></b> milisegundos.",
-                    timer: 3000,
-                    timerProgressBar: true,
                     didOpen: () => {
-                        Swal.showLoading()
                         timerInterval = setInterval(() => {
                         const content = Swal.getHtmlContainer()
                         if (content) {
@@ -87,17 +81,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }else{
             echo '
                 <script type="text/javascript">
-
+                
                 $(document).ready(function(){
-                    let timerInterval
                     Swal.fire({
                     icon: "error",
-                    title: "Credenciales erróneas!",
-                    html: "Serás redireccionado en <b></b> milisegundos.",
-                    timer: 3000,
-                    timerProgressBar: true,
+                    title: "Credenciales erroneas",
                     didOpen: () => {
-                        Swal.showLoading()
                         timerInterval = setInterval(() => {
                         const content = Swal.getHtmlContainer()
                         if (content) {
@@ -118,11 +107,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     }
                     }) 
                 });
-
+                
                 setTimeout(function(){
                     window.location.href = "../interfaces/login.php";
-                 }, 3000);                
-
+                 }, 3000);
                 </script>
                 ';
 
