@@ -1,6 +1,6 @@
 .filtros-busqueda{
     position: fixed;
-    width: 115%;
+    width: 99.3%;
     height: 50px;
     margin: 0px;
     padding-left: 0px !important;
@@ -38,6 +38,18 @@ h3 {
     margin: 25px;
     border-radius: 5px;
     background-color: transparent;
+    border: 1px solid black;
+    width: 150px;
+    height: 250px;
+    align-self: center;
+    justify-self: center;
+}
+
+.libro-prueba-sinStock{
+    position: relative;
+    margin: 25px;
+    border-radius: 5px;
+    mix-blend-mode: luminosity;
     border: 1px solid black;
     width: 150px;
     height: 250px;
@@ -103,11 +115,15 @@ p.etiqueta-info{
 }
 
 .busqueda{
-    position: relative;
+    position: absolute;
     background-color: transparent;
+    left: 200px;
+    top: 15px;
 }
 .filtros{
-    position: relative;
+    position: absolute;
+    right: 250px;
+    top: 15px;
     background-color: transparent;
 }
 .fas.fa-filter, .fas.fa-search{
@@ -115,8 +131,7 @@ p.etiqueta-info{
     position: absolute;
     background-color: transparent;
     color: white;
-    width: 20px;
-    height: 20px;
+    font-size: 25px;
 }
 
 .subir-libro{
@@ -321,4 +336,40 @@ i.far.fa-trash-alt.tbody-icon:hover{
 i.fas.fa-pencil-alt.tbody-icon:hover{
     color:rgb(114, 114, 114) ;
     transition: ease 0.5s;
+}
+
+input#campo-busqueda{
+    position: absolute ;
+    border-radius: 0px ;
+    color: white;
+    border: none ;
+    border-bottom: 2px solid white ;
+    width: 170px ;
+    z-index: 100;
+    top: -20px;
+    left: 40px;
+    display: none;
+}
+
+input#campo-busqueda:focus{
+    color: white;
+    outline: none;
+    background: transparent;
+    border-bottom: 3px solid white;
+}
+
+input#buscar{
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+    width: 100px;
+    height: 40px;
+    left: 220px;
+    top: -10px;
+    padding: 0px;
+    display: none;
+}
+input#buscar:hover{
+    background: white;
+    
 }

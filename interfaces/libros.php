@@ -44,7 +44,9 @@
             <section class="contenido wrapper">
                 <div class = " filtros-busqueda ">
                   <div class="busqueda">
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-search" onclick="showSearch()"></i>
+                    <input class="campo-busqueda" type="text" name="campo-busqueda" id="campo-busqueda">
+                    <input id="buscar" type="submit" value="Buscar">
                   </div>
                   <div class = "filtros">
                     <i class="fas fa-filter"></i>
@@ -59,8 +61,8 @@
                     include_once('../php/llenarLibros.php');
                     /* Llena el flexbox con los libros traidos de la base de datos */
                     foreach($resultado as $fila):?>
-                        <div class="libro-prueba">
-                            <a class="link" href="">
+                        <div class="libro-prueba" id="libro-prueba">
+                            <a class="link" href="single-book.php?sku=<?php echo $fila['idLibro'];?>">
                                 <div class="imagen-libro">
                                     <img class="imagen-libro" src="<?php echo $fila['imagen_libro']; ?>" alt="">
                                 </div>
@@ -72,7 +74,7 @@
                                     </p>
                                 </div>
                                 <div class="etiqueta">
-                                    <p class="etiqueta-info"><?php
+                                    <p class="etiqueta-info" id="etiqueta-info"><?php
                                         if($fila['stock'] > 0 ){
                                             echo "Disponible";
                                         }else{
@@ -94,6 +96,7 @@
       </section>
 </body>
 <script src="../js/navbarToggle.js"></script>
+<script src="../js/libros.js"></script>
 </html>
    
  

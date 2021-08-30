@@ -114,10 +114,10 @@
                     <input class="portada-libro" type="file" name="pdf" id="pdf" multiple>
                     <br><br>
                     <div class="separador"></div>
-                    <label for="">Portada(250x150):</label>
+                    <label for="">Portada:</label>
                     <input class="portada-libro" type="file" name="portada" id="portada" multiple>
                     <br><br>
-                    <label for="">Imagenes:</label>
+                    <label for="">Contra-tapa:</label>
                     <input class="portada-libro" type="file" name="imagenes-libro" id="imagenes-libro" multiple>
                     <br><br><br><br>
 

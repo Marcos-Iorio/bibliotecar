@@ -56,3 +56,14 @@ function desplegarMenu(){
   }
 }
 
+function showSearch(){
+  if(panel){
+    document.getElementById('campo-busqueda').style.display="inline-block";
+    document.getElementById('buscar').style.display="inline-block";
+    this.panel = false;
+  }else{
+    document.getElementById('campo-busqueda').style.display="none";
+    document.getElementById('buscar').style.display="none";
+    this.panel = true;
+  }
+}

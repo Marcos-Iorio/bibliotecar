@@ -324,6 +324,19 @@ a {
   color: white;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+  z-index: 101;
+}
 
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
 
+::-webkit-scrollbar-thumb {
+  background:#333;
+}
 
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
