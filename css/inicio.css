@@ -44,7 +44,7 @@ section.contenido.wrapper{
     grid-area: main;
     background: #ADB7F5;
     width: 100%;
-    height: 200vh;
+    height: 150vh;
     padding: 16px;
     padding-left: 85px;
     transition: padding-left 0.5s;

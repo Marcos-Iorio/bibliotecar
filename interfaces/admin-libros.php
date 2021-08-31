@@ -55,12 +55,7 @@
                     <h3>Gestion de libros!</h3>
                     <div class="tabla-libros">
 						<table>
-						<?php
-						include_once('../php/llenarLibros.php');
-
-						/* Llena el tabla con todos los libros de la base de datos */
-						foreach($resultado as $fila):?>
-							<thead>
+            <thead>
 								<tr>
 									<th>Titulo</th>
 									<th>Autor</th>
@@ -71,6 +66,12 @@
                   <th><i class="far fa-trash-alt"></i></th>
 								</tr>
 							</thead>
+						<?php
+						include_once('../php/llenarLibros.php');
+
+						/* Llena el tabla con todos los libros de la base de datos */
+						foreach($resultado as $fila):?>
+							
 							<tbody>
 								<tr>
 									<td><?php echo $fila['titulo'];?></td>
