@@ -33,7 +33,7 @@ h3 {
     justify-content: center;
 }
 
-.libro-prueba{
+div#libro-prueba{
     position: relative;
     margin: 25px;
     border-radius: 5px;
@@ -108,6 +108,13 @@ p.etiqueta-info{
 }
 
 .libro-prueba:hover{
+    overflow: hidden;
+    transition: ease 0.3s;
+    transform: scale(1.05);
+    mix-blend-mode: luminosity;
+}
+
+.libro-prueba-sinStock:hover{
     overflow: hidden;
     transition: ease 0.3s;
     transform: scale(1.05);

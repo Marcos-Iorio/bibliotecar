@@ -159,15 +159,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 });
                
                 </script>
-<<<<<<< HEAD
-                ';
-=======
                 ';*/
-  
-
-
-
-
 
                 include('sendmail.php');
                 enviarMail();
@@ -176,7 +168,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     //}
 
 
->>>>>>> Jeremias
                  
         }else{
             echo "Error";

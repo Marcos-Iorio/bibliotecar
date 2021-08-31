@@ -62,7 +62,7 @@
                     /* Llena el flexbox con los libros traidos de la base de datos */
                     foreach($resultado as $fila):?>
                         <div class="libro-prueba" id="libro-prueba">
-                            <a class="link" href="single-book.php?sku=<?php echo $fila['idLibro'];?>">
+                            <a class="link" id="id-libro" href="single-book.php?sku=<?php echo $fila['idLibro'];?>">
                                 <div class="imagen-libro">
                                     <img class="imagen-libro" src="<?php echo $fila['imagen_libro']; ?>" alt="">
                                 </div>
