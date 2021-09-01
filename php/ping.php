@@ -42,7 +42,7 @@ function cargarCodigo($codigo, $mail){
     // Ejecutamos
         if($stmt->execute()){
         	echo '<script>swal({
-    title:"Registro exitoso",
+    title:"Exito",
     text:"",
     type: "success",
     html:\'<form method="POST" action="../php/ping.php" style="height:50%;"><br><h5>Te enviamos un codigo a tu mail. Ingresalo debajo para confirmar tu usuario.</h5><br><input name="codigoIngresado" style="width: 180px; font-size: 36px; color: black; font-weight: bold; text-align: center;" type="text" required; maxlength = "6";"/><br> <div> <input type="submit" style="background-color: #495F91; color:white; width: 150px;" name="confirmarCodigo" value="Confirmar"><br><input type="submit" style="background-color: gray; color:white; width: 150px;" name="reenviarCodigo" value="Reenviar codigo"></div><br><br></form>\',
@@ -123,7 +123,7 @@ function confirmarMail($codigo, $mail){
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if($arr['ping'] == $codigo){
-    	$stmt = $dbh->prepare("Update usuarios set check_mail = '1' where mail = ?");
+    	$stmt = $dbh->prepare("Update usuarios set checkMail = '1' where mail = ?");
     	$stmt->bindParam(1, $mail);
 
 ///////Hasta aca falla

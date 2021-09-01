@@ -3,8 +3,7 @@
 *{
     margin: 0;
     padding: 0;
-    /*background-color: rgb(22, 22, 88);*/
-  font-family:'Roboto', sans-serif;
+    font-family:'Roboto', sans-serif;
 }
 
 section.contenido.wrapper{
@@ -43,7 +42,7 @@ section.contenido.wrapper{
   
 #page > #main {
     grid-area: main;
-    background: linear-gradient(#ACC7DB, #495F91);
+    background: #ADB7F5;
     width: 100%;
     height: 200vh;
     padding: 16px;
@@ -80,6 +79,7 @@ li{
   margin-top: 35px;
   transition: 0.5s ease;
   display: block;
+  cursor: pointer;
 }
 
 nav ul li a span {
@@ -88,26 +88,32 @@ nav ul li a span {
   background: rgb(56, 56, 56);
 }
 
-nav ul.dropdown{
-  margin-top: 0px !important;
-}
 
-ul li ul {
-  visibility: hidden;
-  opacity: 0;
+ul#dropdown {
+  margin-top: 0px;
+  display: none;
   position: absolute;
-  transition: all 0.5s ease;
+  transition: ease 0.5s;
   margin-top: 1rem;
   left: 0;
-  display: none;
 }
 
+li#abm-libros{
+  margin-top: 5px;
+  margin-left: 29px;
+  transition: ease 0.5s;
+}
 
-ul li:hover > ul,
-ul li ul:hover {
-  visibility: visible;
-  opacity: 1;
-  display: block;
+li#abm-usuarios{
+  margin-top: 20px;
+  margin-left: 29px;
+  transition: ease 0.5s;
+}
+
+li#logout{
+  position: fixed;
+  bottom: 10px;
+  left: 21px;
 }
 
 ul li ul li {
@@ -120,6 +126,11 @@ img.logo{
   background: transparent;
   left: -15px;
   top: 0px;
+}
+
+span#cerrar-sesion{
+ display: none;
+ transition: ease 0.5s;
 }
 
 #login:before{
@@ -313,6 +324,19 @@ a {
   color: white;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+  z-index: 101;
+}
 
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
 
+::-webkit-scrollbar-thumb {
+  background:#333;
+}
 
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

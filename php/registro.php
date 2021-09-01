@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(empty($arr)){
 
             #registrando al usuario
-        $stmt = $dbh->prepare("INSERT INTO usuarios (idEstado, idRol, nombre, mail, contrasena, check_mail) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $dbh->prepare("INSERT INTO usuarios (idEstado, idRol, nombre, mail, contrasena, checkMail) VALUES (?, ?, ?, ?, ?, ?)");
         // Bind
         $rol = 1;
         $idEstado = 1;
