@@ -10,333 +10,254 @@ section.contenido.wrapper{
   width: 87%;
   background: none;
 }
+
 /*SIDEBAR*/
 #page {
     display: grid;
     place-content: left;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
     grid-template-areas: "nav main"
                          "nav main";
     grid-template-rows: 50px 1fr ;
     grid-template-columns: 60px auto;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
   
 #page > #sidebar {
     grid-area: nav;
-    background-color: #383838;
-    position: fixed;
-    height: 100%;
     width: 60px;
-    transition: 0.5s;
-    overflow-x: hidden;
-    padding-top: 60px;
-    white-space: nowrap;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 100;
-    padding-left: 10px;
-    color: white;
-    border-right: solid 4px rgb(31, 31, 31);
+    background: #333;
+    color: #222;
+    transition: all .3s;
+    box-shadow: 3px 3px 3px rgba(51, 51, 51, 0.5);
+    text-align: left;
 }
   
 #page > #main {
     grid-area: main;
     background: #ADB7F5;
     width: 100%;
-    height: 150vh;
     padding: 16px;
     padding-left: 85px;
     transition: padding-left 0.5s;
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 /*Fin SIDEBAR*/
 
-img{
-  width: 100px;
-  height: 100px;
-  background: transparent;
+/***** Wrapper *****/
+ 
+.wrapper {
+    display: block;
+}
+ 
+/***** Sidebar *****/
+
+ 
+.sidebar.active {
+    left: 0;
+    overflow: hidden;
 }
 
-h1, p{
-  background: transparent;
-  width: 70%;
-  color: white;
+.sidebar ul.menu-elements {
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+    transition: all .3s;
 }
-
-nav ul{
-  margin-top: 100px;
-  margin-left: 10px;
-  list-style: none;
-  background: transparent;
+ 
+.sidebar ul li a {
+    display: block;
+    padding: 10px 20px;
+    border: 0;
+    color: white;
+    text-decoration: none;
 }
-nav ul li{
-  text-align: left;
-  background:transparent;
+ 
+.sidebar ul li a:hover,
+.sidebar ul li a:focus,
+.sidebar ul li.active > a:hover,
+.sidebar ul li.active > a:focus {
+    outline: 0;
+    background: #555;
+    color: #fff;
 }
-
-li{
-  margin-top: 35px;
-  transition: 0.5s ease;
-  display: block;
-  cursor: pointer;
+ 
+.sidebar ul li a i {
+    margin-right: 5px;
+    font-size: 25px;
+    color: grey;
+    text-align: left;
 }
-
-nav ul li a span {
-  text-decoration: none;
-  color: white;
-  background: rgb(56, 56, 56);
+ 
+.sidebar ul li.active > a,
+a[aria-expanded="true"] {
+    background: #444;
+    color: #fff;
 }
-
-
-ul#dropdown {
-  margin-top: 0px;
-  display: none;
-  position: absolute;
-  transition: ease 0.5s;
-  margin-top: 1rem;
-  left: 0;
+ 
+.sidebar ul ul a {
+    background: #444;
+    padding-left: 30px;
+    font-size: 14px;
 }
-
-li#abm-libros{
-  margin-top: 5px;
-  margin-left: 29px;
-  transition: ease 0.5s;
+ 
+.sidebar ul ul li.active > a {
+    background: #555;
 }
-
-li#abm-usuarios{
-  margin-top: 20px;
-  margin-left: 29px;
-  transition: ease 0.5s;
-}
-
-li#logout{
-  position: fixed;
-  bottom: 10px;
-  left: 21px;
-}
-
-ul li ul li {
-  clear: both;
-  width: 100%;
-}
-
-img.logo{
-  position: absolute;
-  background: transparent;
-  left: -15px;
-  top: 0px;
-}
-
-span#cerrar-sesion{
- display: none;
- transition: ease 0.5s;
-}
-
-#login:before{
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
-  content: "\f2f6";
-  font-size: 25px;
-  color: gray;
-  margin-right: 30px;
-  margin-left: 0px;
-}
-
-#usuario:before{
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
-  content: "\f2bd";
-  font-size: 25px;
-  color: gray;
-  margin-right: 30px;
-  margin-left: 0px;
-}
-
-#home:before{
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
-  content: "\f015";
-  font-size: 25px;
-  color: gray;
-  margin-right: 30px;
-  margin-left: -3px;
+ 
+.sidebar a[data-toggle="collapse"] {
+    position: relative;
+} 
+ 
+.sidebar .dropdown-toggle:after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
 }
 
 
-#portal-libro:before{
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
-  content: "\f02d";
-  font-size: 25px;
-  color: gray;
-  margin-right: 35px;
-  text-align: center;
+/***** Content *****/
+
+.overlay {
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(51, 51, 51, 0.7);
+    z-index: 998;
+    opacity: 0;
+    transition: all .5s ease-in-out;
+}
+ 
+.overlay.active {
+    display: block;
+    opacity: 1;
 }
 
-#cuenta:before{
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
-  content: "\f007";
-  font-size: 25px;
-  color: gray;
-  margin-right: 36px;
-  text-align: center;
+.sidebar .logo {
+    padding: 40px 20px;
+    border-bottom: 1px solid #444;
+    transition: all .3s;
+}
+ 
+.sidebar .logo a {
+    display: inline-block;
+    width: 172px;
+    height: 34px;
+    background: url(../img/logo.png) left top no-repeat;
+    border: 0;
+    text-indent: -999999px;
 }
 
-#sugerencias:before{
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
-  content: "\f573";
-  font-size: 25px;
-  color: gray;
-  margin-right: 31px;
-  text-align: center;
+.logo a img#logo{
+    position: absolute;
+    top: 0;
+    left: -20px;
+    width: 100px;
+    height: 100px;
 }
 
-#contacto:before{
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
-  content: "\f0e0";
-  font-size: 25px;
-  color: gray;
-  margin-right: 35px;
-  text-align: center;
+i.fas.fa-sign-in-alto-top{
+    font-size: 25px;
+    z-index: 100;
 }
 
-#portal-gestion:before{
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
-  content: "\f0ae";
-  font-size: 25px;
-  color: gray;
-  margin-right: 36px;
-  text-align: center;
+.fas.fa-pencil-alt{
+    color: black;
+    font-size: 18px;
 }
 
-#abm-libros:before{
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
-  content: "\f518";
-  font-size: 25px;
-  color: gray;
-  margin-left: 40px;
-  margin-right: 20px;
-
-  text-align: center;
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+ 
+    .sidebar .logo a {
+        background-image: url(../img/logo@2x.png) !important;
+        background-repeat: no-repeat !important;
+        background-size: 172px 34px !important;
+    }
+ 
+    .sidebar.light .logo a {
+        background-image: url(../img/logo-dark@2x.png) !important;
+    }
+ 
 }
 
-#abm-usuarios:before{
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
-  content: "\f4ff";
-  font-size: 25px;
-  color: gray;
-  margin-left: 40px;
-  margin-right: 20px;
-  text-align: center;
-}
+/* Boton dudas */
 
-#logout:before{
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
-  content: "\f2f5";
-  font-size: 25px;
-  color: gray;
-  margin-right: 35px;
-  margin-left: 4px;
-  text-align: center;
+.tooltip{
+    position: fixed;
+    display: inline-block;
 }
 
 .buttonInfo{
-  height: 60px;
-  width: 60px;
-  z-index: 99;
-  background:transparent ;
-  border: solid 1px rgb(255, 255, 255);
-  box-shadow: -3px 3px 5px;
-  border-radius: 50%;
-  position: fixed;
-  right: 25px;
-  bottom: 10px;
-  cursor: pointer;
-}
-.fas.fa-question{
-  color: white;
-  background:transparent;
-  font-size: 25px;
-}
+    height: 60px;
+    width: 60px;
+    z-index: 99;
+    background:transparent ;
+    border: solid 1px rgb(255, 255, 255);
+    box-shadow: -3px 3px 5px;
+    border-radius: 50%;
+    position: fixed;
+    right: 25px;
+    bottom: 10px;
+    cursor: pointer;
+  }
+
 
 .buttonInfo:hover{
-  background: rgba(209, 209, 209, 0.336);
-  transform: scale(1.1);
+    background: rgba(209, 209, 209, 0.336);
+    transform: scale(1.1);
 }
-
-.tooltip {
-  position: fixed;
-  display: inline-block;
-}
-
+ 
 .tooltip .tooltiptext {
-  visibility: hidden;
-  top: -5px;
-  right: 110%;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1;
-}
+    visibility: hidden;
+    top: -5px;
+    right: 110%;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+  }
 
-.tooltip .tooltiptext::after {
-  content: " ";
-  top: 50%;
-  left: 100%;
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent transparent black;
-}
+  .tooltip .tooltiptext::after {
+    content: " ";
+    top: 50%;
+    left: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent black;
+  }
+  
+  .tooltip .tooltiptext {
+    opacity: 0;
+    transition: opacity 1s;
+  }
+   
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
 
-.tooltip .tooltiptext {
-  opacity: 0;
-  transition: opacity 1s;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-
-/*Administrador*/
-
-a {
-  color: white;
-  background: transparent;
-  text-decoration: none;
-}
-
-#admin-users{
-  background-color:transparent;
-  color: white;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-  z-index: 101;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background:#333;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
+  .fas.fa-question{
+    color: white;
+    background:transparent;
+    font-size: 25px;
+  }
