@@ -1,6 +1,12 @@
+
+section#page{
+    /* width: 100%; */
+    overflow: hidden;
+}
+
 .filtros-busqueda{
     position: fixed;
-    width: 99.3%;
+    width: 100%;
     height: 50px;
     margin: 0px;
     padding-left: 0px !important;
@@ -10,6 +16,7 @@
     border-bottom: 4px solid #222;
     z-index: 99;
 }
+
 
 h3 {
     background-color: transparent;
@@ -33,7 +40,7 @@ h3 {
     justify-content: center;
 }
 
-.libro-prueba{
+div#libro-prueba{
     position: relative;
     margin: 25px;
     border-radius: 5px;
@@ -114,6 +121,13 @@ p.etiqueta-info{
     mix-blend-mode: luminosity;
 }
 
+.libro-prueba-sinStock:hover{
+    overflow: hidden;
+    transition: ease 0.3s;
+    transform: scale(1.05);
+    mix-blend-mode: luminosity;
+}
+
 .busqueda{
     position: absolute;
     background-color: transparent;
@@ -175,17 +189,16 @@ input[type=text]:focus,input[type=number]:focus, input[type=file]:focus, textare
 
 input[type=submit] {
 	transition: ease 0.5s;
-	background: transparent;
 	width: 130px;
+	background-color: rgba(51, 51, 51, 0.808);
 	height: 50px;
 	margin: 0 auto;
 	outline: 0;
 	color: white;
 	border: none;
-	border-bottom: 4px solid yellow;
-	border-left: 4px solid yellow;
+	border-bottom: 4px solid #222;
 	border-top-left-radius: 0px;
-	border-top-right-radius: 4px;
+	border-top-right-radius: 0px;
 	padding: 12px 24px;
 	transition: all ease-in-out 0.1s;
 	position: relative;
@@ -203,13 +216,11 @@ input[type=submit]:focus {
 
 input[type=submit]:hover {
 	border: none;
-	border-left: 4px solid #333;
 	border-bottom: 4px solid #333;
 	background: yellow;
 	color: #333;
 	transition: ease 0.5s;
 }
-
 input#portada{
     background: transparent;
 }

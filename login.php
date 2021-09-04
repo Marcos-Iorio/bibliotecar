@@ -24,12 +24,12 @@ exit;
     
 </head>
 <body onload="movimientoLogin(), mouseMove(), requerimientoPass(), swal()">
-    <img id="libroIcon" src="../assets/libro-magico.svg" alt="" data-toggle="popover" title="¡CLICKEAME!" data-placement="bottom">
+    <img id="libroIcon" src="assets/libro-magico.svg" alt="" data-toggle="popover" title="¡CLICKEAME!" data-placement="bottom">
     <p class="pass__require hidden" id ="passRequire">La contraseña debe tener: 6 caracteres, 1 numero y 1 mayúscula</p>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
             <?php 
-            include "../php/registro.php"
+            include "php/registro.php"
              ?>
             <form method="POST">
                 <h1>Crear cuenta</h1>
@@ -52,7 +52,7 @@ exit;
         </div>
         
         <div class="form-container sign-in-container">
-            <form action="../php/login-back.php" method="POST">
+            <form action="php/login-back.php" method="POST">
                 <h1>Iniciar sesión</h1>
                 <input type="email" placeholder="Email" name="mailL" id="mailL" required />
                 <input type="password" placeholder="Contraseña" name="passL" id="passL" required />
@@ -68,13 +68,13 @@ exit;
                     <h1>¡Bienvenido de vuelta!</h1>
                     <p>Ingresa tus datos y seguí reservando libros</p>
                     <button class="ghost" id="signIn">Iniciar sesión</button>
-                    <a href="../"><img class="logo" src="../assets/Logo sin fondo.png" alt=""></a>
+                    <a href="../"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>¡Bienvenido!</h1>
                     <p>Registrate para aprovechar todas las funciones de la biblioteca</p>
                     <button class="ghost" id="signUp">Registrarse</button>
-                    <a href="../"><img class="logo" src="../assets/Logo sin fondo.png" alt=""></a>
+                    <a href="../"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
                 </div>
             </div>
         </div>

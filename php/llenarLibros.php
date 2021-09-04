@@ -1,5 +1,5 @@
 <?php
-  include_once '../php/db.php';
+  include_once 'db.php';
 
   $stmt = $dbh->prepare('SELECT * FROM libros, categorias, autores');
   $stmt->execute();
