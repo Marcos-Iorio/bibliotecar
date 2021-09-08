@@ -3,13 +3,14 @@ main{
 }
 
 .libro{
-    margin-top: 100px;
+    margin-top: 30px;
+    justify-content: right;
+    align-items: start;
     display: grid;
     grid-template-areas: "imagenes-libros libro-info"
                         "descripcion descripcion";
-    grid-template-columns:2fr 2fr;
-    grid-template-rows: 1fr 1fr;
-   align-items: start;
+    grid-template-columns:2fr 3fr;
+    grid-template-rows: 2fr 1fr;
 }
 
 #imagenes-libros{
@@ -18,7 +19,10 @@ main{
 -moz-box-shadow: 10px 10px 45px -12px rgba(0,0,0,0.75);
     grid-area: imagenes-libros;
     align-self: center;
-    height: 500px;
+    height: 400px;
+    width: 400px;
+    align-self: auto;
+    justify-self: left;
 }
 
 img#img-libro{
@@ -32,7 +36,6 @@ img#img-libro{
 -moz-box-shadow: 10px 10px 45px -12px rgba(0,0,0,0.75);
     border-radius: 15px;
     background-color: rgb(231, 231, 231);
-    margin-left: 50px;
     padding: 20px;
     position: relative;
     width: 80%;
@@ -47,7 +50,7 @@ img#img-libro{
     border-radius: 15px;
     background-color: rgb(231, 231, 231);
     grid-area: descripcion;
-    width: 100%;
+    width: 88.3%;
     height: 200px;
     margin-top: 50px;
     padding: 20px;
@@ -64,15 +67,18 @@ label[for=titulo]{
     background: white;
     border: none;
     color: #333;
-    padding: 10px;
+  /*   padding: 25px; */
     border-bottom: 3px solid #222;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     position: absolute;
-    bottom: 20%;
-    left: 45%;
+    bottom: 10%;
+    left: 35%;
+    width: 200px;
+    height: 75px;
     transition: ease 0.5s;
     cursor: pointer;
+    font-size: 30px;
 }
 
 .reservar:hover{
@@ -93,4 +99,8 @@ label{
 .fas.fa-cloud-download-alt{
     font-size: 50px;
 
+}
+
+.desc{
+    text-align: center;
 }

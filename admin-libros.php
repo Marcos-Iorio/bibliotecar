@@ -56,41 +56,42 @@
                 <div class="container main-libros">
                     <h3>Gestion de libros!</h3>
                     <div class="tabla-libros">
-						<table>
-            <thead>
-								<tr>
-									<th>Titulo</th>
-									<th>Autor</th>
-									<th>Género</th>
-									<th>Stock</th>
-									<th>Fecha de Alta</th>
-                  <th><i class="fas fa-pencil-alt"></i></th>
-                  <th><i class="far fa-trash-alt"></i></th>
-								</tr>
-							</thead>
-						<?php
-						include_once('php/llenarLibros.php');
+                      <table class = "bordered">
+                      <thead>
+                          <tr>
+                            <th>Titulo</th>
+                            <th>Autor</th>
+                            <th>Género</th>
+                            <th>Stock</th>
+                            <th>Fecha de Alta</th>
+                            <th><i class="fas fa-pencil-alt"></i></th>
+                            <th><i class="far fa-trash-alt"></i></th>
+                          </tr>
+                        </thead>
+                      <?php
+                      include_once('php/llenarLibros.php');
 
-						/* Llena el tabla con todos los libros de la base de datos */
-						foreach($resultado as $fila):?>
-							
-							<tbody>
-								<tr>
-									<td><?php echo $fila['titulo'];?></td>
-									<td><?php echo $fila['nombreAutor'];?></td>
-									<td><?php echo $fila['nombreCategoria'];?></td>
-									<td><?php echo $fila['stock'];?></td>
-									<td><?php echo $fila['fechaAlta'];?></td>
-									<td><button><i class="fas fa-pencil-alt tbody-icon"></i></button></td>
-									<td><button><i class="far fa-trash-alt tbody-icon"></i></button></td>
-								</tr>
-							</tbody>
-						<?php endforeach; ?>
-						</table>
-					</div>
+                      /* Llena el tabla con todos los libros de la base de datos */
+                      foreach($resultado as $fila):?>
+                        
+                        <tbody>
+                          <tr>
+                            <td><?php echo $fila['titulo'];?></td>
+                            <td><?php echo $fila['nombreAutor'];?></td>
+                            <td><?php echo $fila['nombreCategoria'];?></td>
+                            <td><?php echo $fila['stock'];?></td>
+                            <td><?php echo $fila['fechaAlta'];?></td>
+                            <td><button><i class="fas fa-pencil-alt tbody-icon"></i></button></td>
+                            <td><button><i class="far fa-trash-alt tbody-icon"></i></button></td>
+                          </tr>
+                        </tbody>
+                      <?php endforeach; ?>
+                      </table>
+					          </div>
                 </div>
             </section>
             <section class = "subir-libro">
+              <div class="container-form">
                 <form action="gestion-libros.php" method = "POST" class= "form-libro">
 
                     <label for="">Titulo:</label>
@@ -128,7 +129,7 @@
                         <input type="submit" name="subir-libro" id="subir-libro" value="Subir">
                     </div>
                     </form>
-
+              </div>         
             </section>
             <button onclick="contacto()" class="buttonInfo tooltip">
                 <i class="fas fa-question"></i>

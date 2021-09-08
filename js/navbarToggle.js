@@ -48,7 +48,7 @@ function showSearch(){
   }
 }
 
-jQuery(document).ready(function() {
+/* Jquery(document).ready(function() {
    
   $('.section-container').waypoint(function(direction) {
     if (direction === 'down') {
@@ -71,3 +71,4 @@ jQuery(document).ready(function() {
   });
 
 });
+ */

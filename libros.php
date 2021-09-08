@@ -31,9 +31,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="css/inicio.css">
-    <link rel="stylesheet" href="css/libros.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/inicio.css" type="text/css">
+    <link rel="stylesheet" href="css/libros.css" type="text/css">
+    <script defer src="js/lazyLoad.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -66,7 +67,7 @@
                         <div class="libro-prueba" id="libro-prueba">
                             <a class="link" id="id-libro" href="single-book.php?sku=<?php echo $fila['idLibro'];?>">
                                 <div class="imagen-libro">
-                                    <img class="imagen-libro" src="<?php echo $fila['imagen_libro']; ?>" alt="">
+                                    <img class="imagen-libro" data-lazy="<?php echo $fila['imagen_libro']; ?>" alt="">
                                 </div>
                                 <div class="informacion">
                                     <p class="libro-info">

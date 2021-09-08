@@ -17,8 +17,8 @@ exit;
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
 
-    <script type="text/javascript" src="../js/login.js"></script>
-    <link rel="stylesheet"  href="../css/login.css">
+    <script type="text/javascript" src="js/login.js"></script>
+    <link rel="stylesheet"  href="css/login.css">
         <script src="js/sweetalert2.js"></script>
     <link rel="stylesheet" href="css/sweetalert2.css">
     

@@ -73,60 +73,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-  <!-- <script>swal({
-    title:'Exito',
-    text:'',
-    type: 'success',
-    html:'<br><h5>Te enviamos un codigo a tu correo electrónico. Ingresalo debajo para confirmar tu usuario.</h5><br><input style="width: 150px; font-size: 36px; color: black; font-weight: bold; text-align: center;" type="text" required; maxlength = "6";"/><br><br> <div ><input type="submit" style="background-color: #495F91; color:white; margin-right: 5%;" name="confirmarCodigo" value="Confirmar"><input type="submit" style="background-color: gray; color:white;margin-left: 5%;" name="reenviarCodigo" value="Reenviar"></div>',
-   showCancelButton: false,
-      showConfirmButton: false,
 
-    cancelButtonColor: 'gray',
-    confirmButtonColor: '#495F91',
-    confirmButtonText: 'Confirmar <i name="confirmarCodigo"></i>',
-    cancelButtonText: 'Reenviar <i name="reenviarCodigo></i>',
-    width: 500,
-    padding: '3em'
-
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
-  }
-});</script>
-
-               <script type="text/javascript">
-
-                    swal({
-    title:"Exito",
-    text:"Te enviamos un codigo a tu correo electrónico. Ingresalo debajo para confirmar tu usuario.",
-    input: "text",
-
-   showCancelButton: true,
-    cancelButtonColor: "gray",
-    confirmButtonColor: "#495F91",
-    confirmButtonText: "Confirmar",
-    cancelButtonText: "Reenviar",
-    width: 500,
-    padding: "3em"
-
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal(
-      "Deleted!",
-      "Your file has been deleted.",
-      "success"
-    )
-  }
-}); 
-            
-               
-                </script>-->
-
-                
 </html>
    
  

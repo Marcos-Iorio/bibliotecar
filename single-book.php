@@ -1,6 +1,6 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
-    include('../php/db.php');
+    include('php/db.php');
     $idLibro = $_GET['sku'];
 
     $stmt = $dbh->prepare('SELECT * FROM libros where idLibro =  "'. $idLibro .'"');
@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 <body>
     <section id="page">
         <?php 
-          include "panel.php";
+          include "php/panel.php";
          ?>
         <main id="main">
             <section class = "libro">
