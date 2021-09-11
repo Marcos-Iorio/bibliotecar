@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     include('db.php');
 
     if(isset($_POST['mailL']) && isset($_POST['passL'])){
-        $mail = $_POST['mailL'];
+        $GLOBALS['mail'] = $_POST['mailL'];
         //$_SESSION['loggedin'] = true;
         $pass = $_POST['passL'];
         

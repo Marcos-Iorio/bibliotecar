@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
 </head>
-<body>
+<body onload="startTime()">
     <section id="page">
         <?php 
           include "php/panel.php";
@@ -23,8 +23,50 @@
          ?>
         <main id="main">
             <h1>BibliotecAr</h1>
-            <p>
-            </p>
+        <div class="container-paneles">
+        <div class="card">
+                <div class="info-paneles">
+                    <h4>Naturaleza</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
+                    <a href="#">Leer más</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="info-paneles">
+                    <h4>Naturaleza</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
+                    <a href="#">Leer más</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="info-paneles">
+                    <h4>Naturaleza</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
+                    <a href="#">Leer más</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="info-paneles">
+                    <h4>Naturaleza</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
+                    <a href="#">Leer más</a>
+                </div>
+            </div>
+            <div id="clockdate">
+                <div id="wrapper" class="clockdate-wrapper">
+                    <div id="clock" class="clock"></div>
+                    <div id="date" class="date"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="info-paneles">
+                    <h4>Naturaleza</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
+                    <a href="#">Leer más</a>
+                </div>
+            </div>
+        </div>
+
             <button onclick="contacto()" class="buttonInfo tooltip">
                 <i class="fas fa-question"></i>
                 <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>

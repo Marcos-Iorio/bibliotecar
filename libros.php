@@ -62,8 +62,9 @@
 
                     <?php
                     include_once('php/llenarLibros.php');
+                    todosLosLibros();
                     /* Llena el flexbox con los libros traidos de la base de datos */
-                    foreach($resultado as $fila):?>
+                    /* foreach($resultado as $fila):?>
                         <div class="libro-prueba" id="libro-prueba">
                             <a class="link" id="id-libro" href="single-book.php?sku=<?php echo $fila['idLibro'];?>">
                                 <div class="imagen-libro">
@@ -86,7 +87,7 @@
                                 </div>
                             </a>
                         </div>
-                    <?php endforeach; ?>
+                    <?php endforeach; */ ?>
 
                     </div>
                 </div>
