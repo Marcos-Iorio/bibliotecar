@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
 </head>
-<body>
+<body onload="esconderBoton()">
     <section id="page">
         <?php 
           include "php/panel.php";
@@ -29,7 +29,9 @@
             <?php
                 if($_SERVER['REQUEST_METHOD'] == 'GET'){
                     include "php/llenarLibros.php";
-                    $idLibro = $_GET['sku'];
+                    $GLOBALS['idLibro'] = $_GET['sku'];
+                    
+                    
                     singleBook($idLibro);
                     
                 }
@@ -85,13 +87,8 @@
                         <h2>¿Querés reservar el libro<?php /* echo $arr['titulo']; */?>?</h2>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="POST">
-                            <button id="confirmar" name="confirmar">Reservar</button>
-                            <?php
-                            $mail = $GLOBALS['mail'];
-                            if(isset($_POST['confirmar'])){
-                                echo "sadasas";
-                            } ?>
+                        <form action="" method="POST" target="_self">
+                        <a class="confirmar" id="confirmar" name="confirmar" href="php/reservar.php?sku=<?php echo $GLOBALS['idLibro'];?>">Confirmar</a>
                         </form>
                         <button id="cancelar">Cancelar</button>
                     </div>
@@ -110,21 +107,20 @@
     <script src="js/navbarToggle.js"></script>
     <script>
         /* Idenfitica si no tiene stock y deshabilita el boton */
-
-           /*  let span = document.querySelector("#stock");;
-            let button = document.querySelector(".reservar");
-            
-            button.disabled = true;
-            button.addEventListener("change", stateHandle());
-            function stateHandle() {
-                if (document.querySelector("#stock").innerHTML == 0) {
-                    console.log("dentro del if")
-                    button.disabled  = true; 
-                    button.innerHTML = "No disponible";
-                } else {
-                    button.disabled = false;
+            function esconderBoton(){
+                let span = document.querySelector("#stock");;
+                let button = document.getElementById('reservar');
+                button.style.display = "none";
+                button.addEventListener("change", stateHandle());
+                function stateHandle() {
+                    if (document.querySelector("#stock").innerHTML == 0) {
+                        console.log("dentro del if")
+                        button.style.display = "none"; 
+                    } else {
+                        button.style.display = "block"; 
+                    }
                 }
-            } */
+            }
 
             /* Abre y cierra el modal */
             // Get the modal

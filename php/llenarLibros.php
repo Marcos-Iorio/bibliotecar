@@ -6,8 +6,6 @@
     $stmt->execute();
     $resultado=$stmt->fetchAll();
 
-    $GLOBALS['idLibro'] = $reusltado['idLibro'];
-
     foreach($resultado as $fila):
       echo '<div class="libro-prueba" id="libro-prueba">
           <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
@@ -36,6 +34,7 @@
   }
 
 function singleBook($idLibro){
+
     include_once 'db.php';
     $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c where l.idLibro =  "'. $idLibro .'"');
     $stmt->execute();
