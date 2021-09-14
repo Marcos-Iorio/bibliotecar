@@ -21,7 +21,11 @@
 
     global $libros;
     $libros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $GLOBALS['stock'] = $libros['stock'];
+
       insertarReserva();
+      actualizarStock();
 
       function insertarReserva(){
          $skuLibro = $_GET['sku'];
@@ -45,6 +49,15 @@
             echo "Se ha reservardo exitosamente!";
          }
          header('Location: ../single-book.php?sku='.$skuLibro);
+      }
+
+      function actualizarStock(){
+         include 'db.php';
+
+         $stock = $GLOBALS['stock'];
+
+         $stmt = $dbh->prepare("UPDATE");
+         
       }
   
   ?>
