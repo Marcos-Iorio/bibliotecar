@@ -8,12 +8,12 @@ session_start(); //starting the session for user profile page
 ?>
 
 <?php
-
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
     include('db.php');
 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
     if(isset($_POST['mailL']) && isset($_POST['passL'])){
-        $mail = $_POST['mailL'];
+        $GLOBALS['mail'] = $_POST['mailL'];
         //$_SESSION['loggedin'] = true;
         $pass = $_POST['passL'];
         
@@ -22,8 +22,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $stmt = $dbh->prepare('SELECT idRol, contrasena, nombre, checkMail from usuarios where mail = "' . $mail .'" LIMIT 1');
     // Ejecutamos
     $stmt->execute();
+
+
     // Mostramos los resultados
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
 
     if($arr['idRol']){
         if(!empty($arr) && password_verify($pass, $arr['contrasena'])){
@@ -109,7 +113,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 });
                 
                 setTimeout(function(){
-                    window.location.href = "../interfaces/login.php";
+                    window.location.href = "../login.php";
                  }, 3000);
                 </script>
                 ';
@@ -125,6 +129,43 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         
     }
 
+
+    if (empty($arr)) {
+                    echo '
+                <script type="text/javascript">
+                
+                $(document).ready(function(){
+                    Swal.fire({
+                    icon: "error",
+                    title: "El usuario ingresado no existe",
+                    didOpen: () => {
+                        timerInterval = setInterval(() => {
+                        const content = Swal.getHtmlContainer()
+                        if (content) {
+                            const b = content.querySelector("b")
+                            if (b) {
+                            b.textContent = Swal.getTimerLeft()
+                            }
+                        }
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                    }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log("I was closed by the timer")
+                    }
+                    }) 
+                });
+                
+                setTimeout(function(){
+                    window.location.href = "../login.php";
+                 }, 3000);
+                </script>
+                ';
+    }
     /* elseif($arr['idRol'] === '2'){
 
         if(!empty($arr) && password_verify($pass, $arr['contrasena'])){

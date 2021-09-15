@@ -1,24 +1,37 @@
 var mini = true;
 
+var menuSpan = document.getElementsByClassName('menu-item');
+var itemGestion = document.getElementsByClassName('item-gestion');
+
+
+console.log(menuSpan)
+
 function toggleSidebar() {
   if (mini) {
+
     console.log("abriendo sidebar");
     document.getElementById("sidebar").style.width = "200px";
     document.getElementById("sidebar").style.backgroundColor = "rgb(56, 56, 56, 1)";
+    
     //logo
     document.getElementById("logo").style.width = "200px";
     document.getElementById("logo").style.height = "200px";
-    document.getElementById("logo").style.transition = "ease 0.5s";
-    document.getElementById("logo").style.zIndex = "1";
-    document.getElementById("logo").style.top = "-30px";
+    document.getElementById("logo").style.transition = "ease 0.3s";
+    document.getElementById("logo").style.zIndex = "100";
+    document.getElementById("logo").style.top = "-20px";
     document.getElementById("logo").style.left = "0px";
+    
+    for (var i = 0; i < menuSpan.length; i++) {
+      menuSpan[i].style.display = "inline-block";
+      menuSpan[i].style.position = "fixed";
+    }
 
-    if(document.getElementById("cerrar-sesion")){
-      document.getElementById("cerrar-sesion").style.display = "inline-block";
+    for (var i = 0; i < itemGestion.length; i++) {
+      itemGestion[i].style.display = "inline-block";
     }
     
-
     this.mini = false;
+
   } else {
     console.log("Cerrando sidebar");
     document.getElementById("sidebar").style.width = "60px";
@@ -27,11 +40,18 @@ function toggleSidebar() {
     document.getElementById("logo").style.width = "100px";
     document.getElementById("logo").style.height = "100px";
     document.getElementById("logo").style.top = "0px";
-    document.getElementById("logo").style.left = "-15px";
+    document.getElementById("logo").style.left = "-20px";
 
-    if(document.getElementById("cerrar-sesion")){
-      document.getElementById("cerrar-sesion").style.display = "none";
-    }
+      for (var i = 0; i < menuSpan.length; i++) {
+        menuSpan[i].style.display = "none";
+        menuSpan[i].style.position = "fixed";
+      }
+
+      for (var i = 0; i < itemGestion.length; i++) {
+        itemGestion[i].style.display = "none";
+      }
+      
+
     
 
     this.mini = true;
@@ -39,22 +59,10 @@ function toggleSidebar() {
 }
 
 function contacto(){
-  window.location.href = "../interfaces/contacto.php"
+  window.location.href = "interfaces/contacto.php"
 }
 
 var panel = true;
-
-function desplegarMenu(){
-  if(panel){
-    document.getElementById('dropdown').style.display = "block";
-    document.getElementById("dropdown").style.transition = "ease 0.5s";
-    this.panel = false;
-  }else{
-    document.getElementById('dropdown').style.display = "none";
-    document.getElementById("dropdown").style.transition = "ease 0.5s";
-    this.panel = true;
-  }
-}
 
 function showSearch(){
   if(panel){
@@ -66,4 +74,23 @@ function showSearch(){
     document.getElementById('buscar').style.display="none";
     this.panel = true;
   }
+}
+
+function startTime() {
+  var today = new Date();
+  var hr = today.getHours();
+  var min = today.getMinutes();
+  var sec = today.getSeconds();
+  //Add a zero in front of numbers<10
+  min = checkTime(min);
+  sec = checkTime(sec);
+  document.getElementById("clock").innerHTML = hr + " : " + min + " : " + sec;
+  var time = setTimeout(function(){ startTime() }, 500);
+}
+
+function checkTime(i) {
+  if (i < 10) {
+      i = "0" + i;
+  }
+  return i;
 }
