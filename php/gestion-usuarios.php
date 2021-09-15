@@ -17,7 +17,7 @@ if ($stmt->execute()) {
                   <td>" .  $fila['apellido']. "</td>
                   <td>" .  $fila['numeroDocumento']. "</td>
                   <td>" .  $fila['mail']. "</td>
-                  <td>" .  $fila['checkMail']. "</td>
+                  <td>" .  $fila['check_mail']. "</td>
                   <td><button><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
                   <td><button><i class=\"far fa-trash-alt tbody-icon\"></i></button></td>
                 </tr>
