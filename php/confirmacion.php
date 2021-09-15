@@ -44,7 +44,7 @@
         <?php
             include('db.php');
             include('login-back.php');
-            $stmt = $dbh->prepare('UPDATE usuarios SET checkMail = 1 where mail = "' . $_SESSION['mailL'] .'"');
+            $stmt = $dbh->prepare('UPDATE usuarios SET check_mail = 1 where mail = "' . $_SESSION['mailL'] .'"');
             // Ejecutamos
             $stmt->execute();
         ?>

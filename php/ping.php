@@ -126,7 +126,7 @@ function confirmarMail($codigo, $mail){
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if($arr['ping'] == $codigo){
-    	$stmt = $dbh->prepare("Update usuarios set checkMail = '1' where mail = ?");
+    	$stmt = $dbh->prepare("Update usuarios set check_mail = '1' where mail = ?");
     	$stmt->bindParam(1, $mail);
 
 ///////Hasta aca falla

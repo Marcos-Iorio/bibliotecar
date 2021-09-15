@@ -98,8 +98,8 @@
      </ul>
  </nav>
  <!-- End sidebar --> 
-    <!-- Dark overlay -->
-    <div class="overlay"></div>
+    <!-- Dark overlay
+    <div class="overlay"></div> -->
 
  
 </div>
