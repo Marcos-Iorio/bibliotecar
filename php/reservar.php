@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="../css/sweetalert2.css">
+    <script src="../js/sweetalert2.js"></script>
+
+>>>>>>> Jeremias
 <?php
    include 'db.php';
    include "isLogin.php";
@@ -13,6 +20,15 @@
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
    $GLOBALS['idUsuario'] = $user['idUsuario'];
 
+<<<<<<< HEAD
+=======
+   global $nombre;
+   $nombre = $user['nombre'];
+
+   global $correo;
+   $correo = $mail;
+
+>>>>>>> Jeremias
    global $skuLibro;
    $skuLibro = $_GET['sku'];
 
@@ -21,6 +37,7 @@
 
     global $libros;
     $libros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+<<<<<<< HEAD
 
     $GLOBALS['stock'] = $libros['stock'];
 
@@ -32,6 +49,15 @@
          $idUsuario = $GLOBALS['idUsuario'];
          echo $idUsuario;
          echo $skuLibro;
+=======
+      insertarReserva($nombre, $correo);
+
+      function insertarReserva($nombre, $correo){
+         $skuLibro = $_GET['sku'];
+         $idUsuario = $GLOBALS['idUsuario'];
+         //echo $idUsuario;
+         //echo $skuLibro;
+>>>>>>> Jeremias
 
          include 'db.php';
          $fechaDesde = date('Y/m/d H:i:s');
@@ -44,6 +70,7 @@
          $stmt->bindParam(3, $idUsuario);
          $stmt->bindParam(4, $fechaDesde);
          $stmt->bindParam(5, $fechaHasta);
+<<<<<<< HEAD
          
          if($stmt->execute()){
             echo "Se ha reservardo exitosamente!";
@@ -61,3 +88,47 @@
       }
   
   ?>
+=======
+         if($stmt->execute()){
+
+                   //header('Location: ../single-book.php?sku='.$skuLibro);
+          confirmarReserva($skuLibro, $nombre, $correo);
+         }
+      }
+  
+function confirmarReserva($idLibro, $nombre, $correo){
+         include 'db.php';
+
+        $stmt = $dbh->prepare("SELECT stock FROM libros where idLibro ='".$idLibro."'");
+
+        if($stmt->execute()){
+          $arr = $stmt->fetch(PDO::FETCH_ASSOC);
+          $stock = $arr['stock'];
+          $stock = $stock-1;
+
+          $stmt = $dbh->prepare("UPDATE libros SET stock='".$stock."' where idLibro ='".$idLibro."'");
+          if ($stmt->execute()) {
+            $codigo=mt_rand(1,999999);
+            while(strlen($codigo) < 6 && strlen($codigo)){
+              $codigo=mt_rand(1,999999);
+
+            }
+            $codigo="R$codigo$idLibro";
+
+            include "sendmail.php";
+            enviarReserva($nombre, $correo, $codigo);
+            echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+                     /* return $codigo;
+        header('Location: ../single-book.php?sku='.$idLibro);*/          
+          }
+          
+        }
+
+
+  }
+
+
+
+  ?>
+
+>>>>>>> Jeremias

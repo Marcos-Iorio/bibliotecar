@@ -1,6 +1,6 @@
 <?php
 
-/*  $dbname = "S83WlvOPYk";
+/*a  $dbname = "S83WlvOPYk";
  $user = "S83WlvOPYk";
  $password = 'PZYFMdycMI'; */
 

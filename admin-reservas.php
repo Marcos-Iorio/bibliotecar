@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/inicio.css">
-    <link rel="stylesheet" href="css/libros.css">
+    <link rel="stylesheet" href="css/reservas.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
 </head>
@@ -54,70 +54,47 @@
                 </div>
         <!--Seccion de los libros-->
                 <div class="container main-libros">
-                    <h3>Gestion de libros!</h3>
+                    <h3>Gestion de reservas!</h3>
                     <div class="tabla-libros">
                       <table class = "bordered">
                       <thead>
                           <tr>
-                            <th>Titulo</th>
-                            <th>Autor</th>
-                            <th>Género</th>
-                            <th>Stock</th>
-                            <th>Fecha de Alta</th>
-                            <th><i class="fas fa-pencil-alt"></i></th>
-                            <th><i class="far fa-trash-alt"></i></th>
+                  <th>Reserva Nº</th>
+                  <th>ID Libro</th>
+                  <th>Estado</th>
+                  <th>Usuario</th>
+                  <th>Fecha solicitud</th>
+                  <th>Fecha devolucion</th>
+                  <th>Editar</th>
+                  <th>Eliminar</th>
                           </tr>
                         </thead>
                       <?php
-                      include_once('php/llenarLibros.php');
-                      gestionLibros();
+                      include "php/gestion-reservas.php";
+                      gestionReservas();
                       /* Llena el tabla con todos los libros de la base de datos */
                       ?>
                         
                         
                       <?php  ?>
                       </table>
-					          </div>
+                    </div>
                 </div>
             </section>
-            <section class = "subir-libro">
+            <section class = "subir-libro" style="margin-left: 100px">
               <div class="container-form">
-                <form action="php/gestion-libros.php" method = "POST" class= "form-libro">
+                <form action="php/gestion-reservas.php" method = "POST" class= "form-libro">
 
-                    <label for="">Titulo:</label>
-                    <input type="text" name="titulo" id="titulo" required placeholder="Titulo">
+                    <label for="" style="width: 210px; text-align: left;">Confirmar reserva:</label>
+                    <input type="text" style="background-color: white; color: black; width: 40%;" name="titulo" id="titulo" required placeholder="Ingrese ID de libro">
+                    <input type="submit" name="subir-libro" id="subir-libro"/>
                     <br><br>
                     
-                    <label for="">Autor: </label>
-                    <input type="text" name="autor" id="autor" required placeholder="Autor">
+                    <label for="" style="width: 210px; text-align: left;">Confirmar devolucion: </label>
+                    <input type="text" style="background-color: white; color: black; width: 40%;"name="autor" id="autor" required placeholder="Ingrese ID de libro">
+                    <input type="submit" name="subir-libro" id="subir-libro"/>
                     <br><br>
 
-                    <label for="">Descripcion: </label>
-                    <input type="text" name="desc" id="desc" required placeholder="Descripcion del libro">
-                    <br><br>
-
-                    <label for="">Genero:</label>
-                    <input type="text" name ="genero" id="genero" required placeholder="Género">
-                    <br><br>
-
-                    <label for="">Stock:</label>
-                    <input type="number" name="stock" id="stock" required placeholder="Stock">
-                    <br><br>
-
-                    <label for="">Pdf de libro(Opcional):</label>
-                    <input class="portada-libro" type="file" name="pdf" id="pdf" multiple>
-                    <br><br>
-                    <div class="separador"></div>
-                    <label for="">Portada:</label>
-                    <input class="portada-libro" type="file" name="portada" id="portada" multiple>
-                    <br><br>
-                    <label for="">Contra-tapa:</label>
-                    <input class="portada-libro" type="file" name="imagenes-libro" id="imagenes-libro" multiple>
-                    <br><br><br><br>
-
-                    <div class="center">
-                        <input type="submit" name="subir-libro" id="subir-libro" value="Subir">
-                    </div>
                     </form>
               </div>         
             </section>

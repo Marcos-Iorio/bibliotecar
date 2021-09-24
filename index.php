@@ -22,34 +22,43 @@
 
          ?>
         <main id="main">
-            <h1>BibliotecAr</h1>
-        <div class="container-paneles">
+<?php 
+               if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ) {
+                  echo '<h1  style="margin-left: 50px;">Bienvenido '. $user . '!</h1>';
+               }else{
+                  echo '<h1 style="margin-left: 50px;" >BibliotecAr</h1>';
+
+               } 
+
+           ?>        
+        <br><br><br>
+           <div class="container-paneles">
         <div class="card">
                 <div class="info-paneles">
-                    <h4>Naturaleza</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
-                    <a href="#">Leer más</a>
+                    <h4>Portal de libros</h4>
+                    <p>Ingresa al portal de libros para ver nuestro catalogo.</p>
+                    <a href="libros.php" >Ver más</a>
                 </div>
             </div>
             <div class="card">
                 <div class="info-paneles">
-                    <h4>Naturaleza</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
-                    <a href="#">Leer más</a>
+                    <h4>Tus libros</h4>
+                    <p>Accede a tus libros recientemente descargados y reservados.</p>
+                    <a href="cuenta.php" >Ver más</a>
                 </div>
             </div>
             <div class="card">
                 <div class="info-paneles">
-                    <h4>Naturaleza</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
-                    <a href="#">Leer más</a>
+                    <h4>Conoce mas</h4>
+                    <p>Conoce mas informacion acerca de quienes somos y como contactarnos.</p>
+                    <a href="#" >Ver más</a>
                 </div>
             </div>
             <div class="card">
                 <div class="info-paneles">
-                    <h4>Naturaleza</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
-                    <a href="#">Leer más</a>
+                    <h4>Portal de gestion</h4>
+                    <p>Accede a la seccion de administracion del portal (solo perfiles autorizados).</p>
+                    <a href="admin-libros.php" >Ver más</a>
                 </div>
             </div>
             <div id="clockdate">
@@ -60,14 +69,14 @@
             </div>
             <div class="card">
                 <div class="info-paneles">
-                    <h4>Naturaleza</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
-                    <a href="#">Leer más</a>
+                    <h4>Sugerencias</h4>
+                    <p>Nos interesa tu opinion. Por favor ingresa aca si queres realizar algun comentario del sistema.</p>
+                    <a href="sugerencias.php" >Ver más</a>
                 </div>
             </div>
         </div>
 
-            <button onclick="contacto()" class="buttonInfo tooltip">
+            <button  onclick="contacto()" class="buttonInfo tooltip">
                 <i class="fas fa-question"></i>
                 <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
             </button>

@@ -1,8 +1,10 @@
 <?php
 
+
+
   function todosLosLibros(){
-    include_once 'db.php';
-    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c');
+    include 'db.php';
+    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c ORDER BY l.stock DESC');
     $stmt->execute();
     $resultado=$stmt->fetchAll();
 
@@ -30,12 +32,10 @@
           </a>
       </div>';
   endforeach;
-   
   }
 
 function singleBook($idLibro){
-
-    include_once 'db.php';
+    include 'db.php';
     $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c where l.idLibro =  "'. $idLibro .'"');
     $stmt->execute();
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -80,5 +80,69 @@ function singleBook($idLibro){
 
 
   }
+
+  function gestionLibros(){
+    include 'db.php';
+  $stmt = $dbh->prepare('SELECT * FROM libros, categorias, autores');
+  
+if ($stmt->execute()) {
+  $resultado=$stmt->fetchAll();
+
+  foreach($resultado as $fila):
+
+    echo "<tbody>
+                          <tr>
+                            <td>".  $fila['titulo']."</td>
+                            <td>". $fila['nombreAutor']."</td>
+                            <td>". $fila['nombreCategoria']."</td>
+                            <td>". $fila['stock']. "</td>
+                            <td>" . $fila['fechaAlta']. "</td>
+                            <td><button><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                            <td><button><i class=\"far fa-trash-alt tbody-icon\"></i></button></td>
+                          </tr>
+                        </tbody>";
+
+  endforeach;
+}
+  }
+
+  function todasLasCategorias(){
+     include 'db.php'; 
+    $stmt = $dbh->prepare('SELECT * from categorias');
+    // Ejecutamos
+    $stmt->execute();
+    // Mostramos los resultados
+    $resultado = $stmt->fetchAll();
+    foreach($resultado as $fila):
+        echo '<li><a href=""><span></span> ' . $fila['nombreCategoria'] . ' </a></li>';
+
+    endforeach;
+}
+
+function todosLosAutores(){
+    include 'db.php'; 
+   $stmt = $dbh->prepare('SELECT * from autores');
+   // Ejecutamos
+   $stmt->execute();
+   // Mostramos los resultados
+   $resultado = $stmt->fetchAll();
+   foreach($resultado as $fila):
+       echo '<li><a href=""><span></span> ' . $fila['nombreAutor'] . ' </a></li>';
+
+   endforeach;
+}
+
+function todasLasEditoriales(){
+    include 'db.php'; 
+   $stmt = $dbh->prepare('SELECT * from editoriales');
+   // Ejecutamos
+   $stmt->execute();
+   // Mostramos los resultados
+   $resultado = $stmt->fetchAll();
+   foreach($resultado as $fila):
+       echo '<li><a href=""><span></span> ' . $fila['nombreEditorial'] . ' </a></li>';
+
+   endforeach;
+}
 ?>
 

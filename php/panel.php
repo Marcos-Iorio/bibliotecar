@@ -26,7 +26,7 @@
          <?php
          if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         ?>
-                 <li id="usuario"><a class="scroll-link " href=""><i class="fas fa-user"></i><span class="menu-item">Mi cuenta</span></a></li>
+                 <li id="usuario"><a class="scroll-link " href="cuenta.php"><i class="fas fa-user"></i><span class="menu-item">Mi cuenta</span></a></li>
         <?php
                  } else  {
                      ?>
@@ -56,7 +56,18 @@
                     <a href="#admin-libros" class="scroll-link" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="dropdown-toggle" role="button" aria-controls="otherSections"><i class="fas fa-list"></i><span class="menu-item">Portal de gestion </span></a>
                     <ul class="collapse list-unstyled" id="admin-libros">
                       <li id="abm-libros"><a  class="scroll-link" href="admin-libros.php"><span class="item-gestion">Libros</span></a></li>
-                      <li id="abm-usuarios"><a  class="scroll-link" href="#"><span class="item-gestion">Usuarios</span></a></li>
+                    <?php 
+                    if ($pid == '3') {
+                       ?>
+                      <li id="abm-usuarios"><a  class="scroll-link" href="admin-usuarios.php"><span class="item-gestion">Usuarios</span></a></li>
+                        <?php  }
+                        ?>
+                      <?php 
+                    if ($pid == '2') {
+                       ?>
+                        <li id="abm-usuarios"><a  class="scroll-link" href="admin-reservas.php"><span class="item-gestion">Reservas</span></a></li>
+                        <?php  }
+                        ?>
                     </ul>
       
                 </li>
@@ -74,7 +85,7 @@
             if ($pid == '3' || $pid == '2') {
             ?>
                 
-                <li id="logout"><a class="scroll-link" href="php/logout.php"><i class="fas fa-sign-out-al"></i><span class="menu-item">Cerrar sesion</span></a></li>
+                <li id="logout"><a class="scroll-link" href="php/logout.php"><i class="fas fa-sign-out-alt"></i><span class="menu-item">Cerrar sesion</span></a></li>
             <?php
             } elseif ($pid == '1') {
             ?>
@@ -88,9 +99,6 @@
  </nav>
  <!-- End sidebar --> 
     <!-- Dark overlay -->
-    <div class="overlay"></div>
-
- 
 </div>
 <!-- End wrapper -->
 

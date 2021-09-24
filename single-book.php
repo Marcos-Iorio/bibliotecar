@@ -11,12 +11,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/sweetalert2.css">
+    <script src="js/sweetalert2.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="css/single-book.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
 </head>
 <body onload="esconderBoton()">
@@ -39,7 +40,7 @@
                    <!--  <div id="imagenes-libros" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                            <img id="img-libro" class="d-block w-100" src=<?php echo $arr['imagen_libro'] ?> alt="First slide">
+                            <img id="img-libro" class="d-block w-100" src=<?php //echo $arr['imagen_libro'] ?> alt="First slide">
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -55,15 +56,15 @@
                     
                     <div class="libro-info">
                         <div class = "titulo-info">
-                            <label for="titulo"><?php echo $arr['titulo']?></label>
+                            <label for="titulo"><?php //echo $arr['titulo']?></label>
                         </div>
                         <div class = "body-info">
                             <label for="autor">Autor:</label>
-                            <span><?php echo $arr['nombreAutor']?></span>
+                            <span><?php //echo $arr['nombreAutor']?></span>
                             <label for="editorial">Editorial:</label>
                             <span><?php /* echo $arr['nombreEditorial'] */?></span>
                             <label for="stock">Stock:</label>
-                            <span id="stock"><?php echo $arr['stock']?></span>
+                            <span id="stock"><?php //echo $arr['stock']?></span>
                         </div>
                         <button class="reservar" id="reservar">Reservar</button>
                         <label for="pdf">PDF:</label>
@@ -71,7 +72,7 @@
                     </div>
                     <div class = "descripcion">
                         <h3 class= "titulo-desc">Descripcion</h3>
-                        <p class = "desc"><?php echo $arr['descripcion'] ?></p>
+                        <p class = "desc"><?php //echo $arr['descripcion'] ?></p>
                     </div> -->
             </section>
             <button onclick="contacto()" class="buttonInfo tooltip">
@@ -86,6 +87,11 @@
                         <span class="close">&times;</span>
                         <h2>¿Querés reservar el libro<?php /* echo $arr['titulo']; */?>?</h2>
                     </div>
+                    <?php 
+                    /*if (isset($codigo)) {
+                        echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+                    }*/
+                     ?>
                     <div class="modal-body">
                         <form action="" method="POST" target="_self">
                         <a class="confirmar" id="confirmar" name="confirmar" href="php/reservar.php?sku=<?php echo $GLOBALS['idLibro'];?>">Confirmar</a>

@@ -8,6 +8,6 @@ unset ($SESSION['username']);
 
 session_destroy();
 
-header("Location: ../interfaces/login.php");
+header("Location: ../login.php");
 
 ?>
