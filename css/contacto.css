@@ -105,3 +105,30 @@ input[type=submit]:hover {
 	text-align: center;
 	background: transparent;
 }
+
+@media (max-width: 768px){
+    button, input, optgroup, select, textarea {
+		margin: 0;
+		font-family: inherit;
+		font-size: inherit;
+		line-height: inherit;
+		width: 42%;
+	}
+
+	.container-form{
+		padding: 20px 0 0 0 !important;
+	}
+
+	input[type=text], input[type=number], input[type=file] textarea {
+		width: 72%;
+		padding: 12px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+		margin-top: 6px;
+		margin-bottom: 16px;
+		resize: vertical;
+		background: transparent;
+		color: white;
+	}
+}

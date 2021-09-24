@@ -439,6 +439,13 @@ input#buscar:hover{
 	padding:35px 0 10px 0;
 	letter-spacing:1px;
 	clear:both;
+    
+}
+
+div#menu-filtro{
+    position: fixed;
+    right: 0;
+    z-index: 1;
 }
 
 .menu-filtro .checklist{
@@ -484,4 +491,20 @@ input#buscar:hover{
 
 .checklist.categories li:hover a span:hover{
     background: #333;
+}
+
+i.fas.fa-times {
+    color: black;
+    font-size: 24px;
+    margin-left: 46%;
+}
+
+
+@media (max-width: 768px){
+    .main-libros {
+        background-color: transparent;
+        padding-top: 70px;
+        padding-left: 24%;
+        margin-left: -12%;
+    }
 }

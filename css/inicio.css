@@ -358,3 +358,18 @@ div#clockdate{
     color:rgb(27, 27, 27);
     transition: 0.4s;
 }
+
+@media (max-width: 768px){
+    #page > #main {
+        grid-area: main;
+        background: #ADB7F5;
+        width: 100%;
+        padding: 16px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        transition: padding-left 0.5s;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+    }
+}

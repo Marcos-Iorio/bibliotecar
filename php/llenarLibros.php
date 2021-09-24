@@ -4,7 +4,7 @@
 
   function todosLosLibros(){
     include 'db.php';
-    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c ORDER BY l.stock DESC');
+    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c, editoriales e ORDER BY l.stock DESC');
     $stmt->execute();
     $resultado=$stmt->fetchAll();
 
@@ -18,7 +18,8 @@
                   <p class="libro-info">';
                   echo 'Titulo: ' . $fila['titulo'] . '  <br>';
                   echo 'Autor: ' . $fila['nombreAutor']. '  <br>';
-                  echo 'Categoria: ' . $fila['nombreCategoria'] . '
+                  echo 'Categoria: ' . $fila['nombreCategoria'] . ' <br>';
+                  echo 'Editorial: ' . $fila['nombreEditorial'] . '
                   </p>
               </div>
               <div class="etiqueta">
@@ -36,7 +37,7 @@
 
 function singleBook($idLibro){
     include 'db.php';
-    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c where l.idLibro =  "'. $idLibro .'"');
+    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c, editoriales e where l.idLibro =  "'. $idLibro .'"');
     $stmt->execute();
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -65,7 +66,7 @@ function singleBook($idLibro){
         <label for="autor">Autor:</label>
         <span>' .  $arr['nombreAutor'] . '</span>
         <label for="editorial">Editorial:</label>
-        <span><?php /* echo $arr[\'nombreEditorial\'] */?></span>
+        <span>' . $arr['nombreEditorial']. '</span>
         <label for="stock">Stock:</label>
         <span id="stock">' . $arr['stock'] . '</span>
     </div>
@@ -114,7 +115,7 @@ if ($stmt->execute()) {
     // Mostramos los resultados
     $resultado = $stmt->fetchAll();
     foreach($resultado as $fila):
-        echo '<li><a href=""><span></span> ' . $fila['nombreCategoria'] . ' </a></li>';
+        echo '<li><a href="librosFiltrados.php?categoria=' . $fila['nombreCategoria'] . '"><span></span> ' . $fila['nombreCategoria'] . ' </a></li>';
 
     endforeach;
 }
@@ -127,7 +128,7 @@ function todosLosAutores(){
    // Mostramos los resultados
    $resultado = $stmt->fetchAll();
    foreach($resultado as $fila):
-       echo '<li><a href=""><span></span> ' . $fila['nombreAutor'] . ' </a></li>';
+       echo '<li><a href="librosFiltrados.php?autor=' . $fila['nombreAutor'] . '"><span></span> ' . $fila['nombreAutor'] . ' </a></li>';
 
    endforeach;
 }
@@ -140,9 +141,52 @@ function todasLasEditoriales(){
    // Mostramos los resultados
    $resultado = $stmt->fetchAll();
    foreach($resultado as $fila):
-       echo '<li><a href=""><span></span> ' . $fila['nombreEditorial'] . ' </a></li>';
+       echo '<li><a href="librosFiltrados.php?editorial=' . $fila['nombreEditorial'] . '"><span></span> ' . $fila['nombreEditorial'] . ' </a></li>';
 
    endforeach;
+}
+
+function librosFiltrados(){
+    include('db.php');
+
+    if(isset($_GET['categoria'])){
+        $filtro = $_GET['categoria'];
+    }
+    if(isset($_GET['autor'])){
+        $filtro = $_GET['autor'];
+    }
+    if(isset($_GET['editorial'])){
+        $filtro = $_GET['editorial'];
+    }
+
+    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c, editoriales e where c.nombreCategoria = "' . $filtro . '" or a.nombreAutor = "' . $filtro . '" or e.nombreEditorial = "' . $filtro . '"  ORDER BY l.stock DESC');
+    $stmt->execute();
+    $resultado = $stmt->fetchAll();
+
+    foreach($resultado as $fila):
+        echo '<div class="libro-prueba" id="libro-prueba">
+            <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
+                <div class="imagen-libro">
+                    <img class="imagen-libro" data-lazy="' . $fila['imagen_libro'] . ' " alt="">
+                </div>
+                <div class="informacion">
+                    <p class="libro-info">';
+                    echo 'Titulo: ' . $fila['titulo'] . '  <br>';
+                    echo 'Autor: ' . $fila['nombreAutor']. '  <br>';
+                    echo 'Categoria: ' . $fila['nombreCategoria'] . '
+                    </p>
+                </div>
+                <div class="etiqueta">
+                    <p class="etiqueta-info" id="etiqueta-info">';
+                        if($fila['stock'] > 0 ){
+                            echo "Disponible";
+                        }else{
+                            echo "No disponible";
+                        } 
+               echo ' </div>
+            </a>
+        </div>';
+    endforeach;
 }
 ?>
 
