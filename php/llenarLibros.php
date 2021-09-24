@@ -1,8 +1,10 @@
 <?php
 
+
+
   function todosLosLibros(){
-    include_once 'db.php';
-    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c');
+    include 'db.php';
+    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c ORDER BY l.stock DESC');
     $stmt->execute();
     $resultado=$stmt->fetchAll();
 
@@ -30,12 +32,57 @@
           </a>
       </div>';
   endforeach;
-   
   }
 
-function singleBook($idLibro){
 
-    include_once 'db.php';
+function busquedaLibros($criterio){
+    include 'db.php';
+    $stmt = $dbh->prepare("SELECT * FROM libros l, autores a, categorias c, editoriales e where l.titulo like '%$criterio%' 
+or l.descripcion like '%$criterio%'
+or a.nombreAutor like '%$criterio%'
+or c.nombreCategoria like '%$criterio%'
+or e.nombreEditorial like '%$criterio%' ORDER BY l.stock DESC");
+
+if ($stmt->execute()) {
+      # code...
+    
+    $resultado=$stmt->fetchAll();
+
+    foreach($resultado as $fila):
+      echo '<div class="libro-prueba" id="libro-prueba">
+          <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
+              <div class="imagen-libro">
+                  <img class="imagen-libro" data-lazy="' . $fila['imagen_libro'] . ' " alt="">
+              </div>
+              <div class="informacion">
+                  <p class="libro-info">';
+                  echo 'Titulo: ' . $fila['titulo'] . '  <br>';
+                  echo 'Autor: ' . $fila['nombreAutor']. '  <br>';
+                  echo 'Categoria: ' . $fila['nombreCategoria'] . '
+                  </p>
+              </div>
+              <div class="etiqueta">
+                  <p class="etiqueta-info" id="etiqueta-info">';
+                      if($fila['stock'] > 0 ){
+                          echo "Disponible";
+                      }else{
+                          echo "No disponible";
+                      } 
+             echo ' </div>
+          </a>
+      </div>';
+  endforeach;
+  
+if ($stmt->rowCount() == '') {
+        echo "<h6>No se han encontrado resultados</h6>";
+}
+
+
+  }
+}
+
+function singleBook($idLibro){
+    include 'db.php';
     $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c where l.idLibro =  "'. $idLibro .'"');
     $stmt->execute();
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -82,10 +129,7 @@ function singleBook($idLibro){
   }
 
   function gestionLibros(){
-
-  
-  include_once 'db.php';
-
+    include 'db.php';
   $stmt = $dbh->prepare('SELECT * FROM libros, categorias, autores');
   
 if ($stmt->execute()) {
@@ -108,5 +152,44 @@ if ($stmt->execute()) {
   endforeach;
 }
   }
+
+  function todasLasCategorias(){
+     include 'db.php'; 
+    $stmt = $dbh->prepare('SELECT * from categorias');
+    // Ejecutamos
+    $stmt->execute();
+    // Mostramos los resultados
+    $resultado = $stmt->fetchAll();
+    foreach($resultado as $fila):
+        echo '<li><a href=""><span></span> ' . $fila['nombreCategoria'] . ' </a></li>';
+
+    endforeach;
+}
+
+function todosLosAutores(){
+    include 'db.php'; 
+   $stmt = $dbh->prepare('SELECT * from autores');
+   // Ejecutamos
+   $stmt->execute();
+   // Mostramos los resultados
+   $resultado = $stmt->fetchAll();
+   foreach($resultado as $fila):
+       echo '<li><a href=""><span></span> ' . $fila['nombreAutor'] . ' </a></li>';
+
+   endforeach;
+}
+
+function todasLasEditoriales(){
+    include 'db.php'; 
+   $stmt = $dbh->prepare('SELECT * from editoriales');
+   // Ejecutamos
+   $stmt->execute();
+   // Mostramos los resultados
+   $resultado = $stmt->fetchAll();
+   foreach($resultado as $fila):
+       echo '<li><a href=""><span></span> ' . $fila['nombreEditorial'] . ' </a></li>';
+
+   endforeach;
+}
 ?>
 
