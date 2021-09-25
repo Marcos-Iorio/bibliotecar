@@ -31,8 +31,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="css/usuarios.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -57,8 +55,24 @@
         <!--Seccion de los libros-->
                 <div class="container main-libros">
                     <h3>Gestion de usuarios!</h3>
+                                    <form method="POST" action="#" name="busqueda" align="center">
+
+                    <h6 style="width: 200px;">Buscar por:</h6>
+                    <select class="form-control"name="txtCriterio" style="width: 200px; ">
+                        <option value="mail">Mail</option> 
+                        <option value="idRol">Rol</option>
+                        <option value="check_mail">Estado mail</option>
+                        <option value="idEstado">Estado cuenta </option>    
+                    </select>
+                    <input style="background-color: white; width: 200px;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
+                    <input type="submit"  value="Buscar" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/>
+                    <input type="submit" value="Reiniciar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0"/>
+                    <hr>
+                </form>
+
+
                     <div class="tabla-libros">
-                      <table class = "bordered" id="usuarios">
+                      <table class = "bordered">
                       <thead>
                           <tr>
                   <th>ID</th>
@@ -67,14 +81,83 @@
                   <th>Apellido</th>
                   <th>DNI</th>
                   <th>Mail</th>
-                  <th>Alta</th>
+                  <th>Verificado</th>
+                  <th>Estado cuenta</th>                  
                   <th>Editar</th>
-                  <th>Eliminar</th>
                           </tr>
                         </thead>
                       <?php
                       include "php/gestion-usuarios.php";
+                      if (!isset($_POST["editarUsuario"]) && !isset($_POST["crearUsuario"]) && !isset($_POST["btnBuscar"])) {
+                        # code...
+                     
                       gestionUsuarios();
+ }
+
+                    if (isset($_POST["editarUsuario"])) {
+                    //include "php/gestion-usuarios.php";
+                    $nombre=$_REQUEST["txtNombre"];
+                    $apellido=$_REQUEST["txtApellido"];
+                    $rol=$_REQUEST["txtRol"];
+                    $dni=$_REQUEST["txtDNI"];
+                    $mail=$_REQUEST["txtMail"];
+                    $alta=$_REQUEST["txtAlta"];
+                    $estado=$_REQUEST["txtEstadoUsuario"];
+                    $idUsuario=$_REQUEST["txtID"];
+
+
+                   /* echo '
+                <script>swal({
+                title:"Editar usuario",
+                text:"",
+                type: "question",
+                html:\'<form method="POST" action="" style="height:50%;"><br><h5>Confirma que desea editar este usuario?</h5><br><br> <div> <input type="submit" style="background-color: #495F91; color:white; width: 150px; margin-right:15px;"  name="confirmarEdicion" value="Confirmar"><input type="submit" style="background-color: gray; color:white; width: 150px;margin-left:15px;" name="cancelarEdicion" value="Cancelar"></div><br><br></form>\',
+                showCancelButton: false,
+                showConfirmButton: false,
+
+                cancelButtonColor: "gray",
+                confirmButtonColor: "#495F91",
+
+                width: 500,
+                padding: "3em"
+
+                });</script>';*/
+
+modificar($idUsuario,$nombre,$apellido,$rol,$dni,$mail,$alta,$estado);
+ 
+                    //
+              }
+                    if (isset($_POST["crearUsuario"])) {
+                    //include "php/gestion-usuarios.php";
+                    $nombre=$_REQUEST["txtNombre"];
+                    $apellido=$_REQUEST["txtApellido"];
+                    $rol=$_REQUEST["txtRol"];
+                    $dni=$_REQUEST["txtDNI"];
+                    $mail=$_REQUEST["txtMail"];
+                    $alta=$_REQUEST["txtAlta"];
+                    $estado=$_REQUEST["txtEstadoUsuario"];
+                    
+
+
+insertarUsuario($nombre,$apellido,$rol,$dni,$mail,$alta,$estado);
+ 
+                    //
+              }
+if (isset($_POST["btnEstado"])) {
+
+  $idEstado=$_REQUEST["txtEstadoUsuario"];
+  $mail=$_REQUEST["txtMailUsuario"];
+
+  //editarEstado($idEstado, $mail);
+
+
+
+}
+
+if(isset($_REQUEST["btnBuscar"])){ 
+        getFiltro($_REQUEST["txtBusqueda"],$_REQUEST["txtCriterio"]);
+    }
+
                       /* Llena el tabla con todos los libros de la base de datos */
                       ?>
                         
@@ -87,6 +170,9 @@
             }*/  
 
           ?>
+
+
+
                       </table>
                     </div>
                 </div>
@@ -95,33 +181,52 @@
 
             <section class = "subir-libro" style="text-align: center; margin-right: 150px;">
               <div class="container-form">
-                <form action="php/gestion-usuarios.php" method = "POST" class= "form-libro">
+                <form name="formUsuarios" action="" method = "POST" class= "form-libro">
 <div>
                     <label for="" style="width: 100px;">Nombre:</label>
-                    <input style="background-color: white; color: black; width: 30%;"type="text" name="titulo" id="titulo" required placeholder="Ingresar dato">
+                    <input name="txtNombre" style="background-color: white; color: black; width: 20%;"type="text" name="titulo" id="titulo"  placeholder="Ingresar dato">
                     <label for=""style="width: 100px;">Apellido: </label>
-                    <input style="background-color: white; color: black; width: 30%;"type="text" name="autor" id="autor" required placeholder="Ingresar dato">
+                    <input name="txtApellido" style="background-color: white; color: black; width: 20%;"type="text" name="autor" id="autor"  placeholder="Ingresar dato">
+                    <label for=""style="width: 100px;">Rol: </label>
+                    <input name="txtRol" style="background-color: white; color: black; width: 20%;"type="text" name="desc" id="desc"  placeholder="Seleccionar">   
                     <br style="width: 50px;">
-                    
+
                   </div><div>
 
-                    <label for=""style="width: 100px;">Rol: </label>
-                    <input style="background-color: white; color: black; width: 30%;"type="text" name="desc" id="desc" required placeholder="Ingresar dato">
-                    <label for=""style="width: 100px;">DNI: </label>
-                    <input style="background-color: white; color: black; width: 30%;"type="text" name="desc" id="desc" required placeholder="Ingresar dato">
-                    <br style="width: 50px;">
-</div><div>
-                    <label for=""style="width: 100px;">Mail:</label>
-                    <input style="background-color: white; color: black; width: 30%;"type="text" name ="genero" id="genero" required placeholder="Ingresar dato">
 
-                    <label for=""style="width: 100px;">Alta:</label>
-                    <input style="background-color: white; color: black; width: 30%;"type="number" name="stock" id="stock" required placeholder="Ingresar dato">
-                    <br><br>
+                    <label for=""style="width: 100px;">DNI: </label>
+                    <input name="txtDNI" style="background-color: white; color: black; width: 20%;"type="text" name="desc" id="desc"  placeholder="Ingresar dato">
+                    <label for=""style="width: 100px;">Mail:</label>
+                    <input name="txtMail" style="background-color: white; color: black; width: 20%;"type="text" name ="genero" id="genero"  placeholder="Ingresar dato">
+                    <label for=""style="width: 100px;">Alta mail:</label>
+                    <input name="txtAlta" style="background-color: white; color: black; width: 20%;"type="text" name="stock" id="stock"  placeholder="Seleccionar">
+                    <br style="width: 50px;">
+</div><div >
+                  
+                  
+                  
+                     <label for=""style="width: 100px;">Estado:</label>
+                    <input name="txtEstadoUsuario" style="background-color: white; color: black; width: 20%;"type="text" name ="genero" id="genero"  placeholder="Seleccionar">
+                                        <label for=""style="width: 100px;"></label>
+
+                    <input value="Editar usuario" style="width: 20%;" type="submit" name="editarUsuario" id="editarUsuario"onclick="return ModificarUsuario('editar')"/>
+                                        <label for=""style="width: 100px;"></label>
+
+                  <input value="Crear usuario" style="width: 20%; " type="submit" name="crearUsuario" id="subir-libro"onclick="return ModificarUsuario('crear')"/>
+
+                  <input name="txtID" style="background-color: white; color: black; width: 20%;"type="hidden" name ="genero" id="genero"  placeholder="Seleccionar">
+
+</div><div>
+                    
+
 </div>
+
+                                
+
                     </form>
+
               </div>         
             </section>
-                                <input style="width: 30%; margin-left: 360px;" type="submit" name="subir-libro" id="subir-libro"/>
 
             <button onclick="contacto()" class="buttonInfo tooltip">
                 <i class="fas fa-question"></i>
@@ -134,16 +239,78 @@
  <!-- jQuery CDN - Slim version =without AJAX -->
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1..2/js/dataTables.bootstrap4.min.js"></script>
-    </head>
     <script>
-      $(document).ready(function() {
-      $('#usuarios').DataTable();
-} );
+    function cargarUsuario(id, nombre,apellido,rol,dni,mail,alta, estado){
+        document.formUsuarios.txtNombre.value=nombre;
+        document.formUsuarios.txtApellido.value=apellido;
+        document.formUsuarios.txtRol.value=rol;
+         document.formUsuarios.txtDNI.value=dni;
+          document.formUsuarios.txtMail.value=mail;
+          document.formUsuarios.txtAlta.value=alta;
+          document.formUsuarios.txtEstadoUsuario.value=estado;
+          document.formUsuarios.txtID.value=id;
+
+
+
+
+          //window.location = 'vistaProducto.php#gestionProducto';
+    }
+
+        function cargarEstado(mail,estado){
+
+
+          //window.location = 'vistaProducto.php#gestionProducto';
+    }
+    
+    
+
     </script>
-    </html>
+
+    <script>
+      
+      function ModificarUsuario(tipo) {
+
+if (tipo == 'editar') {
+    msg="Confirma que desea modificar este usuario?";
+
+} else {
+    msg="Confirma que desea crear este usuario?";
+
+}
+    var usr = confirm(msg);
+    if (usr == true) {
+        return true;
+    }
+    return false;
+
+
+}
+
+      function ModificarEstado(mail,estado) {
+        document.formUsuarios.txtMailUsuario.value=mail;
+        document.formUsuarios.txtEstadoUsuario.value=estado;
+
+
+
+      if (estado==2) {
+    var usr = confirm("Confirma que desea habilitar este usuario?");
+
+      } else {
+    var usr = confirm("Confirma que desea deshabilitar este usuario?");
+
+      }
+    if (usr == true) {
+//var result ="<?php //editarEstado($estado,$mail); ?>"
+//document.write(result);
+        return true;
+    }
+    return false;
+}
+    </script>
+        
+</html>
    
  
