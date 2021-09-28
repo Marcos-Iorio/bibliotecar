@@ -5,7 +5,23 @@
 function gestionUsuarios(){
   include 'db.php';
 
-  $stmt = $dbh->prepare('SELECT * FROM usuarios');
+  if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        } else {  
+            $page = $_GET['page'];  
+        }  
+          $results_per_page = 5;  
+
+        //determine the sql LIMIT starting number for the results on the displaying page  
+        $page_first_result = ($page-1) * $results_per_page;  
+        //retrieve the selected results from database   
+        //$res = mysqli_query($this->con, $query);  
+        //$start = 1 * ($page - 1);
+        //$rows = 10;
+        //$query ="select * from producto LIMIT $start, $rows";
+
+
+  $stmt = $dbh->prepare("SELECT * FROM usuarios LIMIT " . $page_first_result . ',' . $results_per_page);
   
 if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
@@ -265,16 +281,114 @@ if ($stmt->execute()) {
 
     }
 
+       function getPages2(){
+      include 'db.php';
 
-    
+        if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        } else {  
+            $page = $_GET['page'];  
+        }  
+        //define total number of results you want per page 
+        $results_per_page = 5;  
+        $page_first_result = ($page-1) * $results_per_page; 
+
+
+          $stmt = $dbh->prepare("SELECT * from usuarios");
+
+    //echo $sql;
+
+    if ($stmt->execute()) {
+        $number_of_result = $stmt->rowCount();  
+
+    }
+        //$page_filtro = 0;
+        //$page_total = 0;
+        
+        //$_GET[$page_filtro] = $page_filtro; 
+        //$_GET[$page_total] = $page_total; 
+
+        //determine the total number of pages available  
+        $number_of_page = ceil ($number_of_result / $results_per_page);  
+
+          //$page_total = $number_of_page;
+
+          return $number_of_page;
+    }
+
+
+
+
+
+    function getPages($buscar, $criterio){
+      include 'db.php';
+
+        if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        } else {  
+            $page = $_GET['page'];  
+        }  
+        //define total number of results you want per page 
+        $results_per_page = 5;  
+        $page_first_result = ($page-1) * $results_per_page; 
+
+        if (!$buscar == 0 && !$criterio == 0) {
+          $stmt = $dbh->prepare("SELECT * from usuarios where $criterio like '%$buscar%'");
+
+        } else {
+
+          $stmt = $dbh->prepare("SELECT * from usuarios");
+
+        }
+    //echo $sql;
+
+    if ($stmt->execute()) {
+        $number_of_result = $stmt->rowCount();  
+
+    }
+        $page_filtro = 0;
+        $page_total = 0;
+        
+        //$_GET[$page_filtro] = $page_filtro; 
+        //$_GET[$page_total] = $page_total; 
+
+        //determine the total number of pages available  
+        $number_of_page = ceil ($number_of_result / $results_per_page);  
+        if (!$buscar == 0 && !$criterio == 0) {
+
+          $page_filtro = $number_of_page;
+        } else {
+
+          $page_total = $number_of_page;
+        }
+
+          return $number_of_page;
+    }
+
+
 
     function getFiltro($buscar, $criterio){
 
    include 'db.php';
 
+if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        } else {  
+            $page = $_GET['page'];  
+        }  
+          $results_per_page = 5;  
+
+        //determine the sql LIMIT starting number for the results on the displaying page  
+        $page_first_result = ($page-1) * $results_per_page;  
+        //retrieve the selected results from database   
+        //$res = mysqli_query($this->con, $query);  
+        //$start = 1 * ($page - 1);
+        //$rows = 10;
+        //$query ="select * from producto LIMIT $start, $rows";
+
 
     //echo $sql;
-    $stmt = $dbh->prepare("SELECT * from usuarios where $criterio like '%$buscar%'");
+    $stmt = $dbh->prepare("SELECT * from usuarios where $criterio like '%$buscar%' LIMIT " . $page_first_result . ',' . $results_per_page);
 
     if ($stmt->execute()) {
       $resultado=$stmt->fetchAll();
