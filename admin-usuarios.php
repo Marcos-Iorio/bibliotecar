@@ -46,27 +46,31 @@
             <section class="contenido wrapper">
                 <div class = " filtros-busqueda ">
                   <div class="busqueda">
-                    <i class="fas fa-search"></i>
                   </div>
                   <div class = "filtros">
-                    <i class="fas fa-filter"></i>
                   </div>
                 </div>
         <!--Seccion de los libros-->
                 <div class="container main-libros">
                     <h3>Gestion de usuarios!</h3>
-                                    <form method="POST" action="#" name="busqueda" align="center">
+                                    <form method="POST" action="#" name="busqueda" >
+                    <div style="display: flex;justify-content: space-between;align-items: center;">
 
-                    <h6 style="width: 200px;">Buscar por:</h6>
-                    <select class="form-control"name="txtCriterio" style="width: 200px; ">
+                    <h6 style="width: 100px;">Buscar por:</h6>
+                    <select class="form-control"name="txtCriterio" style="width: 200px; margin-right: 200px;">
                         <option value="mail">Mail</option> 
                         <option value="idRol">Rol</option>
                         <option value="check_mail">Estado mail</option>
                         <option value="idEstado">Estado cuenta </option>    
                     </select>
-                    <input style="background-color: white; width: 200px;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
-                    <input type="submit"  value="Buscar" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/>
-                    <input type="submit" value="Reiniciar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0"/>
+
+                    <input style="background-color: white; width: 200px; height: 40px; color:black;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
+                    <div style="text-align: right;">
+                    <input type="submit"  value="Buscar" href="#?page=1" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/><a href="admin-usuarios.php?page=1"></a>
+                    <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0"/>
+                    </div>
+                    </div>
+
                     <hr>
                 </form>
 
@@ -88,11 +92,19 @@
                         </thead>
                       <?php
                       include "php/gestion-usuarios.php";
-                      if (!isset($_POST["editarUsuario"]) && !isset($_POST["crearUsuario"]) && !isset($_POST["btnBuscar"])) {
+                      if (!isset($_POST["editarUsuario"]) && !isset($_POST["crearUsuario"]) && !isset($_POST["btnBuscar"]) && !isset($_SESSION['pages']) && !isset($_SESSION['busqueda']) && !isset($_SESSION['criterio'])) {
                         # code...
                      
                       gestionUsuarios();
  }
+
+  if (isset($_POST['btnreset'])) {
+                unset($_SESSION['pages']);
+                unset($_SESSION['criterio']);
+                unset($_SESSION['busqueda']);
+                gestionUsuarios();
+              }
+             
 
                     if (isset($_POST["editarUsuario"])) {
                     //include "php/gestion-usuarios.php";
@@ -155,9 +167,16 @@ if (isset($_POST["btnEstado"])) {
 }
 
 if(isset($_REQUEST["btnBuscar"])){ 
+                  unset($_SESSION['pages']);
+                unset($_SESSION['criterio']);
+                unset($_SESSION['busqueda']);
         getFiltro($_REQUEST["txtBusqueda"],$_REQUEST["txtCriterio"]);
+
     }
 
+if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION['criterio'])) {
+        getFiltro($_SESSION['busqueda'],$_SESSION['criterio']);
+    }
                       /* Llena el tabla con todos los libros de la base de datos */
                       ?>
                         
@@ -171,12 +190,62 @@ if(isset($_REQUEST["btnBuscar"])){
 
           ?>
 
+          
 
+        
 
                       </table>
-                    </div>
+                      <?php 
+
+                       //$_GLOBALS[$page_filtro] < $_GLOBALS[$page_total]
+                      $page_filtro = 0;
+                      $page_total = 0;
+                      if (isset($_REQUEST["btnBuscar"]) ) {
+                        //$_GET["page"] = 1;
+                        $page_filtro = getPages($_REQUEST["txtBusqueda"], $_REQUEST["txtCriterio"]);
+                        unset($_SESSION['pages']);
+                        unset($_SESSION['criterio']);
+                        unset($_SESSION['busqueda']);
+                        $_SESSION['pages'] = $page_filtro;
+                        $_SESSION['criterio'] = $_REQUEST["txtCriterio"];
+                        $_SESSION['busqueda'] = $_REQUEST["txtBusqueda"];
+                        //header("Location: admin-usuarios.php?page=1");
+                      } else {
+
+                        if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION['criterio'])) {
+
+                         $_SESSION['pages'] = getPages($_SESSION['busqueda'], $_SESSION['criterio']);
+
+                        } else {
+                         
+                      $page_total = getPages2();
+                      }
+                      }
+                      
+                      //$paginas = getPages();
+              echo "<div style='text-align: center; margin-top:50px;'>";
+          //include 'php/pages.php';
+
+
+              
+              if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION['criterio'])) {
+                $paginas = $_SESSION['pages'];
+              } else {
+                
+                $paginas = $page_total;
+
+              }
+
+            for($page = 1; $page<= $paginas; $page++) {  
+              echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-usuarios.php?page=' . $page . '">' . $page . ' </a>';  
+            }  
+              echo "</div>";
+          ?>
+                    </div></div>
                 </div>
             </section>
+                          
+          <hr>
                                 <h3>Modificar usuarios:</h3>
 
             <section class = "subir-libro" style="text-align: center; margin-right: 150px;">
@@ -232,8 +301,16 @@ if(isset($_REQUEST["btnBuscar"])){
                 <i class="fas fa-question"></i>
                 <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
             </button>
+
+                  <br>
+      <hr>
+                        <br>
+                  <br>
+                  <br>
+
         </main>
       </section>
+
 </body>
 <script src="js/navbarToggle.js"></script>
  <!-- jQuery CDN - Slim version =without AJAX -->
