@@ -29,7 +29,6 @@ h3 {
 .main-libros{
     background-color: transparent;
     padding-top: 70px;
-    padding-left: 85px;
 }
 
 .grid-libros{
@@ -71,6 +70,10 @@ div#libro-prueba:hover{
     height: 250px;
     align-self: center;
     justify-self: center;
+
+    transform: translateX(50%);
+    opacity: 1;
+    transition: all 500ms;
 }
 
 .imagen-libro{
@@ -88,7 +91,7 @@ div#libro-prueba:hover{
 
 .fade{
     transform: translateX(-50%) !important;
-    opacity: 1.0;
+    opacity: 1;
     transition: all 500ms;
 }
 

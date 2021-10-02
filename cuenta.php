@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/cuenta.css">
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
@@ -24,7 +25,39 @@
         <main id="main">
             <h1>Mi cuenta</h1>
             <h4>Pagina en construccion</h4>
-
+            
+            <li>
+            <i id="flecha-reserva" class="fas fa-chevron-right"></i><a href="#reservas" class="scroll-link" onclick="moveArrowReservas()" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="dropdown-toggle" role="button" aria-controls="otherSections"><span class="cuenta-item">Mis resevas. </span></a>
+                <ul class="collapse list-unstyled" id="reservas">
+                    <!-- TABLA DE RESERVAS -->
+                    <table>
+                        asdasdaad
+                    </table>
+                
+                </ul>
+      
+            </li>
+            <li>
+                <i id="flecha" class="fas fa-chevron-right"></i><a href="#configuracion" onclick="moveArrow()" class="scroll-link" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="dropdown-toggle" role="button" aria-controls="otherSections"><span class="cuenta-item">Configuracion de la cuenta.</span></a>
+                    <ul class="collapse list-unstyled" id="configuracion">
+                    <form method="POST" name="contact_form" id="contact-form">
+                        <label for="first_name">Nombre</label>
+                        <input name="name" type="text"  placeholder="Nombre.."/>
+                        <br>
+                        <label for="last_name">Apellido:</label>
+                        <input name="last_name" type="text"  placeholder="Apellido.."/>
+                        <br>
+                        <label for="email">Email:</label>
+                        <input name="email" type="email"  placeholder="you@dominio.com.."/>
+                        <br>
+                        <label for="message">Contraseña:</label>
+                        <input type="text">
+                        <div class="center">
+                        <input type="submit">
+                        </div>
+                    </ul>
+            </li>
+        
         
 
             <button onclick="contacto()" class="buttonInfo tooltip">

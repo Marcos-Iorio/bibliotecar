@@ -53,7 +53,6 @@ section.contenido.wrapper{
     padding: 16px;
     padding-right: 0px;
     padding-bottom: 0px;
-    padding-left: 85px;
     transition: padding-left 0.5s;
     overflow-y: hidden;
     overflow-x: hidden;
@@ -287,7 +286,7 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 .card{
-    width: 300px;
+    width: 350px;
     height: 350px;
     background-color: #383838;
     text-align: center;
@@ -370,6 +369,5 @@ div#clockdate{
         transition: padding-left 0.5s;
         overflow-y: hidden;
         overflow-x: hidden;
-    }
     }
 }

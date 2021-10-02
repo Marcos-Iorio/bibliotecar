@@ -4,7 +4,16 @@
 
   function todosLosLibros(){
     include 'db.php';
-    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c, editoriales e ORDER BY l.stock DESC');
+    $query = 'SELECT l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial, i.ruta
+            FROM libros AS l
+            INNER JOIN libro_autores la ON l.idLibro = la.idLibro
+            INNER JOIN libro_categoria lc ON l.idLibro = lc.idLibro
+            INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
+            INNER JOIN imagen_libro i ON l.idLibro = i.idLibro
+            INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
+            INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
+            INNER JOIN autores a ON la.idAutores = a.idAutores';
+    $stmt = $dbh->prepare($query);
     $stmt->execute();
     $resultado=$stmt->fetchAll();
 
@@ -12,7 +21,7 @@
       echo '<div class="libro-prueba" id="libro-prueba">
           <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
               <div class="imagen-libro">
-                  <img class="imagen-libro" data-lazy="' . $fila['imagen_libro'] . ' " alt="">
+                  <img class="imagen-libro" data-lazy="' . $fila['ruta'] . ' " alt="">
               </div>
               <div class="informacion">
                   <p class="libro-info">';
@@ -36,15 +45,26 @@
   }
 
 function singleBook($idLibro){
+    $idLibro =  $_GET['sku'];
     include 'db.php';
-    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c, editoriales e where l.idLibro =  "'. $idLibro .'"');
+    $query = 'SELECT l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial, i.ruta
+            FROM libros AS l
+            INNER JOIN libro_autores la ON l.idLibro = la.idLibro
+            INNER JOIN libro_categoria lc ON l.idLibro = lc.idLibro
+            INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
+            INNER JOIN imagen_libro i ON l.idLibro = i.idLibro
+            INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
+            INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
+            INNER JOIN autores a ON la.idAutores = a.idAutores
+            WHERE l.idLibro = "'. $idLibro .'"';
+    $stmt = $dbh->prepare($query);
     $stmt->execute();
-    $arr = $stmt->fetch(PDO::FETCH_ASSOC);
+    $arr = $stmt->fetch();
 
     echo '<div id="imagenes-libros" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-        <img id="img-libro" class="d-block w-100" src=' . $arr['imagen_libro'] . ' alt="First slide">
+        <img id="img-libro" class="d-block w-100" src=' . $arr['ruta'] . ' alt="First slide">
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -159,7 +179,7 @@ function librosFiltrados(){
         $filtro = $_GET['editorial'];
     }
 
-    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c, editoriales e where c.nombreCategoria = "' . $filtro . '" or a.nombreAutor = "' . $filtro . '" or e.nombreEditorial = "' . $filtro . '"  ORDER BY l.stock DESC');
+    $stmt = $dbh->prepare("SELECT * FROM libros l, autores a, categorias c, editoriales e where c.nombreCategoria = 's$filtro' or a.nombreAutor = '$filtro' or e.nombreEditorial = '$filtro' ORDER BY l.stock DESC");
     $stmt->execute();
     $resultado = $stmt->fetchAll();
 
@@ -173,7 +193,8 @@ function librosFiltrados(){
                     <p class="libro-info">';
                     echo 'Titulo: ' . $fila['titulo'] . '  <br>';
                     echo 'Autor: ' . $fila['nombreAutor']. '  <br>';
-                    echo 'Categoria: ' . $fila['nombreCategoria'] . '
+                    echo 'Categoria: ' . $fila['nombreCategoria'] . '<br>';
+                    echo 'Editorial: ' . $fila['nombreEditorial'] . '
                     </p>
                 </div>
                 <div class="etiqueta">

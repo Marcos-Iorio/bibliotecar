@@ -94,3 +94,30 @@ function checkTime(i) {
   }
   return i;
 }
+
+
+function moveArrow(){
+  let flecha = document.getElementById('flecha');
+  let item = document.getElementById('dropdown-toggle');
+
+  if(item.className == "scroll-link"){
+    flecha.style.transform = "rotate(90deg)";
+    item.classList.add("collapsed")
+  }else{
+    flecha.style.transform = "rotate(0deg)";
+    item.classList.remove("collapsed")
+  }
+}
+
+function moveArrowReservas(){
+  let flecha = document.getElementById('flecha-reserva');
+  let item = document.getElementById('dropdown-toggle');
+
+  if(item.className == "scroll-link"){
+    flecha.style.transform = "rotate(90deg)";
+    item.classList.add("collapsed")
+  }else{
+    flecha.style.transform = "rotate(0deg)";
+    item.classList.remove("collapsed")
+  }
+}
