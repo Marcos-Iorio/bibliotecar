@@ -358,6 +358,10 @@ div#clockdate{
     transition: 0.4s;
 }
 
+span.menu-item{
+    color: rgb(170, 170, 170);
+}
+
 @media (max-width: 768px){
     #page > #main {
         grid-area: main;

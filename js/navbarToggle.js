@@ -9,7 +9,6 @@ console.log(menuSpan)
 function toggleSidebar() {
   if (mini) {
 
-    console.log("abriendo sidebar");
     document.getElementById("sidebar").style.width = "200px";
     document.getElementById("sidebar").style.backgroundColor = "rgb(56, 56, 56, 1)";
     
@@ -33,7 +32,6 @@ function toggleSidebar() {
     this.mini = false;
 
   } else {
-    console.log("Cerrando sidebar");
     document.getElementById("sidebar").style.width = "60px";
     document.getElementById("sidebar").style.backgroundColor = "rgb(56, 56, 56, 1)";
     //logo
