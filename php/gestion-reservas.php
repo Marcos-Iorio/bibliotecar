@@ -217,4 +217,23 @@ function ingresarDevolucion ($idEjemplar){
 
           return $number_of_page;
     }
+
+function getEstadoReservas(){
+
+include('db.php');
+
+                            $stmt = $dbh->prepare('SELECT nombreReserva from reserva_estados');
+                            $stmt ->execute();
+                            $arr = $stmt->fetchAll();
+                            //$editoriales = $arr['nombreEditorial'];
+                            
+                                  foreach($arr as $fila):
+
+echo "<option>".$fila['nombreReserva']."</option>";
+                          endforeach;  
+}
+
+
+
+
 ?>
