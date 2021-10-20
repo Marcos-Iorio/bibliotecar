@@ -27,8 +27,7 @@
                   <p class="libro-info">';
                   echo 'Titulo: ' . $fila['titulo'] . '  <br>';
                   echo 'Autor: ' . $fila['nombreAutor']. '  <br>';
-                  echo 'Categoria: ' . $fila['nombreCategoria'] . ' <br>';
-                  echo 'Editorial: ' . $fila['nombreEditorial'] . '
+                  echo 'Categoria: ' . $fila['nombreCategoria'] . '
                   </p>
               </div>
               <div class="etiqueta">
@@ -61,20 +60,15 @@ function singleBook($idLibro){
     $stmt->execute();
     $arr = $stmt->fetch();
 
-    echo '<div id="imagenes-libros" class="carousel slide" data-ride="carousel">
+    echo '<div id="imagenes-libros" class="carousel slide" data-ride="carousel" data-interval="3000">
     <div class="carousel-inner">
         <div class="carousel-item active">
-        <img id="img-libro" class="d-block w-100" src=' . $arr['ruta'] . ' alt="First slide">
+            <img id="img-libro" class="d-block w-100" src=' . $arr['ruta'] . ' alt="Tapa">
+        </div>
+        <div class="carousel-item">
+            <img id="img-libro" class="d-block w-100" src="../assets/Logo sin fondo.PNG" alt="Contra Tapa">
         </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
 </div>
 
 
@@ -92,7 +86,7 @@ function singleBook($idLibro){
     </div>
     <button class="reservar" id="reservar">Reservar</button>
     <label for="pdf">PDF:</label>
-    <span><a href=""><i class="fas fa-cloud-download-alt"></i></a></span>
+<span><a href="'. $arr['pdf'] .'"  target="_blank"><i class="fas fa-cloud-download-alt"></i></a></span>
 </div>
 <div class = "descripcion">
     <h3 class= "titulo-desc">Descripcion</h3>

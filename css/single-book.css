@@ -3,6 +3,7 @@ main{
 }
 
 .libro{
+  padding-left: 70px;
     margin-top: 30px;
     justify-content: right;
     align-items: start;
