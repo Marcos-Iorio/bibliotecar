@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/cuenta.css">
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
@@ -23,9 +24,139 @@
          ?>
         <main id="main">
             <h1>Mi cuenta</h1>
-            <h4>Pagina en construccion</h4>
+            
+            <br> 
+            <br>
+            <br>           
+            <li>
+            <i id="flecha-reserva" class="fas fa-chevron-right"></i><a href="#reservas" class="scroll-link" onclick="moveArrowReservas()" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="dropdown-toggle" role="button" aria-controls="otherSections"><span class="cuenta-item">Mis libros </span></a>
+            <ul class="collapse list-unstyled" id="reservas">
+            <br>
+                    <!-- TABLA DE RESERVAS -->
+                    <h3>Tus reservas activas</h3>
+                    <!--<div class="tabla-libros"> -->
 
+                    <div >
+                      <table style="width: 80%; text-align: center;" class = "bordered">
+                      <thead>
+                          <tr>
+                  <th>Nº Reserva</th>
+                  <th>Libro</th>
+                  <th>Estado</th>
+                  <th>Fecha reserva</th>
+                  <th>Fecha devolucion</th>
+                          </tr>
+                        </thead>
+
+                        <?php 
+                        include "php/datosCuenta.php";
+                        getReservas($_SESSION['idUsuario']);
+                        /*foreach($_POST as $campo => $valor){
+  echo "- ". $campo ." = ". $valor;
+}*/
+                         ?>
+                    </table>
+</div>
+
+<br>
+<br>
+
+<h3>Historial de reservas</h3>
+                      <table class = "bordered">
+                      <thead>
+                          <tr>
+                  <th>Nº Reserva</th>
+                  <th>Libro</th>
+                  <th>Fecha</th>
+                          </tr>
+                        </thead>
+
+                        <?php 
+                        getHistorial($_SESSION['idUsuario']);
+                        /*foreach($_POST as $campo => $valor){
+  echo "- ". $campo ." = ". $valor;
+}*/
+                         ?>
+                </table>
+<br>
+
+<br>
+<h3>Tus descargas</h3>
+                      <table class = "bordered">
+                      <thead>
+                          <tr>
+                  <th>Libro</th>
+                  <th>Fecha de descarga</th>
+                          </tr>
+                        </thead>
+
+                        <?php 
+                        getDescargas($_SESSION['idUsuario']);
+                        /*foreach($_POST as $campo => $valor){
+  echo "- ". $campo ." = ". $valor;
+}*/
+                         ?>
+                </table>
+
+                           </ul>
+<br>
+
+<hr style="width: 80%;">
+
+            </li>
+            <li>
+                <i id="flecha" class="fas fa-chevron-right"></i><a href="#configuracion" onclick="moveArrow()" class="scroll-link" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="dropdown-toggle" role="button" aria-controls="otherSections"><span class="cuenta-item">Informacion de cuenta</span></a>
+
+                    <ul class="collapse list-unstyled" id="configuracion">
+<br>
+                        <h3>Datos personales</h3>
+                        <br>
+                    <?php 
+                    datosUsuario($_SESSION['idUsuario']);
+                     ?>
+                    </ul>
+            </li>
         
+    <br>
+
+<hr style="width: 80%;">    
+
+            <li>
+                <i id="flecha" class="fas fa-chevron-right"></i><a href="#avanzado" onclick="moveArrow()" class="scroll-link" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="dropdown-toggle" role="button" aria-controls="otherSections"><span class="cuenta-item">Opciones avanzadas</span></a>
+
+                    <ul class="collapse list-unstyled" id="avanzado">
+<br>
+                        <h3>Cambiar contraseña</h3>
+                        <br>
+                    <?php 
+                    //datosUsuario('275');
+                     ?>
+                     <form method='POST' name='contact_form' id='contact-form'>
+                        <label for='first_name' style="width: 16%;">Contraseña actual</label>
+                        <input name='name' type='text'   value=''/>
+                        <br>
+                        <label for='last_name' style="width: 16%;">Nueva contraseña:</label>
+                        <input name='last_name' type='text'  value=''/>
+                        <br>
+                        <label for='email' style="width: 16%;">Reingresar contraseña:</label>
+                        <input name='email' type='text'   value=''/>
+                        <br>
+                        <br>
+                        <div class='center'>
+                        <input style="width: 200px; margin-left: 200px;" type='submit' value='Cambiar'>
+                    </form>
+            
+<br>
+<br>
+   <br>
+                        <input style="width: 10%;" name='email' type='submit'  placeholder='you@dominio.com..' value='Dar de baja'/>
+                    <?php 
+                    //datosUsuario('275');
+                     ?>
+
+                    </ul>
+
+            </li>
 
             <button onclick="contacto()" class="buttonInfo tooltip">
                 <i class="fas fa-question"></i>

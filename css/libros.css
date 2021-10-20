@@ -51,6 +51,11 @@ div#libro-prueba{
     align-self: center;
     justify-self: center;
 }
+.tabla-libros{
+    text-align: center;
+    padding-bottom: 100px;
+    margin-right: 35px;
+}
 
 div#libro-prueba:hover{
     overflow: hidden;
@@ -105,9 +110,8 @@ div#libro-prueba:hover{
 }
 
 p.libro-info{
-    margin: 0 0 0 7px !important;
     font-size: 14px;
-    width: 86% !important;
+    width: 100% !important;
     padding: 5px 0 0 0;
     background-color: transparent;
     font-weight: bold;
@@ -143,14 +147,16 @@ p.etiqueta-info{
 .busqueda{
     position: absolute;
     background-color: transparent;
-    left: 200px;
-    top: 15px;
+    text-align: center;
+    left: 20%;
+    top: 10px;
 }
 .filtros{
     position: absolute;
-    right: 250px;
-    top: 15px;
     background-color: transparent;
+    text-align: center;
+    right: 20%;
+    top: -5px;
 }
 .fas.fa-filter, .fas.fa-search{
     z-index: 99;
@@ -417,3 +423,70 @@ input#buscar:hover{
     
 }
 
+/* Filtros */
+
+.menu-filtro{
+	float:right;
+	background:#fff;
+	width:0px;	
+	padding: 20px 0 0 0px;
+	height:1400px;
+	border-right:1px solid #eee;
+    z-index: 1004;
+    transition: ease 0.5s;
+}
+
+.menu-filtro h3{
+	color:#262626;
+	text-transform:uppercase;
+	font-size:14px;
+	font-weight:700;
+	padding:35px 0 10px 0;
+	letter-spacing:1px;
+	clear:both;
+}
+
+.menu-filtro .checklist{
+	padding:0;
+}
+
+.checklist ul li{	
+	font-size:14px;
+	font-weight:400;
+	list-style:none;
+	padding: 7px 0 7px 23px;
+}
+.checklist li span{
+	float:left;
+	width:11px;
+	height:11px;
+	margin-left:-23px;
+	margin-top:4px;
+	border: 1px solid #d1d3d7;
+	position:relative;	
+}
+
+.checklist li a{
+	color:#676a74;
+	text-decoration:none;	
+	-webkit-transition: all 300ms ease-out;
+	   -moz-transition: all 300ms ease-out;
+	    -ms-transition: all 300ms ease-out;
+	     -o-transition: all 300ms ease-out;
+	        transition: all 300ms ease-out;
+}
+.checklist li a:hover{	
+	color:#222;
+	-webkit-transition: all 300ms ease-out;
+	   -moz-transition: all 300ms ease-out;
+	    -ms-transition: all 300ms ease-out;
+	     -o-transition: all 300ms ease-out;
+	        transition: all 300ms ease-out;
+}
+.checklist a:hover span{ 	
+	border-color:#a6aab3;	
+}
+
+.checklist.categories li:hover a span:hover{
+    background: #333;
+}

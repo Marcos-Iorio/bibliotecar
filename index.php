@@ -24,7 +24,7 @@
         <main id="main">
 <?php 
                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ) {
-                  echo '<h1  style="margin-left: 50px;">Bienvenido '. $user . '!</h1>';
+                  echo '<h1  style="margin-left: 50px;">Hola '. $user . '!</h1>';
                }else{
                   echo '<h1 style="margin-left: 50px;" >BibliotecAr</h1>';
 

@@ -20,6 +20,11 @@
     
   }
 
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_SESSION['rol']) || $_SESSION['rol'] != '3' ) {
+  header("Location: php/identidad.php");
+}
+
 ?>
 
 <html lang="en">
@@ -58,6 +63,7 @@
 
                     <h6 style="width: 100px;">Buscar por:</h6>
                     <select class="form-control"name="txtCriterio" style="width: 200px; margin-right: 200px;">
+                      <option value="" disabled selected>Seleccionar</option>
                         <option value="mail">Mail</option> 
                         <option value="idRol">Rol</option>
                         <option value="check_mail">Estado mail</option>
@@ -110,11 +116,11 @@
                     //include "php/gestion-usuarios.php";
                     $nombre=$_REQUEST["txtNombre"];
                     $apellido=$_REQUEST["txtApellido"];
-                    $rol=$_REQUEST["txtRol"];
+                    $rol=$_REQUEST["selecRol"];
                     $dni=$_REQUEST["txtDNI"];
                     $mail=$_REQUEST["txtMail"];
-                    $alta=$_REQUEST["txtAlta"];
-                    $estado=$_REQUEST["txtEstadoUsuario"];
+                    $alta=$_REQUEST["selecEstadoMail"];
+                    $estado=$_REQUEST["selecEstadoUsuario"];
                     $idUsuario=$_REQUEST["txtID"];
 
 
@@ -143,11 +149,11 @@ modificar($idUsuario,$nombre,$apellido,$rol,$dni,$mail,$alta,$estado);
                     //include "php/gestion-usuarios.php";
                     $nombre=$_REQUEST["txtNombre"];
                     $apellido=$_REQUEST["txtApellido"];
-                    $rol=$_REQUEST["txtRol"];
+                    $rol=$_REQUEST["selecRol"];
                     $dni=$_REQUEST["txtDNI"];
                     $mail=$_REQUEST["txtMail"];
-                    $alta=$_REQUEST["txtAlta"];
-                    $estado=$_REQUEST["txtEstadoUsuario"];
+                    $alta=$_REQUEST["selecEstadoMail"];
+                    $estado=$_REQUEST["selecEstadoUsuario"];
                     
 
 
@@ -157,7 +163,7 @@ insertarUsuario($nombre,$apellido,$rol,$dni,$mail,$alta,$estado);
               }
 if (isset($_POST["btnEstado"])) {
 
-  $idEstado=$_REQUEST["txtEstadoUsuario"];
+  $idEstado=$_REQUEST["selecEstadoUsuario"];
   $mail=$_REQUEST["txtMailUsuario"];
 
   //editarEstado($idEstado, $mail);
@@ -257,7 +263,11 @@ if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION
                     <label for=""style="width: 100px;">Apellido: </label>
                     <input name="txtApellido" style="background-color: white; color: black; width: 20%;"type="text" name="autor" id="autor"  placeholder="Ingresar dato">
                     <label for=""style="width: 100px;">Rol: </label>
-                    <input name="txtRol" style="background-color: white; color: black; width: 20%;"type="text" name="desc" id="desc"  placeholder="Seleccionar">   
+                    <select style="background-color: white; color: black; width: 20%;" name="selecRol" class="form-control" style="width: 200px; margin-right: 200px;">
+                    <option name="txtRol" value="" disabled selected >Seleccionar rol</option>
+                    <?php getRoles(); ?>
+                     </select>
+                    <!--<input name="txtRol" style="background-color: white; color: black; width: 20%;"type="text" name="desc" id="desc"  placeholder="Seleccionar">  --> 
                     <br style="width: 50px;">
 
                   </div><div>
@@ -268,15 +278,23 @@ if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION
                     <label for=""style="width: 100px;">Mail:</label>
                     <input name="txtMail" style="background-color: white; color: black; width: 20%;"type="text" name ="genero" id="genero"  placeholder="Ingresar dato">
                     <label for=""style="width: 100px;">Alta mail:</label>
-                    <input name="txtAlta" style="background-color: white; color: black; width: 20%;"type="text" name="stock" id="stock"  placeholder="Seleccionar">
+                    <select style="background-color: white; color: black; width: 20%;" name="selecEstadoMail" class="form-control" style="width: 200px; margin-right: 200px;">
+                    <option name="txtAlta" value="" disabled selected >Seleccionar estado</option>
+                    <?php getEstadoMail(); ?>
+                     </select>
+                    <!--<input name="txtAlta" style="background-color: white; color: black; width: 20%;"type="text" name="stock" id="stock"  placeholder="Seleccionar">-->
                     <br style="width: 50px;">
 </div><div >
                   
                   
                   
                      <label for=""style="width: 100px;">Estado:</label>
-                    <input name="txtEstadoUsuario" style="background-color: white; color: black; width: 20%;"type="text" name ="genero" id="genero"  placeholder="Seleccionar">
-                                        <label for=""style="width: 100px;"></label>
+                     <select style="background-color: white; color: black; width: 20%;" name="selecEstadoUsuario" class="form-control" style="width: 200px; margin-right: 200px;">
+                    <option  value="" disabled selected name="txtEstadoUsuario">Seleccionar estado</option>
+                    <?php getEstadoUsuario(); ?>
+                     </select>
+                    <!--<input  name="txtEstadoUsuario" style="background-color: white; color: black; width: 20%;"type="text" name ="genero" id="genero"  placeholder="Seleccionar">
+                                        <label for=""style="width: 100px;"></label>-->
 
                     <input value="Editar usuario" style="width: 20%;" type="submit" name="editarUsuario" id="editarUsuario"onclick="return ModificarUsuario('editar')"/>
                                         <label for=""style="width: 100px;"></label>
@@ -323,12 +341,15 @@ if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION
     function cargarUsuario(id, nombre,apellido,rol,dni,mail,alta, estado){
         document.formUsuarios.txtNombre.value=nombre;
         document.formUsuarios.txtApellido.value=apellido;
-        document.formUsuarios.txtRol.value=rol;
+        //document.formUsuarios.txtRol.value=rol;
          document.formUsuarios.txtDNI.value=dni;
           document.formUsuarios.txtMail.value=mail;
-          document.formUsuarios.txtAlta.value=alta;
-          document.formUsuarios.txtEstadoUsuario.value=estado;
+          //document.formUsuarios.txtAlta.value=alta;
+          //document.formUsuarios.txtEstadoUsuario.value=estado;
           document.formUsuarios.txtID.value=id;
+          document.getElementsByName('selecEstadoUsuario')[0].options[0].innerHTML = alta;
+          document.getElementsByName('selecRol')[0].options[0].innerHTML = rol;
+          document.getElementsByName('selecEstadoMail')[0].options[0].innerHTML = estado;
 
 
 
@@ -387,6 +408,8 @@ if (tipo == 'editar') {
     return false;
 }
     </script>
+        
+
         
 </html>
    

@@ -43,21 +43,29 @@
          $fechaDesde = date('Y/m/d H:i:s');
          $fechaHasta = date('Y-m-d', strtotime($fechaDesde. ' + 2 weeks'));
 
+          $codigo=mt_rand(1,999999);
+          while(strlen($codigo) < 6 && strlen($codigo)){
+              $codigo=mt_rand(1,999999);
+          }
+          
+          $codigo="R$codigo$skuLibro";
+
          $reservaEstado = 1;
-         $stmt = $dbh->prepare("INSERT INTO reservas (idEjemplar, idReservaEstado, idUsuario, fechaDesde, fechaHasta) VALUES (?, ?, ?, ?, ?)");
-         $stmt->bindParam(1, $skuLibro);
-         $stmt->bindParam(2, $reservaEstado);
-         $stmt->bindParam(3, $idUsuario);
-         $stmt->bindParam(4, $fechaDesde);
-         $stmt->bindParam(5, $fechaHasta);
+         $stmt = $dbh->prepare("INSERT INTO reservas (idReserva, idEjemplar, idReservaEstado, idUsuario, fechaDesde, fechaHasta) VALUES (? ,?, ?, ?, ?, ?)");
+         $stmt->bindParam(1, $codigo);
+         $stmt->bindParam(2, $skuLibro);
+         $stmt->bindParam(3, $reservaEstado);
+         $stmt->bindParam(4, $idUsuario);
+         $stmt->bindParam(5, $fechaDesde);
+         $stmt->bindParam(6, $fechaHasta);
          if($stmt->execute()){
 
                    //header('Location: ../single-book.php?sku='.$skuLibro);
-          confirmarReserva($skuLibro, $nombre, $correo);
+          confirmarReserva($skuLibro, $nombre, $correo, $codigo);
          }
       }
   
-function confirmarReserva($idLibro, $nombre, $correo){
+function confirmarReserva($idLibro, $nombre, $correo, $codigo){
          include 'db.php';
 
         $stmt = $dbh->prepare("SELECT stock FROM libros where idLibro ='".$idLibro."'");
@@ -69,13 +77,6 @@ function confirmarReserva($idLibro, $nombre, $correo){
 
           $stmt = $dbh->prepare("UPDATE libros SET stock='".$stock."' where idLibro ='".$idLibro."'");
           if ($stmt->execute()) {
-            $codigo=mt_rand(1,999999);
-            while(strlen($codigo) < 6 && strlen($codigo)){
-              $codigo=mt_rand(1,999999);
-
-            }
-            $codigo="R$codigo$idLibro";
-
             include "sendmail.php";
             enviarReserva($nombre, $correo, $codigo);
             echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";

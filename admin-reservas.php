@@ -55,7 +55,44 @@
         <!--Seccion de los libros-->
                 <div class="container main-libros">
                     <h3>Gestion de reservas!</h3>
+
+                   <form method="POST" action="#" name="busqueda" >
+
+
+                    <label for="" style="width: 210px; text-align: left;">Ingresar reserva:</label>
+                    <input type="text" style="background-color: white; color: black; width: 40%;" name="ingresarReserva" id="titulo" required placeholder="Ingrese ID de reserva">
+                    <input type="submit" name="btnReserva" id="subir-libro" value="Cargar" />
+                    <br><br>
+                    
+                    <label for="" style="width: 210px; text-align: left;">Ingresar devolucion: </label>
+                    <input type="text" style="background-color: white; color: black; width: 40%;"name="ingresarDevolucion" id="autor" required placeholder="Ingrese ID de libro">
+                    <input type="submit" name="btnDevolucion" id="subir-libro" value="Cargar"/>
+                    <br>
+                    <br>
+                     <br>
+<br>
+                    <div style="display: flex;justify-content: space-between;align-items: center;">
+
+                    <h6 style="width: 100px;">Buscar por:</h6>
+                    <select class="form-control"name="txtCriterio" style="width: 200px; margin-right: 200px;">
+                      <option value="" disabled selected>Seleccionar</option>
+                        <option value="mail">Nro Reserva</option> 
+                        <option value="idRol">ID Libro</option>
+                        <option value="check_mail">Usuario</option>
+                        <option value="idEstado">Estado </option>    
+                    </select>
+
+                    <input style="background-color: white; width: 200px; height: 40px; color:black;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
+                    <div style="text-align: right;">
+                    <input type="submit"  value="Buscar" href="#?page=1" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/><a href="admin-usuarios.php?page=1"></a>
+                    <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0"/>
+                    </div>
+                    </div>
+
+                    <hr>
+                </form>
                     <div class="tabla-libros">
+
                       <table class = "bordered">
                       <thead>
                           <tr>
@@ -66,33 +103,64 @@
                   <th>Fecha solicitud</th>
                   <th>Fecha devolucion</th>
                   <th>Editar</th>
-                  <th>Eliminar</th>
+                  
                           </tr>
                         </thead>
                       <?php
                       include "php/gestion-reservas.php";
                       gestionReservas();
                       /* Llena el tabla con todos los libros de la base de datos */
+   
+
+                      if (isset($_POST['btnReserva'])) {
+                        ingresarReserva($_POST['ingresarReserva']);
+                      }
+
+                      if (isset($_POST['btnDevolucion'])) {
+                        ingresarDevolucion($_POST['ingresarDevolucion']);
+                      }
+
+                      if (isset($_POST['btnEditar'])) {
+                        editarReserva($_POST['txtReserva'], $_POST['txtEstado']);
+                      }
+
                       ?>
                         
                         
                       <?php  ?>
                       </table>
+                      <br>
+                      <?php 
+            $paginas = getPages();
+
+             for($page = 1; $page<= $paginas; $page++) {  
+              echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-reservas.php?page=' . $page . '">' . $page . ' </a>';  
+            }  
+              echo "</div>";
+
+               ?>
                     </div>
                 </div>
             </section>
+
             <section class = "subir-libro" style="margin-left: 100px">
               <div class="container-form">
-                <form action="php/gestion-reservas.php" method = "POST" class= "form-libro">
+                <form name="formReservas" action="" method = "POST" class= "form-libro">
 
-                    <label for="" style="width: 210px; text-align: left;">Confirmar reserva:</label>
-                    <input type="text" style="background-color: white; color: black; width: 40%;" name="titulo" id="titulo" required placeholder="Ingrese ID de libro">
-                    <input type="submit" name="subir-libro" id="subir-libro"/>
-                    <br><br>
-                    
-                    <label for="" style="width: 210px; text-align: left;">Confirmar devolucion: </label>
-                    <input type="text" style="background-color: white; color: black; width: 40%;"name="autor" id="autor" required placeholder="Ingrese ID de libro">
-                    <input type="submit" name="subir-libro" id="subir-libro"/>
+                  <div>
+                    <label for="" style="width: 100px;">Reserva:</label>
+                    <input name="txtReserva" style="background-color: gray; color: black; width: 20%;"type="text" readonly  name="titulo" id="titulo" >
+                    <label for=""style="width: 100px;">Usuario: </label>
+                    <input name="txtUsuario" style="background-color: gray; color: black; width: 20%;"type="text" readonly  name="autor" id="autor" >
+                    <label for=""style="width: 100px;">Estado: </label>
+                    <input name="txtEstado" style="background-color: white; color: black; width: 20%;"type="text" name="desc" id="desc"  placeholder="Seleccionar">   
+                    <br style="width: 50px;">
+
+                  </div>
+<br>
+<br>
+<input type="submit" name="btnEditar" id="subir-libro" value="Confirmar" style="width: 300px; text-align: center; margin-left: 490px;" />
+
                     <br><br>
 
                     </form>
@@ -112,6 +180,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+         function cargarReserva(idReserva, usuario,estadoReserva){
+        document.formReservas.txtReserva.value=idReserva;
+        document.formReservas.txtUsuario.value=usuario;
+        document.formReservas.txtEstado.value=estadoReserva;
+
+         //window.location = 'vistaProducto.php#gestionProducto';
+    }
+
+    </script>
 </html>
    
  

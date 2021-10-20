@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         
     }
 
-    $stmt = $dbh->prepare('SELECT idRol, contrasena, nombre, check_mail from usuarios where mail = "' . $mail .'" LIMIT 1');
+    $stmt = $dbh->prepare('SELECT idUsuario, idRol, contrasena, nombre, check_mail from usuarios where mail = "' . $mail .'" LIMIT 1');
     // Ejecutamos
     $stmt->execute();
 
@@ -64,7 +64,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 });
                 
                 setTimeout(function(){
-                    window.location.href = "../interfaces/login.php";
+                    window.location.href = "../login.php";
                  }, 3000);
                 </script>
                 ';
@@ -73,6 +73,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $arr['nombre'];
                 $_SESSION['mailL'] = $_POST['mailL'];
+                $_SESSION['idUsuario'] = $arr['idUsuario'];
                 $_SESSION['start'] = time();
                 $_SESSION['expire'] = $_SESSION['start'] + 3600;
                 $_SESSION['rol'] = $arr['idRol'];

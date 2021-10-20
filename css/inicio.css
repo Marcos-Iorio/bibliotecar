@@ -13,7 +13,7 @@ html{
 }
 
 section.contenido.wrapper{
-  width: 87%;
+  width: 100%;
   background: none;
 }
 
@@ -51,6 +51,8 @@ section.contenido.wrapper{
     background: #ADB7F5;
     width: 100%;
     padding: 16px;
+    padding-right: 0px;
+    padding-bottom: 0px;
     padding-left: 85px;
     transition: padding-left 0.5s;
     overflow-y: hidden;
@@ -86,7 +88,7 @@ section#page{
     display: block;
     padding: 10px 20px;
     border: 0;
-    color: white;
+    color: rgb(170, 170, 170);
     text-decoration: none;
 }
  
@@ -298,7 +300,6 @@ only screen and (                min-resolution: 2dppx) {
     box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
     -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
     -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    background-color: gray;
 
 }
 

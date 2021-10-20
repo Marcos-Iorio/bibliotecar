@@ -453,4 +453,47 @@ if (!isset ($_GET['page']) ) {
 
 }
 
+function getEstadousuario (){
+                              include('db.php');
+
+                            $stmt = $dbh->prepare('SELECT estado from estado_usuarios');
+                            $stmt ->execute();
+                            $arr = $stmt->fetchAll();
+                            //$editoriales = $arr['nombreEditorial'];
+                            
+                                  foreach($arr as $fila):
+
+echo "<option>".$fila['estado']."</option>";
+                          endforeach;  
+}
+
+
+function getRoles (){
+                              include('db.php');
+
+                            $stmt = $dbh->prepare('SELECT nombreRol from roles');
+                            $stmt ->execute();
+                            $arr = $stmt->fetchAll();
+                            //$editoriales = $arr['nombreEditorial'];
+                            
+                                  foreach($arr as $fila):
+
+echo "<option>".$fila['nombreRol']."</option>";
+                          endforeach;  
+}
+
+
+function getEstadoMail (){
+                              include('db.php');
+
+                            $stmt = $dbh->prepare('SELECT tipoEstado from estado_mail');
+                            $stmt ->execute();
+                            $arr = $stmt->fetchAll();
+                            //$editoriales = $arr['nombreEditorial'];
+                            
+                                  foreach($arr as $fila):
+
+echo "<option>".$fila['tipoEstado']."</option>";
+                          endforeach;  
+}
 ?>
