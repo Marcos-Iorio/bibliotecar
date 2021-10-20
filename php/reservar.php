@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="../css/sweetalert2.css">
     <script src="../js/sweetalert2.js"></script>
 
->>>>>>> Jeremias
 <?php
    include 'db.php';
    include "isLogin.php";
@@ -20,15 +17,12 @@
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
    $GLOBALS['idUsuario'] = $user['idUsuario'];
 
-<<<<<<< HEAD
-=======
    global $nombre;
    $nombre = $user['nombre'];
 
    global $correo;
    $correo = $mail;
 
->>>>>>> Jeremias
    global $skuLibro;
    $skuLibro = $_GET['sku'];
 
@@ -37,19 +31,6 @@
 
     global $libros;
     $libros = $stmt->fetchAll(PDO::FETCH_ASSOC);
-<<<<<<< HEAD
-
-    $GLOBALS['stock'] = $libros['stock'];
-
-      insertarReserva();
-      actualizarStock();
-
-      function insertarReserva(){
-         $skuLibro = $_GET['sku'];
-         $idUsuario = $GLOBALS['idUsuario'];
-         echo $idUsuario;
-         echo $skuLibro;
-=======
       insertarReserva($nombre, $correo);
 
       function insertarReserva($nombre, $correo){
@@ -57,7 +38,6 @@
          $idUsuario = $GLOBALS['idUsuario'];
          //echo $idUsuario;
          //echo $skuLibro;
->>>>>>> Jeremias
 
          include 'db.php';
          $fechaDesde = date('Y/m/d H:i:s');
@@ -70,25 +50,6 @@
          $stmt->bindParam(3, $idUsuario);
          $stmt->bindParam(4, $fechaDesde);
          $stmt->bindParam(5, $fechaHasta);
-<<<<<<< HEAD
-         
-         if($stmt->execute()){
-            echo "Se ha reservardo exitosamente!";
-         }
-         header('Location: ../single-book.php?sku='.$skuLibro);
-      }
-
-      function actualizarStock(){
-         include 'db.php';
-
-         $stock = $GLOBALS['stock'];
-
-         $stmt = $dbh->prepare("UPDATE");
-         
-      }
-  
-  ?>
-=======
          if($stmt->execute()){
 
                    //header('Location: ../single-book.php?sku='.$skuLibro);
@@ -131,4 +92,3 @@ function confirmarReserva($idLibro, $nombre, $correo){
 
   ?>
 
->>>>>>> Jeremias

@@ -7,9 +7,9 @@
     $query = 'SELECT l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial, i.ruta
             FROM libros AS l
             INNER JOIN libro_autores la ON l.idLibro = la.idLibro
-            INNER JOIN libro_categoria lc ON l.idLibro = lc.idLibro
+            INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
             INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
-            INNER JOIN imagen_libro i ON l.idLibro = i.idLibro
+            INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
             INNER JOIN autores a ON la.idAutores = a.idAutores';
@@ -50,9 +50,9 @@ function singleBook($idLibro){
     $query = 'SELECT l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial, i.ruta
             FROM libros AS l
             INNER JOIN libro_autores la ON l.idLibro = la.idLibro
-            INNER JOIN libro_categoria lc ON l.idLibro = lc.idLibro
+            INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
             INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
-            INNER JOIN imagen_libro i ON l.idLibro = i.idLibro
+            INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
             INNER JOIN autores a ON la.idAutores = a.idAutores
@@ -80,7 +80,7 @@ function singleBook($idLibro){
 
 <div class="libro-info">
     <div class = "titulo-info">
-        <label for="titulo">' . $arr['titulo'] . '</label>
+        <label for="titulo" id="titulo-libro">' . $arr['titulo'] . '</label>
     </div>
     <div class = "body-info">
         <label for="autor">Autor:</label>
@@ -170,16 +170,18 @@ function librosFiltrados(){
     include('db.php');
 
     if(isset($_GET['categoria'])){
-        $filtro = $_GET['categoria'];
+        $categori = $_GET['categoria'];
     }
     if(isset($_GET['autor'])){
-        $filtro = $_GET['autor'];
+        $autor = $_GET['autor'];
     }
     if(isset($_GET['editorial'])){
-        $filtro = $_GET['editorial'];
+        $editorial = $_GET['editorial'];
     }
 
-    $stmt = $dbh->prepare("SELECT * FROM libros l, autores a, categorias c, editoriales e where c.nombreCategoria = 's$filtro' or a.nombreAutor = '$filtro' or e.nombreEditorial = '$filtro' ORDER BY l.stock DESC");
+    
+    $query = '';
+    $stmt = $dbh->prepare($query);
     $stmt->execute();
     $resultado = $stmt->fetchAll();
 

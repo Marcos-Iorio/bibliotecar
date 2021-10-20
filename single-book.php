@@ -26,6 +26,8 @@
           include "php/panel.php";
          ?>
         <main id="main">
+            <div class="volver"><a href="./libros.php"><i class="fas fa-arrow-circle-left"></i></a></div>
+            <div id="breadcrumbs"></div>
             <section class = "libro">
             <?php
                 if($_SERVER['REQUEST_METHOD'] == 'GET'){
@@ -111,6 +113,7 @@
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <script src="js/navbarToggle.js"></script>
+    <script src="js/breadCrumbs.js"></script>
     <script>
         /* Idenfitica si no tiene stock y deshabilita el boton */
             function esconderBoton(){

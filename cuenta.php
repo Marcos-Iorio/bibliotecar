@@ -23,8 +23,10 @@
 
          ?>
         <main id="main">
-            <h1>Mi cuenta</h1>
-            <h4>Pagina en construccion</h4>
+            <h1 class="titulo-cuenta">Mi cuenta</h1>
+            <h4 class ="titulo-cuenta">Pagina en construccion</h4>
+            <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
+            <div id="breadcrumbs"></div>
             
             <li>
             <i id="flecha-reserva" class="fas fa-chevron-right"></i><a href="#reservas" class="scroll-link" onclick="moveArrowReservas()" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="dropdown-toggle" role="button" aria-controls="otherSections"><span class="cuenta-item">Mis resevas. </span></a>
@@ -69,6 +71,7 @@
 </body>
 
 <script src="js/navbarToggle.js"></script>
+<script src="js/breadCrumbs.js"></script>
    <!-- jQuery CDN - Slim version =without AJAX -->
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->

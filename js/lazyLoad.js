@@ -19,7 +19,7 @@ const lazyload = target => {
 
 imagenLibro.forEach(lazyload);
 
-const lazyLibros = target => {
+/* const lazyLibros = target => {
     const io = new IntersectionObserver((entries, observer) => { 
         entries.forEach(entry =>{
             if(entry.isIntersecting){
@@ -34,4 +34,4 @@ const lazyLibros = target => {
     io.observe(target);
 };
 
-cardLibros.forEach(lazyLibros);
+cardLibros.forEach(lazyLibros); */

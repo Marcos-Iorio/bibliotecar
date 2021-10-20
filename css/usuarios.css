@@ -385,3 +385,20 @@ input#buscar:hover{
     background: white;
     
 }
+
+#breadcrumbs{
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.fas.fa-arrow-circle-left{
+    position: absolute;
+    font-size: 30px;
+    left: 200px;
+    top: 20px;
+    color: #333;
+  }
+
+  .fas.fa-arrow-circle-left:hover{
+    color: rgb(95, 95, 95);
+}

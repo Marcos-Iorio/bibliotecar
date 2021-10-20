@@ -23,7 +23,7 @@ h3 {
 	font-size: 40px;
 	text-align: center;
     color: white;
-    padding-bottom: 70px;
+    padding-bottom: 20px;
 }
 
 .main-libros{
@@ -171,6 +171,7 @@ p.etiqueta-info{
 }
 
 .form-libro{
+    margin-top: 50px;
     background: transparent;
 }
 
@@ -260,10 +261,11 @@ input#portada{
     -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
     text-align: center;
     padding: 50px;
+    margin-right: 35px;
 }
 
 .container-form{
-    margin-top: 50px;
+    margin-top: 60px;
     background-color: white;
     border-radius: 15px;
     box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
@@ -446,6 +448,8 @@ input#buscar:hover{
 }
 
 div#menu-filtro{
+    height: 100%;
+    overflow: scroll !important;
     position: fixed;
     right: 0;
     z-index: 1;
@@ -510,4 +514,22 @@ i.fas.fa-times {
         padding-left: 24%;
         margin-left: -12%;
     }
+}
+
+#breadcrumbs{
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.fas.fa-arrow-circle-left{
+    position: absolute;
+    font-size: 30px;
+    left: 205px !important;
+    top: 10px !important;
+    color: white !important;
+    z-index: 101;
+}
+
+.fas.fa-arrow-circle-left:hover{
+    color: rgb(95, 95, 95);
 }

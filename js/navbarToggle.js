@@ -4,8 +4,6 @@ var menuSpan = document.getElementsByClassName('menu-item');
 var itemGestion = document.getElementsByClassName('item-gestion');
 
 
-console.log(menuSpan)
-
 function toggleSidebar() {
   if (mini) {
 
@@ -48,9 +46,6 @@ function toggleSidebar() {
       for (var i = 0; i < itemGestion.length; i++) {
         itemGestion[i].style.display = "none";
       }
-      
-
-    
 
     this.mini = true;
   }

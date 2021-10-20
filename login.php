@@ -27,6 +27,7 @@ exit;
     <img id="libroIcon" src="assets/libro-magico.svg" alt="" data-toggle="popover" title="¡CLICKEAME!" data-placement="bottom">
     <p class="pass__require hidden" id ="passRequire">La contraseña debe tener: 6 caracteres, 1 numero y 1 mayúscula</p>
     <div class="container" id="container">
+    <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
         <div class="form-container sign-up-container">
             <?php 
             include "php/registro.php"
