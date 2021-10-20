@@ -153,7 +153,11 @@
                     <label for=""style="width: 100px;">Usuario: </label>
                     <input name="txtUsuario" style="background-color: gray; color: black; width: 20%;"type="text" readonly  name="autor" id="autor" >
                     <label for=""style="width: 100px;">Estado: </label>
-                    <input name="txtEstado" style="background-color: white; color: black; width: 20%;"type="text" name="desc" id="desc"  placeholder="Seleccionar">   
+                                        <select style="background-color: white; color: black; width: 20%;" name="selectEstado" class="form-control" style="width: 200px; margin-right: 200px;">
+                    <option name="txtEstado" value="" disabled selected >Seleccionar</option>
+                    <?php getEstadoReservas(); ?>
+                     </select>
+                    <!--<input name="txtEstado" style="background-color: white; color: black; width: 20%;"type="text" name="desc" id="desc"  placeholder="Seleccionar">   -->
                     <br style="width: 50px;">
 
                   </div>
@@ -185,7 +189,8 @@
          function cargarReserva(idReserva, usuario,estadoReserva){
         document.formReservas.txtReserva.value=idReserva;
         document.formReservas.txtUsuario.value=usuario;
-        document.formReservas.txtEstado.value=estadoReserva;
+        //document.formReservas.txtEstado.value=estadoReserva;
+          document.getElementsByName('selectEstado')[0].options[0].innerHTML = estadoReserva;
 
          //window.location = 'vistaProducto.php#gestionProducto';
     }
