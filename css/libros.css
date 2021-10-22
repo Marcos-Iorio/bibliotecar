@@ -490,3 +490,26 @@ input#buscar:hover{
 .checklist.categories li:hover a span:hover{
     background: #333;
 }
+
+.wrapper-libros{
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+
+input.input-libro{
+    background-color: white;
+    color: black;
+    width: 20%;
+}
+
+input.input-libro:focus{
+    outline: 1px solid black;
+    border-radius: 5px !important;
+    border-bottom: 3px solid black !important;
+}
+
+
+input.input-libro::placeholder{
+    color: black;
+}

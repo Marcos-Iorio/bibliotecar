@@ -149,9 +149,13 @@ p.etiqueta-info{
     font-size: 25px;
 }
 
-.subir-libro{
-    background: transparent;
-    text-align: left;
+#subir-libro{
+    width: 20%;
+    text-align: center;
+}
+
+.centrar-boton{
+    text-align: center;
 }
 
 .form-libro{
@@ -160,12 +164,12 @@ p.etiqueta-info{
 
 label {
 	font-size: 20px;
-	margin-left: 12px;
+	margin-left: 15px;
     font-weight: 400;
 	color: white;
 	background:transparent;
     display: inline-block;
-    width: 170px;
+    width: 100px;
 }
 
 
@@ -384,4 +388,33 @@ input#buscar{
 input#buscar:hover{
     background: white;
     
+}
+.wrapper-reserva{
+    text-align: left;
+    display: inline-block;
+    margin-left: 40px;
+}
+
+
+input.reserva-libro{
+    background-color: white;
+    color: white;
+    width: 35% !important;
+}
+
+input.reserva-libro:focus{
+    outline: 1px solid black;
+    color: black;
+    border-radius: 5px !important;
+    border-bottom: 3px solid black !important;
+}
+
+input.reserva-libro::placeholder{
+    color: black
+}
+
+select.form-control{
+    text-align: center;
+    width: 30%;
+    display: inline-block;
 }

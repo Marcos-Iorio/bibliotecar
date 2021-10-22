@@ -147,24 +147,25 @@
               <div class="container-form">
                 <form name="formReservas" action="" method = "POST" class= "form-libro">
 
-                  <div>
-                    <label for="" style="width: 100px;">Reserva:</label>
-                    <input name="txtReserva" style="background-color: gray; color: black; width: 20%;"type="text" readonly  name="titulo" id="titulo" >
-                    <label for=""style="width: 100px;">Usuario: </label>
-                    <input name="txtUsuario" style="background-color: gray; color: black; width: 20%;"type="text" readonly  name="autor" id="autor" >
-                    <label for=""style="width: 100px;">Estado: </label>
-                                        <select style="background-color: white; color: black; width: 20%;" name="selectEstado" class="form-control" style="width: 200px; margin-right: 200px;">
-                    <option name="txtEstado" value="" disabled selected >Seleccionar</option>
+                  <div class="wrapper-reserva">
+                    <label for="" >Reserva:</label>
+                    <input name="txtReserva" class="reserva-libro" type="text" name="titulo" id="titulo" >
+                    <label for="">Usuario: </label>
+                    <input name="txtUsuario" class="reserva-libro" type="text" name="autor" id="autor" >
+                    <label for="">Estado: </label>
+                    <select name="selectEstado" class="form-control">
+                    <option name="txtEstado" value="" class="reserva-libro" disabled selected >Seleccionar</option>
                     <?php getEstadoReservas(); ?>
                      </select>
                     <!--<input name="txtEstado" style="background-color: white; color: black; width: 20%;"type="text" name="desc" id="desc"  placeholder="Seleccionar">   -->
                     <br style="width: 50px;">
 
                   </div>
-<br>
-<br>
-<input type="submit" name="btnEditar" id="subir-libro" value="Confirmar" style="width: 300px; text-align: center; margin-left: 490px;" />
-
+        <br>
+        <br>
+                  <div class="centrar-boton">
+                    <input type="submit" name="btnEditar" id="subir-libro" value="Confirmar" />
+                  </div>
                     <br><br>
 
                     </form>

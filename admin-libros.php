@@ -53,29 +53,28 @@
                   </div>
                 </div>
         <!--Seccion de los libros-->
-                <div class="container main-libros">
-                    <h3>Gestion de libros!</h3>
-                    <!--<div class="tabla-libros">-->
-                                                        <form method="POST" action="#" name="busqueda" >
-                    <div style="display: flex;justify-content: space-between;align-items: center;">
+  <div class="container main-libros">
+      <h3>Gestion de libros!</h3>
+      <!--<div class="tabla-libros">-->
+      <form method="POST" action="#" name="busqueda" >
+        <div >
 
-                    <h6 style="width: 100px;">Buscar por:</h6>
-                    <select class="form-control"name="txtCriterio" style="width: 200px; margin-right: 200px;">
-                      <option value="" disabled selected>Seleccionar</option>
-                        <option value="mail">Titulo</option> 
-                        <option value="idRol">Autor</option>
-                        <option value="check_mail">Genero</option>
-                    </select>
+          <h6 style="width: 100px;">Buscar por:</h6>
+          <select class="form-control"name="txtCriterio" style="width: 200px; margin-right: 200px;">
+            <option value="" disabled selected>Seleccionar</option>
+              <option value="mail">Titulo</option> 
+              <option value="idRol">Autor</option>
+              <option value="check_mail">Genero</option>
+          </select>
 
-                    <input style="background-color: white; width: 200px; height: 40px; color:black;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
-                    <div style="text-align: right;">
-                    <input type="submit"  value="Buscar" href="#?page=1" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/><a href="admin-usuarios.php?page=1"></a>
-                    <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0"/>
-                    </div>
-                    </div>
-
-                    <hr>
-                </form>
+          <input style="background-color: white; width: 200px; height: 40px; color:black;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
+          <div style="text-align: right;">
+            <input type="submit"  value="Buscar" href="#?page=1" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/><a href="admin-usuarios.php?page=1"></a>
+            <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0"/>
+          </div>
+        </div>
+      <hr>
+  </form>
 
 
                     <div class="tabla-libros">
@@ -109,32 +108,28 @@
             <section class = "subir-libro">
                 <form action="" method = "POST" class= "form-libro" enctype="multipart/form-data" >
                 
-
+                <div class="wrapper-libros">
                     <label for="">Titulo:</label>
-                    <input style="background-color: white; color:black" type="text" name="titulo" id="titulo" required placeholder="Titulo">
-                    <br><br>
-                    
-                                     
-                    <br><br>
-                    <div style="display: flex;justify-content: space-between;align-items: center;">
+                    <input class="input-libro"  type="text" name="titulo" id="titulo" required placeholder="Titulo">
+                    <br>    
                       <label for="">Autor:</label>
-                      <select class="form-control"name="selectAutor" style="width: 200px; margin-right: 200px;">
-                      <option value="" disabled selected>Seleccionar autor</option>
-                        <?php getAutores(); ?>    
-                    </select>
+                        <select class="form-control"name="selectAutor">
+                          <option value="" disabled selected>Seleccionar autor</option>
+                          <?php getAutores(); ?>    
+                        </select>
 
-                    <label for="">Autor Nuevo:</label>
-                    <input style="background-color: white; color:black"type="text" name="autor" id="autor" required placeholder="Autor">
-                    </div>
+                      <label for="">Autor Nuevo:</label>
+                        <input class="input-libro" type="text" name="autor" id="autor" required placeholder="Autor">
+                   
                     <br><br>
 
 
                     <label for="">Descripcion: </label>
-                    <input style="background-color: white; color:black" type="text" name="desc" id="desc" required placeholder="Descripcion del libro">
+                      <input class="input-libro"  type="text" name="desc" id="desc" required placeholder="Descripcion del libro">
                     <br><br>
- <div style="display: flex;justify-content: space-between;align-items: center;">
-  <label for="">Categoria:</label>
-                    <select class="form-control"name="selectCategoria" style="width: 200px; margin-right: 200px;">
+                   
+                      <label for="">Categoria:</label>
+                      <select class="form-control"name="selectCategoria" >
                       <option value="" disabled selected>Seleccionar categoria</option>
                         <?php 
                         getCategorias();
@@ -142,15 +137,14 @@
                     </select>
 
                     <label for="">Categoria Nueva:</label>
-                    <input style="background-color: white; color:black" type="text" name ="categoria" id="categoria" required placeholder="Categoria">
-                    </div>
+                      <input class="input-libro"  type="text" name ="categoria" id="categoria" required placeholder="Categoria">
                     <br><br>
-                   <div style="display: flex;justify-content: space-between;align-items: center;">
-<label for="">Editorial:</label>
-                      <select class="form-control"name="selectEditorial" style="width: 200px; margin-right: 200px;">
+                   
+                      <label for="">Editorial:</label>
+                      <select class="form-control"name="selectEditorial">
                       <option value="" disabled selected>Seleccionar editorial</option>
 
-            <?php 
+                      <?php 
 
                       getEditoriales();
                      
@@ -160,38 +154,39 @@
                                 
                     </select>  
                     <label for="">Editorial Nueva:</label>
-                    <input style="background-color: white; color:black" type="text" name ="editorial" id="editorial" required placeholder="Editorial">
-                    </div>
+                    <input class="input-libro" type="text" name ="editorial" id="editorial" required placeholder="Editorial">
                     <br><br>
 
                     <label for="">Stock:</label>
-                    <input style="background-color: white; color:black" type="number" name="stock" id="stock" required placeholder="Stock">
+                    <input class="input-libro"  type="number" name="stock" id="stock" required placeholder="Stock">
                     <br><br>
 
                     <label for="">Fecha de alta</label>
-                    <input style="background-color: white; color:black" type="date" name="fechaAlta" id="fechaAlta"><br><br>
+                    <input class="input-libro"  type="date" name="fechaAlta" id="fechaAlta"><br><br>
                     
 
                     <label for="">Pdf de libro(Opcional):</label>
-                    <input style="background-color: white; color:black" class="portada-libro" type="file" name="pdf" id="pdf" >
+                    <input class="input-libro"   type="file" name="pdf" id="pdf" >
                     <br><br>
 
                     <label for="">Imagenes, tapa:</label>
-                    <input style="background-color: white; color:black" class="portada-libro" type="file" name="tapa" id="tapa" >
+                    <input class="input-libro" type="file" name="tapa" id="tapa" >
                     <br><br><br><br>
 
                     
                     <label for="">Imagenes, ContraTapa:</label>
-                    <input style="background-color: white; color:black" class="portada-libro" type="file" name="contratapa" id="contratapa">
+                    <input class="input-libro" type="file" name="contratapa" id="contratapa">
+
+                  </div>
                    
                     <div class="center">
                         <br><br>
                       <input value="Editar libro" style="width: 20%;" type="submit" name="editarUsuario" id="editarUsuario"onclick="return ModificarLibro('editar')"/>
                                         <label for=""style="width: 100px;"></label>
 
-                  <input value="Crear libro" style="width: 20%; " type="submit" name="cargar-libro" id="cargar-imagenes"onclick="return ModificarLibro('crear')"/>
+                        <input value="Crear libro" style="width: 20%; " type="submit" name="cargar-libro" id="cargar-imagenes"onclick="return ModificarLibro('crear')"/>
 
-                  <input name="txtID" style="background-color: white; color: black; width: 20%;"type="hidden" name ="genero" id="genero"  placeholder="Seleccionar">
+                        <input name="txtID" style="background-color: white; color: black; width: 20%;"type="hidden" name ="genero" id="genero"  placeholder="Seleccionar">
                     </div>
                     
                     <?php
@@ -208,9 +203,8 @@
                     }
                     //unset($_POST['cargar-libro']);
                   
-?>
-                    
-                    </form>
+                    ?>
+                </form>
 
             </section>
             <button onclick="contacto()" class="buttonInfo tooltip">
