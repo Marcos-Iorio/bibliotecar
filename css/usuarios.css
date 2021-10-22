@@ -29,7 +29,6 @@ h3 {
 .main-libros{
     background-color: transparent;
     padding-top: 70px;
-    padding-left: 85px;
 
 }
 
@@ -384,4 +383,9 @@ input#buscar{
 input#buscar:hover{
     background: white;
     
+}
+
+
+.form-control{
+    display: inline-block !important;
 }

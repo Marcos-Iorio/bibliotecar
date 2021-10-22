@@ -38,6 +38,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="css/usuarios.css">
+    <script src="js/navbarToggle.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
 </head>
@@ -254,10 +255,10 @@ if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION
           <hr>
                                 <h3>Modificar usuarios:</h3>
 
-            <section class = "subir-libro" style="text-align: center; margin-right: 150px;">
+            <section class = "subir-libro" style="text-align: center; margin-right: 20px;">
               <div class="container-form">
                 <form name="formUsuarios" action="" method = "POST" class= "form-libro">
-<div>
+                  <div class="datos-usuario">
                     <label for="" style="width: 100px;">Nombre:</label>
                     <input name="txtNombre" style="background-color: white; color: black; width: 20%;"type="text" name="titulo" id="titulo"  placeholder="Ingresar dato">
                     <label for=""style="width: 100px;">Apellido: </label>
@@ -270,7 +271,8 @@ if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION
                     <!--<input name="txtRol" style="background-color: white; color: black; width: 20%;"type="text" name="desc" id="desc"  placeholder="Seleccionar">  --> 
                     <br style="width: 50px;">
 
-                  </div><div>
+                  </div>
+                  <div>
 
 
                     <label for=""style="width: 100px;">DNI: </label>
@@ -284,10 +286,8 @@ if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION
                      </select>
                     <!--<input name="txtAlta" style="background-color: white; color: black; width: 20%;"type="text" name="stock" id="stock"  placeholder="Seleccionar">-->
                     <br style="width: 50px;">
-</div><div >
-                  
-                  
-                  
+                </div>
+                <div >
                      <label for=""style="width: 100px;">Estado:</label>
                      <select style="background-color: white; color: black; width: 20%;" name="selecEstadoUsuario" class="form-control" style="width: 200px; margin-right: 200px;">
                     <option  value="" disabled selected name="txtEstadoUsuario">Seleccionar estado</option>
@@ -307,8 +307,6 @@ if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION
                     
 
 </div>
-
-                                
 
                     </form>
 
@@ -330,7 +328,6 @@ if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION
       </section>
 
 </body>
-<script src="js/navbarToggle.js"></script>
  <!-- jQuery CDN - Slim version =without AJAX -->
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
