@@ -113,9 +113,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     }) 
                 });
                 
-                setTimeout(function(){
-                    window.location.href = "../login.php";
-                 }, 3000);
+                setTimeout(window.location.href="../login.php", 3000);
                 </script>
                 ';
 

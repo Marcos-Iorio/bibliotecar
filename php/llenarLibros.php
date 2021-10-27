@@ -24,7 +24,7 @@
               <div class="imagen-libro">
                   <img class="imagen-libro" data-lazy="' . $fila['ruta'] . ' " alt="">
               </div>
-              <div class="informacion">
+              <div class="informacion" id="informacion">
                   <p class="libro-info">';
                   echo 'Titulo: ' . $fila['titulo'] . '  <br>';
                   echo 'Autor: ' . $fila['nombreAutor']. '  <br>';
@@ -120,15 +120,18 @@ function singleBook($idLibro){
     </div>
     <div class = "body-info">
         <label for="autor">Autor:</label>
-        <span>' .  $arr['nombreAutor'] . '</span>
+        <span>' .  $arr['nombreAutor'] . '</span><br>
         <label for="editorial">Editorial:</label>
-        <span><?php /* echo $arr[\'nombreEditorial\'] */?></span>
+        <span><?php /* echo $arr[\'nombreEditorial\'] */?></span><br>
         <label for="stock">Stock:</label>
-        <span id="stock">' . $arr['stock'] . '</span>
-    </div>
-    <button class="reservar" id="reservar">Reservar</button>
-    <label for="pdf">PDF:</label>
+        <span id="stock">' . $arr['stock'] . '</span><br>
+        <label for="pdf">PDF:</label>
     <span><a href=""><i class="fas fa-cloud-download-alt"></i></a></span>
+    </div>
+    <div class="boton-reservar">
+        <button class="reservar" id="reservar">Reservar</button>
+        <p class="alerta-reserva">*Todas las reservas son por 2 semanas</p>
+    </div>
 </div>
 <div class = "descripcion">
     <h3 class= "titulo-desc">Descripcion</h3>

@@ -66,6 +66,28 @@ div#libro-prueba:hover{
     -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
 }
 
+.informacion{    
+    background: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    border-top: 2px solid #333;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -webkit-transform: translateY(0%);
+			transform: translateY(0%);
+	transition: transform 300ms linear;
+	will-change: transform;
+    display: none;
+}
+
+div#libro-prueba:hover .informacion{
+    width: 100%;
+    height: 60%;
+    display: block;
+    -webkit-transform: translateY(-100%);
+			transform: translateY(-100%);
+	transition: all 300ms linear;
+}
+
 .libro-prueba-sinStock{
     position: relative;
     margin: 25px;
@@ -78,7 +100,16 @@ div#libro-prueba:hover{
     justify-self: center;
 }
 
-.imagen-libro{
+div.imagen-libro{
+    position: relative;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+img.imagen-libro{
     position: relative;
     border-radius: 5px;
     width: 100%;
@@ -92,21 +123,10 @@ div#libro-prueba:hover{
 }
 
 .fade{
-    transform: translateX(-50%) !important;
+    transform: translateX(0%) !important;
     opacity: 1.0;
     transition: all 500ms;
-}
-
-.informacion{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 40%;
-    background: rgba(255, 255, 255, 0.4);
-    text-align: center;
-    border-top: 2px solid #333;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    display: block;
 }
 
 p.libro-info{
