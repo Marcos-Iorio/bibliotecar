@@ -60,12 +60,12 @@
 
 
                     <label for="" style="width: 210px; text-align: left;">Ingresar reserva:</label>
-                    <input type="text" style="background-color: white; color: black; width: 40%;" name="ingresarReserva" id="titulo" required placeholder="Ingrese ID de reserva">
+                    <input type="text" style="background-color: white; color: black; width: 40%;" name="ingresarReserva" id="titulo"  placeholder="Ingrese ID de reserva">
                     <input type="submit" name="btnReserva" id="subir-libro" value="Cargar" />
                     <br><br>
                     
                     <label for="" style="width: 210px; text-align: left;">Ingresar devolucion: </label>
-                    <input type="text" style="background-color: white; color: black; width: 40%;"name="ingresarDevolucion" id="autor" required placeholder="Ingrese ID de libro">
+                    <input type="text" style="background-color: white; color: black; width: 40%;"name="ingresarDevolucion" id="autor"  placeholder="Ingrese ID de libro">
                     <input type="submit" name="btnDevolucion" id="subir-libro" value="Cargar"/>
                     <br>
                     <br>
@@ -84,7 +84,7 @@
 
                     <input style="background-color: white; width: 200px; height: 40px; color:black;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
                     <div style="text-align: right;">
-                    <input type="submit"  value="Buscar" href="#?page=1" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/><a href="admin-usuarios.php?page=1"></a>
+                    <input type="submit"  value="Buscar" href="#?page=1" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/><a href="admin-reservas.php?page=1"></a>
                     <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0"/>
                     </div>
                     </div>
@@ -98,6 +98,7 @@
                           <tr>
                   <th>Reserva Nº</th>
                   <th>ID Libro</th>
+                  <th>Titulo</th>
                   <th>Estado</th>
                   <th>Usuario</th>
                   <th>Fecha solicitud</th>
@@ -108,7 +109,10 @@
                         </thead>
                       <?php
                       include "php/gestion-reservas.php";
+
+                       if (!isset($_POST['btnReserva']) && !isset($_POST['btnDevolucion'])  && !isset($_POST['btnEditar'])) {
                       gestionReservas();
+                        }
                       /* Llena el tabla con todos los libros de la base de datos */
    
 
@@ -121,7 +125,7 @@
                       }
 
                       if (isset($_POST['btnEditar'])) {
-                        editarReserva($_POST['txtReserva'], $_POST['txtEstado']);
+                        editarReserva($_POST['txtReserva'], $_POST['selectEstado']);
                       }
 
                       ?>
@@ -149,11 +153,11 @@
 
                   <div class="wrapper-reserva">
                     <label for="" >Reserva:</label>
-                    <input name="txtReserva" class="reserva-libro" type="text" name="titulo" id="titulo" >
+                    <input name="txtReserva" class="reserva-libro" type="text" name="titulo" id="titulo" readonly>
                     <label for="">Usuario: </label>
-                    <input name="txtUsuario" class="reserva-libro" type="text" name="autor" id="autor" >
+                    <input name="txtUsuario" class="reserva-libro" type="text" name="autor" id="autor" readonly>
                     <label for="">Estado: </label>
-                    <select name="selectEstado" class="form-control">
+                    <select name="selectEstado" id="selectEstado" class="form-control">
                     <option name="txtEstado" value="" class="reserva-libro" disabled selected >Seleccionar</option>
                     <?php getEstadoReservas(); ?>
                      </select>

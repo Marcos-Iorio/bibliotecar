@@ -26,7 +26,7 @@
    global $skuLibro;
    $skuLibro = $_GET['sku'];
 
-    $stmt = $dbh->prepare("SELECT * FROM libros l, autores a, categorias c where idLibro = '". $skuLibro  ."'");
+    $stmt = $dbh->prepare("SELECT * FROM libros l, autores a, categorias c where idLibro = '". $skuLibro  ."' LIMIT 1");
     $stmt->execute();
 
     global $libros;
@@ -38,6 +38,7 @@
          $idUsuario = $GLOBALS['idUsuario'];
          //echo $idUsuario;
          //echo $skuLibro;
+          $idEjemplar=reservaEjemplar($skuLibro);
 
          include 'db.php';
          $fechaDesde = date('Y/m/d H:i:s');
@@ -53,7 +54,7 @@
          $reservaEstado = 1;
          $stmt = $dbh->prepare("INSERT INTO reservas (idReserva, idEjemplar, idReservaEstado, idUsuario, fechaDesde, fechaHasta) VALUES (? ,?, ?, ?, ?, ?)");
          $stmt->bindParam(1, $codigo);
-         $stmt->bindParam(2, $skuLibro);
+         $stmt->bindParam(2, $idEjemplar);
          $stmt->bindParam(3, $reservaEstado);
          $stmt->bindParam(4, $idUsuario);
          $stmt->bindParam(5, $fechaDesde);
@@ -79,7 +80,7 @@ function confirmarReserva($idLibro, $nombre, $correo, $codigo){
           if ($stmt->execute()) {
             include "sendmail.php";
             enviarReserva($nombre, $correo, $codigo);
-            echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+            echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success', html:'<a href=\"../libros.php\">Regresar</a>'});</script> ";
                      /* return $codigo;
         header('Location: ../single-book.php?sku='.$idLibro);*/          
           }
@@ -89,6 +90,18 @@ function confirmarReserva($idLibro, $nombre, $correo, $codigo){
 
   }
 
+function reservaEjemplar($idLibro){
+
+           include 'db.php';
+
+        $stmt = $dbh->prepare("SELECT idEjemplar FROM ejemplares where idEjemplarEstado ='0' and idEjemplar like '%L".$idLibro."E%' LIMIT 1");
+        if ($stmt->execute()) {
+  $resultado=$stmt->fetchColumn();
+
+  return $resultado;
+
+}
+}
 
 
   ?>

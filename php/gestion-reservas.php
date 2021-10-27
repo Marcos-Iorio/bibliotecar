@@ -22,7 +22,11 @@ if ($stmt->execute()) {
 
   foreach($resultado as $fila):
   
-if ($fila['idReservaEstado'] == '1' ) {
+
+  $idEstado = getReservaEstado($fila['idReservaEstado']);
+  $tituloLibro = getTitulo($fila['idEjemplar']);
+  $mailUsuario = getMailUsuario($fila['idUsuario']);
+/*if ($fila['idReservaEstado'] == '1' ) {
 
   $idEstado = 'Pendiente';
 }
@@ -40,16 +44,17 @@ if ($fila['idReservaEstado'] == '3' ) {
 if ($fila['idReservaEstado'] == '4' ) {
 
   $idEstado = 'Cancelada';
-}
+}*/
   	echo "<tbody>
                 <tr>
                   <td>" . $fila['idReserva']. "</td>
                   <td>" .  $fila['idEjemplar']. "</td>
+                  <td>" .  $tituloLibro. "</td>
                   <td>" .  $idEstado . "</td>
-                  <td>" .  $fila['idUsuario']. "</td>
+                  <td>" .  $mailUsuario. "</td>
                   <td>" .  $fila['fechaDesde']. "</td>
                   <td>" .  $fila['fechaHasta']. "</td>
-                  <td><button onclick=\"javascript:cargarReserva('".$fila["idReserva"]."','".$fila["idUsuario"]."','".$fila["idReservaEstado"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                  <td><button onclick=\"javascript:cargarReserva('".$fila["idReserva"]."','".$mailUsuario."','".$idEstado."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
                 </tr>
               </tbody>
 
@@ -92,11 +97,10 @@ function editarReserva ($idReserva, $idEstado){
 include 'db.php';
     //include 'sendmail.php';
 
-
+    $idEstadoReserva = getReservaID($idEstado);
 
     //echo $sql;
-    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '$idEstado' where idReserva = '$idReserva'");
-
+    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '$idEstadoReserva' where idReserva = '$idReserva'");
     if ($stmt->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
@@ -114,7 +118,7 @@ include 'db.php';
 
 //function ingresarDevolucion ($idReserva, $idEstado, $idEjemplar){
 
-function ingresarDevolucion ($idEjemplar){
+function ingresarDevolucion ($idReserva){
 
     include 'db.php';
     //include 'sendmail.php';
@@ -122,8 +126,7 @@ function ingresarDevolucion ($idEjemplar){
 
 
     //echo $sql;
-    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar'");
-
+    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '0' where idReserva = '$idReserva'");
     //REPONER STOCK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     if ($stmt->execute()) {
@@ -141,6 +144,64 @@ function ingresarDevolucion ($idEjemplar){
   
 }
 
+function getReservaEstado ($idEstado) {
+  include 'db.php';
+
+$stmt = $dbh->prepare("SELECT nombreReserva FROM reserva_estados WHERE idReservaEstado=$idEstado");
+  
+
+if ($stmt->execute()) {
+  $resultado=$stmt->fetchColumn();
+
+  return $resultado;
+
+}
+}
+
+function getReservaID ($nombreEstado) {
+  include 'db.php';
+
+$stmt = $dbh->prepare("SELECT idReservaEstado FROM reserva_estados WHERE nombreReserva='$nombreEstado'");
+
+if ($stmt->execute()) {
+  $resultado=$stmt->fetchColumn();
+
+  return $resultado;
+
+}
+}
+
+function getTitulo ($idEjemplar){
+  include 'db.php';
+
+$stmt = $dbh->prepare("SELECT l.titulo FROM libros l, ejemplares e WHERE l.idLibro=e.idLibro AND e.idEjemplar=idEjemplar
+");
+  
+
+if ($stmt->execute()) {
+  $resultado=$stmt->fetchColumn();
+
+  return $resultado;
+
+}
+
+}
+
+
+function getMailUsuario($idUsuario){
+
+    include 'db.php';
+
+$stmt = $dbh->prepare("SELECT mail FROM usuarios WHERE idUsuario = $idUsuario");
+  
+
+if ($stmt->execute()) {
+  $resultado=$stmt->fetchColumn();
+
+  return $resultado;
+
+}
+}
 
        function getPages2(){
       include 'db.php';

@@ -4,7 +4,17 @@
 
   function todosLosLibros(){
     include 'db.php';
-    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c ORDER BY l.stock DESC');
+
+
+        $stmt = $dbh->prepare('SELECT l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+            FROM libros AS l
+            INNER JOIN libro_autores la ON l.idLibro = la.idLibro
+            INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
+            INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
+            INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
+            INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
+            INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
+            INNER JOIN autores a ON la.idAutores = a.idAutores');
     $stmt->execute();
     $resultado=$stmt->fetchAll();
 
@@ -12,7 +22,7 @@
       echo '<div class="libro-prueba" id="libro-prueba">
           <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
               <div class="imagen-libro">
-                  <img class="imagen-libro" data-lazy="' . $fila['imagen_libro'] . ' " alt="">
+                  <img class="imagen-libro" data-lazy="' . $fila['ruta'] . ' " alt="">
               </div>
               <div class="informacion">
                   <p class="libro-info">';
@@ -83,14 +93,14 @@ if ($stmt->rowCount() == '') {
 
 function singleBook($idLibro){
     include 'db.php';
-    $stmt = $dbh->prepare('SELECT * FROM libros l, autores a, categorias c where l.idLibro =  "'. $idLibro .'"');
+    $stmt = $dbh->prepare("SELECT * FROM libros l, autores a, categorias c, imagen_libros i where l.idLibro =  '$idLibro' and i.idLibro=l.idLibro");
     $stmt->execute();
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
 
     echo '<div id="imagenes-libros" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-        <img id="img-libro" class="d-block w-100" src=' . $arr['imagen_libro'] . ' alt="First slide">
+        <img id="img-libro" class="d-block w-100" src=' . $arr['ruta'] . ' alt="First slide">
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

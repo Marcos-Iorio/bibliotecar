@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <title></title>
+</head>
+
+
 <?php
 
   function gestionLibros(){
@@ -20,12 +28,11 @@
   include_once 'db.php';
 
 
-  $query='SELECT l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial, i.ruta,l.fechaAlta
+  $query='SELECT l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta
             FROM libros AS l
             INNER JOIN libro_autores la ON l.idLibro = la.idLibro
             INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
             INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
-            INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
             INNER JOIN autores a ON la.idAutores = a.idAutores';
@@ -69,9 +76,11 @@ function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock,
     cargarAutor($autor);
     cargarCategoria($categoria);
     cargarEditorial($editorial);
+    cargarEjemplar($stock, $fechaAlta);
     llenarAutorLibro();
     llenarCategoriaLibro();
     llenarEditorialLibro();
+
    
 
    
@@ -364,6 +373,37 @@ echo "<option>".$fila['nombreEditorial']."</option>";
                           endforeach;                        
                       }
 
+    function cargarEjemplar($stock, $fechaAlta){
+                            include('db.php');
+      $idEjemplarEstado="1";
+
+      $idLibro = buscarIdLibro();
+      
+      for ($i = 1; $i <= $stock; $i++) {
+
+        $idEjemplar="L".$idLibro."E".$i;
+//echo"INSERT into `ejemplares` (idEjemplar, fechaIngreso, idLibro, idEjemplarEstado) 
+                    //values($idEjemplar,$fechaAlta,$idLibro, '1')";
+      $insertEjemplar = $dbh->prepare("INSERT into ejemplares (idEjemplar, idLibro, idEjemplarEstado, fechaIngreso) 
+                    values(?,?,?,?)");
+
+                    $insertEjemplar->bindParam(1, $idEjemplar);
+                    $insertEjemplar->bindParam(2, $idLibro);
+                    $insertEjemplar->bindParam(3, $idEjemplarEstado);
+                    $insertEjemplar->bindParam(4, $fechaAlta);
+
+                          $insertEjemplar->execute();
+
+    }
+
+    }
+
+
+
+
+
+
+
 
 
                       function getPages2(){
@@ -515,3 +555,8 @@ if (!isset ($_GET['page']) ) {
 
 }
 ?>
+
+<body>
+
+</body>
+</html>

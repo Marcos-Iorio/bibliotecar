@@ -4,7 +4,7 @@
  $user = "S83WlvOPYk";
  $password = 'PZYFMdycMI'; */
 
-$dbname = "bibliotecar";
+$dbname = "bibliotecar3";
  $user = "root";
  $password = '';
  try {
