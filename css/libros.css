@@ -66,25 +66,25 @@ div#libro-prueba:hover{
 }
 
 .informacion{    
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(68, 68, 68, 0.7);
     text-align: center;
-    border-top: 2px solid #333;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    -webkit-transform: translateY(0%);
-			transform: translateY(0%);
-	transition: transform 300ms linear;
-	will-change: transform;
-    display: none;
+    opacity: 0;
+    transition: all ease 0.3s;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    transform: translateY(-100px);
 }
 
 div#libro-prueba:hover .informacion{
+    transform: translateY(0px);
     width: 100%;
-    height: 60%;
-    display: block;
-    -webkit-transform: translateY(-100%);
-			transform: translateY(-100%);
-	transition: all 300ms linear;
+    height: 70%;
+    opacity: 1;
+    transition: all ease 0.3s;
 }
 
 .libro-prueba-sinStock{
@@ -134,12 +134,12 @@ p.libro-info{
     padding: 5px 0 0 0;
     background-color: transparent;
     font-weight: bold;
-    color: #222;
+    color: white;
 }
 
 .etiqueta{
     border: 1px solid black;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(53, 53, 53, 0.747);
     border-radius: 5px;
     position: absolute;
     top: 4px;
@@ -151,9 +151,10 @@ p.libro-info{
 p.etiqueta-info{
     font-size: 15px;
     width: 100%;
-    margin-left: 7px;
+    text-align: center;
+    line-height: 15px;
     background-color: transparent;
-    color: black;
+    color: white;
 }
 
 .libro-prueba-sinStock:hover{
@@ -543,7 +544,7 @@ i.fas.fa-times {
 }
 
 .fas.fa-arrow-circle-left{
-    position: absolute;
+    position: fixed;
     font-size: 30px;
     left: 205px !important;
     top: 10px !important;

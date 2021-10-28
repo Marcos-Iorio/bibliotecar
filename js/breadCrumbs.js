@@ -34,7 +34,7 @@ let inicio = "<a href=./>Home</a>"
 var url = inicio + " > " + path;
 
 //Aplica un alias y agrega una subruta cuando tiene mas de 2 pre rutas
-if(path == '<A HREF="http:">' + tituloLibro + '</A>'){
+if(path == '<A HREF="htt">' + tituloLibro + '</A>'){
     console.log("entró")
     url = inicio + " > " + '<a href="libros.php">Libros</a>' + ' > ' + path
 }else{

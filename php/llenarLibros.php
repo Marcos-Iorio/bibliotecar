@@ -125,7 +125,7 @@ function singleBook($idLibro){
         <label for="autor">Autor:</label>
         <span>' .  $arr['nombreAutor'] . '</span><br>
         <label for="editorial">Editorial:</label>
-        <span>' . $arr['nombreEditorial']. '</span>
+        <span>' . $arr['nombreEditorial']. '</span><br>
         <label for="stock">Stock:</label>
         <span id="stock">' . $arr['stock'] . '</span><br>
         <label for="pdf">PDF:</label>

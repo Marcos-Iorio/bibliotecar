@@ -388,7 +388,7 @@ span.menu-item{
 }
 
 .fas.fa-arrow-circle-left{
-    position: absolute;
+    position: fixed;
     font-size: 30px;
     left: 200px;
     top: 20px;
