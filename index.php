@@ -15,17 +15,68 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
 </head>
-<body>
+<body onload="startTime()">
     <section id="page">
         <?php 
           include "php/panel.php";
 
          ?>
         <main id="main">
-            <h1>BibliotecAr</h1>
-            <p>
-            </p>
-            <button onclick="contacto()" class="buttonInfo tooltip">
+<?php 
+               if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ) {
+                  echo '<h1  style="margin-left: 50px;">Hola '. $user . '!</h1>';
+               }else{
+                  echo '<h1 style="margin-left: 50px;" >BibliotecAr</h1>';
+
+               } 
+
+           ?>        
+        <br><br><br>
+           <div class="container-paneles">
+        <div class="card">
+                <div class="info-paneles">
+                    <h4>Portal de libros</h4>
+                    <p>Ingresa al portal de libros para ver nuestro catalogo.</p>
+                    <a href="libros.php" >Ver más</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="info-paneles">
+                    <h4>Tus libros</h4>
+                    <p>Accede a tus libros recientemente descargados y reservados.</p>
+                    <a href="cuenta.php" >Ver más</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="info-paneles">
+                    <h4>Conoce mas</h4>
+                    <p>Conoce mas informacion acerca de quienes somos y como contactarnos.</p>
+                    <a href="#" >Ver más</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="info-paneles">
+                    <h4>Portal de gestion</h4>
+                    <p>Accede a la seccion de administracion del portal (solo perfiles autorizados).</p>
+                    <a href="admin-libros.php" >Ver más</a>
+                </div>
+            </div>
+            <div id="clockdate">
+                <div id="wrapper" class="clockdate-wrapper">
+                    <div id="clock" class="clock"></div>
+                    <div id="date" class="date"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="info-paneles">
+                    <h4>Sugerencias</h4>
+                    <p>Nos interesa tu opinion. Por favor ingresa aca si queres realizar algun comentario del sistema.</p>
+                    <a href="sugerencias.php" >Ver más</a>
+                </div>
+            </div>
+        </div>
+
+            <button  onclick="contacto()" class="buttonInfo tooltip">
                 <i class="fas fa-question"></i>
                 <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
             </button>

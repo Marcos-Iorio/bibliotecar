@@ -1,14 +1,3 @@
-<?php
-if($_SERVER['REQUEST_METHOD'] == 'GET'){
-    include('../php/db.php');
-    $idLibro = $_GET['sku'];
-
-    $stmt = $dbh->prepare('SELECT * FROM libros where idLibro =  "'. $idLibro .'"');
-
-    $stmt->execute();
-    $arr = $stmt->fetch(PDO::FETCH_ASSOC);
-}
-?>
 
 <!DOCTYPE html>
 
@@ -21,6 +10,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="css/sweetalert2.css">
+    <script src="js/sweetalert2.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -29,17 +21,27 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
 </head>
-<body>
+<body onload="esconderBoton()">
     <section id="page">
         <?php 
-          include "panel.php";
+          include "php/panel.php";
          ?>
         <main id="main">
             <section class = "libro">
-                    <div id="imagenes-libros" class="carousel slide" data-ride="carousel">
+            <?php
+                if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                    include "php/llenarLibros.php";
+                    $GLOBALS['idLibro'] = $_GET['sku'];
+                    
+                    
+                    singleBook($idLibro);
+                    
+                }
+            ?>
+                   <!--  <div id="imagenes-libros" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                            <img id="img-libro" class="d-block w-100" src=<?php echo $arr['imagen_libro'] ?> alt="First slide">
+                            <img id="img-libro" class="d-block w-100" src=<?php //echo $arr['imagen_libro'] ?> alt="First slide">
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -51,31 +53,54 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
+                   
+                    
                     <div class="libro-info">
                         <div class = "titulo-info">
-                            <label for="titulo"><?php echo $arr['titulo']?></label>
+                            <label for="titulo"><?php //echo $arr['titulo']?></label>
                         </div>
                         <div class = "body-info">
                             <label for="autor">Autor:</label>
-                            <span><?php echo $arr['autor']?></span>
+                            <span><?php //echo $arr['nombreAutor']?></span>
                             <label for="editorial">Editorial:</label>
-                            <span><?php echo $arr['editorial']?></span>
+                            <span><?php /* echo $arr['nombreEditorial'] */?></span>
                             <label for="stock">Stock:</label>
-                            <span><?php echo $arr['stock']?></span>
+                            <span id="stock"><?php //echo $arr['stock']?></span>
                         </div>
-                        <button class="reservar">Reservar</button>
+                        <button class="reservar" id="reservar">Reservar</button>
                         <label for="pdf">PDF:</label>
                         <span><a href=""><i class="fas fa-cloud-download-alt"></i></a></span>
                     </div>
                     <div class = "descripcion">
                         <h3 class= "titulo-desc">Descripcion</h3>
-                        <p class = "desc"><?php echo $arr['descripcion'] ?></p>
-                    </div>
+                        <p class = "desc"><?php //echo $arr['descripcion'] ?></p>
+                    </div> -->
             </section>
             <button onclick="contacto()" class="buttonInfo tooltip">
                 <i class="fas fa-question"></i>
                 <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
             </button>
+            <!-- Modal -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>¿Querés reservar el libro<?php /* echo $arr['titulo']; */?>?</h2>
+                    </div>
+                    <?php 
+                    /*if (isset($codigo)) {
+                        echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+                    }*/
+                     ?>
+                    <div class="modal-body">
+                        <form action="" method="POST" target="_self">
+                        <a class="confirmar" id="confirmar" name="confirmar" href="php/reservar.php?sku=<?php echo $GLOBALS['idLibro'];?>">Confirmar</a>
+                        </form>
+                        <button id="cancelar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
         </main>
       </section>
 </body>
@@ -87,5 +112,54 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <script src="js/navbarToggle.js"></script>
+    <script>
+        /* Idenfitica si no tiene stock y deshabilita el boton */
+            function esconderBoton(){
+                let span = document.querySelector("#stock");;
+                let button = document.getElementById('reservar');
+                button.style.display = "none";
+                button.addEventListener("change", stateHandle());
+                function stateHandle() {
+                    if (document.querySelector("#stock").innerHTML == 0) {
+                        console.log("dentro del if")
+                        button.style.display = "none"; 
+                    } else {
+                        button.style.display = "block"; 
+                    }
+                }
+            }
+
+            /* Abre y cierra el modal */
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("reservar");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            var cancelar = document.getElementById("cancelar");
+
+            // When the user clicks on the button, open the modal
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            cancelar.onclick = function(){
+                modal.style.display = "none";
+            }
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+    </script>
 
 </html>

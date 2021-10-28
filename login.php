@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-      header("Location: ../");
+      header("Location: index.php");
 exit;
 }
 ?>
@@ -17,8 +17,8 @@ exit;
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
 
-    <script type="text/javascript" src="../js/login.js"></script>
-    <link rel="stylesheet"  href="../css/login.css">
+    <script type="text/javascript" src="js/login.js"></script>
+    <link rel="stylesheet"  href="css/login.css">
         <script src="js/sweetalert2.js"></script>
     <link rel="stylesheet" href="css/sweetalert2.css">
     
@@ -68,13 +68,21 @@ exit;
                     <h1>¡Bienvenido de vuelta!</h1>
                     <p>Ingresa tus datos y seguí reservando libros</p>
                     <button class="ghost" id="signIn">Iniciar sesión</button>
+<<<<<<< HEAD:login.php
                     <a href="../"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
+=======
+                    <a href="index.php"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
+>>>>>>> Jeremias:interfaces/login.php
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>¡Bienvenido!</h1>
                     <p>Registrate para aprovechar todas las funciones de la biblioteca</p>
                     <button class="ghost" id="signUp">Registrarse</button>
+<<<<<<< HEAD:login.php
                     <a href="../"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
+=======
+                    <a href="index.php"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
+>>>>>>> Jeremias:interfaces/login.php
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 
    /*  is_logged(); */
    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    $mail = $_SESSION['mailL'];
     $user=$_SESSION['username'];
     $pid=$_SESSION['rol'];
 

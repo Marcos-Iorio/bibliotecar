@@ -23,10 +23,14 @@ h4{
 }
 
 .container {
-	background:transparent;
-    text-align: left;
+	background: white;
+    text-align: center;
 	padding: 12px 24px 24px 24px;
-	border-radius: 4px;
+	border-radius: 15px;
+	width: 80%;
+	box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
 }
 #main{
 	padding-left: 85px;
@@ -36,7 +40,8 @@ label {
 	font-size: 20px;
 	margin-left: 12px;
     font-weight: 400;
-	color: white;
+	color: #333;
+	text-align: left;
 	background:transparent;
 }
 
