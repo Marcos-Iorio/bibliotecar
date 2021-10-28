@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <?php
+    include('php/llenarLibros.php');
+    
+
     session_start();
 
    /*  is_logged(); */
@@ -31,16 +34,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="css/inicio.css">
-    <link rel="stylesheet" href="css/libros.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/inicio.css" type="text/css">
+    <link rel="stylesheet" href="css/libros.css" type="text/css">
+    <script defer src="js/lazyLoad.js"></script>
     <title>Document</title>
 </head>
 <body>
     <section id="page">
         <?php 
           include "php/panel.php";
-
          ?>
         <main id="main">
             <section class="contenido wrapper">
@@ -51,41 +53,49 @@
                     <input id="buscar" type="submit" value="Buscar">
                   </div>
                   <div class = "filtros">
-                    <i class="fas fa-filter"></i>
+                    <button onclick="abrirFiltros()"><i class="fas fa-filter"></i></button>
                   </div>
+                </div>
+                <div class="menu-filtro" id="menu-filtro">
+                    <h3>FILTROS</h3>    
+                    <h3>CATEGORIAS</h3>
+                    <div class="checklist categories">
+                        <ul>
+                            <?php
+                                todasLasCategorias();
+                            ?>
+                        </ul>
+                    </div>
+                    
+                    <h3>Autores</h3>
+                    <div class="checklist autores">
+                        <ul>
+                            <?php
+                                todosLosAutores();
+                            ?>
+                        </ul>   
+                    </div>
+                    <h3>Editoriales</h3>
+                    <div class="checklist editoriales">
+                        <ul>
+                            <?php
+                                todasLasEditoriales();
+                            ?>
+                        </ul>   
+                    </div>
                 </div>
         <!--Seccion de los libros-->
                 <div class="container main-libros">
                     <h3>Portal de libros!</h3>
+                    <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
+                    <div id="breadcrumbs"></div>
                     <div class="grid-libros">
 
                     <?php
-                    include_once('php/llenarLibros.php');
-                    /* Llena el flexbox con los libros traidos de la base de datos */
-                    foreach($resultado as $fila):?>
-                        <div class="libro-prueba" id="libro-prueba">
-                            <a class="link" id="id-libro" href="single-book.php?sku=<?php echo $fila['idLibro'];?>">
-                                <div class="imagen-libro">
-                                    <img class="imagen-libro" src="<?php echo $fila['imagen_libro']; ?>" alt="">
-                                </div>
-                                <div class="informacion">
-                                    <p class="libro-info">
-                                    <?php echo "Titulo: " . $fila['titulo']; ?> <br>
-                                    <?php echo "Autor: " . $fila['nombreAutor']; ?> <br>
-                                    <?php echo "Categoria: " . $fila['nombreCategoria']; ?>
-                                    </p>
-                                </div>
-                                <div class="etiqueta">
-                                    <p class="etiqueta-info" id="etiqueta-info"><?php
-                                        if($fila['stock'] > 0 ){
-                                            echo "Disponible";
-                                        }else{
-                                            echo "No disponible";
-                                        } ?></p>
-                                </div>
-                            </a>
-                        </div>
-                    <?php endforeach; ?>
+                    
+                    todosLosLibros();
+                    
+                    ?>
 
                     </div>
                 </div>
@@ -99,6 +109,7 @@
 </body>
 <script src="js/navbarToggle.js"></script>
 <script src="js/libros.js"></script>
+<script src="js/breadCrumbs.js"></script>
  <!-- jQuery CDN - Slim version =without AJAX -->
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->

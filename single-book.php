@@ -14,11 +14,9 @@
     <script src="js/sweetalert2.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="css/single-book.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
 </head>
 <body onload="esconderBoton()">
@@ -27,6 +25,8 @@
           include "php/panel.php";
          ?>
         <main id="main">
+            <div class="volver"><a href="./libros.php"><i class="fas fa-arrow-circle-left"></i></a></div>
+            <div id="breadcrumbs"></div>
             <section class = "libro">
             <?php
                 if($_SERVER['REQUEST_METHOD'] == 'GET'){
@@ -112,6 +112,7 @@
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <script src="js/navbarToggle.js"></script>
+    <script src="js/breadCrumbs.js"></script>
     <script>
         /* Idenfitica si no tiene stock y deshabilita el boton */
             function esconderBoton(){

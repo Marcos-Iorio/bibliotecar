@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if($arr['idRol']){
         if(!empty($arr) && password_verify($pass, $arr['contrasena'])){
         
-            if($arr['checkMail'] == '0'){
+            if($arr['check_mail'] == '0'){
                 
                 echo '
                 <script type="text/javascript">

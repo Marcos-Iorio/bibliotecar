@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
       
     // recorremos las filas en busca del mail
     $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if(empty($arr)){
+    if(empty($arr)){ 
 
             #registrando al usuario
         $stmt = $dbh->prepare("INSERT INTO usuarios (idEstado, idRol, nombre, mail, contrasena, checkMail) VALUES (?, ?, ?, ?, ?, ?)");

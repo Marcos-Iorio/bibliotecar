@@ -4,12 +4,9 @@ var menuSpan = document.getElementsByClassName('menu-item');
 var itemGestion = document.getElementsByClassName('item-gestion');
 
 
-console.log(menuSpan)
-
 function toggleSidebar() {
   if (mini) {
 
-    console.log("abriendo sidebar");
     document.getElementById("sidebar").style.width = "200px";
     document.getElementById("sidebar").style.backgroundColor = "rgb(56, 56, 56, 1)";
     
@@ -33,7 +30,6 @@ function toggleSidebar() {
     this.mini = false;
 
   } else {
-    console.log("Cerrando sidebar");
     document.getElementById("sidebar").style.width = "60px";
     document.getElementById("sidebar").style.backgroundColor = "rgb(56, 56, 56, 1)";
     //logo
@@ -50,9 +46,6 @@ function toggleSidebar() {
       for (var i = 0; i < itemGestion.length; i++) {
         itemGestion[i].style.display = "none";
       }
-      
-
-    
 
     this.mini = true;
   }
@@ -95,40 +88,29 @@ function checkTime(i) {
   return i;
 }
 
-var panel = true;
 
-function showSearch(){
-  if(panel){
-    document.getElementById('campo-busqueda').style.display="inline-block";
-    document.getElementById('buscar').style.display="inline-block";
-    this.panel = false;
+function moveArrow(){
+  let flecha = document.getElementById('flecha');
+  let item = document.getElementById('dropdown-toggle');
+
+  if(item.className == "scroll-link"){
+    flecha.style.transform = "rotate(90deg)";
+    item.classList.add("collapsed")
   }else{
-    document.getElementById('campo-busqueda').style.display="none";
-    document.getElementById('buscar').style.display="none";
-    this.panel = true;
+    flecha.style.transform = "rotate(0deg)";
+    item.classList.remove("collapsed")
   }
 }
 
-jQuery(document).ready(function() {
-   
-  $('.section-container').waypoint(function(direction) {
-    if (direction === 'down') {
-        $('.menu-elements li').removeClass('active');
-        $('.menu-elements a[href="#' + this.element.id + '"]').parents('li').addClass('active');
-    }
-  },
-  {
-    offset: '0'
-  });
-  
-  $('.section-container').waypoint(function(direction) {
-    if (direction === 'up') {
-        $('.menu-elements li').removeClass('active');
-        $('.menu-elements a[href="#' + this.element.id + '"]').parents('li').addClass('active');
-    }
-  },
-  {
-    offset: '-5'
-  });
+function moveArrowReservas(){
+  let flecha = document.getElementById('flecha-reserva');
+  let item = document.getElementById('dropdown-toggle');
 
-});
+  if(item.className == "scroll-link"){
+    flecha.style.transform = "rotate(90deg)";
+    item.classList.add("collapsed")
+  }else{
+    flecha.style.transform = "rotate(0deg)";
+    item.classList.remove("collapsed")
+  }
+}

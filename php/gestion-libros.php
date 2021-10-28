@@ -62,6 +62,12 @@ if ($stmt->execute()) {
 
 function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock,$fechaAlta,$pdf){
     include('db.php');
+       
+  
+
+           $Tapa = $_FILES['tapa']['tmp_name'];
+           $destinoTapa ="../assets/libros_pdf".$_FILES['tapa']['name'];
+           move_uploaded_file($Tapa,$destinoTapa);
 
         
         if($pdf != ""){
@@ -491,6 +497,8 @@ echo "<option>".$fila['nombreEditorial']."</option>";
     }
 
 
+                function cargarAutor($autor){
+                    include('db.php');
 
     function getFiltro($buscar, $criterio){
 

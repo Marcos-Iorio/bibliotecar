@@ -23,13 +23,12 @@ h3 {
 	font-size: 40px;
 	text-align: center;
     color: white;
-    padding-bottom: 70px;
+    padding-bottom: 20px;
 }
 
 .main-libros{
     background-color: transparent;
     padding-top: 70px;
-    padding-left: 85px;
 }
 
 .grid-libros{
@@ -164,13 +163,6 @@ p.etiqueta-info{
     mix-blend-mode: luminosity;
 }
 
-.libro-prueba-sinStock:hover{
-    overflow: hidden;
-    transition: ease 0.3s;
-    transform: scale(1.05);
-    mix-blend-mode: luminosity;
-}
-
 .busqueda{
     position: absolute;
     background-color: transparent;
@@ -200,6 +192,7 @@ p.etiqueta-info{
 }
 
 .form-libro{
+    margin-top: 50px;
     background: transparent;
 }
 
@@ -289,10 +282,11 @@ input#portada{
     -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
     text-align: center;
     padding: 50px;
+    margin-right: 35px;
 }
 
 .container-form{
-    margin-top: 50px;
+    margin-top: 60px;
     background-color: white;
     border-radius: 15px;
     box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
@@ -471,6 +465,15 @@ input#buscar:hover{
 	padding:35px 0 10px 0;
 	letter-spacing:1px;
 	clear:both;
+    
+}
+
+div#menu-filtro{
+    height: 100%;
+    overflow: scroll !important;
+    position: fixed;
+    right: 0;
+    z-index: 1;
 }
 
 .menu-filtro .checklist{
@@ -518,25 +521,36 @@ input#buscar:hover{
     background: #333;
 }
 
-.wrapper-libros{
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
-}
-
-input.input-libro{
-    background-color: white;
+i.fas.fa-times {
     color: black;
-    width: 20%;
-}
-
-input.input-libro:focus{
-    outline: 1px solid black;
-    border-radius: 5px !important;
-    border-bottom: 3px solid black !important;
+    font-size: 24px;
+    margin-left: 46%;
 }
 
 
-input.input-libro::placeholder{
-    color: black;
+@media (max-width: 768px){
+    .main-libros {
+        background-color: transparent;
+        padding-top: 70px;
+        padding-left: 24%;
+        margin-left: -12%;
+    }
+}
+
+#breadcrumbs{
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.fas.fa-arrow-circle-left{
+    position: absolute;
+    font-size: 30px;
+    left: 205px !important;
+    top: 10px !important;
+    color: white !important;
+    z-index: 101;
+}
+
+.fas.fa-arrow-circle-left:hover{
+    color: rgb(95, 95, 95);
 }
