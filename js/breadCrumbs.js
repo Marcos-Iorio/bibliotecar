@@ -3,28 +3,33 @@
 var path = "";
 var href = document.location.href;
 var s = href.split("/");
-
-//Aplica un alias a los hrefs
-if(s[5] == 'libros.php'){
-    s[5] = "Libros";
-}if(s[5] == 'contacto.php'){
-    s[5] = "Contacto";
-}if(s[5]== "cuenta.php"){
-    s[5] = "Mi cuenta"
-}
-
-//obtiene el id de la URL
 var sku = getParameterByName('sku');
 
-//Aplica alias a la ruta
-if(s[5]=="single-book.php?sku=" + sku){
-    var tituloLibro = document.getElementById("titulo-libro").innerHTML;
-    s[5] = tituloLibro;
-}
+//Aplica un alias a los hrefs
 
-for (var i=2;i<(2);i++) {
+for (let index = 0; index < s.length; index++) {
+    if(s[index] == 'libros.php'){
+        s[index] = "Libros";
+    }if(s[index] == 'contacto.php'){
+        s[index] = "Contacto";
+    }if(s[index]== "cuenta.php"){
+        s[index] = "Mi cuenta"
+    }
+    if(s[index]=="single-book.php?sku=" + sku){
+        var tituloLibro = document.getElementById("titulo-libro").innerHTML;
+        s[index] = tituloLibro;
+    }
+    
+}
+//obtiene el id de la URL
+
+
+//Aplica alias a la ruta
+
+for (var i=5;i<(5);i++) {
    
     path+="<A HREF=\""+href.substring(0,href.indexOf("/"+s[i])+s[i].length+1)+"/\">"+s[i]+"</A> > ";
+console.log(path);
 
 }
 
@@ -34,8 +39,7 @@ let inicio = "<a href=./>Home</a>"
 var url = inicio + " > " + path;
 
 //Aplica un alias y agrega una subruta cuando tiene mas de 2 pre rutas
-if(path == '<A HREF="htt">' + tituloLibro + '</A>'){
-    console.log("entró")
+if(path == '<A HREF="http:/">' + tituloLibro + '</A>'){
     url = inicio + " > " + '<a href="libros.php">Libros</a>' + ' > ' + path
 }else{
     url = inicio + " > " + path;

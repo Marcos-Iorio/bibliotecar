@@ -27,7 +27,6 @@ exit;
     <img id="libroIcon" src="assets/libro-magico.svg" alt="" data-toggle="popover" title="¡CLICKEAME!" data-placement="bottom">
     <p class="pass__require hidden" id ="passRequire">La contraseña debe tener: 6 caracteres, 1 numero y 1 mayúscula</p>
     <div class="container" id="container">
-    <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
         <div class="form-container sign-up-container">
             <?php 
             include "php/registro.php"
@@ -69,29 +68,13 @@ exit;
                     <h1>¡Bienvenido de vuelta!</h1>
                     <p>Ingresa tus datos y seguí reservando libros</p>
                     <button class="ghost" id="signIn">Iniciar sesión</button>
-<<<<<<< HEAD
-<<<<<<< HEAD:login.php
-                    <a href="../"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
-=======
                     <a href="index.php"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
->>>>>>> Jeremias:interfaces/login.php
-=======
-                    <a href="index.php"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
->>>>>>> marcos
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>¡Bienvenido!</h1>
                     <p>Registrate para aprovechar todas las funciones de la biblioteca</p>
                     <button class="ghost" id="signUp">Registrarse</button>
-<<<<<<< HEAD
-<<<<<<< HEAD:login.php
-                    <a href="../"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
-=======
                     <a href="index.php"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
->>>>>>> Jeremias:interfaces/login.php
-=======
-                    <a href="index.php"><img class="logo" src="assets/Logo sin fondo.png" alt=""></a>
->>>>>>> marcos
                 </div>
             </div>
         </div>

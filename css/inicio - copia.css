@@ -143,12 +143,6 @@ a[aria-expanded="true"] {
 }
 /***** Content *****/
 
-
-a{
-    color: black;
-
-
-}
 .overlay {
     display: block;
     position: fixed;
@@ -292,7 +286,7 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 .card{
-    width: 350px;
+    width: 300px;
     height: 350px;
     background-color: #383838;
     text-align: center;
@@ -362,39 +356,4 @@ div#clockdate{
     font-family:arial,sans-serif;
     color:rgb(27, 27, 27);
     transition: 0.4s;
-}
-
-span.menu-item{
-    /*color: rgb(170, 170, 170);*/
-}
-
-@media (max-width: 768px){
-    #page > #main {
-        grid-area: main;
-        background: #ADB7F5;
-        width: 100%;
-        padding: 16px;
-        padding-right: 0px;
-        padding-bottom: 0px;
-        transition: padding-left 0.5s;
-        overflow-y: hidden;
-        overflow-x: hidden;
-    }
-}
-
-#breadcrumbs{
-    display: block;
-    margin: 0 auto;
-}
-
-.fas.fa-arrow-circle-left{
-    position: fixed;
-    font-size: 30px;
-    left: 200px;
-    top: 20px;
-    color: #333;
-  }
-
-  .fas.fa-arrow-circle-left:hover{
-    color: rgb(95, 95, 95);
 }

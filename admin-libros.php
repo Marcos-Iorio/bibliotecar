@@ -41,6 +41,8 @@
     <section id="page">
         <?php 
           include "php/panel.php";
+         
+
          ?>
         <main id="main">
             <section class="contenido wrapper">
@@ -117,6 +119,10 @@
                         </select>
                       <label for="">Autor Nuevo:</label>
                         <input class="input-libro" type="text" name="autor" id="autor" required placeholder="Autor">
+                   
+                    <br><br>
+
+
                     <label for="">Descripcion: </label>
                       <input class="input-libro"  type="text" name="desc" id="desc" required placeholder="Descripcion del libro">
                     <br><br>
@@ -208,18 +214,6 @@
       </section>
 </body>
 <script src="js/navbarToggle.js"></script>
-<<<<<<< HEAD
-<<<<<<< HEAD
- <!-- jQuery CDN - Slim version =without AJAX -->
- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-</html>
-   
- 
-=======
 <script type="text/javascript">
         function ModificarLibro(tipo) {
 
@@ -240,10 +234,12 @@ if (tipo == 'editar') {
 }
 
 </script>
+
+<!-- jQuery CDN - Slim version =without AJAX -->
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 </html>
    
->>>>>>> Jeremias
-=======
-</html>
-   
->>>>>>> marcos

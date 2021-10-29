@@ -1,10 +1,10 @@
 <?php
 
-/*$dbname = "S83WlvOPYk";
+/*a  $dbname = "S83WlvOPYk";
  $user = "S83WlvOPYk";
- $password = 'PZYFMdycMI';
- */
-$dbname = "bibliotecar";
+ $password = 'PZYFMdycMI'; */
+
+$dbname = "bibliotecar3";
  $user = "root";
  $password = '';
  try {
