@@ -160,8 +160,8 @@ function singleBook($idLibro){
         <span><?php /* echo $arr[\'nombreEditorial\'] */?></span><br>
         <label for="stock">Stock:</label>
         <span id="stock">' . $arr['stock'] . '</span><br>
-                <label for="pdf">PDF:</label>
-    <span><a href=""><i  class="fas fa-cloud-download-alt"></i></a></span>
+                <label for="pdf">Descargá el libro:</label>
+    <span><a class="pdf" href="'. $arr['pdf'] .'" download="' . $arr['titulo'] .'" ><i  class="fas fa-cloud-download-alt"></i></a></span>
     </div>
 
     <div class="boton-reservar">

@@ -28,6 +28,7 @@
          ?>
         <main id="main">
             <section class="contenido wrapper">
+            <div id="breadcrumbs"></div>
         <!--formulario-->
                 <div class="container">
                     <h3>Contactanos!</h3>
@@ -67,6 +68,7 @@
 </body>
 
   <script src="js/navbarToggle.js"></script>
+  <script src="js/breadCrumbs.js"></script>
    <!-- jQuery CDN - Slim version =without AJAX -->
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->

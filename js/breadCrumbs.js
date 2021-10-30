@@ -1,53 +1,39 @@
 //Toma la estructura de carpetas y las muestra
-
-var path = "";
-var href = document.location.href;
-var s = href.split("/");
 var sku = getParameterByName('sku');
+
+var page = window.location.pathname.split('/').pop();
 
 //Aplica un alias a los hrefs
 
-for (let index = 0; index < s.length; index++) {
-    if(s[index] == 'libros.php'){
-        s[index] = "Libros";
-    }if(s[index] == 'contacto.php'){
-        s[index] = "Contacto";
-    }if(s[index]== "cuenta.php"){
-        s[index] = "Mi cuenta"
-    }
-    if(s[index]=="single-book.php?sku=" + sku){
-        var tituloLibro = document.getElementById("titulo-libro").innerHTML;
-        s[index] = tituloLibro;
-    }
+
+if(page == 'libros.php'){
+    page = "Libros";
+}if(page == 'contacto.php'){
+    page = "Contacto";
+}if(page == "cuenta.php"){
+    page = "Mi cuenta"
+}
+if(page =="single-book.php"){
+    var tituloLibro = document.getElementById("titulo-libro").innerHTML;
+    page = tituloLibro;
+}
     
-}
-//obtiene el id de la URL
-
-
 //Aplica alias a la ruta
-
-for (var i=5;i<(5);i++) {
-   
-    path+="<A HREF=\""+href.substring(0,href.indexOf("/"+s[i])+s[i].length+1)+"/\">"+s[i]+"</A> > ";
-console.log(path);
-
-}
-
-i = s.length-1;
-path+="<A HREF=\""+href.substring(0,href.indexOf(s[i])+s[i].length)+"\">"+s[i]+"</A>";  
-let inicio = "<a href=./>Home</a>"
-var url = inicio + " > " + path;
+let inicio = "<a>Inicio</a>"
+var url = inicio + " > " + page;
 
 //Aplica un alias y agrega una subruta cuando tiene mas de 2 pre rutas
-if(path == '<A HREF="http:/">' + tituloLibro + '</A>'){
-    url = inicio + " > " + '<a href="libros.php">Libros</a>' + ' > ' + path
+console.log(page)
+if(page == tituloLibro){
+    url = inicio + " > " + '<a>Libros</a>' + ' > ' + page
 }else{
-    url = inicio + " > " + path;
+    url = inicio + " > " + page;
 }
 
+//Muestra el breadcrumb en el front
 document.getElementById('breadcrumbs').innerHTML = url; 
 
-
+//Busca y encuentra en la URL la variable pasada, imita una funcion $_GET[]
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),

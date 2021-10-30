@@ -315,6 +315,7 @@ footer a {
     left: 200px;
     top: 20px;
     color: #333;
+	z-index: 101;
   }
 
   .fas.fa-arrow-circle-left:hover{

@@ -126,8 +126,13 @@ label{
 }
 
 .fas.fa-cloud-download-alt{
-    font-size: 50px;
+    font-size: 35px;
+}
 
+a.pdf{
+  position: absolute;
+    left: 45%;
+    bottom: 44%;
 }
 
 .desc{
@@ -258,8 +263,14 @@ label{
   left: 200px;
   top: 20px;
   color: #333;
+  z-index: 101;
 }
 
 .fas.fa-arrow-circle-left:hover{
   color: rgb(95, 95, 95);
+}
+
+.carousel-control-next, .carousel-control-prev {
+  top: 29%;
+
 }
