@@ -67,7 +67,7 @@ div#libro-prueba:hover{
 
 .informacion{    
     /* background: rgba(68, 68, 68, 0.7); */
-    background-color: #ffffffb9;
+    background-color: #ffffff;
     text-align: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -580,5 +580,5 @@ i.fas.fa-times {
 }
 
 .custom-shape-divider-bottom-1635630968 .shape-fill {
-    fill: #ffffffb9;
+    fill: #ffffff;
 }
