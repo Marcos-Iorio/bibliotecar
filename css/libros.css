@@ -49,6 +49,9 @@ div#libro-prueba{
     height: 250px;
     align-self: center;
     justify-self: center;
+    box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
 }
 .tabla-libros{
     text-align: center;
@@ -59,15 +62,13 @@ div#libro-prueba{
 div#libro-prueba:hover{
     overflow: hidden;
     transition: ease 0.3s;
-    transform: scale(1.05);
-    box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    /* transform: scale(1.05); */
+    
 }
 
 .informacion{    
     /* background: rgba(68, 68, 68, 0.7); */
-    background-color: #ffffff;
+    background-color: rgba(51, 51, 51, 0.937);
     text-align: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -137,7 +138,7 @@ p.libro-info{
     padding: 5px 0 0 0;
     background-color: transparent;
     font-weight: bold;
-    color: #333;
+    color: white;
 }
 
 .etiqueta{
@@ -564,7 +565,7 @@ i.fas.fa-times {
 
 .custom-shape-divider-bottom-1635630968 {
     position: absolute;
-    top: -20px;
+    top: -21px;
     left: 0;
     width: 100%;
     overflow: hidden;
@@ -580,5 +581,5 @@ i.fas.fa-times {
 }
 
 .custom-shape-divider-bottom-1635630968 .shape-fill {
-    fill: #ffffff;
+    fill: rgba(51, 51, 51, 0.937);
 }
