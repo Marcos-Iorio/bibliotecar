@@ -24,7 +24,6 @@
          ?>
         <main id="main">
             <h1>Mi cuenta</h1>
-            <div id="breadcrumbs"></div>
             
             <br> 
             <br>
@@ -168,7 +167,6 @@
 </body>
 
 <script src="js/navbarToggle.js"></script>
-<script src="js/breadCrumbs.js"></script>
    <!-- jQuery CDN - Slim version =without AJAX -->
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->

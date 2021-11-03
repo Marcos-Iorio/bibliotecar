@@ -32,15 +32,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/mensajes.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="css/inicio.css">
+    <link rel="stylesheet" href="css/libros.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="css\inicio.css">
-    <link rel="stylesheet" href="css\libros.css">
     <title>Document</title>
 </head>
 <body>
     <section id="page">
         <?php 
           include "php/panel.php";
+         
+
          ?>
         <main id="main">
             <section class="contenido wrapper">
@@ -62,7 +64,7 @@
             <option value="" disabled selected>Seleccionar</option>
               <option value="mail">Titulo</option> 
               <option value="idRol">Autor</option>
-              <option value="check_mail">Genero</option>
+              <option value="check_mail">Categoria</option>
           </select>
 
           <input style="background-color: white; width: 200px; height: 40px; color:black;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
@@ -81,7 +83,7 @@
                           <tr>
                             <th>Titulo</th>
                             <th>Autor</th>
-                            <th>Género</th>
+                            <th>Categoria</th>
                             <th>Stock</th>
                             <th>Fecha de Alta</th>
                             <th>Editar</th>

@@ -28,14 +28,15 @@
   include_once 'db.php';
 
 
-  $query='SELECT l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta
+  $query='SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
             FROM libros AS l
             INNER JOIN libro_autores la ON l.idLibro = la.idLibro
             INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
             INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
+            INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
-            INNER JOIN autores a ON la.idAutores = a.idAutores';
+            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.stock DESC';
 
   $stmt = $dbh->prepare($query);
   
@@ -331,7 +332,7 @@ function llenarImagen($Tapa,$contratapa){
                       function getAutores() {
                             include('db.php');
 
-                            $stmt = $dbh->prepare('SELECT nombreAutor FROM autores');
+                            $stmt = $dbh->prepare('SELECT DISTINCT nombreAutor FROM autores');
                             $stmt ->execute();
                             $arr = $stmt->fetchAll();
                              foreach($arr as $fila):
@@ -345,7 +346,7 @@ echo "<option>".$fila['nombreAutor']."</option>";
                       function getEditoriales() {
                             include('db.php');
 
-                            $stmt = $dbh->prepare('SELECT nombreEditorial FROM editoriales');
+                            $stmt = $dbh->prepare('SELECT DISTINCT nombreEditorial FROM editoriales');
                             $stmt ->execute();
                             $arr = $stmt->fetchAll();
                             //$editoriales = $arr['nombreEditorial'];
@@ -361,7 +362,7 @@ echo "<option>".$fila['nombreEditorial']."</option>";
                       function getCategorias() {
                             include('db.php');
 
-                            $stmt = $dbh->prepare('SELECT nombreCategoria FROM categorias');
+                            $stmt = $dbh->prepare('SELECT DISTINCT nombreCategoria FROM categorias');
                             $stmt ->execute();
                             $arr = $stmt->fetchAll();
                                                     //$categorias = $arr['nombreCategoria'];

@@ -254,6 +254,10 @@ $flag='0';
 
 if ($mail->send()) {
 $flag='0';
+echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+        } else {
+           echo "<script>swal({title:'Atencion',text:'Su reserva se ha realizado pero no pudimos enviar el codigo de reserva a su correo. Por favor contacta al administrador para mas informacion.',type:'info'});</script> ";
+ 
         }
     //Closing smtp connection
     $mail->smtpClose();

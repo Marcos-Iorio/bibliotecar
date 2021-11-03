@@ -14,7 +14,7 @@ li{
 
 .sidebar ul li.active > a, a[aria-expanded="true"] {
     background:transparent !important;
-    color: transparent !important;
+    /*color: transparent !important;*/
     content: 'sdads';
 }
 
@@ -171,7 +171,6 @@ input[type=submit]:hover {
     left: 200px;
     top: 20px;
     color: #333;
-    z-index: 101;
   }
 
 .titulo-cuenta{

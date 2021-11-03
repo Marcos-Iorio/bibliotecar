@@ -118,15 +118,21 @@ include 'db.php';
 
 //function ingresarDevolucion ($idReserva, $idEstado, $idEjemplar){
 
-function ingresarDevolucion ($idReserva){
+function ingresarDevolucion ($idEjemplar){
 
     include 'db.php';
     //include 'sendmail.php';
 
 
+    $stmt = $dbh->prepare("SELECT idReserva FROM reservas where idEjemplar='$idEjemplar' and idReservaEstado = '2'");
 
+if ($stmt->execute()) {
+  //$idReserva=$stmt->fetchColumn();
+    $arr=$stmt->fetch(PDO::FETCH_ASSOC);
+    $idReserva=$arr['idReserva'];
     //echo $sql;
-    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '0' where idReserva = '$idReserva'");
+    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar' and idReserva= '$idReserva'");
+    //echo "UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar' and idReserva= '$idReserva'";
     //REPONER STOCK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     if ($stmt->execute()) {
@@ -141,6 +147,9 @@ function ingresarDevolucion ($idReserva){
         gestionReservas();
 
     }
+}
+
+
   
 }
 
@@ -255,7 +264,7 @@ if ($stmt->execute()) {
         $page_first_result = ($page-1) * $results_per_page; 
 
         
-          $stmt = $dbh->prepare("SELECT * from reservas");
+          $stmt = $dbh->prepare("SELECT * FROM reservas WHERE idReservaEstado <> '0'");
 
        
 

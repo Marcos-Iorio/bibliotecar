@@ -87,7 +87,7 @@ section#page{
     display: block;
     padding: 10px 20px;
     border: 0;
-    color: rgb(170, 170, 170) !important;
+    color: rgb(170, 170, 170);
     text-decoration: none;
 }
  
@@ -365,7 +365,7 @@ div#clockdate{
 }
 
 span.menu-item{
-    color: rgb(170, 170, 170) !important;
+    /*color: rgb(170, 170, 170);*/
 }
 
 @media (max-width: 768px){
@@ -393,7 +393,6 @@ span.menu-item{
     left: 200px;
     top: 20px;
     color: #333;
-    z-index: 101;
   }
 
   .fas.fa-arrow-circle-left:hover{

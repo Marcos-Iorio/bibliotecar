@@ -69,6 +69,7 @@ function mainReservar($mail, $skuLibro){
   
 function confirmarReserva($idLibro, $nombre, $correo, $codigo){
          include 'db.php';
+         //include 'llenarLibros.php';
 
         $stmt = $dbh->prepare("SELECT stock FROM libros where idLibro ='".$idLibro."'");
 
@@ -78,10 +79,14 @@ function confirmarReserva($idLibro, $nombre, $correo, $codigo){
           $stock = $stock-1;
 
           $stmt = $dbh->prepare("UPDATE libros SET stock='".$stock."' where idLibro ='".$idLibro."'");
-          /*if ($stmt->execute()) {
-            include "sendmail.php";
-            enviarReserva($nombre, $correo, $codigo);*/
-              echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+
+          if ($stmt->execute()) {
+                      include "sendmail.php";
+            enviarReserva($nombre, $correo, $codigo);
+
+            //singleBook($idLibro);
+              //echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+              //$GLOBALS['reserva'] = 'OK';
               //header("Location: single-book.php?sku='" . $idLibro . "'");
 
             //echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success', html:'<a href=\"libros.php\">Regresar</a>'});</script> ";
@@ -91,11 +96,15 @@ function confirmarReserva($idLibro, $nombre, $correo, $codigo){
         header('Location: ../single-book.php?sku='.$idLibro);*/          
           //}
           
+        } else {
+                    //echo "<script>swal({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.',type:'error', html:'<a href=\"libros.php\">Regresar</a>'});</script> ";
+
+          echo "<script>swal({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.',type:'error'});</script> ";
         }
 
 
   }
-
+}
 function reservaEjemplar($idLibro){
 
            include 'db.php';

@@ -24,7 +24,7 @@ function getReservas($idUsuario){
   $stmt = $dbh->prepare("SELECT * FROM usuarios LIMIT " . $page_first_result . ',' . $results_per_page);*/
   
 
-  $stmt = $dbh->prepare("SELECT * FROM reservas where idUsuario = '$idUsuario' and idReservaEstado <> '0'");
+  $stmt = $dbh->prepare("SELECT * FROM reservas where idUsuario = '$idUsuario' and idReservaEstado = '1' or idReservaEstado = '2' ");
 
 
 if ($stmt->execute()) {
@@ -82,6 +82,7 @@ function getHistorial($idUsuario){
 if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
 
+
   foreach($resultado as $fila):
 
 
@@ -97,6 +98,8 @@ if ($stmt->execute()) {
 
     ";
     endforeach;
+
+
 }
   }
 

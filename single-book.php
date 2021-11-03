@@ -34,14 +34,16 @@ include "php/reservar.php";
             <div id="breadcrumbs"></div>
             <section class = "libro">
             <?php
-                if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                //if($_SERVER['REQUEST_METHOD'] == 'GET'){
                     include "php/llenarLibros.php";
                     $GLOBALS['idLibro'] = $_GET['sku'];
                     
                     
                     singleBook($idLibro);
+
+
                     
-                }
+                //}
             ?>
                    <!--  <div id="imagenes-libros" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
@@ -96,6 +98,8 @@ include "php/reservar.php";
                     <?php 
                     /*if (isset($codigo)) {
                         echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+                                  <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
+
                     }*/
                      ?>
                     <div class="modal-body">
@@ -106,9 +110,19 @@ include "php/reservar.php";
 
                         <?php 
                         if (isset($_POST['confirmar'])) {
-                            mainReservar($mail, $_GET['sku']);
+                            if (isset($mail)) {
+                                mainReservar($mail, $_GET['sku']);
+                            } else {
+                        echo "<script>swal({title:'Error',text:'Por favor ingrese con su cuenta de usuario para poder realizar una reserva.',type:'info'});</script> ";
+
+                            }
+                            
                         } 
                         ?>
+
+                        <?php 
+
+                         ?>
                         <button id="cancelar">Cancelar</button>
                         
                     </div>

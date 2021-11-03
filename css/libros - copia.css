@@ -1,3 +1,4 @@
+
 section#page{
     /* width: 100%; */
     overflow: hidden;
@@ -19,8 +20,8 @@ section#page{
 
 h3 {
     background-color: transparent;
-    font-size: 40px;
-    text-align: center;
+	font-size: 40px;
+	text-align: center;
     color: white;
     padding-bottom: 20px;
 }
@@ -48,9 +49,6 @@ div#libro-prueba{
     height: 250px;
     align-self: center;
     justify-self: center;
-    box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
 }
 .tabla-libros{
     text-align: center;
@@ -61,13 +59,14 @@ div#libro-prueba{
 div#libro-prueba:hover{
     overflow: hidden;
     transition: ease 0.3s;
-    /* transform: scale(1.05); */
-    
+    transform: scale(1.05);
+    box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
 }
 
 .informacion{    
-    /* background: rgba(68, 68, 68, 0.7); */
-    background-color: rgba(51, 51, 51, 0.937);
+    background: rgba(68, 68, 68, 0.7);
     text-align: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -78,14 +77,12 @@ div#libro-prueba:hover{
     left: 0;
     width: 100%;
     transform: translateY(-100px);
-    display: grid;
-    place-content: center;
 }
 
 div#libro-prueba:hover .informacion{
     transform: translateY(0px);
     width: 100%;
-    height: 75%;
+    height: 70%;
     opacity: 1;
     transition: all ease 0.3s;
 }
@@ -141,9 +138,8 @@ p.libro-info{
 }
 
 .etiqueta{
-    /* border: 1px solid black; */
-    /* background: rgba(53, 53, 53, 0.747); */
-    background-color: rgb(0, 172, 0);
+    /*border: 1px solid black;*/
+    background: rgb(0, 172, 0, 1);
     border-radius: 5px;
     position: absolute;
     top: 4px;
@@ -153,7 +149,7 @@ p.libro-info{
 }
 
 p.etiqueta-info{
-    font-size: 16px;
+    font-size: 15px;
     width: 100%;
     text-align: center;
     line-height: 19px;
@@ -202,11 +198,11 @@ p.etiqueta-info{
 }
 
 label {
-    font-size: 20px;
-    margin-left: 12px;
+	font-size: 20px;
+	margin-left: 12px;
     font-weight: 400;
-    color: #333;
-    background:transparent;
+	color: #333;
+	background:transparent;
     display: inline-block;
     width: 170px;
     text-align: left;
@@ -222,49 +218,49 @@ input[type=text], input[type=number], input[type=file] textarea {
     margin-top: 6px;
     margin-bottom: 16px;
     resize: vertical;
-    background: transparent;
-    color: white;
+	background: transparent;
+	color: white;
 }
 
 
 input[type=text]:focus,input[type=number]:focus, input[type=file]:focus, textarea:focus {
-    border-bottom: 4px solid yellow;
-    background: rgba(255, 255, 255, 0.11);
+	border-bottom: 4px solid yellow;
+	background: rgba(255, 255, 255, 0.11);
 }
 
 input[type=submit] {
-    transition: ease 0.5s;
-    width: 130px;
-    background-color: rgba(51, 51, 51, 0.808);
-    height: 50px;
-    margin: 0 auto;
-    outline: 0;
-    color: white;
-    border: none;
-    border-bottom: 4px solid #222;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    padding: 12px 24px;
-    transition: all ease-in-out 0.1s;
-    position: relative;
-    display: inline-block;
-    text-align: center;
+	transition: ease 0.5s;
+	width: 130px;
+	background-color: rgba(51, 51, 51, 0.808);
+	height: 50px;
+	margin: 0 auto;
+	outline: 0;
+	color: white;
+	border: none;
+	border-bottom: 4px solid #222;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	padding: 12px 24px;
+	transition: all ease-in-out 0.1s;
+	position: relative;
+	display: inline-block;
+	text-align: center;
     font-weight: 400;
-    font-size: 18px;
+	font-size: 18px;
 }
 
 input[type=submit]:focus {
-    background: yellow;
-    color: whitesmoke;
+	background: yellow;
+	color: whitesmoke;
 }
 
 
 input[type=submit]:hover {
-    border: none;
-    border-bottom: 4px solid #333;
-    background: yellow;
-    color: #333;
-    transition: ease 0.5s;
+	border: none;
+	border-bottom: 4px solid #333;
+	background: yellow;
+	color: #333;
+	transition: ease 0.5s;
 }
 input#portada{
     background: transparent;
@@ -452,24 +448,24 @@ input#buscar:hover{
 /* Filtros */
 
 .menu-filtro{
-    float:right;
-    background:#fff;
-    width:0px;  
-    padding: 20px 0 0 0px;
-    height:1400px;
-    border-right:1px solid #eee;
+	float:right;
+	background:#fff;
+	width:0px;	
+	padding: 20px 0 0 0px;
+	height:1400px;
+	border-right:1px solid #eee;
     z-index: 1004;
     transition: ease 0.5s;
 }
 
 .menu-filtro h3{
-    color:#262626;
-    text-transform:uppercase;
-    font-size:14px;
-    font-weight:700;
-    padding:35px 0 10px 0;
-    letter-spacing:1px;
-    clear:both;
+	color:#262626;
+	text-transform:uppercase;
+	font-size:14px;
+	font-weight:700;
+	padding:35px 0 10px 0;
+	letter-spacing:1px;
+	clear:both;
     
 }
 
@@ -482,44 +478,44 @@ div#menu-filtro{
 }
 
 .menu-filtro .checklist{
-    padding:0;
+	padding:0;
 }
 
-.checklist ul li{   
-    font-size:14px;
-    font-weight:400;
-    list-style:none;
-    padding: 7px 0 7px 23px;
+.checklist ul li{	
+	font-size:14px;
+	font-weight:400;
+	list-style:none;
+	padding: 7px 0 7px 23px;
 }
 .checklist li span{
-    float:left;
-    width:11px;
-    height:11px;
-    margin-left:-23px;
-    margin-top:4px;
-    border: 1px solid #d1d3d7;
-    position:relative;  
+	float:left;
+	width:11px;
+	height:11px;
+	margin-left:-23px;
+	margin-top:4px;
+	border: 1px solid #d1d3d7;
+	position:relative;	
 }
 
 .checklist li a{
-    color:#676a74;
-    text-decoration:none;   
-    -webkit-transition: all 300ms ease-out;
-       -moz-transition: all 300ms ease-out;
-        -ms-transition: all 300ms ease-out;
-         -o-transition: all 300ms ease-out;
-            transition: all 300ms ease-out;
+	color:#676a74;
+	text-decoration:none;	
+	-webkit-transition: all 300ms ease-out;
+	   -moz-transition: all 300ms ease-out;
+	    -ms-transition: all 300ms ease-out;
+	     -o-transition: all 300ms ease-out;
+	        transition: all 300ms ease-out;
 }
-.checklist li a:hover{  
-    color:#222;
-    -webkit-transition: all 300ms ease-out;
-       -moz-transition: all 300ms ease-out;
-        -ms-transition: all 300ms ease-out;
-         -o-transition: all 300ms ease-out;
-            transition: all 300ms ease-out;
+.checklist li a:hover{	
+	color:#222;
+	-webkit-transition: all 300ms ease-out;
+	   -moz-transition: all 300ms ease-out;
+	    -ms-transition: all 300ms ease-out;
+	     -o-transition: all 300ms ease-out;
+	        transition: all 300ms ease-out;
 }
-.checklist a:hover span{    
-    border-color:#a6aab3;   
+.checklist a:hover span{ 	
+	border-color:#a6aab3;	
 }
 
 .checklist.categories li:hover a span:hover{
@@ -558,27 +554,4 @@ i.fas.fa-times {
 
 .fas.fa-arrow-circle-left:hover{
     color: rgb(95, 95, 95);
-}
-
-/* SVG */
-
-.custom-shape-divider-bottom-1635630968 {
-    position: absolute;
-    top: -21px;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
-}
-
-.custom-shape-divider-bottom-1635630968 svg {
-    position: relative;
-    display: block;
-    width: calc(100% + 1.3px);
-    height: 21px;
-}
-
-.custom-shape-divider-bottom-1635630968 .shape-fill {
-    fill: rgba(51, 51, 51, 0.937);
 }

@@ -7,7 +7,7 @@
     include 'db.php';
 
 
-        $stmt = $dbh->prepare('SELECT l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+        $stmt = $dbh->prepare('SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
             FROM libros AS l
             INNER JOIN libro_autores la ON l.idLibro = la.idLibro
             INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
@@ -15,7 +15,7 @@
             INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
-            INNER JOIN autores a ON la.idAutores = a.idAutores');
+            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.stock DESC');
     $stmt->execute();
     $resultado=$stmt->fetchAll();
 
@@ -26,11 +26,11 @@
                   <img class="imagen-libro" data-lazy="' . $fila['ruta'] . ' " alt="">
               </div>
               <div id="informacion" class="informacion">
-              <div class="custom-shape-divider-bottom-1635630968">
+	              <div class="custom-shape-divider-bottom-1635630968">
     <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
         <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
     </svg>
-</div>
+</div>															  
                   <p class="libro-info">';
                   echo 'Titulo: ' . $fila['titulo'] . '  <br>';
                   echo 'Autor: ' . $fila['nombreAutor']. '  <br>';
@@ -81,6 +81,11 @@ if ($stmt->execute()) {
                   <img class="imagen-libro" data-lazy="' . $fila['ruta'] . ' " alt="">
               </div>
               <div class="informacion">
+                              <div class="custom-shape-divider-bottom-1635630968">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    </svg>
+</div>
                   <p class="libro-info">';
                   echo 'Titulo: ' . $fila['titulo'] . '  <br>';
                   echo 'Autor: ' . $fila['nombreAutor']. '  <br>';
@@ -122,23 +127,28 @@ function singleBook($idLibro){
     $stmt = $dbh->prepare($query);
     $stmt->execute();
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
-
     if ($arr['idCategoriaImg']=='2') {
             $contratapa= $arr['ruta'];
           }  else {
             $contratapa= $arr['ruta'];
           }
  
+    if ($arr['pdf']=='') {
+            $pdf='';
+          }  else {
+            $pdf='<label for="pdf">PDF:</label>
+    <span><a href="'. $arr['pdf'] .'" download="'. $arr['titulo'] .'"><i  class="fas fa-cloud-download-alt"></i></a></span>';
+          }
 
     echo '
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <div id="imagenes-libros" class="carousel slide" data-ride="carousel" >
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img id="img-libro" class="d-block w-100" src=' . $arr['ruta'] . ' alt="Tapa">
+            <img id="img-libro" class="d-block w-100" src="' . $arr['ruta'] . '" alt="Tapa">
         </div>
         <div class="carousel-item">
-            <img id="img-libro" class="d-block w-100" src=' . $contratapa . ' alt="Contra Tapa">
+            <img id="img-libro" class="d-block w-100" src="' . $contratapa . '" alt="Contra Tapa">
     
         </div>
     </div>
@@ -165,8 +175,7 @@ function singleBook($idLibro){
         <span><?php /* echo $arr[\'nombreEditorial\'] */?></span><br>
         <label for="stock">Stock:</label>
         <span id="stock">' . $arr['stock'] . '</span><br>
-                <label for="pdf">Descargá el libro:</label>
-    <span><a class="pdf" href="'. $arr['pdf'] .'" download="' . $arr['titulo'] .'" ><i  class="fas fa-cloud-download-alt"></i></a></span>
+          '.$pdf.'
     </div>
 
     <div class="boton-reservar">
@@ -178,7 +187,6 @@ function singleBook($idLibro){
     <h3 class= "titulo-desc">Descripcion</h3>
     <p class = "desc">' . $arr['descripcion'] . '</p>
 </div>';
-
 
   }
 
