@@ -179,7 +179,7 @@ function singleBook($idLibro){
     </div>
 
     <div class="boton-reservar">
-        <button class="reservar" id="reservar">Reservar</button>
+        <button class="reservar" id="reservar" >Reservar</button>
         <p class="alerta-reserva">*Las reservas tendran una vigencia de 2 semanas</p>
     </div>
 </div>

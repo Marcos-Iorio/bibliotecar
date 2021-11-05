@@ -448,7 +448,13 @@ input#buscar:hover{
     background: white;
     
 }
+/*
+.input-libro{
 
+    background-color: white;
+    color: black;
+}
+*/
 /* Filtros */
 
 .menu-filtro{

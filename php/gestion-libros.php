@@ -28,7 +28,7 @@
   include_once 'db.php';
 
 
-  $query='SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+  $query="SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
             FROM libros AS l
             INNER JOIN libro_autores la ON l.idLibro = la.idLibro
             INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
@@ -36,7 +36,7 @@
             INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
-            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.stock DESC';
+            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.stock DESC LIMIT $page_first_result , $results_per_page";
 
   $stmt = $dbh->prepare($query);
   
@@ -45,7 +45,7 @@ if ($stmt->execute()) {
 
   foreach($resultado as $fila):
 
-    echo "<form action='' method = 'POST' class= 'form-libro'
+    echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
     <tbody>
                           <tr>
                             <td>".  $fila['titulo']."</td>
@@ -61,26 +61,35 @@ if ($stmt->execute()) {
 }
   }
 
-function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock,$fechaAlta,$pdf){
+function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock,$fechaAlta,$pdf, $tapa, $contratapa){
     include('db.php');
 
-        
-        if($pdf != ""){
-        $pdf = $_FILES['pdf']['tmp_name'];
-        $destinoPdf ="assets/libros/pdf".$_FILES['pdf']['name'];
+        if(!$_FILES['pdf']['name'] == ""){
+                  $pdf = $_FILES['pdf']['tmp_name'];
+        $destinoPdf ="assets/libros/pdf/".$_FILES['pdf']['name'];
         move_uploaded_file($pdf,$destinoPdf);
-          
+
+        } else {
+        $destinoPdf ="";
+
         }
 
 
+
     cargarLibro($titulo,$descripcion,$stock,$fechaAlta,$destinoPdf);
+    cargarEjemplar($stock, $fechaAlta);
     cargarAutor($autor);
     cargarCategoria($categoria);
     cargarEditorial($editorial);
-    cargarEjemplar($stock, $fechaAlta);
-    llenarAutorLibro();
-    llenarCategoriaLibro();
-    llenarEditorialLibro();
+
+
+
+    llenarImagen($tapa, $contratapa);
+    
+
+    //llenarAutorLibro();
+    //llenarCategoriaLibro();
+    //llenarEditorialLibro();
 
    
 
@@ -92,19 +101,20 @@ function llenarImagen($Tapa,$contratapa){
        
   
 
-           $Tapa = $_FILES['tapa']['tmp_name'];
-           $destinoTapa ="assets/libros".$_FILES['tapa']['name'];
-           move_uploaded_file($Tapa,$destinoTapa);
+           $tmpTapa = $_FILES['tapa']['tmp_name'];
+           $destinoTapa ="assets/libros/".$_FILES['tapa']['name'];
+           move_uploaded_file($tmpTapa,$destinoTapa);
 
-            $contratapa = $_FILES['contratapa']['tmp_name'];
-            $destinoCtapa ="assets/libros".$_FILES['contratapa']['name'];
-             move_uploaded_file($contratapa,$destinoCtapa);
+            $tmpContratapa = $_FILES['contratapa']['tmp_name'];
+            $destinoCtapa ="assets/libros/".$_FILES['contratapa']['name'];
+             move_uploaded_file($tmpContratapa,$destinoCtapa);
               
              $idTapa = buscarIdTapa();
              $idCtapa = buscarIdcontraTapa();
              $idLibro = buscarIdLibro();
             
-             
+            //echo "<script>swal({title:'Error',text:'la tapa es $tmpTapa... y la contratapa $destinoTapa',type:'error'});</script>";
+
 
              cargarTapaImagenLibro($idLibro,$destinoTapa,$idTapa);
              cargarCTapaImagenLibro($idLibro,$destinoCtapa,$idCtapa);
@@ -136,38 +146,88 @@ function llenarImagen($Tapa,$contratapa){
 
                 function cargarAutor($autor){
                     include('db.php');
+                    $buscarAutor = $dbh->prepare("SELECT idAutores FROM `autores` WHERE nombreAutor='$autor' limit 1");
+                    $buscarAutor->execute();
 
-                    $insertAutor = $dbh->prepare("INSERT into `autores` (nombreAutor) values(?)");
-                    $insertAutor->bindParam(1, $autor);    
-                          $insertAutor->execute();
+                    $arr=$buscarAutor->fetch(PDO::FETCH_ASSOC);
+                    $idAutor=$arr['idAutores'];
+
+                    if (!$idAutor == '') {
+                      $idLibro=buscarIdLibro();
+                      llenarAutorLibro($idAutor, $idLibro);
+                      # code...
+                    } else {
+                    //$insertAutor = $dbh->prepare("INSERT into `autores` (nombreAutor) values(?)");
+                    //$insertAutor->bindParam(1, $autor);    
+                    //$insertAutor->execute();
+                    echo "<script>swal({title:'Error',text:'Error al ingresar el registro, ya existe el autor insertado',type:'error'});</script>";
+
+                    }
+
+
 
                 }
 
                 function cargarCategoria($categoria){
                     include('db.php');
-                    $insertCategoria = $dbh->prepare("INSERT into `categorias` (nombreCategoria) values(?)");
-                    $insertCategoria->bindParam(1, $categoria);    
-                           $insertCategoria->execute();
+                    $buscarCategoria = $dbh->prepare("SELECT idCategoria FROM `categorias` WHERE nombreCategoria='$categoria' limit 1");
+                    $buscarCategoria->execute();
+
+                    $arr=$buscarCategoria->fetch(PDO::FETCH_ASSOC);
+                    $idCategoria=$arr['idCategoria'];
+
+                    if (!$idCategoria == '') {
+                      $idLibro=buscarIdLibro();
+                      llenarCategoriaLibro($idCategoria, $idLibro);
+                      # code...
+                    } else {
+                    //$insertAutor = $dbh->prepare("INSERT into `autores` (nombreAutor) values(?)");
+                    //$insertAutor->bindParam(1, $autor);    
+                    //$insertAutor->execute();
+                    echo "<script>swal({title:'Error',text:'Error al ingresar el registro, ya existe la categoria insertada',type:'error'});</script>";
+
+                    }
+
+                    //$insertCategoria = $dbh->prepare("INSERT into `categorias` (nombreCategoria) values(?)");
+                    //$insertCategoria->bindParam(1, $categoria);    
+                    //$insertCategoria->execute();
 
                 }
 
 
                 function cargarEditorial($editorial){
                     include('db.php');
-                    
-                     $insertEditorial = $dbh->prepare("INSERT into `editoriales`(nombreEditorial) values(?)");
-                    $insertEditorial ->bindParam(1, $editorial);    
-                          $insertEditorial ->execute();
+
+                    $buscarEditorial = $dbh->prepare("SELECT idEditorial FROM `editoriales` WHERE nombreEditorial='$editorial' limit 1");
+                    $buscarEditorial->execute();
+
+                    $arr=$buscarEditorial->fetch(PDO::FETCH_ASSOC);
+                    $idEditorial=$arr['idEditorial'];
+
+                    if (!$idEditorial == '') {
+                      $idLibro=buscarIdLibro();
+                      llenarEditorialLibro($idEditorial, $idLibro);
+                      # code...
+                    } else {
+                    //$insertAutor = $dbh->prepare("INSERT into `autores` (nombreAutor) values(?)");
+                    //$insertAutor->bindParam(1, $autor);    
+                    //$insertAutor->execute();
+                    echo "<script>swal({title:'Error',text:'Error al ingresar el registro, ya existe la editorial insertada',type:'error'});</script>";
+
+                    }                   
+                    //$insertEditorial = $dbh->prepare("INSERT into `editoriales`(nombreEditorial) values(?)");
+                    //$insertEditorial ->bindParam(1, $editorial);    
+                    //$insertEditorial ->execute();
 
                 }
 
                
            
-           function llenarAutorLibro(){
+           function llenarAutorLibro($idAutor, $idLibro){
                include('db.php');
            
-                 $idAutor = buscarIdAutor();
-                 $idLibro = buscarIdLibro();
+                 //$idAutor = buscarIdAutor();
+                 //$idLibro = buscarIdLibro();
                
                
                     $insertAutorLibro = $dbh->prepare("INSERT into `libro_autores` (idAutores,idLibro) values(?,?)");
@@ -181,11 +241,11 @@ function llenarImagen($Tapa,$contratapa){
            }
            
            
-           function llenarCategoriaLibro(){
+           function llenarCategoriaLibro($idCategoria, $idLibro){
                include('db.php');
            
-               $idCategoria = buscarIdCategoria();
-               $idLibro = buscarIdLibro();
+               //$idCategoria = buscarIdCategoria();
+               //$idLibro = buscarIdLibro();
                
                
                     $insertCategoriaLibro = $dbh->prepare("INSERT into `libro_categorias` (idCategoria,idLibro) values(?,?)");
@@ -199,11 +259,11 @@ function llenarImagen($Tapa,$contratapa){
            
            
            
-           function llenarEditorialLibro(){
+           function llenarEditorialLibro($idEditorial, $idLibro){
                include('db.php');
            
-               $idEditorial = buscarIdEditorial();
-               $idLibro = buscarIdLibro();
+               //$idEditorial = buscarIdEditorial();
+               //$idLibro = buscarIdLibro();
                
                
                     $insertEditorialLibro = $dbh->prepare("INSERT into `libro_editoriales` (idEditorial,idLibro) values(?,?)");
@@ -211,18 +271,7 @@ function llenarImagen($Tapa,$contratapa){
                     $insertEditorialLibro->bindParam(2, $idLibro);
            
                         
-               if ($insertEditorialLibro->execute()) {
-
-        //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Registro ingresado correctamente.',type:'success'});</script>";
-        gestionLibros();
-
-
-    } else {
-        echo "<script>swal({title:'Error',text:'Error al ingresar el registro',type:'error'});</script>";
-        gestionLibros();
-
-    }
+               $insertEditorialLibro->execute();
     
              
            }
@@ -252,7 +301,20 @@ function llenarImagen($Tapa,$contratapa){
                             $insertCTapa->bindParam(3,$idCat);
                            
                          
-                                $insertCTapa->execute();
+                                //$insertCTapa->execute();
+
+                                               if ($insertCTapa->execute()) {
+
+        //enviarPwd($nombre, $mail, $pass);
+        echo "<script>swal({title:'Exito',text:'Registro ingresado correctamente.',type:'success'});</script>";
+        gestionLibros();
+
+
+    } else {
+        echo "<script>swal({title:'Error',text:'Error al ingresar el registro',type:'error'});</script>";
+        gestionLibros();
+
+    }
                                 
                 
                         }
@@ -332,7 +394,7 @@ function llenarImagen($Tapa,$contratapa){
                       function getAutores() {
                             include('db.php');
 
-                            $stmt = $dbh->prepare('SELECT DISTINCT nombreAutor FROM autores');
+                            $stmt = $dbh->prepare('SELECT DISTINCT nombreAutor FROM autores  ORDER BY  nombreAutor ASC');
                             $stmt ->execute();
                             $arr = $stmt->fetchAll();
                              foreach($arr as $fila):
@@ -346,7 +408,7 @@ echo "<option>".$fila['nombreAutor']."</option>";
                       function getEditoriales() {
                             include('db.php');
 
-                            $stmt = $dbh->prepare('SELECT DISTINCT nombreEditorial FROM editoriales');
+                            $stmt = $dbh->prepare('SELECT DISTINCT nombreEditorial FROM editoriales  ORDER BY  nombreEditorial ASC');
                             $stmt ->execute();
                             $arr = $stmt->fetchAll();
                             //$editoriales = $arr['nombreEditorial'];
@@ -362,7 +424,7 @@ echo "<option>".$fila['nombreEditorial']."</option>";
                       function getCategorias() {
                             include('db.php');
 
-                            $stmt = $dbh->prepare('SELECT DISTINCT nombreCategoria FROM categorias');
+                            $stmt = $dbh->prepare('SELECT DISTINCT nombreCategoria FROM categorias  ORDER BY  nombreCategoria ASC');
                             $stmt ->execute();
                             $arr = $stmt->fetchAll();
                                                     //$categorias = $arr['nombreCategoria'];
@@ -376,7 +438,7 @@ echo "<option>".$fila['nombreEditorial']."</option>";
 
     function cargarEjemplar($stock, $fechaAlta){
                             include('db.php');
-      $idEjemplarEstado="1";
+      $idEjemplarEstado="0";
 
       $idLibro = buscarIdLibro();
       
@@ -419,8 +481,16 @@ echo "<option>".$fila['nombreEditorial']."</option>";
         $results_per_page = 5;  
         $page_first_result = ($page-1) * $results_per_page; 
 
-
-          $stmt = $dbh->prepare("SELECT * from libros");
+$query='SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+            FROM libros AS l
+            INNER JOIN libro_autores la ON l.idLibro = la.idLibro
+            INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
+            INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
+            INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
+            INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
+            INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
+            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.stock DESC';
+          $stmt = $dbh->prepare($query);
 
     //echo $sql;
 

@@ -4,7 +4,7 @@
 
 function getReservas($idUsuario){
   include 'db.php';
-
+  include 'gestion-reservas.php';
   /*if (!isset ($_GET['page']) ) {  
             $page = 1;  
         } else {  
@@ -31,14 +31,17 @@ if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
 
   foreach($resultado as $fila):
+  $nombreEstado = getReservaEstado($fila['idReservaEstado']);
+  $nombreLibro = getTitulo($fila['idEjemplar']);
+
 
 
   	echo "
     <tbody>
                 <tr>
                   <td>" .  $fila['idReserva']. "</td>
-                  <td>" .  $fila['idEjemplar'] . "</td>
-                  <td>" .  $fila['idReservaEstado']. "</td>
+                  <td>" .  $nombreLibro . "</td>
+                  <td>" .  $nombreEstado. "</td>
                   <td>" .  $fila['fechaDesde']. "</td>
                   <td>" .  $fila['fechaHasta']. "</td>
                   
@@ -84,13 +87,14 @@ if ($stmt->execute()) {
 
 
   foreach($resultado as $fila):
+  $nombreLibro = getTitulo($fila['idEjemplar']);
 
 
     echo "
     <tbody>
                 <tr>
                   <td>" .  $fila['idReserva']. "</td>
-                  <td>" .  $fila['idEjemplar'] . "</td>
+                  <td>" .  $nombreLibro . "</td>
                   <td>" .  $fila['fechaHasta']. "</td>
                   
                 </tr>
@@ -132,20 +136,34 @@ function getDescargas($idUsuario){
 
 if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
-
-  foreach($resultado as $fila):
-
-
     echo "
     <tbody>
                 <tr>
-                  <td>" .  $fila['idEjemplar'] . "</td>
-                  <td>" .  $fila['fechaHasta']. "</td>
+                  <td>No hay descargas realizadas</td>
+                  <td></td>
                   
                 </tr>
               </tbody>
 
     ";
+  foreach($resultado as $fila):
+
+  $nombreLibro = getTitulo($fila['idEjemplar']);
+
+    /*echo "
+    <tbody>
+                <tr>
+                  <td>" .  $nombreLibro . "</td>
+                  <td>" .  $fila['fechaHasta']. "</td>
+                  
+                </tr>
+              </tbody>
+
+    ";*/
+
+
+
+
     endforeach;
 }
 

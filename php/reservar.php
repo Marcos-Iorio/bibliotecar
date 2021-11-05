@@ -64,6 +64,9 @@ function mainReservar($mail, $skuLibro){
 
                    //header('Location: ../single-book.php?sku='.$skuLibro);
           confirmarReserva($skuLibro, $nombre, $correo, $codigo);
+         } else {
+                    echo "<script>swal({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.$codigo,  $idEjemplar, $reservaEstado, $idUsuario, $fechaDesde, $fechaHasta',type:'error'});</script> ";
+
          }
       }
   

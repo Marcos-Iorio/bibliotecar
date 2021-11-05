@@ -130,11 +130,15 @@ if ($stmt->execute()) {
   //$idReserva=$stmt->fetchColumn();
     $arr=$stmt->fetch(PDO::FETCH_ASSOC);
     $idReserva=$arr['idReserva'];
+    if ($idReserva == '') {
+        echo "<script>swal({title:'Error',text:'Para realizar una devolucion, la reserva debe estar en estado Activo',type:'error'});</script>";
+        gestionReservas();
+
+} else {   
     //echo $sql;
     $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar' and idReserva= '$idReserva'");
     //echo "UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar' and idReserva= '$idReserva'";
     //REPONER STOCK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
     if ($stmt->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
@@ -147,6 +151,7 @@ if ($stmt->execute()) {
         gestionReservas();
 
     }
+  }
 }
 
 
