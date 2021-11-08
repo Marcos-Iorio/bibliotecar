@@ -22,7 +22,7 @@ function diasReservas(){
     (SELECT COUNT(idEjemplar) 
      from vw_libri_res  WHERE idEjemplar = vr.idEjemplar)  
      as `ejem_count`
-     from vw_libri_res as vr LIMIT 8"; 
+     from vw_libri_res as vr ORDER BY ejem_count desc LIMIT 8"; 
 
      $stmt = $dbh->prepare($query2);
      $stmt->execute();
