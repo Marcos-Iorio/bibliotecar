@@ -51,15 +51,14 @@ function popover(){
 }
 
 function requerimientoPass(){
-    $('#passwordRe').focusin(function(){
-        $('#passRequire').removeClass('hidden');
-        $('#passRequire').fadeIn(2000);
-        
-        
-    })
-    $('#passwordRe').focusout(function(){
-        $('#passRequire').addClass('hidden');
-        $('#passRequire').fadeOut(2000);
-    })
+
+    var myInput = document.getElementById("passwordRe");
+    document.getElementById("passRequire").style.display = "none";
+    myInput.onfocus = function(){
+        document.getElementById("passRequire").style.display = "block";
+    }
+    myInput.onblur = function(){
+        document.getElementById("passRequire").style.display = "none";
+    }
 
 }

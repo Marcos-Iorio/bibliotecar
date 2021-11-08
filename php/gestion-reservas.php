@@ -47,14 +47,14 @@ if ($fila['idReservaEstado'] == '4' ) {
 }*/
   	echo "<tbody>
                 <tr>
-                  <td>" . $fila['idReserva']. "</td>
+                  <td id='idReserva'>" . $fila['idReserva']. "</td>
                   <td>" .  $fila['idEjemplar']. "</td>
                   <td>" .  $tituloLibro. "</td>
-                  <td>" .  $idEstado . "</td>
-                  <td>" .  $mailUsuario. "</td>
+                  <td id='idEstado'>" .  $idEstado . "</td>
+                  <td id='mailUsuario'>" .  $mailUsuario. "</td>
                   <td>" .  $fila['fechaDesde']. "</td>
                   <td>" .  $fila['fechaHasta']. "</td>
-                  <td><button onclick=\"javascript:cargarReserva('".$fila["idReserva"]."','".$mailUsuario."','".$idEstado."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                  <td><a href='#container-form' id='modal-reservas'><button onclick=\"javascript:cargarReserva('".$fila["idReserva"]."','".$mailUsuario."','".$idEstado."')\" ><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                 </tr>
               </tbody>
 

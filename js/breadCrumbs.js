@@ -23,7 +23,7 @@ let inicio = "<a>Inicio</a>"
 var url = inicio + " > " + page;
 
 //Aplica un alias y agrega una subruta cuando tiene mas de 2 pre rutas
-console.log(page)
+
 if(page == tituloLibro){
     url = inicio + " > " + '<a>Libros</a>' + ' > ' + page
 }else{

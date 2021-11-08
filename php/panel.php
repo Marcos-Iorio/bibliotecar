@@ -60,6 +60,7 @@
                     if ($pid == '3') {
                        ?>
                       <li id="abm-usuarios"><a  class="scroll-link" href="admin-usuarios.php"><span class="item-gestion">Usuarios</span></a></li>
+                      <li id="reportes"><a  class="scroll-link" href="reportes.php"><span class="item-gestion">Reporte</span></a></li>
                         <?php  }
                         ?>
                       <?php 

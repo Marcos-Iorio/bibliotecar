@@ -140,6 +140,11 @@ p.libro-info{
     color: white;
 }
 
+span.portal-info{
+    color: white;
+    font-weight: 500 !important;
+}
+
 .etiqueta{
     /* border: 1px solid black; */
     /* background: rgba(53, 53, 53, 0.747); */

@@ -148,15 +148,16 @@
             </section>
 
             <section class = "subir-libro" style="margin-left: 100px">
-              <div class="container-form">
-                <form name="formReservas" action="" method = "POST" class= "form-libro">
+              <div class="container-form" id="container-form">
+              <span id="close">&times;</span>
+                <form name="formReservas" id="formReserva" action="" method = "POST" class= "form-libro">
 
                   <div class="wrapper-reserva">
-                    <label for="" >Reserva:</label>
+                    <label class="modal-reserva" for="" >Reserva:</label>
                     <input name="txtReserva" class="reserva-libro" type="text" name="titulo" id="titulo" readonly>
-                    <label for="">Usuario: </label>
+                    <label class="modal-reserva" for="">Usuario: </label>
                     <input name="txtUsuario" class="reserva-libro" type="text" name="autor" id="autor" readonly>
-                    <label for="">Estado: </label>
+                    <label class="modal-reserva" for="">Estado: </label>
                     <select name="selectEstado" id="selectEstado" class="form-control">
                     <option name="txtEstado" value="" class="reserva-libro" disabled selected >Seleccionar</option>
                     <?php getEstadoReservas(); ?>
@@ -172,7 +173,7 @@
                   </div>
                     <br><br>
 
-                    </form>
+                  </form>
               </div>         
             </section>
             <button onclick="contacto()" class="buttonInfo tooltip">
@@ -182,6 +183,57 @@
         </main>
       </section>
 </body>
+<script>
+/* Abre el modal */
+
+var modal = document.getElementById("container-form");
+
+// Get the button that opens the modal
+var btn = document.querySelectorAll("#modal-reservas");
+
+for(var i = 0; i < btn.length ; i++) {
+  btn[i].onclick = function() {
+    modal.style.display = "block";
+  }
+};
+
+// Get the <span> element that closes the modal
+var span = document.getElementById("close");
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+      
+
+function cargarReserva(idReserva, usuario, estadoReserva){
+
+    console.log(document.formReservas.txtReserva.value = idReserva);
+  
+    console.log( document.formReservas.txtUsuario.value = usuario);
+
+    let estado = document.getElementById('selectEstado');
+    estado.value=estadoReserva;
+
+    /* formReserva.document.getElementsByName('selectEstado')[0].options[0].innerHTML = estadoReserva; */
+
+    //window.location = 'vistaProducto.php#gestionProducto';
+}
+  
+          
+</script>
 <script src="js/navbarToggle.js"></script>
  <!-- jQuery CDN - Slim version =without AJAX -->
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -189,18 +241,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
-         function cargarReserva(idReserva, usuario,estadoReserva){
-        document.formReservas.txtReserva.value=idReserva;
-        document.formReservas.txtUsuario.value=usuario;
-        //document.formReservas.txtEstado.value=estadoReserva;
-          document.getElementsByName('selectEstado')[0].options[0].innerHTML = estadoReserva;
-
-         //window.location = 'vistaProducto.php#gestionProducto';
-    }
-
-    </script>
 </html>
    
  

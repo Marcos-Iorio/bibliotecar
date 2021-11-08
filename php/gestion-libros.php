@@ -61,7 +61,7 @@ if ($stmt->execute()) {
 }
   }
 
-function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock,$fechaAlta,$pdf, $tapa, $contratapa){
+function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock, $fechaAlta, $pdf, $tapa, $contratapa){
     include('db.php');
 
         if(!$_FILES['pdf']['name'] == ""){

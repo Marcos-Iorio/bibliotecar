@@ -25,7 +25,13 @@ exit;
 </head>
 <body onload="movimientoLogin(), mouseMove(), requerimientoPass(), swal()">
     <img id="libroIcon" src="assets/libro-magico.svg" alt="" data-toggle="popover" title="¡CLICKEAME!" data-placement="bottom">
-    <p class="pass__require hidden" id ="passRequire">La contraseña debe tener: 6 caracteres, 1 numero y 1 mayúscula</p>
+    <div class="pass__require hidden" id ="passRequire">
+        <h3>La contraseña debe contener:</h3>
+        <p id="letter" class="invalid">Una <b>letra</b> Minúscula</p>
+        <p id="capital" class="invalid">Una <b>letra</b> Mayúscula</p>
+        <p id="number" class="invalid">Un <b>numero</b></p>
+        <p id="length" class="invalid">Mínimo <b>8 carácteres</b></p>
+    </div>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
             <?php 
@@ -35,8 +41,8 @@ exit;
                 <h1>Crear cuenta</h1>
                 <input type="text" placeholder="Nombre" name="username" id="username"  required/>
                 <input type="email" placeholder="Email" name="mail" id="mail" required />
-                <input type="password" placeholder="Contraseña" name="passwordRe" id="passwordRe" required />
-                <button name="registrophp">Registrarse</button>
+                <input type="password" placeholder="Contraseña" name="passwordRe" id="passwordRe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required />
+                <button name="registrophp" id="btn-registro">Registrarse</button>
                 <span id="resultado"></span>
                 <?php 
     if(isset($_POST['registrophp'])){
@@ -110,3 +116,58 @@ exit;
 
 	
 </footer>
+<script>
+    var myInput = document.getElementById("passwordRe");
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+
+    myInput.onkeyup = function() {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if(myInput.value.match(lowerCaseLetters)) {
+          letter.classList.remove("invalid");
+          letter.classList.add("valid");
+        } else {
+          letter.classList.remove("valid");
+          letter.classList.add("invalid");
+      }
+      
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if(myInput.value.match(upperCaseLetters)) {
+          capital.classList.remove("invalid");
+          capital.classList.add("valid");
+        } else {
+          capital.classList.remove("valid");
+          capital.classList.add("invalid");
+        }
+      
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if(myInput.value.match(numbers)) {
+          number.classList.remove("invalid");
+          number.classList.add("valid");
+        } else {
+          number.classList.remove("valid");
+          number.classList.add("invalid");
+        }
+      
+        // Validate length
+        if(myInput.value.length >= 8) {
+          length.classList.remove("invalid");
+          length.classList.add("valid");
+        } else {
+          length.classList.remove("valid");
+          length.classList.add("invalid");
+        }
+
+        if(myInput.value.match(numbers) && myInput.value.length >= 8 && myInput.value.match(upperCaseLetters) && (myInput.value.match(lowerCaseLetters))){
+            document.getElementById('btn-registro').disabled = false;
+        }else{
+            document.getElementById('btn-registro').disabled = true
+        }
+      }
+
+</script>
