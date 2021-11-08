@@ -39,9 +39,17 @@
         <main id="main">
             <div id="breadcrumbs"></div>
             <div id="treinta-dias-reservas">
+                <div id="tooltip" class="hidden">
+                    <p><strong id="nombre-libro">sdads</strong></p>
+                    <p><span id="cantidad-reservas">100</span></p>
+                </div>
                 <svg width=1500 height=600 id="dias-reserva"></svg>
             </div>
             <div id="todo-eltiempo-reserva">
+                <div id="tooltip-todo" class="hidden">
+                    <p><strong id="nombre-libro-todo">sdads</strong></p>
+                    <p><span id="cantidad-reservas-todo">100</span></p>
+                </div>
                 <svg width=1500 height=600 id="historial-reserva"></svg>
             </div>
         </main>
