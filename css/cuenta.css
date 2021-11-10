@@ -1,5 +1,3 @@
-
-
 li{
     list-style:none;
     display: block;
@@ -19,8 +17,6 @@ li{
     /*color: transparent !important;*/
     content: 'sdads';
 }
-
-
 
 label{
     padding: 25px;
@@ -162,4 +158,21 @@ input[type=submit]:hover {
     background: yellow;
     color: #333;
     transition: ease 0.5s;
+}
+
+#breadcrumbs{
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.fas.fa-arrow-circle-left{
+    position: fixed;
+    font-size: 30px;
+    left: 200px;
+    top: 20px;
+    color: #333;
+  }
+
+.titulo-cuenta{
+    text-align: center;
 }

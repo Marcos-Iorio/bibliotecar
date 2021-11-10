@@ -1,10 +1,9 @@
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
-    <link rel="stylesheet" href="../css/sweetalert2.css">
-    <script src="../js/sweetalert2.js"></script>
 
 <?php
+
+function mainReservar($mail, $skuLibro){
    include 'db.php';
-   include "isLogin.php";
+   //include "isLogin.php";
     
    
    /* Busca los datos del usuario por el mail */
@@ -33,6 +32,8 @@
     $libros = $stmt->fetchAll(PDO::FETCH_ASSOC);
       insertarReserva($nombre, $correo);
 
+
+}
       function insertarReserva($nombre, $correo){
          $skuLibro = $_GET['sku'];
          $idUsuario = $GLOBALS['idUsuario'];
@@ -63,11 +64,15 @@
 
                    //header('Location: ../single-book.php?sku='.$skuLibro);
           confirmarReserva($skuLibro, $nombre, $correo, $codigo);
+         } else {
+                    echo "<script>swal({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.$codigo,  $idEjemplar, $reservaEstado, $idUsuario, $fechaDesde, $fechaHasta',type:'error'});</script> ";
+
          }
       }
   
 function confirmarReserva($idLibro, $nombre, $correo, $codigo){
          include 'db.php';
+         //include 'llenarLibros.php';
 
         $stmt = $dbh->prepare("SELECT stock FROM libros where idLibro ='".$idLibro."'");
 
@@ -77,19 +82,32 @@ function confirmarReserva($idLibro, $nombre, $correo, $codigo){
           $stock = $stock-1;
 
           $stmt = $dbh->prepare("UPDATE libros SET stock='".$stock."' where idLibro ='".$idLibro."'");
+
           if ($stmt->execute()) {
-            include "sendmail.php";
+                      include "sendmail.php";
             enviarReserva($nombre, $correo, $codigo);
-            echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success', html:'<a href=\"../libros.php\">Regresar</a>'});</script> ";
+
+            //singleBook($idLibro);
+              //echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+              //$GLOBALS['reserva'] = 'OK';
+              //header("Location: single-book.php?sku='" . $idLibro . "'");
+
+            //echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success', html:'<a href=\"libros.php\">Regresar</a>'});</script> ";
+                        
+
                      /* return $codigo;
         header('Location: ../single-book.php?sku='.$idLibro);*/          
-          }
+          //}
           
+        } else {
+                    //echo "<script>swal({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.',type:'error', html:'<a href=\"libros.php\">Regresar</a>'});</script> ";
+
+          echo "<script>swal({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.',type:'error'});</script> ";
         }
 
 
   }
-
+}
 function reservaEjemplar($idLibro){
 
            include 'db.php';

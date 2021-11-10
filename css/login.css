@@ -68,6 +68,7 @@ p {
 	line-height: 20px;
 	letter-spacing: 0.5px;
 	margin: 20px 0 30px;
+	text-align: center;
 }
 
 span {
@@ -173,20 +174,46 @@ input {
 	border-radius: 8px;
 	padding: 20px;
 	position: absolute;
-	bottom: 250px;
+	bottom: 150px;
 	right: 70px;
 	color: #222;
 	width: 200px;
-	font-size: 20px;
+	font-size: 15px;
 	font-weight: 400;
 	box-shadow: 2px 2px 2px 1px rgb(27, 27, 27);
 	animation-name: appear;
 	animation-duration: 3s;
 }
 
-.pass__require.hidden{
-	display:none;
+h3{
+	font-size: 18px;
 }
+
+#passwordRe{
+	outline: none
+}
+
+.valid {
+	color: green;
+  }
+  
+  .valid:before {
+	position: relative;
+	left: -15px;
+	content: "\2705";
+  }
+  
+  /* Add a red text color and an "x" icon when the requirements are wrong */
+  .invalid {
+	color: red;
+  }
+  
+  .invalid:before {
+	position: relative;
+	left: -15px;
+	content: "\274C";
+  }
+
 
 @keyframes show {
 	0%, 49.99% {
@@ -307,4 +334,16 @@ footer i {
 footer a {
     color: #3c97bf;
     text-decoration: none;
+}
+
+.fas.fa-arrow-circle-left{
+    position: fixed;
+    font-size: 30px;
+    left: 200px;
+    top: 20px;
+    color: #333;
+  }
+
+  .fas.fa-arrow-circle-left:hover{
+    color: rgb(95, 95, 95);
 }

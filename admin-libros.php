@@ -64,7 +64,7 @@
             <option value="" disabled selected>Seleccionar</option>
               <option value="mail">Titulo</option> 
               <option value="idRol">Autor</option>
-              <option value="check_mail">Genero</option>
+              <option value="check_mail">Categoria</option>
           </select>
 
           <input style="background-color: white; width: 200px; height: 40px; color:black;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
@@ -83,7 +83,7 @@
                           <tr>
                             <th>Titulo</th>
                             <th>Autor</th>
-                            <th>Género</th>
+                            <th>Categoria</th>
                             <th>Stock</th>
                             <th>Fecha de Alta</th>
                             <th>Editar</th>
@@ -97,6 +97,16 @@
                         
                   <?php  ?>
                       </table>
+                      <br><br>
+                      <?php 
+            $paginas = getPages2();
+
+             for($page = 1; $page<= $paginas; $page++) {  
+              echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-libros.php?page=' . $page . '">' . $page . ' </a>';  
+            }  
+              echo "</div>";
+
+               ?>
                     </div>
                 </div>
             </section>
@@ -110,25 +120,25 @@
                 
                 <div class="wrapper-libros">
                     <label for="">Titulo:</label>
-                    <input class="input-libro"  type="text" name="titulo" id="titulo" required placeholder="Titulo">
+                    <input style="background-color: white; color: black;"class="input-libro"  type="text" name="titulo" id="titulo" required placeholder="Titulo">
                     <br>    
                       <label for="">Autor:</label>
-                        <select class="form-control"name="selectAutor">
+                        <select style="background-color: white; color: black;"class="form-control"name="selectAutor">
                           <option value="" disabled selected>Seleccionar autor</option>
                           <?php getAutores(); ?>    
                         </select>
                       <label for="">Autor Nuevo:</label>
-                        <input class="input-libro" type="text" name="autor" id="autor" required placeholder="Autor">
+                        <input class="input-libro" type="text" name="autor" id="autor"  placeholder="Autor">
                    
                     <br><br>
 
 
                     <label for="">Descripcion: </label>
-                      <input class="input-libro"  type="text" name="desc" id="desc" required placeholder="Descripcion del libro">
+                      <input style="background-color: white; color: black;"class="input-libro"  type="text" name="desc" id="desc" required placeholder="Descripcion del libro">
                     <br><br>
                    
                       <label for="">Categoria:</label>
-                      <select class="form-control"name="selectCategoria" >
+                      <select style="background-color: white; color: black;"class="form-control"name="selectCategoria" >
                       <option value="" disabled selected>Seleccionar categoria</option>
                         <?php 
                         getCategorias();
@@ -136,11 +146,11 @@
                     </select>
 
                     <label for="">Categoria Nueva:</label>
-                      <input class="input-libro"  type="text" name ="categoria" id="categoria" required placeholder="Categoria">
+                      <input class="input-libro"  type="text" name ="categoria" id="categoria"  placeholder="Categoria">
                     <br><br>
                    
                       <label for="">Editorial:</label>
-                      <select class="form-control"name="selectEditorial">
+                      <select style="background-color: white; color: black;"class="form-control"name="selectEditorial">
                       <option value="" disabled selected>Seleccionar editorial</option>
 
                       <?php 
@@ -153,29 +163,31 @@
                                 
                     </select>  
                     <label for="">Editorial Nueva:</label>
-                    <input class="input-libro" type="text" name ="editorial" id="editorial" required placeholder="Editorial">
+                    <input class="input-libro"  type="text" name ="editorial" id="editorial"  placeholder="Editorial">
                     <br><br>
 
                     <label for="">Stock:</label>
-                    <input class="input-libro"  type="number" name="stock" id="stock" required placeholder="Stock">
+                    <input style="background-color: white; color: black;"class="input-libro"  type="number" name="stock" id="stock" required placeholder="Stock">
                     <br><br>
 
                     <label for="">Fecha de alta</label>
-                    <input class="input-libro"  type="date" name="fechaAlta" id="fechaAlta"><br><br>
+                    <input style="background-color: white; color: black;"class="input-libro"  type="date" name="fechaAlta" id="fechaAlta"><br><br>
                     
 
-                    <label for="">Pdf de libro(Opcional):</label>
-                    <input class="input-libro"   type="file" name="pdf" id="pdf" >
+
+
+                    <label for="">Tapa:</label>
+                    <input class="input-libro" type='file' name='tapa' id="tapa" >
                     <br><br>
 
-                    <label for="">Imagenes, tapa:</label>
-                    <input class="input-libro" type="file" name="tapa" id="tapa" >
-                    <br><br><br><br>
-
                     
-                    <label for="">Imagenes, ContraTapa:</label>
-                    <input class="input-libro" type="file" name="contratapa" id="contratapa">
+                    <label for="">ContraTapa (Opcional):</label>
+                    <input class="input-libro" type='file' name='contratapa' id="contratapa">
+<br><br>
 
+                    <label for="">Pdf de libro (Opcional):</label>
+                    <input class="input-libro"   type="file" name="pdf" id="pdf" >
+                    <br><br>
                   </div>
                    
                     <div class="center">
@@ -192,11 +204,16 @@
 
                     if(isset($_POST['cargar-libro'])){
 
-                      llenarTabla ($_POST['titulo'],$_POST['autor'],$_POST['desc'] ,$_POST['categoria'],$_POST['editorial'],
-                      $_POST['stock'],$_POST['fechaAlta'], $_FILES['pdf']);
 
-                      llenarImagen($_FILES['tapa'], $_FILES['contratapa']);
-                     
+
+
+                      //llenarTabla ($_POST['titulo'],$_POST['autor'],$_POST['desc'] ,$_POST['categoria'],$_POST['editorial'],
+                      //$_POST['stock'],$_POST['fechaAlta'], $_FILES['pdf']);
+                      llenarTabla ($_POST['titulo'],$_POST['selectAutor'],$_POST['desc'] ,$_POST['selectCategoria'],$_POST['selectEditorial'],
+                      $_POST['stock'],$_POST['fechaAlta'], $_FILES['pdf'], $_FILES['tapa'], $_FILES['contratapa']);
+
+                      //llenarImagen($_FILES['tapa'], $_FILES['contratapa']);
+    //echo "<script>swal({title:'Error',text:'la tapa es $tmpTapa,$destinoTapa y la contratapa $contratapa',type:'error'});</script>";
 
                       
                     }
@@ -234,5 +251,13 @@ if (tipo == 'editar') {
 }
 
 </script>
+<script src="js/navbarToggle.js"></script>
+
+<!-- jQuery CDN - Slim version =without AJAX -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 </html>
    

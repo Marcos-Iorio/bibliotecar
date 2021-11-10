@@ -5,6 +5,8 @@
 <html lang="es">
 <?php 
   include "php/islogin.php";
+include "php/reservar.php";
+
  ?>
 <head>
     <meta charset="UTF-8">
@@ -12,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="css/sweetalert2.css">
-    <script src="js/sweetalert2.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -23,21 +24,26 @@
     <title>Document</title>
 </head>
 <body onload="esconderBoton()">
+
     <section id="page">
         <?php 
           include "php/panel.php";
          ?>
         <main id="main">
+                        <div class="volver"><a href="./libros.php"><i class="fas fa-arrow-circle-left"></i></a></div>
+            <div id="breadcrumbs"></div>
             <section class = "libro">
             <?php
-                if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                //if($_SERVER['REQUEST_METHOD'] == 'GET'){
                     include "php/llenarLibros.php";
                     $GLOBALS['idLibro'] = $_GET['sku'];
                     
                     
                     singleBook($idLibro);
+
+
                     
-                }
+                //}
             ?>
                    <!--  <div id="imagenes-libros" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
@@ -78,7 +84,7 @@
                     </div> -->
             </section>
             <button onclick="contacto()" class="buttonInfo tooltip">
-                <i class="fas fa-question"></i>
+                <i  class="fas fa-question"></i>
                 <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
             </button>
             <!-- Modal -->
@@ -92,19 +98,42 @@
                     <?php 
                     /*if (isset($codigo)) {
                         echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+                                  <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
+
                     }*/
                      ?>
                     <div class="modal-body">
-                        <form action="" method="POST" target="_self">
-                        <a class="confirmar" id="confirmar" name="confirmar" href="php/reservar.php?sku=<?php echo $GLOBALS['idLibro'];?>">Confirmar</a>
+                        <form action="" method="POST" target="#">
+
+                        <input class="confirmar" id="confirmar" name="confirmar" value="Confirmar" type="submit">
                         </form>
+
+                        <?php 
+                        if (isset($_POST['confirmar'])) {
+                            if (isset($mail)) {
+                                mainReservar($mail, $_GET['sku']);
+                            } else {
+                        echo "<script>swal({title:'Error',text:'Por favor ingrese con su cuenta de usuario para poder realizar una reserva.',type:'info'});</script> ";
+
+                            }
+                            
+                        } 
+                        ?>
+
+                        <?php 
+
+                         ?>
                         <button id="cancelar">Cancelar</button>
+                        
                     </div>
                 </div>
             </div>
         </main>
       </section>
 </body>
+<?php 
+
+ ?>
 
      <!-- jQuery CDN - Slim version =without AJAX -->
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -162,5 +191,8 @@
                 }
             }
     </script>
+        <script src="js/breadCrumbs.js"></script>
+    <script src="js/sweetalert2.js"></script>
+
 
 </html>

@@ -47,14 +47,14 @@ if ($fila['idReservaEstado'] == '4' ) {
 }*/
   	echo "<tbody>
                 <tr>
-                  <td>" . $fila['idReserva']. "</td>
+                  <td id='idReserva'>" . $fila['idReserva']. "</td>
                   <td>" .  $fila['idEjemplar']. "</td>
                   <td>" .  $tituloLibro. "</td>
-                  <td>" .  $idEstado . "</td>
-                  <td>" .  $mailUsuario. "</td>
+                  <td id='idEstado'>" .  $idEstado . "</td>
+                  <td id='mailUsuario'>" .  $mailUsuario. "</td>
                   <td>" .  $fila['fechaDesde']. "</td>
                   <td>" .  $fila['fechaHasta']. "</td>
-                  <td><button onclick=\"javascript:cargarReserva('".$fila["idReserva"]."','".$mailUsuario."','".$idEstado."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                  <td><a href='#container-form' id='modal-reservas'><button onclick=\"javascript:cargarReserva('".$fila["idReserva"]."','".$mailUsuario."','".$idEstado."')\" ><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                 </tr>
               </tbody>
 
@@ -118,17 +118,27 @@ include 'db.php';
 
 //function ingresarDevolucion ($idReserva, $idEstado, $idEjemplar){
 
-function ingresarDevolucion ($idReserva){
+function ingresarDevolucion ($idEjemplar){
 
     include 'db.php';
     //include 'sendmail.php';
 
 
+    $stmt = $dbh->prepare("SELECT idReserva FROM reservas where idEjemplar='$idEjemplar' and idReservaEstado = '2'");
 
+if ($stmt->execute()) {
+  //$idReserva=$stmt->fetchColumn();
+    $arr=$stmt->fetch(PDO::FETCH_ASSOC);
+    $idReserva=$arr['idReserva'];
+    if ($idReserva == '') {
+        echo "<script>swal({title:'Error',text:'Para realizar una devolucion, la reserva debe estar en estado Activo',type:'error'});</script>";
+        gestionReservas();
+
+} else {   
     //echo $sql;
-    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '0' where idReserva = '$idReserva'");
+    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar' and idReserva= '$idReserva'");
+    //echo "UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar' and idReserva= '$idReserva'";
     //REPONER STOCK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
     if ($stmt->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
@@ -141,6 +151,10 @@ function ingresarDevolucion ($idReserva){
         gestionReservas();
 
     }
+  }
+}
+
+
   
 }
 
@@ -174,7 +188,7 @@ if ($stmt->execute()) {
 function getTitulo ($idEjemplar){
   include 'db.php';
 
-$stmt = $dbh->prepare("SELECT l.titulo FROM libros l, ejemplares e WHERE l.idLibro=e.idLibro AND e.idEjemplar=idEjemplar
+$stmt = $dbh->prepare("SELECT l.titulo FROM libros l, ejemplares e WHERE l.idLibro=e.idLibro AND e.idEjemplar='$idEjemplar'
 ");
   
 
@@ -255,7 +269,7 @@ if ($stmt->execute()) {
         $page_first_result = ($page-1) * $results_per_page; 
 
         
-          $stmt = $dbh->prepare("SELECT * from reservas");
+          $stmt = $dbh->prepare("SELECT * FROM reservas WHERE idReservaEstado <> '0'");
 
        
 

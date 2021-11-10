@@ -3,6 +3,7 @@ main{
 }
 
 .libro{
+  padding-left: 70px;
     margin-top: 30px;
     justify-content: right;
     align-items: start;
@@ -11,6 +12,7 @@ main{
                         "descripcion descripcion";
     grid-template-columns:2fr 3fr;
     grid-template-rows: 2fr 1fr;
+    margin-bottom: 70px;
 }
 
 #imagenes-libros{
@@ -43,6 +45,10 @@ img#img-libro{
     height: 100%;
     grid-area: libro-info;
 	justify-self: center;
+}
+
+a{
+  color: black
 }
 
 .descripcion{
@@ -240,3 +246,20 @@ label{
     from {opacity: 0} 
     to {opacity: 1}
   }
+
+  #breadcrumbs{
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.fas.fa-arrow-circle-left{
+  position: fixed;
+  font-size: 30px;
+  left: 200px;
+  top: 20px;
+  color: #333;
+}
+
+.fas.fa-arrow-circle-left:hover{
+  color: rgb(95, 95, 95);
+}

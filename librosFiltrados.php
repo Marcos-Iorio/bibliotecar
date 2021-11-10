@@ -45,25 +45,22 @@
           include "php/panel.php";
          ?>
         <main id="main">
+        <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
+        <div id="breadcrumbs"></div>
             <section class="contenido wrapper">
-
                 <div class = " filtros-busqueda ">
-                <form name="formUsuarios" action="" method = "POST" class= "form-libro">
-
                   <div class="busqueda">
                     <i class="fas fa-search" onclick="showSearch()"></i>
-                    <input class="campo-busqueda" type="text" style="background-color: #f1f1f1; color: black; height: 80%; margin-top: 20px;" name="campo-busqueda" id="campo-busqueda">
-                    <input id="buscar" name=txtBuscar type="submit" value="Buscar" style=" margin-top: 10px; height: 30px;">
-                    
+                    <input class="campo-busqueda" type="text" name="campo-busqueda" id="campo-busqueda">
+                    <input id="buscar" type="submit" value="Buscar">
                   </div>
-                </form>
-
                   <div class = "filtros">
                     <button onclick="abrirFiltros()"><i class="fas fa-filter"></i></button>
                   </div>
                 </div>
                 <div class="menu-filtro" id="menu-filtro">
-                    <h3>FILTROS</h3>    
+                    <h3>FILTROS</h3> 
+                    <a href="libros.php"><i class="fas fa-times"></i></a>  
                     <h3>CATEGORIAS</h3>
                     <div class="checklist categories">
                         <ul>
@@ -93,42 +90,12 @@
         <!--Seccion de los libros-->
                 <div class="container main-libros">
                     <h3>Portal de libros!</h3>
-                                        <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
                     <div id="breadcrumbs"></div>
                     <div class="grid-libros">
 
-                    <?php
-                    if (!isset($_POST['txtBuscar'])) {
-                        todosLosLibros();
-
-                    } else {
-                        busquedaLibros($_REQUEST["campo-busqueda"]);
-                    }
-                    /* Llena el flexbox con los libros traidos de la base de datos */
-                    /* foreach($resultado as $fila):?>
-                        <div class="libro-prueba" id="libro-prueba">
-                            <a class="link" id="id-libro" href="single-book.php?sku=<?php echo $fila['idLibro'];?>">
-                                <div class="imagen-libro">
-                                    <img class="imagen-libro" data-lazy="<?php echo $fila['imagen_libro']; ?>" alt="">
-                                </div>
-                                <div class="informacion">
-                                    <p class="libro-info">
-                                    <?php echo "Titulo: " . $fila['titulo']; ?> <br>
-                                    <?php echo "Autor: " . $fila['nombreAutor']; ?> <br>
-                                    <?php echo "Categoria: " . $fila['nombreCategoria']; ?>
-                                    </p>
-                                </div>
-                                <div class="etiqueta">
-                                    <p class="etiqueta-info" id="etiqueta-info"><?php
-                                        if($fila['stock'] > 0 ){
-                                            echo "Disponible";
-                                        }else{
-                                            echo "No disponible";
-                                        } ?></p>
-                                </div>
-                            </a>
-                        </div>
-                    <?php endforeach; */ ?>
+                    <?php 
+                        librosFiltrados();
+                    ?>
 
                     </div>
                 </div>
@@ -143,7 +110,6 @@
 <script src="js/navbarToggle.js"></script>
 <script src="js/libros.js"></script>
 <script src="js/breadCrumbs.js"></script>
-
  <!-- jQuery CDN - Slim version =without AJAX -->
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
