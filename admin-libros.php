@@ -31,6 +31,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/mensajes.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="css/libros.css">
@@ -41,8 +42,6 @@
     <section id="page">
         <?php 
           include "php/panel.php";
-         
-
          ?>
         <main id="main">
             <section class="contenido wrapper">
@@ -230,7 +229,7 @@
         </main>
       </section>
 </body>
-<script src="js/navbarToggle.js"></script>
+
 <script type="text/javascript">
         function ModificarLibro(tipo) {
 

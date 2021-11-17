@@ -241,30 +241,14 @@ function todosLosAutores(){
    endforeach;
 }
 
-function todasLasEditoriales(){
-    include 'db.php'; 
-   $stmt = $dbh->prepare('SELECT distinct nombreEditorial from editoriales');
-   // Ejecutamos
-   $stmt->execute();
-   // Mostramos los resultados
-   $resultado = $stmt->fetchAll();
-   foreach($resultado as $fila):
-       echo '<li><a href="librosFiltrados.php?editorial=' . $fila['nombreEditorial'] . '"><span></span> ' . $fila['nombreEditorial'] . ' </a></li>';
-
-   endforeach;
-}
-
 function librosFiltrados(){
     include('db.php');
 
     if(isset($_GET['categoria'])){
-        $categori = $_GET['categoria'];
+        $categoria = $_GET['categoria'];
     }
     if(isset($_GET['autor'])){
         $autor = $_GET['autor'];
-    }
-    if(isset($_GET['editorial'])){
-        $editorial = $_GET['editorial'];
     }
 
     

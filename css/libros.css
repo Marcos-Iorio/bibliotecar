@@ -131,6 +131,10 @@ img.imagen-libro{
     display: block;
 }
 
+.fade-out{
+    opacity: 0;
+}
+
 p.libro-info{
     font-size: 14px;
     width: 100% !important;

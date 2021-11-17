@@ -18,6 +18,7 @@ function diasReserva(){
         yScale = d3.scaleLinear().range([height, 0]);
 
     var g = svg.append("g").attr("transform", "translate("+100+","+100+")");
+    
 
     d3.json("php/treintaDiasReservado.php").then(function(data){
 
@@ -105,6 +106,7 @@ function historialReserva(){
 
             xScale.domain(data.map(function(d){return d.titulo}));
             yScale.domain([0, d3.max(data, function(d){return d.ejem_count;})])
+
 
             g.append('g').attr('transform','translate(0,'+height+')')
                 .call(d3.axisBottom(xScale))

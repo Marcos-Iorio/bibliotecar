@@ -81,14 +81,6 @@
                             ?>
                         </ul>   
                     </div>
-                    <h3>Editoriales</h3>
-                    <div class="checklist editoriales">
-                        <ul>
-                            <?php
-                                todasLasEditoriales();
-                            ?>
-                        </ul>   
-                    </div>
                 </div>
         <!--Seccion de los libros-->
                 <div class="container main-libros">

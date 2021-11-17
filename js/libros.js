@@ -3,7 +3,9 @@
 let matches = document.querySelectorAll('p#etiqueta-info');
 let libro = document.querySelectorAll('div#libro-prueba');
 
-for (let i = 0; i < matches.length; i++) {
+let cantidadLibros = matches.length
+
+for (let i = 0; i < cantidadLibros; i++) {
     if(matches[i].innerHTML == 'No disponible '){
         libro[i].classList.toggle('libro-prueba-sinStock');
     }else{

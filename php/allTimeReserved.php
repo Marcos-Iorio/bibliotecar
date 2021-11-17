@@ -6,12 +6,11 @@ function historialReservas(){
 
     include("db.php");
 
-    /* $query = "CREATE VIEW vw_libri_res as
+    /* $query = "CREATE VIEW vw_historiaLibro_res as
     SELECT l.titulo,e.idEjemplar, r.idReserva, fechaDesde
     FROM libros AS l
     INNER JOIN ejemplares e ON l.idLibro = e.idLibro
-      INNER JOIN reservas r ON r.idEjemplar = e.idEjemplar
-      WHERE fechaDesde >= (DATE_SUB(NOW(), INTERVAL '30' DAY))";
+      INNER JOIN reservas r ON r.idEjemplar = e.idEjemplar";
 
     $stmt = $dbh->prepare($query);
     $stmt->execute();
@@ -19,10 +18,10 @@ function historialReservas(){
 
     $query2 = "SELECT DISTINCT(idEjemplar),titulo,
     (SELECT COUNT(idEjemplar) 
-     from vw_libri_res  WHERE idEjemplar = vr.idEjemplar)  
+     from vw_historiaLibro_res  WHERE idEjemplar = vr.idEjemplar)  
      as `ejem_count`
-     from vw_libri_res as vr
-     ORDER BY ejem_count desc LIMIT 8"; 
+     from vw_historiaLibro_res as vr
+     ORDER BY ejem_count desc LIMIT 8" ; 
 
      $stmt = $dbh->prepare($query2);
      $stmt->execute();
