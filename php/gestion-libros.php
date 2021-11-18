@@ -25,7 +25,7 @@
         //$rows = 10;
         //$query ="select * from producto LIMIT $start, $rows";
 
-  include_once 'db.php';
+  include 'db.php';
 
 
   $query="SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
@@ -36,7 +36,7 @@
             INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
-            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.stock DESC LIMIT $page_first_result , $results_per_page";
+            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.idLibro DESC LIMIT $page_first_result , $results_per_page";
 
   $stmt = $dbh->prepare($query);
   
@@ -44,24 +44,29 @@ if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
 
   foreach($resultado as $fila):
+    //echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
 
-    echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
+    echo "
     <tbody>
                           <tr>
+                            <td>" . $fila['idLibro']. "</td>
                             <td>".  $fila['titulo']."</td>
                             <td>". $fila['nombreAutor']."</td>
                             <td>". $fila['nombreCategoria']."</td>
                             <td>". $fila['stock']. "</td>
                             <td>" . $fila['fechaAlta']. "</td>
-                            <td><button><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                            <td><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."','".$fila["descripcion"]."','".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
                           </tr>
-                        </tbody>";
+                        </tbody>
+
+
+                        ";
 
   endforeach;
 }
   }
 
-function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock, $fechaAlta, $pdf, $tapa, $contratapa){
+function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock, $pdf, $tapa, $contratapa){
     include('db.php');
 
         if(!$_FILES['pdf']['name'] == ""){
@@ -74,7 +79,7 @@ function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock,
 
         }
 
-
+    $fechaAlta = date('Y-m-d');
 
     cargarLibro($titulo,$descripcion,$stock,$fechaAlta,$destinoPdf);
     cargarEjemplar($stock, $fechaAlta);
@@ -96,6 +101,125 @@ function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock,
    
 }
 
+
+function editarLibro($idLibro, $titulo, $autor, $descripcion,$categoria,$editorial, $stock, $pdf, $tapa, $contratapa){
+    include('db.php');
+
+
+            $flagLibro="error";
+            $flagAutor="error";
+            $flagEditorial="error";
+            $flagCategoria="error";
+            $flagImagen="error";
+
+
+
+        if(!$_FILES['pdf']['name'] == ""){
+                  $pdf = $_FILES['pdf']['tmp_name'];
+        $destinoPdf ="assets/libros/pdf/".$_FILES['pdf']['name'];
+        //move_uploaded_file($pdf,$destinoPdf);
+
+        } else {
+        $destinoPdf ="";
+
+        }
+
+
+           
+
+
+
+                    $updateLibro = $dbh->prepare("UPDATE libros set titulo = ?, descripcion= ?, stock= ?, pdf= ? where idLibro = ?");
+
+                    $updateLibro->bindParam(1, $titulo);
+                    $updateLibro->bindParam(2, $descripcion);
+                    $updateLibro->bindParam(3, $stock);
+                    $updateLibro->bindParam(4, $destinoPdf);
+                    $updateLibro->bindParam(5, $idLibro);
+
+//$varLibro = "UPDATE libros set titulo = $titulo, descripcion= $descripcion, stock= $stock, pdf=$destinoPdf where idLibro = $idLibro";
+                          if ($updateLibro->execute()) {
+                            $flagLibro="ok";
+                          }
+
+
+
+
+                  $getAutor = $dbh->prepare("SELECT idAutores FROM autores WHERE nombreAutor = ? LIMIT 1");
+                  $getAutor->bindParam(1, $autor);
+
+                  if ($getAutor->execute()) {
+
+                    $arr = $getAutor->fetch(PDO::FETCH_ASSOC);
+                    $idAutor = $arr['idAutores'];
+
+                    $updateAutor = $dbh->prepare("UPDATE libro_autores set idAutores = ? where idLibro = ?");
+
+                    $updateAutor->bindParam(1, $idAutor);
+                    $updateAutor->bindParam(2, $idLibro);
+
+                          if ($updateAutor->execute()) {
+                            $flagAutor="ok";
+                          }
+                  }
+
+
+
+                  $getEditorial = $dbh->prepare("SELECT idEditorial FROM editoriales WHERE nombreEditorial = ? LIMIT 1");
+                  $getEditorial->bindParam(1, $editorial);
+
+                  if ($getEditorial->execute()) {
+
+                    $arr = $getEditorial->fetch(PDO::FETCH_ASSOC);
+                    $idEditorial = $arr['idEditorial'];
+
+                    $updateEditorial = $dbh->prepare("UPDATE libro_editoriales set idEditorial = ? where idLibro = ?");
+
+                    $updateEditorial->bindParam(1, $idEditorial);
+                    $updateEditorial->bindParam(2, $idLibro);
+
+                          if ($updateEditorial->execute()) {
+                            $flagEditorial="ok";
+                          }
+                  }
+
+
+ 
+                  $getCategoria = $dbh->prepare("SELECT idCategoria FROM categorias WHERE nombreCategoria = ? LIMIT 1");
+                  $getCategoria->bindParam(1, $categoria);
+
+                  if ($getCategoria->execute()) {
+
+                    $arr = $getCategoria->fetch(PDO::FETCH_ASSOC);
+                    $idCategoria = $arr['idCategoria'];
+
+                    $updateCategoria = $dbh->prepare("UPDATE libro_categorias set idCategoria = ? where idLibro = ?");
+
+                    $updateCategoria->bindParam(1, $idCategoria);
+                    $updateCategoria->bindParam(2, $idLibro);
+
+                          if ($updateCategoria->execute()) {
+                            $flagCategoria="ok";
+                          }
+                  }
+
+                  //Editar tapa y/o contratapa
+                  //Insertar contratapa si no hay registro existente
+                  //Editar ejemplares, eliminar/agregar registros segun stock libro 
+                  // ver js cuando hay un quote '' en el medio 
+
+   
+
+                    if ($flagLibro="ok" || $flagEditorial="ok" || $flagAutor="ok" || $flagCategoria="ok" ) {
+        echo "<script>swal({title:'Exito',text:'Registro editado correctamente.',type:'success'});</script>";
+                     # code...
+                    } else {
+        //echo "<script>swal({title:'Error',text:'El registro no pudo ser editado. flagLibro= $flagLibro, flagEditorial= $flagEditorial, flagAutor= $flagAutor, flagCategoria= $flagCategoria, $varLibro ',type:'error'});</script>";
+            echo "<script>swal({title:'Error',text:'El registro no pudo ser editado.',type:'error'});</script>";
+                    }
+}
+
+
 function llenarImagen($Tapa,$contratapa){
     include('db.php');
        
@@ -116,8 +240,15 @@ function llenarImagen($Tapa,$contratapa){
             //echo "<script>swal({title:'Error',text:'la tapa es $tmpTapa... y la contratapa $destinoTapa',type:'error'});</script>";
 
 
-             cargarTapaImagenLibro($idLibro,$destinoTapa,$idTapa);
-             cargarCTapaImagenLibro($idLibro,$destinoCtapa,$idCtapa);
+            
+             if ($destinoCtapa=='assets/libros/') {
+                  cargarTapaImagenLibro($idLibro,$destinoTapa,$idTapa);
+
+             } else {
+                cargarCTapaImagenLibro($idLibro,$destinoCtapa,$idCtapa);
+                cargarTapaImagenLibro($idLibro,$destinoTapa,$idTapa);
+
+             }
 
 
 }
@@ -287,8 +418,20 @@ function llenarImagen($Tapa,$contratapa){
                          $insertTapa->bindParam(2,$destinoTapa);    
                          $insertTapa->bindParam(3,$idCat);
                         
-                              $insertTapa->execute();
+                              //$insertTapa->execute();
 
+                if ($insertTapa->execute()) {
+
+        //enviarPwd($nombre, $mail, $pass);
+        echo "<script>swal({title:'Exito',text:'Registro ingresado correctamente.',type:'success'});</script>";
+        gestionLibros();
+
+
+    } else {
+        echo "<script>swal({title:'Error',text:'Error al ingresar el registro',type:'error'});</script>";
+        gestionLibros();
+
+    }
 
                     }
 
@@ -303,18 +446,9 @@ function llenarImagen($Tapa,$contratapa){
                          
                                 //$insertCTapa->execute();
 
-                                               if ($insertCTapa->execute()) {
-
-        //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Registro ingresado correctamente.',type:'success'});</script>";
-        gestionLibros();
+                                            $insertCTapa->execute();
 
 
-    } else {
-        echo "<script>swal({title:'Error',text:'Error al ingresar el registro',type:'error'});</script>";
-        gestionLibros();
-
-    }
                                 
                 
                         }
@@ -609,7 +743,7 @@ if (!isset ($_GET['page']) ) {
 
 
 
-    echo "<form action='' method = 'POST' class= 'form-libro'
+    echo "<form action='' method = 'POST' class= 'form-libro'>
     <tbody>
                           <tr>
                             <td>".  $fila['titulo']."</td>
@@ -625,6 +759,290 @@ if (!isset ($_GET['page']) ) {
     }
 
 }
+
+
+function gestionAutores(){
+
+  if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        } else {  
+            $page = $_GET['page'];  
+        }  
+          $results_per_page = 5;  
+
+        //determine the sql LIMIT starting number for the results on the displaying page  
+        $page_first_result = ($page-1) * $results_per_page;  
+        //retrieve the selected results from database   
+        //$res = mysqli_query($this->con, $query);  
+        //$start = 1 * ($page - 1);
+        //$rows = 10;
+        //$query ="select * from producto LIMIT $start, $rows";
+
+  include 'db.php';
+
+
+  $query="SELECT * from autores LIMIT $page_first_result , $results_per_page";
+
+  $stmt = $dbh->prepare($query);
+  
+if ($stmt->execute()) {
+  $resultado=$stmt->fetchAll();
+
+  foreach($resultado as $fila):
+
+    echo "
+    <tbody>
+                          <tr>
+                            <td>".  $fila['idAutores']."</td>
+                            <td>". $fila['nombreAutor']."</td>
+
+                            <td><button onclick=\"javascript:cargarPropiedades('Autor','".$fila["idAutores"]."','".$fila["nombreAutor"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                          </tr>
+                        </tbody>";
+
+  endforeach;
+}
+  }
+
+  function crearAutor($nombreAutor) {
+ include('db.php');
+
+    $cargarAutor = $dbh->prepare("INSERT into autores (nombreAutor) values ('$nombreAutor')");
+    //$cargarAutor->execute();
+    //$arr = $cargarAutor->fetch(PDO::FETCH_ASSOC);
+    //$idAutorNuevo = $arr['idAutores'];
+    
+
+                if ($cargarAutor->execute()) {
+
+        //enviarPwd($nombre, $mail, $pass);
+        echo "<script>swal({title:'Exito',text:'Autor ingresado correctamente.',type:'success'});</script>";
+        //gestionAutores();
+
+
+    } else {
+        echo "<script>swal({title:'Error',text:'Error al ingresar el autor',type:'error'});</script>";
+        //gestionAutores();
+
+    }
+
+  }
+
+  function editarAutor($idAutor, $nombreAutor) {
+include('db.php');
+
+    $editarAutor = $dbh->prepare("UPDATE autores set nombreAutor = '$nombreAutor' where idAutores = '$idAutor'");
+    //$cargarAutor->execute();
+    //$arr = $cargarAutor->fetch(PDO::FETCH_ASSOC);
+    //$idAutorNuevo = $arr['idAutores'];
+    
+//$vari= "UPDATE autores set nombreAutor = '$nombreAutor' where idAutor = '$idAutor'";
+                if ($editarAutor->execute()) {
+
+        //enviarPwd($nombre, $mail, $pass);
+        echo "<script>swal({title:'Exito',text:'Autor editado correctamente.',type:'success'});</script>";
+        //gestionAutores();
+
+
+    } else {
+        echo "<script>swal({title:'Error',text:'Error al editar el autor. $vari',type:'error'});</script>";
+        //gestionAutores();
+
+    }
+
+  }
+
+
+
+  function gestionCategorias(){
+
+  if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        } else {  
+            $page = $_GET['page'];  
+        }  
+          $results_per_page = 5;  
+
+        //determine the sql LIMIT starting number for the results on the displaying page  
+        $page_first_result = ($page-1) * $results_per_page;  
+        //retrieve the selected results from database   
+        //$res = mysqli_query($this->con, $query);  
+        //$start = 1 * ($page - 1);
+        //$rows = 10;
+        //$query ="select * from producto LIMIT $start, $rows";
+
+  include 'db.php';
+
+
+  $query="SELECT * from categorias LIMIT $page_first_result , $results_per_page";
+
+  $stmt = $dbh->prepare($query);
+  
+if ($stmt->execute()) {
+  $resultado=$stmt->fetchAll();
+
+  foreach($resultado as $fila):
+
+    echo "
+    <tbody>
+                          <tr>
+                            <td>".  $fila['idCategoria']."</td>
+                            <td>". $fila['nombreCategoria']."</td>
+
+                            <td><button onclick=\"javascript:cargarPropiedades('Categoria','".$fila["idCategoria"]."','".$fila["nombreCategoria"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                          </tr>
+                        </tbody>";
+
+  endforeach;
+}
+  }
+
+function crearCategoria($nombreCategoria) {
+ include('db.php');
+
+    $cargarCategoria  = $dbh->prepare("INSERT into categorias (nombreCategoria) values ('$nombreCategoria')");
+    //$cargarAutor->execute();
+    //$arr = $cargarAutor->fetch(PDO::FETCH_ASSOC);
+    //$idAutorNuevo = $arr['idAutores'];
+    
+
+                if ($cargarCategoria->execute()) {
+
+        //enviarPwd($nombre, $mail, $pass);
+        echo "<script>swal({title:'Exito',text:'Categoria ingresada correctamente.',type:'success'});</script>";
+        //gestionAutores();
+
+
+    } else {
+        echo "<script>swal({title:'Error',text:'Error al ingresar la categoria',type:'error'});</script>";
+        //gestionAutores();
+
+    }
+
+  }
+
+  function editarCategoria($idCategoria, $nombreCategoria) {
+include('db.php');
+
+    $editarCategoria = $dbh->prepare("UPDATE categorias set nombreCategoria = '$nombreCategoria' where idCategoria = '$idCategoria'");
+    //$cargarAutor->execute();
+    //$arr = $cargarAutor->fetch(PDO::FETCH_ASSOC);
+    //$idAutorNuevo = $arr['idAutores'];
+    
+//$vari= "UPDATE categorias set nombreCategoria = '$nombreCategoria' where idCategoria = '$idCategoria'";
+                
+                if ($editarCategoria->execute()) {
+
+        //enviarPwd($nombre, $mail, $pass);
+        echo "<script>swal({title:'Exito',text:'Categoria editada correctamente.',type:'success'});</script>";
+        //gestionAutores();
+
+
+    } else {
+        echo "<script>swal({title:'Error',text:'Error al editar la categoria. $vari',type:'error'});</script>";
+        //gestionAutores();
+
+    }
+
+  }
+
+
+
+
+
+function gestionEditoriales(){
+
+  if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        } else {  
+            $page = $_GET['page'];  
+        }  
+          $results_per_page = 5;  
+
+        //determine the sql LIMIT starting number for the results on the displaying page  
+        $page_first_result = ($page-1) * $results_per_page;  
+        //retrieve the selected results from database   
+        //$res = mysqli_query($this->con, $query);  
+        //$start = 1 * ($page - 1);
+        //$rows = 10;
+        //$query ="select * from producto LIMIT $start, $rows";
+
+  include 'db.php';
+
+
+  $query="SELECT * from editoriales LIMIT $page_first_result , $results_per_page";
+
+  $stmt = $dbh->prepare($query);
+  
+if ($stmt->execute()) {
+  $resultado=$stmt->fetchAll();
+
+  foreach($resultado as $fila):
+
+    echo "
+    <tbody>
+                          <tr>
+                            <td>".  $fila['idEditorial']."</td>
+                            <td>". $fila['nombreEditorial']."</td>
+                            <td><button onclick=\"javascript:cargarPropiedades('Editorial','".$fila["idEditorial"]."','".$fila["nombreEditorial"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                          </tr>
+                        </tbody>";
+
+  endforeach;
+}
+  }
+
+
+function crearEditorial($nombreEditorial) {
+ include('db.php');
+
+    $cargarEditorial  = $dbh->prepare("INSERT into editoriales (nombreEditorial) values ('$nombreEditorial')");
+    //$cargarAutor->execute();
+    //$arr = $cargarAutor->fetch(PDO::FETCH_ASSOC);
+    //$idAutorNuevo = $arr['idAutores'];
+    
+
+                if ($cargarEditorial->execute()) {
+
+        //enviarPwd($nombre, $mail, $pass);
+        echo "<script>swal({title:'Exito',text:'Editorial ingresada correctamente.',type:'success'});</script>";
+        //gestionAutores();
+
+
+    } else {
+        echo "<script>swal({title:'Error',text:'Error al ingresar la editorial',type:'error'});</script>";
+        //gestionAutores();
+
+    }
+
+  }
+
+  function editarEditorial($idEditorial, $nombreEditorial) {
+include('db.php');
+
+    $editarEditorial = $dbh->prepare("UPDATE editoriales set nombreEditorial = '$nombreEditorial' where idEditorial = '$idEditorial'");
+    //$cargarAutor->execute();
+    //$arr = $cargarAutor->fetch(PDO::FETCH_ASSOC);
+    //$idAutorNuevo = $arr['idAutores'];
+    
+//$vari= "UPDATE editoriales set nombreEditorial = '$nombreEditorial' where idEditorial = '$idEditorial'";
+                
+                if ($editarEditorial->execute()) {
+
+        //enviarPwd($nombre, $mail, $pass);
+        echo "<script>swal({title:'Exito',text:'Editorial editada correctamente.',type:'success'});</script>";
+        //gestionAutores();
+
+
+    } else {
+        echo "<script>swal({title:'Error',text:'Error al editar la editorial. $vari',type:'error'});</script>";
+        //gestionAutores();
+
+    }
+
+  }
+
+
 ?>
 
 <body>

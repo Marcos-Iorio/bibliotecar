@@ -176,7 +176,7 @@ function singleBook($idLibro){
         <label for="autor">Autor:</label>
         <span>' .  $arr['nombreAutor'] . '</span><br>
         <label for="editorial">Editorial:</label>
-        <span><?php /* echo $arr[\'nombreEditorial\'] */?></span><br>
+        <span>'. $arr['nombreEditorial'] . '</span><br>
         <label for="stock">Stock:</label>
         <span id="stock">' . $arr['stock'] . '</span><br>
 		 <form action="" method="POST" target="#">
