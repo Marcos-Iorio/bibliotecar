@@ -28,7 +28,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
@@ -42,7 +42,7 @@
 <body>
     <section id="page">
         <?php 
-          include "php/panel.php";
+          include ("php/panel.php");
          ?>
         <main id="main">
         <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
@@ -79,13 +79,6 @@
                         </ul>   
                     </div>
                     <h3>Editoriales</h3>
-                    <div class="checklist editoriales">
-                        <ul>
-                            <?php
-                                todasLasEditoriales();
-                            ?>
-                        </ul>   
-                    </div>
                 </div>
         <!--Seccion de los libros-->
                 <div class="container main-libros">
@@ -107,9 +100,11 @@
         </main>
       </section>
 </body>
+
 <script src="js/navbarToggle.js"></script>
 <script src="js/libros.js"></script>
 <script src="js/breadCrumbs.js"></script>
+
  <!-- jQuery CDN - Slim version =without AJAX -->
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
