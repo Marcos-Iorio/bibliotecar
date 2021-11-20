@@ -188,7 +188,7 @@ if ($stmt->execute()) {
 function getTitulo ($idEjemplar){
   include 'db.php';
 
-$stmt = $dbh->prepare("SELECT l.titulo FROM libros l, ejemplares e WHERE l.idLibro=e.idLibro AND e.idEjemplar=idEjemplar
+$stmt = $dbh->prepare("SELECT l.titulo FROM libros l, ejemplares e WHERE l.idLibro=e.idLibro AND e.idEjemplar='$idEjemplar'
 ");
   
 

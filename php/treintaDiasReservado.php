@@ -7,7 +7,7 @@ function diasReservas(){
 
     include("db.php");
 
-    /* $query = "CREATE VIEW vw_libri_res as
+    /* $query = "CREATE VIEW vw_libro_res as
     SELECT l.titulo,e.idEjemplar, r.idReserva, fechaDesde
     FROM libros AS l
     INNER JOIN ejemplares e ON l.idLibro = e.idLibro
@@ -35,5 +35,6 @@ function diasReservas(){
 
     echo json_encode($data);     
 }
-  
+
+
 ?>

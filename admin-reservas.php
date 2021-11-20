@@ -220,9 +220,9 @@ window.onclick = function(event) {
 
 function cargarReserva(idReserva, usuario, estadoReserva){
 
-    console.log(document.formReservas.txtReserva.value = idReserva);
+  document.formReservas.txtReserva.value = idReserva;
   
-    console.log( document.formReservas.txtUsuario.value = usuario);
+  document.formReservas.txtUsuario.value = usuario;
 
     let estado = document.getElementById('selectEstado');
     estado.value=estadoReserva;

@@ -41,4 +41,21 @@ imagenLibro.forEach(lazyload);
     io.observe(target);
 };
 
+imagenLibro.forEach(lazyload);
+
+/* const lazyLibros = target => {
+    const io = new IntersectionObserver((entries, observer) => { 
+        entries.forEach(entry =>{
+            if(entry.isIntersecting){
+                console.log("adadsada");
+                const libros = entry.target;
+                libros.classList.add('fade');
+
+                observer.disconnect();
+            }
+        });
+    });
+    io.observe(target);
+};
+
 cardLibros.forEach(lazyLibros); */
