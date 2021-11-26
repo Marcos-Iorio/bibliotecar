@@ -259,14 +259,14 @@ function librosFiltrados(){
     include('db.php');
 
     if(isset($_GET['categoria'])){
-        $categori = $_GET['categoria'];
+        $variableDelFront = $_GET['categoria'];
     }
     if(isset($_GET['autor'])){
-        $autor = $_GET['autor'];
+        $variableDelFront = $_GET['autor'];
     }
 
-    $query ='SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
-            FROM libros AS l
+    $query ="SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+            FROM libros AS l 
             INNER JOIN libro_autores la ON l.idLibro = la.idLibro
             INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
             INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
@@ -274,7 +274,7 @@ function librosFiltrados(){
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
             INNER JOIN autores a ON la.idAutores = a.idAutores
-            WHERE a.nombreAutor LIKE "'. $autor .'%"';
+            WHERE a.nombreAutor LIKE '$variableDelFront%' OR c.nombreCategoria LIKE '$variableDelFront%'";
             
     $stmt = $dbh->prepare($query);
 

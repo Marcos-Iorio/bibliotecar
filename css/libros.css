@@ -301,6 +301,10 @@ input#portada{
     margin-right: 35px;
 }
 
+.container{
+    margin-bottom: 200px;
+}
+
 .container-form{
     margin-top: 60px;
     background-color: white;
