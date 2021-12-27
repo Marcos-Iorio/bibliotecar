@@ -47,6 +47,7 @@
                         <label for="message">Mensaje</label><br>
                         <textarea style= "color: black" name="body" cols="30" rows="10" type="text" placeholder="Ingresá tu mensaje ..." required></textarea>
                         <div class="center">
+                        <div class="g-recaptcha brochure__form__captcha" data-sitekey="6LcArdAdAAAAAOUQbgqIYOPr5M0v2EAYx6A70DUn"></div>
                             <input type="submit" name="contactophp" value="Enviar">
                             <?php 
                               if (isset($_POST['contactophp'])) {
@@ -67,6 +68,7 @@
 </body>
 
   <script src="js/navbarToggle.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
    <!-- jQuery CDN - Slim version =without AJAX -->
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
