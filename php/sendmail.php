@@ -97,25 +97,43 @@ function enviarMail(){
     )
 );
 
-//Finally send email
+// Recaptcha
 
-if ($mail->send()) {
-            //$status = "success";
-            //$response = "Email is sent!";
-            if (isset($_POST['contactophp'])) {
+require('./vendor/autoload.php');
 
-    echo "<script>swal({title:'Exito',text:'Su consulta fue enviada. Nos estaremos poniendo en contacto con usted a la brevedad.',type:'success'});</script>";
-    }
-        } else {
-            //$status = "failed";
-            //$response = "Something is wrong: <br><br>" . $mail->ErrorInfo;
-             echo "<script>swal({title:'Error',text:'Hubo un problema al enviar el mail. Por favor reintente o pongase en contacto con el soporte. Disculpe las molestias',type:'error'});</script>";
+    if(!empty($_POST['g-recaptcha-response'])){
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+        $dotenv->load();
+
+        $secret = $_ENV['SECRET_KEY'];
+        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+        $responseData = json_decode($verifyResponse);
+        
+        if($responseData->success == true){
+            //Finally send email
+            if ($mail->send()) {
+                //$status = "success";
+                //$response = "Email is sent!";
+                if (isset($_POST['contactophp'])) {
+                    echo "<script>swal({title:'Exito',text:'Su consulta fue enviada. Nos estaremos poniendo en contacto con usted a la brevedad.',type:'success'});</script>";
+                }
+            } else {
+                //$status = "failed";
+                //$response = "Something is wrong: <br><br>" . $mail->ErrorInfo;
+                echo "<script>swal({title:'Error',text:'Hubo un problema al enviar el mail. Por favor reintente o pongase en contacto con el soporte. Disculpe las molestias',type:'error'});</script>";
+                }
+                //Closing smtp connection
+                $mail->smtpClose();
+        }else{
+            $message = "Error al verificar el recaptcha";
+            echo $message;
         }
-	//Closing smtp connection
-	$mail->smtpClose();
-    
-    //exit(json_encode(array("status" => $status, "response" => $response)));
-   }
+
+        
+        
+        //exit(json_encode(array("status" => $status, "response" => $response)));
+    }
+}
 
 
    function reenviar($name, $email, $pin){
@@ -268,103 +286,75 @@ echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor ve
 
 
     function enviarPwd($name, $email, $pin){
-//Include required PHPMailer files
-    require 'PHPMailer.php';
-    require 'SMTP.php';
-    require 'Exception.php';
-//Define name spaces
-            
-            $subject = "Usuario de BilbliotecAR creado correctamente";
-            $body = "Bienvenido " . $name . "! <br> <br> Te informamos que tu usuario fue creado en nuestro sistema. Por favor accede al mismo utilizando tu mail y la contrasena de abajo. <br> <br> Tu contrasena es: " . "<b>".$pin."</b> <br> <br> Recorda cambiarla una vez ingresado al sistema.<br> <br>Saludos,<br> <b> Equipo BilbiotecAr";
-                //cargarCodigo2($pin, $email);
+        //Include required PHPMailer files
+            require 'PHPMailer.php';
+            require 'SMTP.php';
+            require 'Exception.php';
+        //Define name spaces
+                    
+                    $subject = "Usuario de BilbliotecAR creado correctamente";
+                    $body = "Bienvenido " . $name . "! <br> <br> Te informamos que tu usuario fue creado en nuestro sistema. Por favor accede al mismo utilizando tu mail y la contrasena de abajo. <br> <br> Tu contrasena es: " . "<b>".$pin."</b> <br> <br> Recorda cambiarla una vez ingresado al sistema.<br> <br>Saludos,<br> <b> Equipo BilbiotecAr";
+                        //cargarCodigo2($pin, $email);
 
-        
+                
 
-        
+                
 
-//Create instance of PHPMailer
-    $mail = new PHPMailer();
-//Set mailer to use smtp
-    $mail->isSMTP();
-//Define smtp host
-    //$mail->Host = "smtp.office365.com";
-        $mail->Host = "smtp.gmail.com";
+        //Create instance of PHPMailer
+            $mail = new PHPMailer();
+        //Set mailer to use smtp
+            $mail->isSMTP();
+        //Define smtp host
+            //$mail->Host = "smtp.office365.com";
+                $mail->Host = "smtp.gmail.com";
 
-//Enable smtp authentication
-    $mail->SMTPAuth = true;
-//Set smtp encryption type (ssl/tls)
-    //$mail->SMTPSecure = "STARTTLS";
-    $mail->SMTPSecure = "TLS"; 
+        //Enable smtp authentication
+            $mail->SMTPAuth = true;
+        //Set smtp encryption type (ssl/tls)
+            //$mail->SMTPSecure = "STARTTLS";
+            $mail->SMTPSecure = "TLS"; 
 
-//Port to connect smtp
-    $mail->Port = "587";
-//Set gmail username
-    $mail->Username = "soporte.bibliotecar@gmail.com";
-//Set gmail password
-    $mail->Password = "bibliotecar123";
-//Email subject
-    $mail->Subject = ("$subject $email");
-//Set sender email FROM
-    $mail->setFrom($email);
+        //Port to connect smtp
+            $mail->Port = "587";
+        //Set gmail username
+            $mail->Username = "soporte.bibliotecar@gmail.com";
+        //Set gmail password
+            $mail->Password = "bibliotecar123";
+        //Email subject
+            $mail->Subject = ("$subject $email");
+        //Set sender email FROM
+            $mail->setFrom($email);
 
-//Enable HTML
-    $mail->isHTML(true);
-//Attachment
-    //$mail->addAttachment('img/attachment.png');
-//Email body
-    $mail->Body = $body;
-//Add recipient TO:
+        //Enable HTML
+            $mail->isHTML(true);
+        //Attachment
+            //$mail->addAttachment('img/attachment.png');
+        //Email body
+            $mail->Body = $body;
+        //Add recipient TO:
 
-            $mail->addAddress($email);
+                    $mail->addAddress($email);
 
 
-     //$mail->SMTPDebug = 6;
-     $mail->SMTPOptions = array(
-    'ssl' => array(
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-        'allow_self_signed' => true
-    )
-);
+            //$mail->SMTPDebug = 6;
+            $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
 
-//Finally send email
+        //Finally send email
 
-if ($mail->send()) {
-$flag='0';
+        if ($mail->send()) {
+        $flag='0';
         }
-    //Closing smtp connection
-    $mail->smtpClose();
-    
-    //exit(json_encode(array("status" => $status, "response" => $response)));
-   }
-
-
-// Recaptcha
-
-if(isset($_POST['g-recaptcha-response'])){
-    echo verify($_POST['g-recaptcha-response']);
+            //Closing smtp connection
+            $mail->smtpClose();
+            
+            //exit(json_encode(array("status" => $status, "response" => $response)));
 }
-
-function verify($response){
-    require('vendor/autoload.php');
-
-    $dotenv = \Dotenv\Dotenv::createImmutable('./');
-    if(file_exists(".env")) {
-        $dotenv->load();
-    }
-
-  $ip = $_SERVER['REMOTE_ADDR'];
-  $key = getenv('SECRET_KEY');
-  $url = 'https://www.google.com/recaptcha/api/siteverify';
-  $full_url = $url.'?secret='.$key.'&response='.$response.'&remoteip='.$ip;
-
-  $data = json_decode(file_get_contents($full_url));
-  if(isset($data->success) && $data->success == true){
-     return true;
-  }
-  return false;
-}
-
 ?>
 
 	<title></title>
