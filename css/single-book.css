@@ -16,9 +16,9 @@ main{
 }
 
 #imagenes-libros{
-    box-shadow: 10px 10px 45px -12px rgba(0,0,0,0.75);
--webkit-box-shadow: 10px 10px 45px -12px rgba(0,0,0,0.75);
--moz-box-shadow: 10px 10px 45px -12px rgba(0,0,0,0.75);
+    box-shadow: 0px 30px 78px -47px black;
+-webkit-box-shadow: 0px 30px 78px -47px black;
+-moz-box-shadow: 0px 30px 78px -47px black;
     grid-area: imagenes-libros;
     align-self: center;
     height: 400px;
@@ -34,9 +34,9 @@ img#img-libro{
 }
 
 .libro-info{
-    box-shadow: 10px 10px 45px -12px rgba(0,0,0,0.75);
--webkit-box-shadow: 10px 10px 45px -12px rgba(0,0,0,0.75);
--moz-box-shadow: 10px 10px 45px -12px rgba(0,0,0,0.75);
+    box-shadow: 0px 30px 78px -47px black;
+-webkit-box-shadow: 0px 30px 78px -47px black;
+-moz-box-shadow: 0px 30px 78px -47px black;
     border-radius: 15px;
     background-color: rgb(231, 231, 231);
     padding: 20px;
@@ -52,9 +52,9 @@ a{
 }
 
 .descripcion{
-    box-shadow: 10px 10px 45px -12px rgba(0,0,0,0.75);
--webkit-box-shadow: 10px 10px 45px -12px rgba(0,0,0,0.75);
--moz-box-shadow: 10px 10px 45px -12px rgba(0,0,0,0.75);
+    box-shadow: 0px 30px 78px -47px black;
+-webkit-box-shadow: 0px 30px 78px -47px black;
+-moz-box-shadow: 0px 30px 78px -47px black;
     border-radius: 15px;
     background-color: rgb(231, 231, 231);
     grid-area: descripcion;

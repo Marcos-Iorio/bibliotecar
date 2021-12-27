@@ -36,7 +36,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
   <link rel="stylesheet" href="css/inicio.css">
   <link rel="stylesheet" href="css/libros.css">
-  <link rel="stylesheet" href="css/cuenta.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
   <title>Document</title>
 </head>
@@ -65,7 +64,7 @@
             <form method="POST" action="#" name="busqueda">
               <div>
 
-                <h6 style="width: 100px;">Buscar por:</h6>
+                <h6 >Buscar por:</h6>
                 <select class="form-control" name="txtCriterio" style="width: 200px; margin-right: 200px;">
                   <option value="" disabled selected>Seleccionar</option>
                   <option value="mail">Titulo</option>
@@ -153,7 +152,7 @@
             <form name="formLibros" action="" id="form-libros" method="POST" class="form-libro" enctype="multipart/form-data">
 
               <div class="wrapper-libros">
-                <div style="display:flex;">
+                <div class="secciones-form" style="display:flex;">
                   <label for="">Titulo:</label>
                   <input style="background-color: white; color: black;" class="input-libro" type="text" name="titulo"
                     id="titulo" required placeholder="Titulo">
@@ -167,7 +166,7 @@
                 </div>
                 <br><br>
 
-                <div style="display:flex;">
+                <div class="secciones-form" style="display:flex;">
 
                   <label for="">Descripcion: </label>
                   <input maxlength="1000" style="background-color: white; color: black;" class="input-libro" type="text"
@@ -188,7 +187,7 @@
 
 
                 <br><br>
-                <div style="display:flex;">
+                <div class="secciones-form" style="display:flex;">
 
                   <label for="">Editorial:</label>
                   <select required id="select-editorial" style="background-color: white; color: black; width: 20%;" class="form-control"
@@ -214,7 +213,7 @@
                 </div>
 
                 <br><br>
-                <div style="display:flex;">
+                <div class="secciones-form" style="display:flex;">
 
                   <!--<label for="">Fecha de alta</label>
                         <input style="background-color: white; color: black;"class="input-libro"  type="date" name="fechaAlta" id="fechaAlta"><br><br>-->
@@ -227,23 +226,16 @@
                   <br><br>
 
                 </div>
-                <div style="display:flex;">
-
-
-
+                <div class="secciones-form" style="display:flex;">
                   <label for="">Pdf de libro (Opcional):</label>
                   <input class="input-libro" type="file" name="pdf" id="pdf">
                 </div>
-
-                <label for="">Pdf de libro (Opcional):</label>
-                <input class="input-libro" type="file" name="pdf" id="pdf">
-                <br><br>
               </div>
 
               <div class="center">
                 <input value="Editar libro" style="width: 20%;" type="submit" name="btnEditarLibro" id="editar-libro"
                   onclick="return ModificarLibro('editar')" />
-                <label for="" style="width: 100px;"></label>
+                <label for="" ></label>
 
                 <input value="Crear libro" style="width: 20%; " type="submit" name="btnCrearLibro" id="crear-libro"
                   onclick="return ModificarLibro('crear')" />
@@ -268,7 +260,7 @@
               <form method="POST" action="#" name="busqueda">
                 <div>
 
-                  <h6 style="width: 100px;">Buscar por:</h6>
+                  <h6 >Buscar por:</h6>
                   <select class="form-control" name="txtCriterio" style="width: 200px; margin-right: 200px;">
                     <option value="" disabled selected>Seleccionar</option>
                     <option value="mail">Titulo</option>
@@ -353,7 +345,7 @@
                     <div class="center">
                       <input value="Editar autor" style="width: 20%;" type="submit" name="btnEditarAutor" id="editar-autor"
                         onclick="return ModificarLibro('editar')" />
-                      <label for="" style="width: 100px;"></label>
+                      <label for="" ></label>
 
                       <input value="Crear autor" style="width: 20%; " type="submit" name="btnCrearAutor" id="crear-autor"
                         onclick="return ModificarLibro('crear')" />
@@ -461,7 +453,7 @@
                   <div class="center">
                     <input value="Editar categoria" style="width: 20%;" type="submit" name="btnEditarCategoria"
                       id="editar-categoria" onclick="return ModificarLibro('editar')" />
-                    <label for="" style="width: 100px;"></label>
+                    <label for="" ></label>
 
                     <input value="Crear categoria" style="width: 20%; " type="submit" name="btnCrearCategoria"
                       id="crear-categoria" onclick="return ModificarLibro('crear')" />
@@ -487,7 +479,7 @@
               <form method="POST" action="#" name="busqueda">
                 <div>
 
-                  <h6 style="width: 100px;">Buscar por:</h6>
+                  <h6 >Buscar por:</h6>
                   <select class="form-control" name="txtCriterio" style="width: 200px; margin-right: 200px;">
                     <option value="" disabled selected>Seleccionar</option>
                     <option value="mail">Titulo</option>
@@ -570,7 +562,7 @@
                     <div class="center">
                       <input value="Editar Editorial" style="width: 20%;" type="submit" name="btnEditarEditorial"
                         id="editar-editorial" onclick="return ModificarLibro('editar')" />
-                      <label for="" style="width: 100px;"></label>
+                      <label for="" ></label>
 
                       <input value="Crear Editorial" style="width: 20%; " type="submit" name="btnCrearEditorial"
                         id="crear-editorial" onclick="return ModificarLibro('crear')" />
