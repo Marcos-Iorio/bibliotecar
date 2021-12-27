@@ -186,3 +186,31 @@ function modalEditoriales(){
     }
 
 }
+
+function modalUsuario(){
+    /* Resetea el modal */
+    document.getElementById('formUsuarios').reset();
+
+    /* Obtiene el modal */
+    let modalUsuario = document.getElementById('modal-usuario')
+
+    if(modalUsuario.style.display == ''){
+        modalUsuario.style.display = "block"
+        document.getElementById('editar-usuario').style.display = "none";
+        document.getElementById('crear-usuario').style.display = "block";
+
+    }else if(modalUsuario.style.display = "none"){
+        modalUsuario.style.display = "block";
+        document.getElementById('editar-usuario').style.display = "none";
+        document.getElementById('crear-usuario').style.display = "block";
+
+    }else{
+
+    }
+    var span = document.getElementById("close");
+
+    span.onclick = function() {
+        modalUsuario.style.display = "none";
+    }
+
+}

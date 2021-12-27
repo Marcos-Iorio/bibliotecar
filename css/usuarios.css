@@ -19,11 +19,43 @@ section#page{
 
 
 h3 {
+    padding-top: 25px;
     background-color: transparent;
 	font-size: 40px;
 	text-align: center;
-    color: white;
+    color: #333;
     padding-bottom: 70px;
+}
+
+.botones-buscar-limpiar{
+    display: inline-block;
+}
+#close {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 20px;
+  }
+  
+  #close:hover,
+  #close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+label {
+    font-size: 20px;
+    margin-left: 12px;
+    font-weight: 400;
+    color: #333;
+    background:transparent;
+    display: inline-block;
+    width: 10% !important;
+    margin-right: 20px;
+    text-align: left;
 }
 
 .main-libros{
@@ -40,94 +72,6 @@ h3 {
     justify-content: center;
 }
 
-div#libro-prueba{
-    position: relative;
-    margin: 25px;
-    border-radius: 5px;
-    background-color: transparent;
-    border: 1px solid black;
-    width: 150px;
-    height: 300px;
-    align-self: center;
-    justify-self: center;
-}
-
-.libro-prueba-sinStock{
-    position: relative;
-    margin: 25px;
-    border-radius: 5px;
-    mix-blend-mode: luminosity;
-    border: 1px solid black;
-    width: 150px;
-    height: 250px;
-    align-self: center;
-    justify-self: center;
-}
-
-.imagen-libro{
-    position: relative;
-    border-radius: 5px;
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-}
-
-.informacion{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 40%;
-    background: rgba(255, 255, 255, 0.4);
-    text-align: center;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-p.libro-info{
-    margin: 0 0 0 7px !important;
-    font-size: 14px;
-    width: 86% !important;
-    padding: 5px 0 0 0;
-    background-color: transparent;
-    font-weight: bold;
-    color: #222;
-}
-
-.etiqueta{
-    border: 1px solid black;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 5px;
-    position: absolute;
-    top: 4px;
-    left: 3px;
-    width: 100px;
-    height: 20px;
-}
-
-p.etiqueta-info{
-    font-size: 15px;
-    width: 100%;
-    margin-left: 7px;
-    background-color: transparent;
-    color: black;
-}
-
-.libro-prueba:hover{
-    overflow: hidden;
-    transition: ease 0.3s;
-    transform: scale(1.05);
-    mix-blend-mode: luminosity;
-}
-
-.libro-prueba-sinStock:hover{
-    overflow: hidden;
-    transition: ease 0.3s;
-    transform: scale(1.05);
-    mix-blend-mode: luminosity;
-}
-
 .busqueda{
     position: absolute;
     background-color: transparent;
@@ -140,6 +84,45 @@ p.etiqueta-info{
     top: 15px;
     background-color: transparent;
 }
+
+.tabla-libros{
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+    text-align: center;
+    padding: 50px;
+    margin-right: 35px;
+}
+
+.modal-usuarios{
+    border: 2px solid #333;
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    display: none;
+    margin-left: 85px;
+    width: 85%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+}
+
+button.boton-agregar-libro {
+    border: none;
+    display: block;
+    color: white;
+    margin: 15px auto;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: #333;
+    cursor: pointer;
+}
+
 .fas.fa-filter, .fas.fa-search{
     z-index: 99;
     position: absolute;
@@ -157,39 +140,30 @@ p.etiqueta-info{
     background: transparent;
 }
 
-label {
-	font-size: 20px;
-	margin-left: 12px;
-    font-weight: 400;
-	color: white;
-	background:transparent;
-    display: inline-block;
-    width: 170px;
-}
-
 
 input[type=text], input[type=number], input[type=file] textarea {
-    width: 50%;
+    width: 40%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     margin-top: 6px;
     margin-bottom: 16px;
+    margin-right: 50px;
     resize: vertical;
-	background: transparent;
-	color: white;
+    background: transparent;
+    color: white;
 }
 
 
 input[type=text]:focus,input[type=number]:focus, input[type=file]:focus, textarea:focus {
-	border-bottom: 4px solid yellow;
-	background: rgba(255, 255, 255, 0.11);
+    border-bottom: 4px solid black;
+    background: rgba(255, 255, 255, 0.11);
 }
 
 input[type=submit] {
 	border: none;
-	display: block;
+	display: inline-block;
     color: white;
     margin: 15px auto;
     height: 50px;
@@ -209,8 +183,16 @@ input[type=submit]:focus {
 input[type=submit]:hover {
 	box-shadow: 0px 30px 78px -47px black;
     -webkit-box-shadow: 0px 30px 78px -47px black;
-    -moz-box-shadow: 0px 30px 78px -47px black;
 }
+
+.wrapper-libros {
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
 input#portada{
     background: transparent;
 }

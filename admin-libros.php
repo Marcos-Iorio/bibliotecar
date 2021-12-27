@@ -196,10 +196,7 @@
 
                     <?php 
 
-                          getEditoriales();
-                        
-                          
-                              
+                          getEditoriales(); 
                               ?>
 
                   </select>
