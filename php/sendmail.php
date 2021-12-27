@@ -9,6 +9,8 @@
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
+    require('../vendor/autoload.php');
+
 
 function enviarMail(){
 //Include required PHPMailer files
@@ -349,7 +351,10 @@ if(!$res['success']){
 }
 
 function reCaptcha($recaptcha){
-    $secret = "6LcArdAdAAAAAAnCk4tqQ5lK2bvdYNPSkpikRCNS";
+    $dotenv = Dotenv\Dotenv::createImmutable('../');
+    $dotenv->load();
+
+    $secret = getenv('SECRET_KEY');
     $ip = $_SERVER['REMOTE_ADDR'];
   
     $postvars = array("secret"=>$secret, "response"=>$recaptcha, "remoteip"=>$ip);
@@ -364,6 +369,7 @@ function reCaptcha($recaptcha){
   
     return json_decode($data, true);
   }
+  
 
 
 ?>
