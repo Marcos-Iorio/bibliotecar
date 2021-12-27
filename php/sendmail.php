@@ -340,24 +340,19 @@ $flag='0';
 
 
 // Recaptcha
-require('vendor/autoload.php');
-
-$dotenv = \Dotenv\Dotenv::createImmutable('./');
-if(file_exists(".env")) {
-    $dotenv->load();
-}
-
-/* $recaptcha = $_POST['g-recaptcha-response'];
-$res = reCaptcha($recaptcha, $dotenv);
-if(!$res['success']){
-  // Error
-} */
 
 if(isset($_POST['g-recaptcha-response'])){
     echo verify($_POST['g-recaptcha-response']);
 }
 
 function verify($response){
+    require('vendor/autoload.php');
+
+    $dotenv = \Dotenv\Dotenv::createImmutable('./');
+    if(file_exists(".env")) {
+        $dotenv->load();
+    }
+
   $ip = $_SERVER['REMOTE_ADDR'];
   $key = getenv('SECRET_KEY');
   $url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -369,27 +364,6 @@ function verify($response){
   }
   return false;
 }
-
-
-/* function reCaptcha($recaptcha, $dotenv){
-
-    $secret = getenv('SECRET_KEY');
-    $ip = $_SERVER['REMOTE_ADDR'];
-  
-    $postvars = array("secret"=>$secret, "response"=>$recaptcha, "remoteip"=>$ip);
-    $url = "https://www.google.com/recaptcha/api/siteverify";
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
-    $data = curl_exec($ch);
-    curl_close($ch);
-  
-    return json_decode($data, true);
-  }
-   */
-
 
 ?>
 

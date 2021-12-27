@@ -125,10 +125,6 @@
                     </div>
                 </div>
             </section>
-            <button onclick="contacto()" class="buttonInfo tooltip">
-                <i class="fas fa-question"></i>
-                <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
-            </button>
         </main>
       </section>
 </body>

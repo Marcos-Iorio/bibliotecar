@@ -1,6 +1,6 @@
 <?php
 
-require('../vendor/autoload.php');
+require('vendor/autoload.php');
 
 $DB_NAME = getenv('DB_NAME');
 $DB_USER = getenv('DB_USER');
