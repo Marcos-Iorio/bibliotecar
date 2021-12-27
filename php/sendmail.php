@@ -9,9 +9,6 @@
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
-    require('../vendor/autoload.php');
-
-
 function enviarMail(){
 //Include required PHPMailer files
 	require 'PHPMailer.php';
@@ -343,16 +340,38 @@ $flag='0';
 
 
 // Recaptcha
+require('vendor/autoload.php');
 
-$recaptcha = $_POST['g-recaptcha-response'];
-$res = reCaptcha($recaptcha);
-if(!$res['success']){
-  // Error
+$dotenv = \Dotenv\Dotenv::createImmutable('./');
+if(file_exists(".env")) {
+    $dotenv->load();
 }
 
-function reCaptcha($recaptcha){
-    $dotenv = Dotenv\Dotenv::createImmutable('../');
-    $dotenv->load();
+/* $recaptcha = $_POST['g-recaptcha-response'];
+$res = reCaptcha($recaptcha, $dotenv);
+if(!$res['success']){
+  // Error
+} */
+
+if(isset($_POST['g-recaptcha-response'])){
+    echo verify($_POST['g-recaptcha-response']);
+}
+
+function verify($response){
+  $ip = $_SERVER['REMOTE_ADDR'];
+  $key = getenv('SECRET_KEY');
+  $url = 'https://www.google.com/recaptcha/api/siteverify';
+  $full_url = $url.'?secret='.$key.'&response='.$response.'&remoteip='.$ip;
+
+  $data = json_decode(file_get_contents($full_url));
+  if(isset($data->success) && $data->success == true){
+     return true;
+  }
+  return false;
+}
+
+
+/* function reCaptcha($recaptcha, $dotenv){
 
     $secret = getenv('SECRET_KEY');
     $ip = $_SERVER['REMOTE_ADDR'];
@@ -369,7 +388,7 @@ function reCaptcha($recaptcha){
   
     return json_decode($data, true);
   }
-  
+   */
 
 
 ?>

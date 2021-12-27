@@ -92,8 +92,15 @@ input[type=submit]:hover {
 }
 
 .center {
+	display: flex;
+	flex-direction: column;
 	text-align: center;
 	background: transparent;
+}
+
+.g-recaptcha.brochure__form__captcha {
+    display: block;
+    margin: 0 auto;
 }
 
 @media (max-width: 768px){
