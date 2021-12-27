@@ -638,6 +638,7 @@ i.fas.fa-times {
 /* modals */
 
 #modal-libros{
+    border: 2px solid #333;
     position: absolute;
     left: 3%;
     top: 50%;
@@ -652,6 +653,7 @@ i.fas.fa-times {
 }
 
 #modal-autor{
+    border: 2px solid #333;
     position: absolute;
     left: 3%;
     top: 50%;
@@ -666,6 +668,7 @@ i.fas.fa-times {
 }
 
 #modal-categoria{
+    border: 2px solid #333;
     position: absolute;
     left: 3%;
     top: 50%;
@@ -680,6 +683,7 @@ i.fas.fa-times {
 }
 
 #modal-editorial{
+    border: 2px solid #333;
     position: absolute;
     left: 3%;
     top: 50%;
