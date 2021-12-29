@@ -24,7 +24,7 @@
     <title>Document</title>
 </head>
 
-<body onload="esconderBoton()">
+<body onload="esconderBoton(), traducirPicker()">
 
     <section id="page">
         <?php 
@@ -107,6 +107,7 @@
 <script src="js/sweetalert2.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/es.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="js/navbarToggle.js"></script>
@@ -162,7 +163,14 @@
 </script>
 <script>
     $(function() { 
-
+        moment.lang('es', {
+            months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
+            monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
+            weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
+            weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+            weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
+        }
+);
         $('input[name="dates"]').daterangepicker({
             opens: 'left',
             minDate: new Date()
@@ -183,6 +191,13 @@
         });
 
     });
+
+
+    function traducirPicker(){
+        document.querySelector('button.applyBtn').innerText = "Aplicar";
+        document.querySelector('button.cancelBtn').innerText = "Cancelar";
+    }
+
 
 </script>
 
