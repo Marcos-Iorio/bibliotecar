@@ -78,20 +78,22 @@ label{
 }
 
 .reservar{
-    background: white;
-    border: none;
-    color: #333;
-  /*   padding: 25px; */
-    border-bottom: 3px solid #222;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    width: 200px;
-    height: 75px;
-    transition: ease 0.5s;
-    cursor: pointer;
-    font-size: 30px;
-	display: block;
-    margin: 0 auto;
+  border: 2px solid #333;
+  display: block;
+  color: #333;
+  margin: 15px auto;
+  height: 50px;
+  width: 200px;
+  border-radius: 48px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all ease 0.5s;
+}
+
+div#dateFormat{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .boton-reservar{
@@ -107,10 +109,9 @@ label{
 }
 
 .reservar:hover{
-    border-bottom: 3px solid white;
-    color: white;
-    background: #333;
-    transition: ease 0.5s;
+  transition: all ease 0.5s;
+  background: white;
+
 }
 
 label{

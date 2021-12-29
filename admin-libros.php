@@ -46,8 +46,8 @@
           include "php/panel.php";
          ?>
     <main id="main">
-      <h1>Gestion de libros</h1>
-      <div>Podes ver, editar y añadir nuevas editoriales, libros, autores y categorias.</div>
+      <h1 class="titulo-pagina">Gestion de libros</h1>
+      <div class="subtitulo-pagina">Podes ver, editar y añadir nuevas editoriales, libros, autores y categorias.</div>
 
 
 

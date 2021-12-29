@@ -14,10 +14,13 @@ function enviarMail(){
 	require 'PHPMailer.php';
 	require 'SMTP.php';
 	require 'Exception.php';
+
+    require('./vendor/autoload.php');
+
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->load();
 //Define name spaces
 
-
-	        
         if (isset($_POST['contactophp'])) {
 
         	if (isset($_POST['name']) && isset($_POST['email'])) {
@@ -26,15 +29,11 @@ function enviarMail(){
 
             	$subject = "Se ha recibido una nueva consulta: ";
         		$body = "Consulta de: " . $name . " (" . $email . ") <br> <br>" . nl2br($_POST['body']); //nl2br permite los enters en el cuerpo del mail
-
          	}
 
         }
-
-
         if (isset($_POST['registrophp'])) {
                 include 'ping.php';
-
 
        		if (isset($_POST['username']) && isset($_POST['mail'])) {
         		$name = $_POST['username'];
@@ -44,13 +43,13 @@ function enviarMail(){
         	    cargarCodigo($d, $email);
 
          	}
-
         }
 
 //Create instance of PHPMailer
-	$mail = new PHPMailer();
+	$mail = new PHPMailer(true);
 //Set mailer to use smtp
 	$mail->isSMTP();
+    /* $mail->SMTPDebug = SMTP::DEBUG_SERVER;  */  //Habilitar para debugear
 //Define smtp host
 	//$mail->Host = "smtp.office365.com";
 		$mail->Host = "smtp.gmail.com";
@@ -59,14 +58,14 @@ function enviarMail(){
 	$mail->SMTPAuth = true;
 //Set smtp encryption type (ssl/tls)
 	//$mail->SMTPSecure = "STARTTLS";
-	$mail->SMTPSecure = "TLS"; 
+	$mail->SMTPSecure = "tls"; 
 
 //Port to connect smtp
 	$mail->Port = "587";
 //Set gmail username
 	$mail->Username = "soporte.bibliotecar@gmail.com";
 //Set gmail password
-	$mail->Password = "bibliotecar123";
+	$mail->Password = $_ENV['PW_MAIL'];
 //Email subject
 	$mail->Subject = ("$subject $email");
 //Set sender email FROM
@@ -99,16 +98,11 @@ function enviarMail(){
 
 // Recaptcha
 
-require('./vendor/autoload.php');
-
     if(!empty($_POST['g-recaptcha-response'])){
-        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-        $dotenv->load();
-
+        
         $secret = $_ENV['SECRET_KEY'];
         $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
         $responseData = json_decode($verifyResponse);
-        
         if($responseData->success == true){
             //Finally send email
             if ($mail->send()) {
@@ -120,6 +114,7 @@ require('./vendor/autoload.php');
             } else {
                 //$status = "failed";
                 //$response = "Something is wrong: <br><br>" . $mail->ErrorInfo;
+                echo $mail->ErrorInfo;
                 echo "<script>swal({title:'Error',text:'Hubo un problema al enviar el mail. Por favor reintente o pongase en contacto con el soporte. Disculpe las molestias',type:'error'});</script>";
                 }
                 //Closing smtp connection
@@ -137,19 +132,21 @@ require('./vendor/autoload.php');
 
 
    function reenviar($name, $email, $pin){
+
+    require('./vendor/autoload.php');
+
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->load();
 //Include required PHPMailer files
     require 'PHPMailer.php';
     require 'SMTP.php';
     require 'Exception.php';
 //Define name spaces
-            
-            $subject = "Confirmacion de registro: Nuevo codigo de verificacion";
-            $body = "Hola " . $name . "! <br> <br> Gracias por registrarte. Por favor copia tu nuevo codigo y pegalo en la pagina de verificacion. <br> <br> Tu nuevo codigo de verificacion es: " . "<b>".$pin."<b>";
-                cargarCodigo2($pin, $email);
 
-        
-
-        
+    $subject = "Confirmacion de registro: Nuevo codigo de verificacion";
+    $body = "Hola " . $name . "! <br> <br> Gracias por registrarte. Por favor copia tu nuevo codigo y pegalo en la pagina de verificacion. <br> <br> Tu nuevo codigo de verificacion es: " . "<b>".$pin."<b>";
+    
+    cargarCodigo2($pin, $email);
 
 //Create instance of PHPMailer
     $mail = new PHPMailer();
@@ -157,7 +154,7 @@ require('./vendor/autoload.php');
     $mail->isSMTP();
 //Define smtp host
     //$mail->Host = "smtp.office365.com";
-        $mail->Host = "smtp.gmail.com";
+        $mail->Host = 'localhost'/* "smtp.gmail.com" */;
 
 //Enable smtp authentication
     $mail->SMTPAuth = true;
@@ -170,7 +167,7 @@ require('./vendor/autoload.php');
 //Set gmail username
     $mail->Username = "soporte.bibliotecar@gmail.com";
 //Set gmail password
-    $mail->Password = "bibliotecar123";
+    $mail->Password = $_ENV['PW_MAIL'];
 //Email subject
     $mail->Subject = ("$subject $email");
 //Set sender email FROM
@@ -208,6 +205,10 @@ $flag='0';
    }
 
    function enviarReserva($name, $email, $pin){
+    require('./vendor/autoload.php');
+
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->load();
 //Include required PHPMailer files
     require 'PHPMailer.php';
     require 'SMTP.php';
@@ -217,10 +218,6 @@ $flag='0';
             $subject = "Confirmacion de reserva:";
             $body = "Hola " . $name . "! <br> <br> Te informamos que tu reserva fue ingresada con exito. Por favor guarda el codigo de abajo para poder retirar el libro al momento de presentarte en la institucion. <br> <br> Tu  codigo de reserva es: " . "<b>".$pin."<b>";
                 //cargarCodigo2($pin, $email);
-
-        
-
-        
 
 //Create instance of PHPMailer
     $mail = new PHPMailer();
@@ -241,7 +238,7 @@ $flag='0';
 //Set gmail username
     $mail->Username = "soporte.bibliotecar@gmail.com";
 //Set gmail password
-    $mail->Password = "bibliotecar123";
+    $mail->Password = $_ENV['PW_MAIL'];
 //Email subject
     $mail->Subject = ("$subject $email");
 //Set sender email FROM
@@ -286,6 +283,10 @@ echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor ve
 
 
     function enviarPwd($name, $email, $pin){
+        require('./vendor/autoload.php');
+
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+        $dotenv->load();
         //Include required PHPMailer files
             require 'PHPMailer.php';
             require 'SMTP.php';
@@ -319,7 +320,7 @@ echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor ve
         //Set gmail username
             $mail->Username = "soporte.bibliotecar@gmail.com";
         //Set gmail password
-            $mail->Password = "bibliotecar123";
+            $mail->Password = "Bibliotecar123";
         //Email subject
             $mail->Subject = ("$subject $email");
         //Set sender email FROM

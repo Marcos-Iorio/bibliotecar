@@ -54,9 +54,9 @@
                 </div>
         <!--Seccion de los libros-->
                 <div class="container main-libros">
-                    <h3>Gestion de reservas!</h3>
+                    <h3 class="titulo-pagina">Gestion de reservas!</h3>
 
-                   <form method="POST" action="#" name="busqueda" >
+                   <form method="POST" id="form-reservas" action="#" name="busqueda" >
 
 
                     <label for="" style="width: 210px; text-align: left;">Ingresar reserva:</label>
@@ -83,8 +83,8 @@
                     </select>
 
                     <input style="background-color: white; width: 200px; height: 40px; color:black;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
-                    <div style="text-align: right;">
-                    <input type="submit"  value="Buscar" href="#?page=1" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/><a href="admin-reservas.php?page=1"></a>
+                    <div style="text-align: right; height: 150px">
+                    <input style="margin-bottom: 10px !important;" type="submit"  value="Buscar" href="#?page=1" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/><a href="admin-reservas.php?page=1"></a>
                     <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0"/>
                     </div>
                     </div>
