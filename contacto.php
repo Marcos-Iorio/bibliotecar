@@ -42,7 +42,7 @@
                         <input name="last_name" type="text" required placeholder="Apellido.."/>
                         <br>
                         <label for="email">Email</label>
-                        <input name="email" type="email" required placeholder="you@dominio.com.."/>
+                        <input name="email" id="email" type="email" required placeholder="you@dominio.com.."/>
                         <br>
                         <label for="message">Mensaje</label><br>
                         <textarea style= "color: black" name="body" cols="30" rows="10" type="text" placeholder="Ingresá tu mensaje ..." required></textarea>

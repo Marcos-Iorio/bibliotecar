@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     //include('../js/mensajes.js');
 
     if(isset($_POST['username'])){
-        $username = $_POST['username'];
+        $username = strtolower($_POST['username']);
 
     }
 
@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 
     if(isset($_POST['mail'])){
-        $mail = $_POST['mail'];
+        $mail = strtolower($_POST['mail']);
     }
 
     #chequea si el mail ya esta registrado

@@ -145,8 +145,6 @@ label{
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     -webkit-animation-name: fadeIn; /* Fade in the background */
     -webkit-animation-duration: 0.4s;
     animation-name: fadeIn;
@@ -160,23 +158,27 @@ label{
     background-color: #fefefe;
     width: 60%;
     left: 300px;
+    border: none;
     -webkit-animation-name: slideIn;
     -webkit-animation-duration: 0.4s;
     animation-name: slideIn;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
   }
   
   /* The Close Button */
   .close {
-    color: white;
+    color: #333;
     float: right;
-    font-size: 28px;
+    font-size: 35px;
     font-weight: bold;
   }
   
   .close:hover,
   .close:focus {
-    color: white;
+    color: black;
     text-decoration: none;
     cursor: pointer;
   }
@@ -191,39 +193,76 @@ label{
       width: 700px;
   }
 
-  button#confirmar{
-      outline: none;
-      border: 1px solid black;
-      padding: 15px;
+  input#confirmar{
+    border: none;
+    display: block;
+    color: white;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    border: 2px solid #333;
+    background-color: #333;
+    cursor: pointer;
+    transition: all ease 0.5s;
+  }
+
+  input#confirmar:hover{
+    background: white;
+    border: 2px solid #333;
+    transition: all ease 0.5s;
+    color: #333;
+  
   }
 
   button#cancelar{
-    outline: none;
-    border: 1px solid black;
-    padding: 15px;
-  }
+    border: 2px solid #333;
+    display: block;
+    color: #333;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
 
-  button#cancelar:hover, button#confirmar:hover{
-        color: white;
-        background-color: #333;
-
-  }
+button#cancelar:hover{
+  background: #333;
+  color: white;
+  transition: all ease 0.5s;
+}
   
   .modal-header {
       text-align: center;
     padding: 2px 16px;
-    background-color: #333;
-    color: white;
+    background-color: #fefefe !important;
+    color: #333;
   }
   
   .modal-body {
-      padding: 25px;
-      text-align: center;
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .body-info{
 	margin-top: 25px;
 	display: inline-block;
+}
+
+/* Date pickers */
+
+input#datePicker{
+    padding: 5px;
+    text-align: center;
+    border-radius: 37px;
+    border: 2px solid #333;
+    background: transparent;
 }
 
   

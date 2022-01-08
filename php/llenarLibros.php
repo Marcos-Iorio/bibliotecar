@@ -184,13 +184,15 @@ function singleBook($idLibro){
          </form>
     </div>
     <br><br>
-    <div id = "dateFormat">Seleccioná las fechas:<br>
-        <input type="name" name="dates" id="datePicker" value="00/00/0000 - 00/00/0000">
-    </div>
-    
+    <form id="form-reserva">
+        <div id = "dateFormat">Seleccioná las fechas:<br>
+            <input type="name" name="dates" id="datePicker" value="00/00/0000 - 00/00/0000">
+        </div>
+    </form>   
     <div class="boton-reservar">
         <button class="reservar" id="reservar">Reservar</button>
     </div>
+    
 </div>
 <div class = "descripcion">
     <h3 class= "titulo-desc">Descripcion</h3>
