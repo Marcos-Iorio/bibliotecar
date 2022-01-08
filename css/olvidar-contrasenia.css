@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;400;500;600;700&display=swap');
+
+* {
+	box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+}
+
+body {
+	background: linear-gradient(214deg, #0a036e, #030443, #0c3761);
+    background-size: 600% 600%;
+
+    -webkit-animation: fondo 9s ease infinite;
+    -moz-animation: fondo 9s ease infinite;
+    animation: fondo 9s ease infinite;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+	height: 100vh;
+	margin: -20px 0 50px;
+}
+
+.contenedor{
+    height: 70%;
+    width: 40%;
+    background: white;
+    border-radius: 15px;
+}    
+
+form#form-contrasenia{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.contenedor h2{
+    font-family: "Raleway", sans-serif;
+}
+
+.contenedor label{
+    font-family: "Roboto Mono", sans-serif;
+    color: black;
+    font-size: 15px;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.contenedor input[type="password"]{
+    width: 50%;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid black;
+    height: 30px;
+    margin-bottom: 20px;
+}
+.contenedor input[type="text"]{
+    width: 50%;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid black;
+    height: 30px;
+    margin-bottom: 20px;
+}
+
+.contenedor button{
+    border: none;
+    display: block;
+    color: white;
+    margin: 15px auto;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: #333;
+    cursor: pointer;
+}
+
+button#mostrar-passwords{
+    background: transparent;
+    border: 2px solid #333;
+    color: #333;
+}
+
+p#resultado{
+    text-align: center;
+    
+}
+
+.pass__require{
+	background-color: white;
+	border-radius: 8px;
+	padding: 20px;
+	position: absolute;
+	bottom: 151px;
+	right: 13%;
+	color: #222;
+	width: 15%;
+	font-size: 15px;
+	font-weight: 400;
+	box-shadow: 2px 2px 2px 1px rgb(27, 27, 27);
+	animation-name: appear;
+	animation-duration: 3s;
+}
+
+h3{
+	font-size: 18px;
+}
+
+#passwordRe{
+	outline: none
+}
+
+.valid {
+	color: green;
+  }
+  
+  .valid:before {
+	position: relative;
+	left: -15px;
+	content: "\2705";
+  }
+  
+  /* Add a red text color and an "x" icon when the requirements are wrong */
+  .invalid {
+	color: red;
+  }
+  
+  .invalid:before {
+	position: relative;
+	left: -15px;
+	content: "\274C";
+  }

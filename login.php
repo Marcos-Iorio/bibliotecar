@@ -111,17 +111,7 @@ exit;
                         <input class="confirmar" id="confirmar" name="confirmar" value="Enviar" type="submit">
                         <button id="cancelar">Cancelar</button>
                     </form>
-                    <?php 
-                    if (isset($_POST['confirmar'])) {
-                        if(isset($_POST['olvidar-pass'])){
-                          echo "Entre al 2do if";
-                          $mail = strtolower($_POST['olvidar-pass']);
-                        }else{
-                            echo "<script>swal({title:'Error',text:'Por favor ingrese con su cuenta de usuario para poder realizar una reserva.',type:'info'});</script> ";
-                        }
-                        
-                    } 
-                    ?>
+                    
                 </div>
             </div>
         </div>
