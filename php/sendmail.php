@@ -266,13 +266,13 @@ $flag='0';
 
 //Finally send email
 
-if ($mail->send()) {
-$flag='0';
-echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
-        } else {
-           echo "<script>swal({title:'Atencion',text:'Su reserva se ha realizado pero no pudimos enviar el codigo de reserva a su correo. Por favor contacta al administrador para mas informacion.',type:'info'});</script> ";
- 
-        }
+    if ($mail->send()) {
+    $flag='0';
+    echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+    } else {
+        echo "<script>swal({title:'Atencion',text:'Su reserva se ha realizado pero no pudimos enviar el codigo de reserva a su correo. Por favor contacta al administrador para mas informacion.',type:'info'});</script> ";
+
+    }
     //Closing smtp connection
     $mail->smtpClose();
     
@@ -355,6 +355,59 @@ echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor ve
             $mail->smtpClose();
             
             //exit(json_encode(array("status" => $status, "response" => $response)));
+}
+
+function enviarRecuperacion($email, $token){
+    require 'PHPMailer.php';
+	require 'SMTP.php';
+	require 'Exception.php';
+
+    require('./vendor/autoload.php');
+
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->load();
+
+      
+    $subject = "Recuperación de la cuenta.";
+    $body = "Hola, hace click en el siguiente <a href=\"http://localhost/Practica%20Profesionalizante/Proyecto%20final/olvide_mi_pass.php?token=" . $token . "\">link</a> para generar una nueva contraseña en nuestro sitio";
+
+    
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->Host = "smtp.gmail.com";
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = "TLS"; 
+    $mail->Port = "587";
+    $mail->Username = "soporte.bibliotecar@gmail.com";
+    $mail->Password = "Bibliotecar123";
+    $mail->Subject = ("$subject $email");
+    $mail->setFrom($email);
+    $mail->isHTML(true);
+    $mail->Body = $body;
+    $mail->addAddress($email);
+
+
+    //$mail->SMTPDebug = 6;
+    $mail->SMTPOptions = array(
+    'ssl' => array(
+    'verify_peer' => false,
+    'verify_peer_name' => false,
+    'allow_self_signed' => true
+    )
+    );
+
+    //Finally send email
+
+    if ($mail->send()) {
+        $flag='0';
+        echo "<script>swal({title:'Exito',text:'Hemos enviado un mail de recuperación a tu correo, si no lo encontrás, verificá la casilla de SPAM.',type:'success'});</script> ";
+    }else{
+        echo "<script>swal({title:'Atencion',text:'Su solicitud de cambio de contraseña se ha procesado con exito pero por alguna razón no hemos podido enviar el mail, por favor contacta con el administrador del sitio.',type:'info'});</script> ";
+    }
+    //Closing smtp connection
+    $mail->smtpClose();
+
+
 }
 ?>
 

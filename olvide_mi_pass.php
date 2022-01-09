@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/olvidar-contrasenia.css">
-    <title>Document</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Recuperación de contraseña</title>
 </head>
 <body>
 <div class="pass__require hidden" id ="passRequire">
@@ -19,12 +20,18 @@
         <form action="" method="POST" id="form-contrasenia">
             <h2 class="titulo-recuperacion">Recuperacion de contraseña:</h2>
             <label for="password" onfocus="requerimientosPass()">Contraseña:</label>
-            <input type="password" name="" id="password">
+            <input type="password" name="nuevaPass" id="password">
             <label for="repetir-password">Repetir contraseña:</label>
             <input type="password" name="" id="repetir-password">
 
-            <button id="btn-actualizar" value="Actualizar">Actualizar
+            <input type="submit" id="btn-actualizar" name="actualizar" value="Actualizar">
         </form>
+        <?php 
+          include 'php/recuperacion_pass.php';
+            if (isset($_POST['actualizar'])) {
+                  actualizarPass();
+              }
+          ?>
         <button id="mostrar-passwords">Mostrar contraseñas</button>
         <p id="resultado"></p>
     </div>

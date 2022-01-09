@@ -85,7 +85,7 @@ function confirmarReserva($idLibro, $nombre, $correo, $codigo){
           $stmt = $dbh->prepare("UPDATE libros SET stock='".$stock."' where idLibro ='".$idLibro."'");
 
           if ($stmt->execute()) {
-                      include "sendmail.php";
+            include "sendmail.php";
             enviarReserva($nombre, $correo, $codigo);
 
             //singleBook($idLibro);

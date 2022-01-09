@@ -105,13 +105,25 @@ exit;
                 <?php 
                   ?>
                 <div class="modal-body">
-                    <form action="#" id="formulario-olvidar-pass" method="POST">
-                      <label for="olvidar-pass"></label>
-                        <input type="email" name="olvidar-pass" id="olvidar-pass" value="" required>
+                    <form action="" id="formulario-olvidar-pass" method="POST">
+                      <label for="olvidar-pass"><strong>Ingresá tu mail:</strong></label>
+                        <input type="email" name="mail-recuperacion" id="mail-recuperacion" value="" required>
                         <input class="confirmar" id="confirmar" name="confirmar" value="Enviar" type="submit">
                         <button id="cancelar">Cancelar</button>
                     </form>
-                    
+                    <?php 
+                    include 'php/recuperacion_pass.php';
+
+                        if (isset($_POST['confirmar'])) {
+                            if (isset($_POST['mail-recuperacion'])) {
+                              $email = $_POST['mail-recuperacion'];
+                                recuperacionPass($email);
+                            } else {
+                                echo "<script>swal({title:'Error',text:'El campo mail no puede estar vacío.',type:'info'});</script> ";
+                            }
+                            
+                        } 
+                        ?>
                 </div>
             </div>
         </div>

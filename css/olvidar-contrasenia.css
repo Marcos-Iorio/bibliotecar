@@ -69,6 +69,18 @@ form#form-contrasenia{
     height: 30px;
     margin-bottom: 20px;
 }
+.contenedor input[type="submit"]{
+    border: none;
+    display: block;
+    color: white;
+    margin: 15px auto;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: #333;
+    cursor: pointer;
+    font-size: 17px;
+}
 
 .contenedor button{
     border: none;
