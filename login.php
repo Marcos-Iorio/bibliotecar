@@ -16,9 +16,6 @@ exit;
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
-
-    
     <link rel="stylesheet"  href="css/login.css">
     <script src="js/sweetalert2.js"></script>
     <link rel="stylesheet" href="css/sweetalert2.css">
@@ -113,45 +110,20 @@ exit;
                     </form>
                     <?php 
                     include 'php/recuperacion_pass.php';
-
                         if (isset($_POST['confirmar'])) {
                             if (isset($_POST['mail-recuperacion'])) {
                               $email = $_POST['mail-recuperacion'];
                                 recuperacionPass($email);
                             } else {
-                                echo "<script>swal({title:'Error',text:'El campo mail no puede estar vacío.',type:'info'});</script> ";
+                                echo "<script>Swal.fire({title:'Error',text:'El campo mail no puede estar vacío.', type:'info'});</script> ";
                             }
-                            
                         } 
+                        
                         ?>
                 </div>
             </div>
         </div>
 </body>
-<!--<script>swal({
-    title:'Registro exitoso',
-    text:'',
-    type: 'success',
-    html:'<br><h5>Te enviamos un codigo a tu mail. Ingresalo debajo para confirmar tu usuario.</h5><br><input style="width: 180px; font-size: 36px; color: black; font-weight: bold; text-align: center;" type="text" required; maxlength = "6";"/><br><br> <div ><input type="submit" style="background-color: #495F91; color:white; margin-right: 5%; width: 150px;" name="confirmarCodigo" value="Confirmar"><input type="submit" style="background-color: gray; color:white;margin-left: 5%; width: 150px;" name="reenviarCodigo" value="Reenviar"></div>',
-   showCancelButton: false,
-      showConfirmButton: false,
-
-    cancelButtonColor: 'gray',
-    confirmButtonColor: '#495F91',
-    confirmButtonText: 'Confirmar <i name="confirmarCodigo"></i>',
-    cancelButtonText: 'Reenviar <i name="reenviarCodigo></i>',
-    width: 500,
-    padding: '3em'
-
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
-  }
-});</script>-->
 <footer>
 
 

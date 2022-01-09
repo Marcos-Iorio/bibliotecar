@@ -398,9 +398,9 @@ function enviarRecuperacion($email, $token){
 
     if ($mail->send()) {
         $flag='0';
-        echo "<script>swal({title:'Exito',text:'Hemos enviado un mail de recuperación a tu correo, si no lo encontrás, verificá la casilla de SPAM.',type:'success'});</script> ";
+        echo "<script>Swal.fire({title:'Exito',text:'Hemos enviado un mail de recuperación a tu correo, si no lo encontrás, verificá la casilla de SPAM.',type:'success'});</script> ";
     }else{
-        echo "<script>swal({title:'Atencion',text:'Su solicitud de cambio de contraseña se ha procesado con exito pero por alguna razón no hemos podido enviar el mail, por favor contacta con el administrador del sitio.',type:'info'});</script> ";
+        echo "<script>Swal.fire({title:'Atencion',text:'Su solicitud de cambio de contraseña se ha procesado con exito pero por alguna razón no hemos podido enviar el mail, por favor contacta con el administrador del sitio.',type:'info'});</script> ";
     }
     //Closing smtp connection
     $mail->smtpClose();

@@ -1,14 +1,3 @@
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-            <script src="../js/sweetalert2.js"></script>
-    <link rel="stylesheet" href="../css/sweetalert2.css">
-        <link rel="stylesheet" href="../css/login.css">
-
-
-</head>
-
 <?php 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     function recuperacionPass($email) {
@@ -21,7 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
          $row = $stmt->fetch();
          if(!$row){
-            echo "<script>swal({title:'Error',text:'El mail no se encuentra en nuestros registros, creá una cuenta primero.',type:'error'});</script> ";
+            echo "<script>Swal.fire({title:'Error',text:'El mail no se encuentra en nuestros registros, creá una cuenta primero.',type:'error'});</script> ";
          }else{     
              //Genera un token único
              $token = bin2hex(random_bytes(50));
@@ -60,17 +49,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             // Ejecutamos
             if($stmt->execute()){
-                echo '<script>swal({
+                echo '<script>Swal.fire({
                                 title:"Éxito",text:"Tu contraseña se actualizó correctamente, vas a ser redirigido para que puedas iniciar sesión",
                                 type:"success",
                                 timer: 3000
                                 });
                                 setTimeout(function(){
-                                    window.location.href = "../login.php";
+                                    window.location.href = "login.php";
                                  }, 3000);
                      </script> ';
             }else{
-                echo "<script>swal({title:'Error',text:'Hubo un error en actualizar tu contraseña, contactá con el administrador',type:'error'});</script> ";
+                echo "<script>Swal.fire({title:'Error',text:'Hubo un error en actualizar tu contraseña, contactá con el administrador',type:'error'});</script> ";
             }
         }
     }
