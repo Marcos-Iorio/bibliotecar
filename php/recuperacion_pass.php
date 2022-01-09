@@ -41,7 +41,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     function actualizarPass(){
         include 'db.php';
 
-        $token = $_SESSION['token'];
+        $token = $_GET['token'];
 
         /* Busca los datos del usuario por el mail */
         $stmt = $dbh->prepare("SELECT email from password_recuperacion where token = '". $token . "'");
@@ -52,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         if($email['email']){
 
-            $nuevaPass = password_hash($_POST['nuevaPass']);
+            $nuevaPass = password_hash($_POST['nuevaPass'], PASSWORD_DEFAULT);
 
             $mail = $email['email'];
 
