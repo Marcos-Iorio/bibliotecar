@@ -377,7 +377,7 @@ function enviarRecuperacion($email, $token){
     $mail->SMTPSecure = "TLS"; 
     $mail->Port = "587";
     $mail->Username = "soporte.bibliotecar@gmail.com";
-    $mail->Password = "Bibliotecar123";
+    $mail->Password = $_ENV['PW_MAIL'];
     $mail->Subject = ("$subject $email");
     $mail->setFrom($email);
     $mail->isHTML(true);
