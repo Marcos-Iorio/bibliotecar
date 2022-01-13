@@ -16,7 +16,7 @@
        echo'<script type="text/javascript">
               alert("Su sesion ha expirado, por favor vuelva iniciar sesion.");
               </script>';
-      header("Refresh:0");
+      header("Refresh:0"); 
     
     }
     
