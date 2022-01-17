@@ -1,3 +1,8 @@
+window.onload = function() {
+    movimientoLogin();
+    requerimientoPass();
+};
+
 function movimientoLogin(){
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
@@ -93,6 +98,6 @@ const olvidePass = document.querySelector('#olvide_pass');
 
 olvidePass.addEventListener('click', (e) =>{
     e.preventDefault();
-    const modal  = document.querySelector('#myModal')
+    const modal  = document.querySelector('#myModal');
     modal.style.display = "block";
 })

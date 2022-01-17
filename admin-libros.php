@@ -579,10 +579,10 @@
         </a>
 
         <menu class="items-wrapper">
-        <button onclick="abrirSeccionLibro()" class="menu-item-botonera fas fa-book"><a href="#seccion-libros"></a></button>
-        <button onclick="abrirSeccionAutor()" class="menu-item-botonera fas fa-user-alt"><a href="#seccion-autor" ></a></button>
-        <button onclick="abrirSeccionCategoria()" class="menu-item-botonera fas fa-list-ul"><a href="#seccion-categorias"></a></button>
-        <button onclick="abrirSeccionEditorial()" class="menu-item-botonera far fa-newspaper"><a href="#seccion-editorial"></a></button>
+        <button onclick="abrirSeccionLibro()" class="menu-item-botonera fas fa-book"><a href="#seccion-libros"></a><span class="label">Libros</span></button>
+        <button onclick="abrirSeccionAutor()" class="menu-item-botonera fas fa-user-alt"><a href="#seccion-autor" ></a><span class="label">Autores</span></button>
+        <button onclick="abrirSeccionCategoria()" class="menu-item-botonera fas fa-list-ul"><a href="#seccion-categorias"><span class="label-left">Categorias</span></a></button>
+        <button onclick="abrirSeccionEditorial()" class="menu-item-botonera far fa-newspaper"><a href="#seccion-editorial"></a><span class="label-left-2">Editoriales</span></button>
         </menu>
 
       </div>
@@ -613,6 +613,24 @@
 
 
 <script>
+const menuCircular = document.querySelector('#circularMenu')
+
+menuCircular.addEventListener('click', () =>{
+  if(menuCircular.classList.contains('active')){
+    document.querySelector('span.label').style.display = "inline-block";
+    document.querySelectorAll('span.label')[1].style.display = "inline-block";
+    document.querySelector('span.label-left').style.display = "inline-block";
+    document.querySelector('span.label-left-2').style.display = "inline-block";
+  }else{
+    document.querySelector('span.label').style.display = "none";
+    document.querySelectorAll('span.label')[1].style.display = "none";
+    document.querySelector('span.label-left').style.display = "none";
+    document.querySelector('span.label-left-2').style.display = "none";
+  }
+});
+
+
+
   /* Obtiene el modal */
 var modalLibro = document.getElementById('modal-libros')
 

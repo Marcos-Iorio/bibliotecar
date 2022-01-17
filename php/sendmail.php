@@ -372,6 +372,7 @@ function enviarRecuperacion($email, $token){
     
     $mail = new PHPMailer();
     $mail->isSMTP();
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
     $mail->Host = "smtp.gmail.com";
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = "TLS"; 

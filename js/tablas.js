@@ -12,7 +12,7 @@ function diasReserva(){
         .attr("x",250)
         .attr("y", 50)
         .attr("font-size", "24px")
-        .text("Los libros más reservados de los últimos 30 días")
+        .text("Autores reservados en los últimos 90 días")
 
     var xScale = d3.scaleBand().range([0, 1000]).padding(0.4),
         yScale = d3.scaleLinear().range([height, 0]);
@@ -21,8 +21,8 @@ function diasReserva(){
 
     d3.json("php/treintaDiasReservado.php").then(function(data){
 
-            xScale.domain(data.map(function(d){return d.titulo}));
-            yScale.domain([0, d3.max(data, function(d){return d.ejem_count;})])
+            xScale.domain(data.map(function(d){return d.nombreAutor}));
+            yScale.domain([0, d3.max(data, function(d){return d.cantidad})])
 
             g.append('g').attr('transform','translate(0,'+height+')')
                 .call(d3.axisBottom(xScale))
@@ -37,7 +37,7 @@ function diasReserva(){
                 .attr('text-anchor', 'end')
                 .attr('font-size', '15px')
                 .attr("stroke", 'black')
-                .text("Cantidad de reservas")
+                .text("Cantidad de autores reservados")
 
             g.selectAll(".bar")
                 .data(data)
@@ -45,14 +45,14 @@ function diasReserva(){
                 .attr("class", "bar")
                 .on("mouseover", onMouseOver)
                 .on("mouseout", onMouseOut)
-                .attr("x", function(d){return xScale(d.titulo);})
-                .attr("y", function(d){return yScale(d.ejem_count);})
+                .attr("x", function(d){return xScale(d.nombreAutor);})
+                .attr("y", function(d){return yScale(d.cantidad);})
                 .attr("width", xScale.bandwidth())
                 .transition()
                 .ease(d3.easeLinear)
                 .duration(500)
                 .delay(function(d,i){ return i * 50 })
-                .attr("height", function(d){return height - yScale(d.ejem_count);});
+                .attr("height", function(d){return height - yScale(d.cantidad);});
 
     });
 
@@ -67,10 +67,10 @@ function diasReserva(){
         d3.select('#tooltip')
             .style('left', xPos + 'px')
             .style('top', yPos + 'px')
-            .select('#cantidad-reservas').text(i.ejem_count)
+            .select('#cantidad-reservas').text(i.cantidad)
         
         d3.select('#tooltip')
-            .select('#nombre-libro').text(i.titulo)
+            .select('#nombre-libro').text(i.nombreAutor)
         
         d3.select('#tooltip').classed('hidden', false)
     }
@@ -94,7 +94,7 @@ function historialReserva(){
         .attr("x",250)
         .attr("y", 50)
         .attr("font-size", "24px")
-        .text("Los libros más reservados de todos los tiempos")
+        .text("Categorias más reservadas en los últimos 90 días")
 
     var xScale = d3.scaleBand().range([0, 1000]).padding(0.4),
         yScale = d3.scaleLinear().range([height, 0]);
@@ -102,9 +102,8 @@ function historialReserva(){
     var g = svg.append("g").attr("transform", "translate("+100+","+100+")");
 
     d3.json("php/allTimeReserved.php").then(function(data){
-
-            xScale.domain(data.map(function(d){return d.titulo}));
-            yScale.domain([0, d3.max(data, function(d){return d.ejem_count;})])
+            xScale.domain(data.map(function(d){return d.nombreCategoria}));
+            yScale.domain([0, d3.max(data, function(d){return d.cantidad;})])
 
             g.append('g').attr('transform','translate(0,'+height+')')
                 .call(d3.axisBottom(xScale))
@@ -127,14 +126,14 @@ function historialReserva(){
                 .attr("class", "bar")
                 .on("mouseover", onMouseOver)
                 .on("mouseout", onMouseOut)
-                .attr("x", function(d){return xScale(d.titulo);})
-                .attr("y", function(d){return yScale(d.ejem_count);})
+                .attr("x", function(d){return xScale(d.nombreCategoria);})
+                .attr("y", function(d){return yScale(d.cantidad);})
                 .attr("width", xScale.bandwidth())
                 .transition()
                 .ease(d3.easeLinear)
                 .duration(500)
                 .delay(function(d,i){ return i * 50 })
-                .attr("height", function(d){return height - yScale(d.ejem_count);});
+                .attr("height", function(d){return height - yScale(d.cantidad);});
 
     });
 
@@ -147,10 +146,10 @@ function historialReserva(){
         d3.select('#tooltip-todo')
             .style('left', xPos + 'px')
             .style('top', yPos + 'px')
-            .select('#cantidad-reservas-todo').text(i.ejem_count)
+            .select('#cantidad-reservas-todo').text(i.nombreCategoria)
 
         d3.select('#tooltip-todo')
-            .select('#nombre-libro-todo').text(i.titulo)
+            .select('#nombre-libro-todo').text(i.cantidad)
         
         d3.select('#tooltip-todo').classed('hidden', false)
     }
@@ -161,4 +160,97 @@ function historialReserva(){
     }
 
 }
+
+//Cancelaciones y finalizadas
+function canceladasYFinalizadas(){  
+
+    var svg = d3.select("#can-y-fin"),
+    margin = { top: 20, right: 20, bottom: 30, left: 40 },
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom,
+    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var x0 = d3.scaleBand()
+        .rangeRound([0, width])
+        .paddingInner(0.1);
+
+    var x1 = d3.scaleBand()
+        .padding(0.05);
+
+    var y = d3.scaleLinear()
+        .rangeRound([height, 0]);
+
+    var z = d3.scaleOrdinal()
+        .range(["#000080", "#ff0000"]);
+    
+    d3.json("php/reportes-back.php").then(function(data){
+        console.log(data);
+        var keys = Object.keys(data[0]).slice(1);
+        console.log(keys);
+
+        x0.domain(data.map(function (d) { return d.mes; }));
+        x1.domain(keys).rangeRound([0, x0.bandwidth()]);
+        /* y.domain([0, d3.max(data, function (d) { return d3.max(keys, function (key) { return d[key]; }); })]).nice(); */
+        y.domain([0, d3.max(data, function(d){return (d.finalizado + d.cancelado) / 8;})])
+        g.append("g")
+            .selectAll("g")
+            .data(data)
+            .enter().append("g")
+            .attr("transform", function (d) { return "translate(" + x0(d.mes) + ",0)"; })
+            .selectAll("rect")
+            .data(function (d) { 
+            debugger;
+            return keys.map(function (key) { 
+                return { key: key, value: d[key] }; 
+                }); 
+            })
+            .enter().append("rect")
+            .attr("x", function (d) { return x1(d.key); })
+            .attr("y", function (d) { return y(d.value); })
+            .attr("width", x1.bandwidth())
+            .attr("height", function (d) { return height - y(d.value); })
+            .attr("fill", function (d) { return z(d.key); });
+
+        g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x0));
+
+        g.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y).ticks(null, "s"))
+            .append("text")
+            .attr("x", 2)
+            .attr("y", y(y.ticks().pop()) + 0.5)
+            .attr("dy", "0.32em")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .text("Cantidad de canceladas y finalizadas");
+
+        var legend = g.append("g")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", 10)
+            .attr("text-anchor", "end")
+            .selectAll("g")
+            .data(keys.slice().reverse())
+            .enter().append("g")
+            .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
+
+        legend.append("rect")
+            .attr("x", width - 19)
+            .attr("width", 19)
+            .attr("height", 19)
+            .attr("fill", z);
+
+        legend.append("text")
+            .attr("x", width - 24)
+            .attr("y", 9.5)
+            .attr("dy", "0.32em")
+            .text(function (d) { return d; });
+
+    });
+
+}
+
 

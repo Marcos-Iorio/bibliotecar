@@ -31,7 +31,7 @@
         }
     </style>
 </head>
-<body onload="diasReserva(), historialReserva()">
+<body onload="diasReserva(), historialReserva(), canceladasYFinalizadas()">
     <section id="page">
         <?php 
           include "php/panel.php";
@@ -51,6 +51,9 @@
                     <p><span id="cantidad-reservas-todo">100</span></p>
                 </div>
                 <svg width=1500 height=600 id="historial-reserva"></svg>
+            </div>
+            <div id="reservas-cancelaciones">
+                <svg width="960" height="500" id="can-y-fin"></svg>
             </div>
         </main>
     </section>
