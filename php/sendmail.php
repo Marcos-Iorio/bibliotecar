@@ -221,6 +221,7 @@ $flag='0';
     $mail = new PHPMailer();
 //Set mailer to use smtp
     $mail->isSMTP();
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 //Define smtp host
     //$mail->Host = "smtp.office365.com";
         $mail->Host = "smtp.gmail.com";
@@ -365,9 +366,21 @@ function enviarRecuperacion($email, $token){
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
     $dotenv->load();
 
+    //Obtiene la url y la descomprime hasta obtener el relative path
+    $link = $_SERVER['REQUEST_URI'];
+    $link = explode("/", $link);
+    $nuevoLink = "";
+    foreach($link as $url){
+        if(str_contains($url, '.php')){
+            unset($url);
+        }else{
+            $nuevoLink .= $url . '/';
+        }
+    }
+
       
     $subject = "Recuperación de la cuenta.";
-    $body = "Hola, hace click en el siguiente <a href=\"http://localhost/Practica%20Profesionalizante/Proyecto%20final/olvide_mi_pass.php?token=" . $token . "\">link</a> para generar una nueva contraseña en nuestro sitio";
+    $body = "Hola, hace click en el siguiente <a href=\"http://localhost" . $nuevoLink . "olvide_mi_pass.php?token=" . $token . "\">link</a> para generar una nueva contraseña en nuestro sitio";
 
     
     $mail = new PHPMailer();

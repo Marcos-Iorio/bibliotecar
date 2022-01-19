@@ -309,13 +309,28 @@ if ($stmt->execute()) {
 
   }
 
-  function cambiarPwd(){
+  function bajaUsuario($id){
+    include 'db.php';
 
+    $query = "UPDATE usuarios
+              set idEstado = 2
+              WHERE idUsuario = $id";
+
+    $stmt = $dbh->prepare($query);
+    if ($stmt->execute()) {
+      include 'logout.php';
+      cerrarSesion();
+      
+      echo "<script>
+      swal({title:'Exito',text:'Tu cuenta se dio de baja éxitosamente, esperamos volver a verte!. Serás redireccionado en 3 segundos.',type:'success'});
+      setTimeout(function(){
+        window.location.href = 'login.php';
+      }, 3000);
+    </script>";
+                
+                
+    }else{
+      echo "<script>swal({title:'Error',text:'No hemos podido dar de baja su cuenta. Por favor contacta al administrador para mas información.',type:'error'});</script> ";
+    }
   }
-
-  function bajaUsuario(){
-    
-  }
-
-
 ?>

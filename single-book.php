@@ -38,7 +38,7 @@
                 //if($_SERVER['REQUEST_METHOD'] == 'GET'){
                     include "php/llenarLibros.php";
                     $GLOBALS['idLibro'] = $_GET['sku'];
-                    
+                    $idUsuario = $_SESSION['idUsuario'];
                     
                     singleBook($idLibro);
 
@@ -65,20 +65,33 @@
                             <input type="hidden" name="start-date" id="start-date" value="">
                             <input type="hidden" name="end-date" id="end-date" value="">
                             <input class="confirmar" id="confirmar" name="confirmar" value="Confirmar" type="submit">
-                            
                         </form>
                         <?php 
                         if (isset($_POST['confirmar'])) {
-                            if (isset($mail)) {
-                                if(isset($_POST['start-date']) && isset($_POST['end-date'])){
-                                    echo "Entre al 2do if";
-                                    $startDate = $_POST['start-date'];
-                                    $endDate = $_POST['end-date'];
-                                    echo $startDate . $endDate;
+                            include 'php/db.php';
+                            
+                            $query = "SELECT * FROM reservas
+                                    INNER JOIN ejemplares ON ejemplares.idEjemplar = reservas.idEjemplar
+                                    WHERE ejemplares.idLibro = $idLibro AND reservas.idUsuario = $idUsuario";
+
+                            $stmt = $dbh->prepare($query);
+
+                            $stmt->execute();
+                            $libroReservado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                            if(empty($libroReservado)){
+                                if (isset($mail)) {
+                                    if(isset($_POST['start-date']) && isset($_POST['end-date'])){
+                                        $startDate = $_POST['start-date'];
+                                        $endDate = $_POST['end-date'];
+                                    }
+                                    
+                                    mainReservar($mail, $_GET['sku'], $startDate, $endDate);
+                                } else {
+                                    echo "<script>swal({title:'Error',text:'Por favor ingrese con su cuenta de usuario para poder realizar una reserva.',type:'info'});</script> ";
                                 }
-                                mainReservar($mail, $_GET['sku'], $startDate, $endDate);
-                            } else {
-                                echo "<script>swal({title:'Error',text:'Por favor ingrese con su cuenta de usuario para poder realizar una reserva.',type:'info'});</script> ";
+                            }else{
+                                echo "<script>swal({title:'Error',text:'Ya tenés una reserva activa de este libro, anda a MI CUENTA o devolvelo para poder reservarlo de nuevo.',type:'info'});</script> ";
                             }
                             
                         } 
