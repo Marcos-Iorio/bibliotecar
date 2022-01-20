@@ -52,7 +52,7 @@ function toggleSidebar() {
 }
 
 function contacto(){
-  window.location.href = "interfaces/contacto.php"
+  window.location.href = "contacto.php"
 }
 
 var panel = true;

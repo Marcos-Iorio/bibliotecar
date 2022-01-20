@@ -2,18 +2,19 @@
 
 function gestionReservas(){
   include 'db.php';
- if (!isset ($_GET['page']) ) {  
-            $page = 1;  
-        } else {  
-            $page = $_GET['page'];  
-        }  
-          $results_per_page = 5;  
+//  if (!isset ($_GET['page']) ) {  
+//             $page = 1;  
+//         } else {  
+//             $page = $_GET['page'];  
+//         }  
+//           $results_per_page = 5;  
 
-        //determine the sql LIMIT starting number for the results on the displaying page  
-        $page_first_result = ($page-1) * $results_per_page;  
+//         //determine the sql LIMIT starting number for the results on the displaying page  
+//         $page_first_result = ($page-1) * $results_per_page;  
 
-  $stmt = $dbh->prepare("SELECT * FROM reservas WHERE idReservaEstado <> '0' LIMIT " . $page_first_result . ',' . $results_per_page );
-  
+  //$stmt = $dbh->prepare("SELECT * FROM reservas WHERE idReservaEstado <> '0' LIMIT " . $page_first_result . ',' . $results_per_page );
+  $stmt = $dbh->prepare("SELECT * FROM reservas WHERE idReservaEstado <> '0'");
+
 
 
 
@@ -45,7 +46,7 @@ if ($fila['idReservaEstado'] == '4' ) {
 
   $idEstado = 'Cancelada';
 }*/
-  	echo "<tbody>
+  	echo "
                 <tr>
                   <td id='idReserva'>" . $fila['idReserva']. "</td>
                   <td>" .  $fila['idEjemplar']. "</td>
@@ -56,7 +57,6 @@ if ($fila['idReservaEstado'] == '4' ) {
                   <td>" .  $fila['fechaHasta']. "</td>
                   <td><a href='#container-form' id='modal-reservas'><button onclick=\"javascript:cargarReserva('".$fila["idReserva"]."','".$mailUsuario."','".$idEstado."')\" ><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                 </tr>
-              </tbody>
 
 
   	";

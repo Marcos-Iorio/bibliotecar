@@ -36,23 +36,20 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">
+ <!--  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">-->
   <link rel="stylesheet" href="css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="css/inicio.css">
   <link rel="stylesheet" href="css/usuarios.css">
+  <link rel="stylesheet" href="css/datatable.css">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
   <title>Document</title>
 
   <!--    Datatables  -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
   <title></title>
-  <style>
-    table.dataTable thead {
-      background: linear-gradient(to right, #0575E6, #00F260);
-      color: white;
-    }
-  </style>
 
+</head>
 <body>
   <section id="page">
     <?php
@@ -70,7 +67,7 @@ include "php/panel.php";
         <!--Seccion de los libros-->
         <div class="container main-libros">
           <h3 class="titulo-pagina">Gestion de usuarios!</h3>
-          <form method="POST" action="#" name="busqueda">
+          <!--<form method="POST" action="#" name="busqueda">
               <div>
 
                 <h6 >Buscar por:</h6>
@@ -92,11 +89,12 @@ include "php/panel.php";
               <hr>
             </form>
 
-
+-->
           <div class="tabla-libros">
-            <table id="tablaUsuarios" class="bordered">
+          <!--<table id="tablaUsuarios" class="bordered">-->
+
+            <table id="tablaUsuarios" class="table-striped table-bordered" style="width:100%">
               <thead>
-                <tr>
                   <th>ID</th>
                   <th>Rol</th>
                   <th>Nombre</th>
@@ -106,22 +104,20 @@ include "php/panel.php";
                   <th>Alta mail</th>
                   <th>Estado cuenta</th>
                   <th>Editar</th>
-                </tr>
               </thead>
+              <tbody>
               <?php
 include "php/gestion-usuarios.php";
-if (!isset($_POST["editarUsuario"]) && !isset($_POST["crearUsuario"]) && !isset($_POST["btnBuscar"]) && !isset($_SESSION['pages']) && !isset($_SESSION['busqueda']) && !isset($_SESSION['criterio'])) {
-    # code...
 
     gestionUsuarios();
-}
 
-if (isset($_POST['btnreset'])) {
-    unset($_SESSION['pages']);
-    unset($_SESSION['criterio']);
-    unset($_SESSION['busqueda']);
-    gestionUsuarios();
-}
+
+// if (isset($_POST['btnreset'])) {
+//     unset($_SESSION['pages']);
+//     unset($_SESSION['criterio']);
+//     unset($_SESSION['busqueda']);
+//     gestionUsuarios();
+// }
 
 if (isset($_POST["editarUsuario"])) {
     //include "php/gestion-usuarios.php";
@@ -178,17 +174,17 @@ if (isset($_POST["btnEstado"])) {
 
 }
 
-if (isset($_REQUEST["btnBuscar"])) {
-    unset($_SESSION['pages']);
-    unset($_SESSION['criterio']);
-    unset($_SESSION['busqueda']);
-    getFiltro($_REQUEST["txtBusqueda"], $_REQUEST["txtCriterio"]);
+// if (isset($_REQUEST["btnBuscar"])) {
+//     unset($_SESSION['pages']);
+//     unset($_SESSION['criterio']);
+//     unset($_SESSION['busqueda']);
+//     getFiltro($_REQUEST["txtBusqueda"], $_REQUEST["txtCriterio"]);
 
-}
+// }
 
-if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION['criterio'])) {
-    getFiltro($_SESSION['busqueda'], $_SESSION['criterio']);
-}
+// if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION['criterio'])) {
+//     getFiltro($_SESSION['busqueda'], $_SESSION['criterio']);
+// }
 /* Llena el tabla con todos los libros de la base de datos */
 ?>
 
@@ -205,10 +201,10 @@ echo '<a style="margin-left:20px"  class="btn btn-dark" href = "vistaProducto.ph
 
 
 
-
+</tbody>
             </table>
             <?php
-
+/*
 //$_GLOBALS[$page_filtro] < $_GLOBALS[$page_total]
 $page_filtro = 0;
 $page_total  = 0;
@@ -250,7 +246,7 @@ for ($page = 1; $page <= $paginas; $page++) {
     echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-usuarios.php?page=' . $page . '">' . $page . ' </a>';
 }
 echo "</div>";
-?>
+*/?>
           </div>
           <button onclick="modalUsuario()" class="boton-agregar-libro"><a href="#modal-libros"></a><i
               class="fas fa-add">Agregar usuario</i></button>
@@ -335,7 +331,6 @@ echo "</div>";
       $('#tablaUsuarios').DataTable();
     });
   </script>
-
 </body>
 <!-- jQuery CDN - Slim version =without AJAX -->
 <script src="js/navbarToggle.js"></script>
@@ -441,6 +436,23 @@ echo "</div>";
   }*/
 </script>
 
-
-
-</html>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      
+      
+<!--    Datatables-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
+      
+      
+    <script>
+      $(document).ready(function(){
+         $('#tablaUsuarios').DataTable(); 
+         responsive: true;
+         
+      });
+    </script>
+    
+    <script src="js/Spanish.js"></script>
+    </html>

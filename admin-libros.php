@@ -36,6 +36,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
   <link rel="stylesheet" href="css/inicio.css">
   <link rel="stylesheet" href="css/libros.css">
+  <link rel="stylesheet" href="css/datatable.css">
+  <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
   <title>Document</title>
 </head>
@@ -61,7 +65,7 @@
         <div class="container main-libros">
 
           <div >
-            <form method="POST" action="#" name="busqueda">
+            <!-- <form method="POST" action="#" name="busqueda">
               <div>
 
                 <h6 >Buscar por:</h6>
@@ -81,11 +85,12 @@
                 </div>
               </div>
               <hr>
-            </form>
+            </form> -->
+            <h3 style="color:white;">Libros</h3>
 
 
             <div class="tabla-libros">
-              <table class="bordered">
+              <table id="tablaLibros" class="table-striped table-bordered" style="width:100%">
                 <thead>
                   <tr>
                     <th>ID Libro</th>
@@ -97,8 +102,9 @@
                     <th>Editar</th>
                   </tr>
                 </thead>
-
+                <tbody>
                 <?php
+                    gestionLibros();
 
                     if(isset($_POST['btnCrearLibro'])){
 
@@ -122,22 +128,21 @@
                     }
 
                      
-                      if(!isset($_POST['btnEditarLibro']) || !isset($_POST['btnCrearLibro'])){
-                      gestionLibros();
+                      //if(!isset($_POST['btnEditarLibro']) || !isset($_POST['btnCrearLibro'])){
                       /* Llena el tabla con todos los libros de la base de datos */
-                      }
+                     // }
                       ?>
 
-
+              </tbody>
               </table>
               <br><br>
               <?php 
-            $paginas = getPages2();
+            // $paginas = getPages2();
 
-             for($page = 1; $page<= $paginas; $page++) {  
-              echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-libros.php?page=' . $page . '">' . $page . ' </a>';  
-            }  
-              echo "</div>";
+            //  for($page = 1; $page<= $paginas; $page++) {  
+            //   echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-libros.php?page=' . $page . '">' . $page . ' </a>';  
+            // }  
+               echo "</div>";
 
                ?>
             </div>
@@ -245,17 +250,18 @@
         </div>
       </div>
 
-      <!--Seccion Autores-->
+       <!--Seccion Autores-->
      
-        <div class="contenido wrapper" id="seccion-autor">
+       <div class="contenido wrapper" id="seccion-autor">
             <div class="container main-libros">
 
+            <h3 style="color:white;">Autores</h3>
               <!-- <h3>Gestion de libros!</h3>
             <div class="tabla-libros">-->
 
               <br>
               <form method="POST" action="#" name="busqueda">
-                <div>
+<!--                 <div>
 
                   <h6 >Buscar por:</h6>
                   <select class="form-control" name="txtCriterio" style="width: 200px; margin-right: 200px;">
@@ -273,19 +279,18 @@
                     <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0" />
                   </div>
                 </div>
-                <hr>
+                <hr> -->
               </form>
 
 
               <div class="tabla-libros">
-                <table class="bordered">
+              <table id="tablaAutores" class="table-striped table-bordered" style="width:100%">
                   <thead>
-                    <tr>
                       <th>ID Autor</th>
                       <th>Nombre Autor</th>
                       <th>Editar</th>
-                    </tr>
                   </thead>
+                  <tbody>
                   <?php
 
 
@@ -302,24 +307,25 @@
                         editarAutor($_POST['idAutor'], $_POST['editarAutor']);
                       }
 
-                      if(!isset($_POST['btnCrearAutor']) || !isset($_POST['btnEditarAutor'])){
+                      //if(!isset($_POST['btnCrearAutor']) || !isset($_POST['btnEditarAutor'])){
                         gestionAutores();
-                      }
+                      //}
 
                       ?>
-
+                </tbody>
                 </table>
                 <br><br>
                 <?php 
 
-            $paginas = getPages2();
+            // $paginas = getPages2();
 
-             for($page = 1; $page<= $paginas; $page++) {  
-              echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-libros.php?page=' . $page . '">' . $page . ' </a>';  
-            }  
-              echo "</div>";
-
+            //  for($page = 1; $page<= $paginas; $page++) {  
+            //   echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-libros.php?page=' . $page . '">' . $page . ' </a>';  
+            // }  
+               echo "</div>";
+               
                ?>
+              </div>
               <button onclick="modalAutores()" class="boton-agregar-libro"><a href="#modal-autor"></a><i class="fas fa-add">Agregar Autor</i></button>
               
               <div id="modal-autor">
@@ -354,20 +360,18 @@
         </div>
            
 
+       <!--Seccion Categorias-->
 
 
-      <!--Seccion Categorias-->
-
-
-          <div class="contenido wrapper" id="seccion-categorias">
+       <div class="contenido wrapper" id="seccion-categorias">
             <!--Seccion de los libros-->
             <div class="container main-libros">
-
+            <h3 style="color:white;">Categorias</h3>
               <!-- <h3>Gestion de libros!</h3>
               <div class="tabla-libros">-->
 
               <br>
-              <form method="POST" action="#" name="busqueda">
+              <!-- <form method="POST" action="#" name="busqueda">
                 <div>
 
                   <h6 style="width: 100px;">Buscar por:</h6>
@@ -387,11 +391,11 @@
                   </div>
                 </div>
                 <hr>
-              </form>
+              </form> -->
 
 
               <div class="tabla-libros">
-                <table class="bordered">
+              <table id="tablaCategorias" class="table-striped table-bordered" style="width:100%">
                   <thead>
                     <tr>
                       <th>ID Categoria</th>
@@ -399,8 +403,10 @@
                       <th>Editar</th>
                     </tr>
                   </thead>
+                  <tbody>
                   <?php
-                      
+                      gestionCategorias();
+
                       if (isset($_POST['btnCrearCategoria'])) {
 
                         crearCategoria($_POST['nuevaCategoria']);
@@ -411,25 +417,25 @@
                         editarCategoria($_POST['idCategoria'], $_POST['editarCategoria']);
                       }
 
-                      if(!isset($_POST['btnCrearCategoria']) || !isset($_POST['btnEditarCategoria'])){
-                        gestionCategorias();
-                      }
+                      //if(!isset($_POST['btnCrearCategoria']) || !isset($_POST['btnEditarCategoria'])){
+                      //}
                       
                       /* Llena el tabla con todos los libros de la base de datos */
                       ?>
 
-                  <?php  ?>
+                  </tbody>
                 </table>
                 <br><br>
                 <?php 
-            $paginas = getPages2();
+            //  $paginas = getPages2();
 
-             for($page = 1; $page<= $paginas; $page++) {  
-              echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-libros.php?page=' . $page . '">' . $page . ' </a>';  
-            }  
-              echo "</div>";
+            //   for($page = 1; $page<= $paginas; $page++) {  
+            //    echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-libros.php?page=' . $page . '">' . $page . ' </a>';  
+            //  }  
+               echo "</div>";
 
                ?>
+               </div>
               <button onclick="modalCategorias()" class="boton-agregar-libro"><a href="#modal-categoria"></a><i class="fas fa-add">Agregar Categoria</i></button>
             <div id="modal-categoria">
               <span id="close-categoria">&times;</span>
@@ -461,19 +467,20 @@
             </div>
           </div>
         </div>
-        
+          
 
       <!--Seccion Editoriales-->
 
           <div class="contenido wrapper" id="seccion-editorial">
             <!--Seccion de los libros-->
             <div class="container main-libros">
+            <h3 style="color:white;">Editoriales</h3>
 
               <!-- <h3>Gestion de libros!</h3>
             <div class="tabla-libros">-->
 
               <br>
-              <form method="POST" action="#" name="busqueda">
+               <!-- <form method="POST" action="#" name="busqueda">
                 <div>
 
                   <h6 >Buscar por:</h6>
@@ -493,11 +500,11 @@
                   </div>
                 </div>
                 <hr>
-              </form>
-
+              </form> 
+ -->
 
               <div class="tabla-libros">
-                <table class="bordered">
+              <table id="tablaEditoriales" class="table-striped table-bordered" style="width:100%">
                   <thead>
                     <tr>
                       <th>ID Editorial</th>
@@ -505,6 +512,7 @@
                       <th>Editar</th>
                     </tr>
                   </thead>
+                  <tbody>
                   <?php
 
 
@@ -518,26 +526,26 @@
                         editarEditorial($_POST['idEditorial'], $_POST['editarEditorial']);
                       }
 
-                      if(!isset($_POST['btnCrearEditorial']) || !isset($_POST['btnEditarEditorial'])){
+                      //if(!isset($_POST['btnCrearEditorial']) || !isset($_POST['btnEditarEditorial'])){
                         gestionEditoriales();
-                      }
+                      //}
 
                     
                       /* Llena el tabla con todos los libros de la base de datos */
                       ?>
-
-                  <?php  ?>
+                  </tbody>
                 </table>
                 <br><br>
                 <?php 
-            $paginas = getPages2();
+            //  $paginas = getPages2();
 
-             for($page = 1; $page<= $paginas; $page++) {  
-              echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-libros.php?page=' . $page . '">' . $page . ' </a>';  
-            }  
-              echo "</div>";
+            //   for($page = 1; $page<= $paginas; $page++) {  
+            //    echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-libros.php?page=' . $page . '">' . $page . ' </a>';  
+            //  }  
+               echo "</div>";
 
                ?>
+               </div>
             <button onclick="modalEditoriales()" class="boton-agregar-libro"><a href="#modal-editorial"></a><i class="fas fa-add">Agregar Editorial</i></button>
             <div id="modal-editorial">
               <span id="close-editorial">&times;</span>
@@ -774,5 +782,39 @@ spanEdit.onclick = function() {
 <!-- Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
   integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      
+      
+<!--    Datatables-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
+      
+      
+    <script>
+      $(document).ready(function(){
+         $('#tablaLibros').DataTable(); 
+         responsive: true;
+         
+      });
+      $(document).ready(function(){
+         $('#tablaAutores').DataTable(); 
+         responsive: true;
+         
+      });
+      $(document).ready(function(){
+         $('#tablaCategorias').DataTable(); 
+         responsive: true;
+         
+      });
+      $(document).ready(function(){
+         $('#tablaEditoriales').DataTable(); 
+         responsive: true;
+         
+      });
+    </script>
+    
+    <script src="js/Spanish.js"></script>
 
 </html>

@@ -367,7 +367,7 @@ function enviarRecuperacion($email, $token){
 
       
     $subject = "Recuperación de la cuenta.";
-    $body = "Hola, hace click en el siguiente <a href=\"http://localhost/Practica%20Profesionalizante/Proyecto%20final/olvide_mi_pass.php?token=" . $token . "\">link</a> para generar una nueva contraseña en nuestro sitio";
+    $body = "Hola, hace click en el siguiente <a href=\"http://localhost/bibliotecar/olvide_mi_pass.php?token=" . $token . "\">link</a> para generar una nueva contraseña en nuestro sitio";
 
     
     $mail = new PHPMailer();
