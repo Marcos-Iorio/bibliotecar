@@ -183,14 +183,16 @@ function singleBook($idLibro){
           '.$pdf.'						 
          </form>
     </div>
-
+    <br><br>
+    <form id="form-reserva">
+        <div id = "dateFormat">Seleccioná las fechas:<br>
+            <input type="name" name="dates" id="datePicker" value="00/00/0000 - 00/00/0000">
+        </div>
+    </form>   
     <div class="boton-reservar">
         <button class="reservar" id="reservar">Reservar</button>
-
-	
-
-        <p class="alerta-reserva">*Las reservas tendran una vigencia de 2 semanas</p>
     </div>
+    
 </div>
 <div class = "descripcion">
     <h3 class= "titulo-desc">Descripcion</h3>
@@ -254,62 +256,62 @@ function todosLosAutores(){
    endforeach;
 }
 
-function todasLasEditoriales(){
-    include 'db.php'; 
-   $stmt = $dbh->prepare('SELECT distinct nombreEditorial from editoriales');
-   // Ejecutamos
-   $stmt->execute();
-   // Mostramos los resultados
-   $resultado = $stmt->fetchAll();
-   foreach($resultado as $fila):
-       echo '<li><a href="librosFiltrados.php?editorial=' . $fila['nombreEditorial'] . '"><span></span> ' . $fila['nombreEditorial'] . ' </a></li>';
-
-   endforeach;
-}
 
 function librosFiltrados(){
     include('db.php');
 
     if(isset($_GET['categoria'])){
-        $categori = $_GET['categoria'];
+        $variableDelFront = $_GET['categoria'];
     }
     if(isset($_GET['autor'])){
-        $autor = $_GET['autor'];
-    }
-    if(isset($_GET['editorial'])){
-        $editorial = $_GET['editorial'];
+        $variableDelFront = $_GET['autor'];
     }
 
-    
-    $query = '';
+    $query ="SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+            FROM libros AS l 
+            INNER JOIN libro_autores la ON l.idLibro = la.idLibro
+            INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
+            INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
+            INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
+            INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
+            INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
+            INNER JOIN autores a ON la.idAutores = a.idAutores
+            WHERE a.nombreAutor LIKE '$variableDelFront%' OR c.nombreCategoria LIKE '$variableDelFront%'";
+            
     $stmt = $dbh->prepare($query);
+
     $stmt->execute();
+
     $resultado = $stmt->fetchAll();
 
     foreach($resultado as $fila):
         echo '<div class="libro-prueba" id="libro-prueba">
-            <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
-                <div class="imagen-libro">
-                    <img class="imagen-libro" data-lazy="' . $fila['imagen_libro'] . ' " alt="">
-                </div>
-                <div class="informacion">
-                    <p class="libro-info">';
-                    echo 'Titulo: ' . $fila['titulo'] . '  <br>';
-                    echo 'Autor: ' . $fila['nombreAutor']. '  <br>';
-                    echo 'Categoria: ' . $fila['nombreCategoria'] . '<br>';
-                    echo 'Editorial: ' . $fila['nombreEditorial'] . '
-                    </p>
-                </div>
-                <div class="etiqueta">
-                    <p class="etiqueta-info" id="etiqueta-info">';
-                        if($fila['stock'] > 0 ){
-                            echo "Disponible";
-                        }else{
-                            echo "No disponible";
-                        } 
-               echo ' </div>
-            </a>
-        </div>';
+        <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
+            <div class="imagen-libro">
+                <img class="imagen-libro" data-lazy="' . $fila['ruta'] . ' " alt="">
+            </div>
+            <div id="informacion" class="informacion">
+                <div class="custom-shape-divider-bottom-1635630968">
+  <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+  </svg>
+</div>															  
+                <p class="libro-info">';
+                echo 'Titulo:<span class="portal-info"> ' . $fila['titulo'] . '</span>  <br>';
+                echo 'Autor:<span class="portal-info"> ' . $fila['nombreAutor']. '</span>  <br>';
+                echo 'Categoria:<span class="portal-info"> ' . $fila['nombreCategoria'] . '</span>
+                </p>
+            </div>
+            <div class="etiqueta">
+                <p class="etiqueta-info" id="etiqueta-info">';
+                    if($fila['stock'] > 0 ){
+                        echo "Disponible";
+                    }else{
+                        echo "No disponible";
+                    } 
+           echo ' </div>
+        </a>
+    </div>';
     endforeach;
 }
 ?>

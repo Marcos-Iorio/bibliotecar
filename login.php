@@ -9,22 +9,17 @@ exit;
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
-
-    <script type="text/javascript" src="js/login.js"></script>
     <link rel="stylesheet"  href="css/login.css">
-        <script src="js/sweetalert2.js"></script>
+    <script src="js/sweetalert2.js"></script>
     <link rel="stylesheet" href="css/sweetalert2.css">
     
 </head>
-<body onload="movimientoLogin(), mouseMove(), requerimientoPass(), swal()">
-    <img id="libroIcon" src="assets/libro-magico.svg" alt="" data-toggle="popover" title="¡CLICKEAME!" data-placement="bottom">
+<body>
     <div class="pass__require hidden" id ="passRequire">
         <h3>La contraseña debe contener:</h3>
         <p id="letter" class="invalid">Una <b>letra</b> Minúscula</p>
@@ -40,8 +35,12 @@ exit;
             <form method="POST">
                 <h1>Crear cuenta</h1>
                 <input type="text" placeholder="Nombre" name="username" id="username"  required/>
-                <input type="email" placeholder="Email" name="mail" id="mail" required />
-                <input type="password" placeholder="Contraseña" name="passwordRe" id="passwordRe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required />
+                <input type="email" placeholder="Email" name="mail" id="mail" onblur="validarMail()" required />
+                <input type="password" placeholder="Contraseña" name="passwordRe" id="passwordRe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                  <div id="mostrar-pass" onclick="mostrarContrasenia()">
+                    <i class="fas fa-eye-slash"></i>
+                    <i class="fas fa-eye mostrar"></i>
+                  </div>  
                 <button name="registrophp" id="btn-registro">Registrarse</button>
                 <span id="resultado"></span>
                 <?php 
@@ -62,7 +61,11 @@ exit;
                 <h1>Iniciar sesión</h1>
                 <input type="email" placeholder="Email" name="mailL" id="mailL" required />
                 <input type="password" placeholder="Contraseña" name="passL" id="passL" required />
-                <a href="#">¿Olvidaste tu contraseña?</a>
+                <div id="mostrar-pass-login" onclick="mostrarContraseniaLogin()">
+                    <i class="fas fa-eye-slash login"></i>
+                    <i class="fas fa-eye mostrar login"></i>
+                  </div>  
+                <a href="#myModal" id="olvide_pass">¿Olvidaste tu contraseña?</a>
                 <button>Iniciar sesión</button>
                 <span id="resultadoL"></span>
                 <!--<h6>Volver a pagina principal</h6>-->
@@ -86,31 +89,39 @@ exit;
         </div>
     </div>
 
+      <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>¿Olvidaste tu contraseña?<?php /* echo $arr['titulo']; */?>?</h2>
+                    <p id="info-pass">Ingresá tu mail para que podamos mandarte un correo de recuperación</p>
+                </div>
+                <?php 
+                  ?>
+                <div class="modal-body">
+                    <form action="" id="formulario-olvidar-pass" method="POST">
+                      <label for="olvidar-pass"><strong>Ingresá tu mail:</strong></label>
+                        <input type="email" name="mail-recuperacion" id="mail-recuperacion" value="" required>
+                        <input class="confirmar" id="confirmar" name="confirmar" value="Enviar" type="submit">
+                        <button id="cancelar">Cancelar</button>
+                    </form>
+                    <?php 
+                    include 'php/recuperacion_pass.php';
+                        if (isset($_POST['confirmar'])) {
+                            if (isset($_POST['mail-recuperacion'])) {
+                              $email = $_POST['mail-recuperacion'];
+                                recuperacionPass($email);
+                            } else {
+                                echo "<script>Swal.fire({title:'Error',text:'El campo mail no puede estar vacío.', type:'info'});</script> ";
+                            }
+                        } 
+                        
+                        ?>
+                </div>
+            </div>
+        </div>
 </body>
-<!--<script>swal({
-    title:'Registro exitoso',
-    text:'',
-    type: 'success',
-    html:'<br><h5>Te enviamos un codigo a tu mail. Ingresalo debajo para confirmar tu usuario.</h5><br><input style="width: 180px; font-size: 36px; color: black; font-weight: bold; text-align: center;" type="text" required; maxlength = "6";"/><br><br> <div ><input type="submit" style="background-color: #495F91; color:white; margin-right: 5%; width: 150px;" name="confirmarCodigo" value="Confirmar"><input type="submit" style="background-color: gray; color:white;margin-left: 5%; width: 150px;" name="reenviarCodigo" value="Reenviar"></div>',
-   showCancelButton: false,
-      showConfirmButton: false,
-
-    cancelButtonColor: 'gray',
-    confirmButtonColor: '#495F91',
-    confirmButtonText: 'Confirmar <i name="confirmarCodigo"></i>',
-    cancelButtonText: 'Reenviar <i name="reenviarCodigo></i>',
-    width: 500,
-    padding: '3em'
-
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
-  }
-});</script>-->
 <footer>
 
 
@@ -171,3 +182,19 @@ exit;
       }
 
 </script>
+<script>
+
+const modal  = document.querySelector('#myModal');
+
+  var span = document.querySelector(".close");
+
+  var cancelar = document.querySelector("#cancelar");
+
+  cancelar.onclick = function () {
+        modal.style.display = "none";
+    }
+  span.onclick = function () {
+      modal.style.display = "none";
+  }
+</script>
+<script type="text/javascript" src="js/login.js"></script>

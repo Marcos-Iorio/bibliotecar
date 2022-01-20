@@ -13,7 +13,7 @@ session_start(); //starting the session for user profile page
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if(isset($_POST['mailL']) && isset($_POST['passL'])){
-        $GLOBALS['mail'] = $_POST['mailL'];
+        $GLOBALS['mail'] = strtolower($_POST['mailL']);
         //$_SESSION['loggedin'] = true;
         $pass = $_POST['passL'];
         

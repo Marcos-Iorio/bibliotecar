@@ -16,18 +16,17 @@ section#page{
     z-index: 99;
 }
 
-
 h3 {
     background-color: transparent;
     font-size: 40px;
     text-align: center;
-    color: white;
+    color: #333;
+    padding: 20px;
     padding-bottom: 20px;
 }
 
 .main-libros{
     background-color: transparent;
-    padding-top: 70px;
 }
 
 .grid-libros{
@@ -48,9 +47,9 @@ div#libro-prueba{
     height: 250px;
     align-self: center;
     justify-self: center;
-    box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
 }
 .tabla-libros{
     text-align: center;
@@ -63,6 +62,16 @@ div#libro-prueba:hover{
     transition: ease 0.3s;
     /* transform: scale(1.05); */
     
+}
+
+.wrapper-form-libros{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.secciones-form{
+    align-items: center;
 }
 
 .informacion{    
@@ -129,6 +138,10 @@ img.imagen-libro{
     opacity: 1.0;
     transition: all 500ms;
     display: block;
+}
+
+.fade-out{
+    opacity: 0;
 }
 
 p.libro-info{
@@ -198,7 +211,15 @@ p.etiqueta-info{
 .subir-libro{
     background: transparent;
     text-align: left;
-    margin-left: 83px;
+    padding: 0 60px 0 60px;
+}
+
+.wrapper-libros{
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 .form-libro{
@@ -213,19 +234,32 @@ label {
     color: #333;
     background:transparent;
     display: inline-block;
-    width: 170px;
+    width: 10% !important;
+    margin-right: 20px;
     text-align: left;
+}
+
+input#crear-libro{
+    display: block;
+    color: white;
+    margin: 15px auto;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: #333;
+    cursor: pointer;
 }
 
 
 input[type=text], input[type=number], input[type=file] textarea {
-    width: 50%;
+    width: 40%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     margin-top: 6px;
     margin-bottom: 16px;
+    margin-right: 50px;
     resize: vertical;
     background: transparent;
     color: white;
@@ -233,44 +267,35 @@ input[type=text], input[type=number], input[type=file] textarea {
 
 
 input[type=text]:focus,input[type=number]:focus, input[type=file]:focus, textarea:focus {
-    border-bottom: 4px solid yellow;
+    border-bottom: 4px solid black;
     background: rgba(255, 255, 255, 0.11);
 }
 
 input[type=submit] {
-    transition: ease 0.5s;
-    width: 130px;
-    background-color: rgba(51, 51, 51, 0.808);
-    height: 50px;
-    margin: 0 auto;
-    outline: 0;
+	border: none;
+	display: inline-block;
     color: white;
-    border: none;
-    border-bottom: 4px solid #222;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    padding: 12px 24px;
-    transition: all ease-in-out 0.1s;
-    position: relative;
-    display: inline-block;
-    text-align: center;
-    font-weight: 400;
-    font-size: 18px;
+    margin: 15px auto;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: #333;
+    cursor: pointer;
 }
 
 input[type=submit]:focus {
-    background: yellow;
-    color: whitesmoke;
+	box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
 }
 
 
 input[type=submit]:hover {
-    border: none;
-    border-bottom: 4px solid #333;
-    background: yellow;
-    color: #333;
-    transition: ease 0.5s;
+	box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
 }
+
 input#portada{
     background: transparent;
 }
@@ -287,21 +312,25 @@ input#portada{
 .tabla-libros{
     background-color: white;
     border-radius: 15px;
-    box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
     text-align: center;
     padding: 50px;
     margin-right: 35px;
+}
+
+.container{
+    margin-bottom: 200px;
 }
 
 .container-form{
     margin-top: 60px;
     background-color: white;
     border-radius: 15px;
-    box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
     text-align: center;
     padding: 50px;
     width: 85%;
@@ -453,13 +482,7 @@ input#buscar:hover{
     background: white;
     
 }
-/*
-.input-libro{
 
-    background-color: white;
-    color: black;
-}
-*/
 /* Filtros */
 
 .menu-filtro{
@@ -593,3 +616,316 @@ i.fas.fa-times {
 .custom-shape-divider-bottom-1635630968 .shape-fill {
     fill: rgba(51, 51, 51, 0.937);
 }
+
+/* Secciones */
+#seccion-libros{
+    display: block;
+}
+ #seccion-autor, #seccion-categorias, #seccion-editorial{
+    display: none;
+
+}
+
+/* modals */
+
+#modal-libros{
+    border: 2px solid #333;
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    display: none;
+    margin-left: 85px;
+    width: 85%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+}
+
+#modal-autor{
+    border: 2px solid #333;
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    display: none;
+    margin-left: 85px;
+    width: 85%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+}
+
+#modal-categoria{
+    border: 2px solid #333;
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    display: none;
+    margin-left: 85px;
+    width: 85%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+}
+
+#modal-editorial{
+    border: 2px solid #333;
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    display: none;
+    margin-left: 85px;
+    width: 85%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+}
+
+button.boton-agregar-libro{
+    display: block;
+    color: white;
+    margin: 15px auto;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: #333;
+    cursor: pointer;
+}
+
+button.boton-agregar-libro:hover{
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: -0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+}
+
+button i{
+    padding-left: 10px;
+}
+
+
+/* menu circular de admin-libros */
+
+body {
+    background-color: #EDEDED;
+  }
+  .circular-menu {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+  }
+  
+  .circular-menu .floating-btn {
+    display: block;
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
+    background-color: hsl(236, 98%, 60%);
+    box-shadow: 0 2px 5px 0 hsla(0, 0%, 0%, .26);  
+    color: hsl(0, 0%, 100%);
+    text-align: center;
+    line-height: 3.9;
+    cursor: pointer;
+    outline: 0;
+  }
+  
+  .circular-menu.active .floating-btn {
+    box-shadow: inset 0 0 3px hsla(0, 0%, 0%, .3);
+  }
+  
+  .circular-menu .floating-btn:active {
+    box-shadow: 0 4px 8px 0 hsla(0, 0%, 0%, .4);
+  }
+  
+  .circular-menu .floating-btn i {
+    font-size: 1.4em;
+    transition: transform .2s;  
+    color: white;
+  }
+  
+  .circular-menu.active .floating-btn i {
+    transform: rotate(-45deg);
+  }
+  
+  .circular-menu:after {
+    display: block;
+    content: ' ';
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -2;
+    background-color: hsl(236, 98%, 60%);
+    transition: all .3s ease;
+  }
+  
+  .circular-menu.active:after {
+    transform: scale3d(5.5, 5.5, 1);
+    transition-timing-function: cubic-bezier(.68, 1.55, .265, 1);
+  }
+  
+  .circular-menu .items-wrapper {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .circular-menu .menu-item-botonera {
+    position: absolute;
+    top: .2em;
+    right: .2em;
+    z-index: -1;
+    display: block;
+    text-decoration: none;
+    color: hsl(0, 0%, 100%);
+    font-size: 1em;
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 3;
+    background-color: hsla(0,0%,0%,.1);
+    transition: transform .3s ease, background .2s ease;
+  }
+  
+  .circular-menu .menu-item-botonera:hover {
+    background-color: hsla(0,0%,0%,.3);
+  }
+  
+  .circular-menu.active .menu-item-botonera {
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .circular-menu.active .menu-item-botonera:nth-child(1) {
+    transform: translate3d(1em,-7em,0);
+  }
+  
+  .circular-menu.active .menu-item-botonera:nth-child(2) {
+    transform: translate3d(-3.5em,-6.3em,0);
+  }
+  
+  .circular-menu.active .menu-item-botonera:nth-child(3) {
+    transform: translate3d(-6.5em,-3.2em,0);
+  }
+  
+  .circular-menu.active .menu-item-botonera:nth-child(4) {
+    transform: translate3d(-7em,1em,0);
+  }
+
+  /* Labels */
+  span.label{
+    position: absolute !important;
+    top: -60px !important;
+    left: -15px !important;
+    color: white !important;
+    font-size: 15px !important;
+    font-weight: 400;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: hsl(236, 98%, 60%);
+    border-radius: 20px;
+    padding: 5px;
+    display: none;
+    height: 26px !important;
+    line-height: 15px !important;
+  }
+  
+  span.label-left{
+    position: absolute !important;
+    left: -120px !important;
+    color: white !important;
+    font-size: 15px !important;
+    font-weight: 400;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: hsl(236, 98%, 60%);
+    border-radius: 20px;
+    padding: 5px;
+    display: none;
+    height: 26px !important;
+    line-height: 15px !important;
+  }
+
+  span.label-left-2{
+    position: absolute !important;
+    left: -135px !important;
+    color: white !important;
+    font-size: 15px !important;
+    font-weight: 400;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: hsl(236, 98%, 60%);
+    border-radius: 20px;
+    padding: 5px;
+    display: none;
+    height: 26px !important;
+    line-height: 15px !important;
+  }
+  
+
+  #close {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 20px;
+  }
+  
+  #close:hover,
+  #close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #close-autor {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 20px;
+  }
+  
+  #close-autor:hover,
+  #close-autor:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #close-categoria {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 20px;
+  }
+  
+  #close-categoria:hover,
+  #close-categoria:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #close-editorial {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 20px;
+  }
+  
+  #close-editorial:hover,
+  #close-editorial:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  
+  

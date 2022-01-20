@@ -81,18 +81,10 @@
                             ?>
                         </ul>   
                     </div>
-                    <h3>Editoriales</h3>
-                    <div class="checklist editoriales">
-                        <ul>
-                            <?php
-                                todasLasEditoriales();
-                            ?>
-                        </ul>   
-                    </div>
                 </div>
         <!--Seccion de los libros-->
                 <div class="container main-libros">
-                    <h3>Portal de libros!</h3>
+                    <h3 class="titulo-pagina">Portal de libros!</h3>
                                         <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
                     <div id="breadcrumbs"></div>
                     <div class="grid-libros">
@@ -133,10 +125,6 @@
                     </div>
                 </div>
             </section>
-            <button onclick="contacto()" class="buttonInfo tooltip">
-                <i class="fas fa-question"></i>
-                <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
-            </button>
         </main>
       </section>
 </body>

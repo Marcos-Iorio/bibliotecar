@@ -18,17 +18,25 @@ function diasReservas(){
     $stmt->execute();
     $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC); */
 
-    $query2 = "SELECT DISTINCT(idEjemplar),titulo,
-    (SELECT COUNT(idEjemplar) 
-     from vw_libro_res  WHERE idEjemplar = vr.idEjemplar)  
-     as `ejem_count`
-     from vw_libro_res as vr ORDER BY ejem_count desc LIMIT 8"; 
+
+    /* Consulta nueva */
+    /* SELECT l.idLibro, l.titulo, count(1) as `ejem_count` from libros AS l INNER JOIN ejemplares e ON l.idLibro = e.idLibro INNER JOIN reservas r ON r.idEjemplar = e.idEjemplar WHERE fechaDesde >= (DATE_SUB(NOW(), INTERVAL '2' DAY)) group by l.idLibro, titulo ORDER BY ejem_count desc LIMIT 8 */
+
+    $query2 = "SELECT COUNT(*)AS cantidad,a.nombreAutor
+    FROM reservas AS r
+    INNER JOIN ejemplares AS e ON r.idEjemplar = e.idEjemplar
+    INNER JOIN libros AS l ON l.idLibro = e.idLibro
+    INNER JOIN libro_autores AS la ON la.idLibro = l.idLibro
+    INNER JOIN autores AS a ON a.idAutores = la.idAutores
+    where fechaDesde >= (DATE_SUB(NOW(), INTERVAL '90' DAY))
+    GROUP BY nombreAutor
+    ORDER BY cantidad"; 
 
      $stmt = $dbh->prepare($query2);
      $stmt->execute();
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo json_encode($data);     
+    echo json_encode($data); 
 }
 
 

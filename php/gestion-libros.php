@@ -28,7 +28,7 @@
   include 'db.php';
 
 
-  $query="SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+  $query = "SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
             FROM libros AS l
             INNER JOIN libro_autores la ON l.idLibro = la.idLibro
             INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
@@ -37,7 +37,6 @@
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
             INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.idLibro DESC LIMIT $page_first_result , $results_per_page";
-
   $stmt = $dbh->prepare($query);
   
 if ($stmt->execute()) {
@@ -55,7 +54,7 @@ if ($stmt->execute()) {
                             <td>". $fila['nombreCategoria']."</td>
                             <td>". $fila['stock']. "</td>
                             <td>" . $fila['fechaAlta']. "</td>
-                            <td><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."','".$fila["descripcion"]."','".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                            <td><a href='#modal-libros' id='abrir-modal-libros'><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."','".$fila["descripcion"]."','".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                           </tr>
                         </tbody>
 
@@ -80,6 +79,7 @@ function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock,
         }
 
     $fechaAlta = date('Y-m-d');
+
 
     cargarLibro($titulo,$descripcion,$stock,$fechaAlta,$destinoPdf);
     cargarEjemplar($stock, $fechaAlta);
@@ -531,10 +531,9 @@ function llenarImagen($Tapa,$contratapa){
                             $stmt = $dbh->prepare('SELECT DISTINCT nombreAutor FROM autores  ORDER BY  nombreAutor ASC');
                             $stmt ->execute();
                             $arr = $stmt->fetchAll();
-                             foreach($arr as $fila):
-
-echo "<option>".$fila['nombreAutor']."</option>";
-                          endforeach;  
+                            foreach($arr as $fila):
+                                echo "<option value=".$fila['nombreAutor'].">".$fila['nombreAutor']."</option>";
+                            endforeach;  
                       }
 
 
@@ -796,7 +795,7 @@ if ($stmt->execute()) {
                             <td>".  $fila['idAutores']."</td>
                             <td>". $fila['nombreAutor']."</td>
 
-                            <td><button onclick=\"javascript:cargarPropiedades('Autor','".$fila["idAutores"]."','".$fila["nombreAutor"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                            <td><a href='#modal-autor' id='abrir-modal-autor'><button onclick=\"javascript:cargarPropiedades('Autor','".$fila["idAutores"]."','".$fila["nombreAutor"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                           </tr>
                         </tbody>";
 
@@ -889,7 +888,7 @@ if ($stmt->execute()) {
                             <td>".  $fila['idCategoria']."</td>
                             <td>". $fila['nombreCategoria']."</td>
 
-                            <td><button onclick=\"javascript:cargarPropiedades('Categoria','".$fila["idCategoria"]."','".$fila["nombreCategoria"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                            <td><a href='#modal-categoria' id='abrir-modal-categoria'><button onclick=\"javascript:cargarPropiedades('Categoria','".$fila["idCategoria"]."','".$fila["nombreCategoria"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                           </tr>
                         </tbody>";
 
@@ -984,7 +983,7 @@ if ($stmt->execute()) {
                           <tr>
                             <td>".  $fila['idEditorial']."</td>
                             <td>". $fila['nombreEditorial']."</td>
-                            <td><button onclick=\"javascript:cargarPropiedades('Editorial','".$fila["idEditorial"]."','".$fila["nombreEditorial"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                            <td><a href='#modal-editorial' id='abrir-modal-editorial'><button onclick=\"javascript:cargarPropiedades('Editorial','".$fila["idEditorial"]."','".$fila["nombreEditorial"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                           </tr>
                         </tbody>";
 

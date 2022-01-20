@@ -76,7 +76,7 @@ function gestionUsuarios()
                     <td>" . $fila['mail'] . "</td>
                     <td>" . $check_mail . "</td>
                     <td><button><i title='" . $titulo . "'class=\"" . $icono . "\" value=\"Estado\" name=\"btnEstado\" id=\"btnEstado\" title=" . $titulo . " ></i></button></td>
-                    <td><button  onclick=\"javascript:cargarUsuario('" . $fila["idUsuario"] . "','" . $fila["nombre"] . "','" . $fila["apellido"] . "','" . $idRol . "','" . $fila["numeroDocumento"] . "','" . $fila["mail"] . "','" . $check_mail . "','" . $titulo . "')\"><i title='Editar'class=\"fas fa-pencil-alt tbody-icon\" value=\"Modificar\" name=\"btnModificar\"></i></button></td>
+                    <td><a href='#container-form' id='abrir-modal-usuario'><button  onclick=\"javascript:cargarUsuario('" . $fila["idUsuario"] . "','" . $fila["nombre"] . "','" . $fila["apellido"] . "','" . $idRol . "','" . $fila["numeroDocumento"] . "','" . $fila["mail"] . "','" . $check_mail . "','" . $titulo . "')\"><i title='Editar'class=\"fas fa-pencil-alt tbody-icon\" value=\"Modificar\" name=\"btnModificar\"></i></button></a></td>
 
                   </tr>
                 </tbody>
