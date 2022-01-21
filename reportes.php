@@ -4,6 +4,33 @@
 <?php 
   include "php/islogin.php";
  ?>
+<?php
+
+/*  is_logged(); */
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    $user = $_SESSION['username'];
+    $pid  = $_SESSION['rol'];
+
+    $tiempo = time();
+
+    if ($tiempo >= $_SESSION['expire']) {
+        session_destroy();
+        echo '<script type="text/javascript">
+              alert("Su sesion ha expirado, por favor vuelva iniciar sesion.");
+              </script>';
+        header("Refresh:0");
+
+    }
+
+}
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_SESSION['rol']) || $_SESSION['rol'] != '3') {
+    header("Location: php/unauthorized.php");
+}
+
+?>
+
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,7 +58,7 @@
         }
     </style>
 </head>
-<body onload="diasReserva(), historialReserva()">
+<body onload="diasReserva(), historialReserva(), canceladasYFinalizadas()">
     <section id="page">
         <?php 
           include "php/panel.php";
@@ -51,6 +78,9 @@
                     <p><span id="cantidad-reservas-todo">100</span></p>
                 </div>
                 <svg width=1500 height=600 id="historial-reserva"></svg>
+            </div>
+            <div id="reservas-cancelaciones">
+                <svg width="960" height="500" id="can-y-fin"></svg>
             </div>
         </main>
     </section>

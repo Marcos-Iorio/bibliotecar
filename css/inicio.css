@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;400;500;600;700&display=swap');
 
 html{
     scroll-behavior: smooth;
@@ -9,7 +10,15 @@ html{
 *{
     margin: 0;
     padding: 0;
-    font-family:'Roboto', sans-serif;
+}
+
+h1,h2,h3,h4{
+    font-family: 'Raleway', sans-serif !important;
+    font-weight: 400;
+}
+
+input, div, p, a{
+    font-family: 'Roboto', sans-serif !important;
 }
 
 section.contenido.wrapper{
@@ -278,6 +287,27 @@ only screen and (                min-resolution: 2dppx) {
   }
 }
 
+.titulo-pagina{
+    margin-top: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    text-align: center;
+    padding: 20px 0 20px 0;
+    font-size: 45px;
+    color: white;
+
+}
+
+.subtitulo-pagina{
+    margin-top: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
+    text-align: center;
+    padding: 10px 0 40px 0;
+    font-size: 30px;
+    color: white;
+}
+
 /* Paneles inicio */
 
 .container-paneles{
@@ -294,12 +324,22 @@ only screen and (                min-resolution: 2dppx) {
 .card{
     width: 350px;
     height: 350px;
+<<<<<<< HEAD
     background-color: #ADB6C4;
     box-shadow: 0px 30px 78px -47px black;
     text-align: center;
     color: white;
     transition: all ease 0.5s;
     border: none;
+=======
+    background-color:white;
+    box-shadow: 0px 30px 78px -47px black;
+    text-align: center;
+    color: #333;
+    transition: all ease 0.5s;
+    border: none;
+    border-radius: 20px;
+>>>>>>> Jeremias
 }
 
 .card:hover{
@@ -308,14 +348,55 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 .info-paneles{
-    padding: 25px;
+    padding: 20px;
+    height: 100%;
+}
+
+.texto-panel{
+    margin-bottom: 50px;
+}
+
+a.ver-mas-paneles{
+    padding: 4%;
+    border-radius: 10px;
+    background: #adb7f5;
+    border: 2px solid #909adb;
+    text-decoration: none !important;
+}
+
+.titulo-panel {
+    background: #adb7f5;
+    border: 2px solid #909adb;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-reserva{
+    /* background: #adb7f5;
+    border: 2px solid #909adb;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%; */
 }
 
 div#clockdate{
     background-color: white;
     width: 350px;
     height: 200px;
+<<<<<<< HEAD
     border-radius: 5px;
+=======
+    border-radius: 20px;
+>>>>>>> Jeremias
     box-shadow: 0px 30px 78px -47px black;
     -webkit-box-shadow: 0px 30px 78px -47px black;
     -moz-box-shadow: 0px 30px 78px -47px black;
@@ -324,12 +405,13 @@ div#clockdate{
 .clockdate-wrapper {
     justify-content: center;
     align-self: center;
-    background-color: #333;
+    background-color: #adb7f5;
+    border: 2px solid #909adb;
     padding:20px;
     max-width: 300px;
     width:100%;
     text-align:center;
-    border-radius:5px;
+    border-radius:10px;
     margin:0 auto;
     margin-top:12%;
     transition: 0.4s;

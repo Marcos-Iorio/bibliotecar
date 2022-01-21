@@ -234,7 +234,11 @@ label {
     color: #333;
     background:transparent;
     display: inline-block;
+<<<<<<< HEAD
     width: 10% !important;
+=======
+    /*width: 10% !important;*/
+>>>>>>> Jeremias
     margin-right: 20px;
     text-align: left;
 }
@@ -482,13 +486,7 @@ input#buscar:hover{
     background: white;
     
 }
-/*
-.input-libro{
 
-    background-color: white;
-    color: black;
-}
-*/
 /* Filtros */
 
 .menu-filtro{
@@ -824,6 +822,56 @@ body {
   .circular-menu.active .menu-item-botonera:nth-child(4) {
     transform: translate3d(-7em,1em,0);
   }
+<<<<<<< HEAD
+=======
+
+  /* Labels */
+  span.label{
+    position: absolute !important;
+    top: -60px !important;
+    left: -15px !important;
+    color: white !important;
+    font-size: 15px !important;
+    font-weight: 400;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: hsl(236, 98%, 60%);
+    border-radius: 20px;
+    padding: 5px;
+    display: none;
+    height: 26px !important;
+    line-height: 15px !important;
+  }
+  
+  span.label-left{
+    position: absolute !important;
+    left: -120px !important;
+    color: white !important;
+    font-size: 15px !important;
+    font-weight: 400;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: hsl(236, 98%, 60%);
+    border-radius: 20px;
+    padding: 5px;
+    display: none;
+    height: 26px !important;
+    line-height: 15px !important;
+  }
+
+  span.label-left-2{
+    position: absolute !important;
+    left: -135px !important;
+    color: white !important;
+    font-size: 15px !important;
+    font-weight: 400;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: hsl(236, 98%, 60%);
+    border-radius: 20px;
+    padding: 5px;
+    display: none;
+    height: 26px !important;
+    line-height: 15px !important;
+  }
+>>>>>>> Jeremias
   
 
   #close {
@@ -885,5 +933,9 @@ body {
     text-decoration: none;
     cursor: pointer;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> Jeremias
   
   

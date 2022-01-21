@@ -1,10 +1,11 @@
 
 <?php
 
-function mainReservar($mail, $skuLibro){
+function mainReservar($mail, $skuLibro, $fechaDesde, $fechaHasta){
+
    include 'db.php';
    //include "isLogin.php";
-    
+
    
    /* Busca los datos del usuario por el mail */
     $stmt = $dbh->prepare("SELECT * from usuarios where mail = '". $mail . "'");
@@ -30,11 +31,11 @@ function mainReservar($mail, $skuLibro){
 
     global $libros;
     $libros = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      insertarReserva($nombre, $correo);
+      insertarReserva($nombre, $correo, $fechaDesde, $fechaHasta);
 
 
 }
-      function insertarReserva($nombre, $correo){
+      function insertarReserva($nombre, $correo, $fechaDesde, $fechaHasta){
          $skuLibro = $_GET['sku'];
          $idUsuario = $GLOBALS['idUsuario'];
          //echo $idUsuario;
@@ -42,12 +43,12 @@ function mainReservar($mail, $skuLibro){
           $idEjemplar=reservaEjemplar($skuLibro);
 
          include 'db.php';
-         $fechaDesde = date('Y/m/d H:i:s');
-         $fechaHasta = date('Y-m-d', strtotime($fechaDesde. ' + 2 weeks'));
+         /* $fechaDesde = date('Y/m/d H:i:s');
+         $fechaHasta = date('Y-m-d', strtotime($fechaDesde. ' + 2 weeks')); */
 
-          $codigo=mt_rand(1,999999);
+          $codigo = mt_rand(1,999999);
           while(strlen($codigo) < 6 && strlen($codigo)){
-              $codigo=mt_rand(1,999999);
+              $codigo = mt_rand(1,999999);
           }
           
           $codigo="R$codigo$skuLibro";
@@ -84,7 +85,7 @@ function confirmarReserva($idLibro, $nombre, $correo, $codigo){
           $stmt = $dbh->prepare("UPDATE libros SET stock='".$stock."' where idLibro ='".$idLibro."'");
 
           if ($stmt->execute()) {
-                      include "sendmail.php";
+            include "sendmail.php";
             enviarReserva($nombre, $correo, $codigo);
 
             //singleBook($idLibro);

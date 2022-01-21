@@ -16,12 +16,24 @@ function historialReservas(){
     $stmt->execute();
     $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC); */
 
+<<<<<<< HEAD
     $query2 = "SELECT DISTINCT(idEjemplar),titulo,
     (SELECT COUNT(idEjemplar) 
      from vw_historiaLibro_res  WHERE idEjemplar = vr.idEjemplar)  
      as `ejem_count`
      from vw_historiaLibro_res as vr
      ORDER BY ejem_count desc LIMIT 8" ; 
+=======
+    $query2 = "SELECT COUNT(*)AS cantidad, c.nombreCategoria
+    FROM reservas AS r
+    INNER JOIN ejemplares AS e ON r.idEjemplar = e.idEjemplar
+    INNER JOIN libros AS l ON l.idLibro = e.idLibro
+    INNER JOIN libro_categorias AS lc ON lc.idLibro = l.idLibro
+    INNER JOIN categorias AS c ON c.idCategoria = lc.idCategoria
+    where fechaDesde >= (DATE_SUB(NOW(), INTERVAL '90' DAY))
+    GROUP BY nombreCategoria
+    ORDER BY cantidad" ; 
+>>>>>>> Jeremias
 
      $stmt = $dbh->prepare($query2);
      $stmt->execute();

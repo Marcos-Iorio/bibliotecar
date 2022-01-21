@@ -6,7 +6,7 @@ $DB_NAME = getenv('DB_NAME');
 $DB_USER = getenv('DB_USER');
 $DB_PASS = getenv('DB_PASS');
 
-$dbname = "bibliotecar";
+ $dbname = "bibliotecar";
  $user = "root";
  $password = '';
  try {
