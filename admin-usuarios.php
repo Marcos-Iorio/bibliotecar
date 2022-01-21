@@ -21,7 +21,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 }
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_SESSION['rol']) || $_SESSION['rol'] != '3') {
-    header("Location: php/identidad.php");
+    header("Location: php/unauthorized.php");
 }
 
 ?>
@@ -58,12 +58,12 @@ include "php/panel.php";
 ?>
     <main id="main">
       <section class="contenido wrapper">
-        <div class=" filtros-busqueda ">
+        <!-- <div class=" filtros-busqueda ">
           <div class="busqueda">
           </div>
           <div class="filtros">
           </div>
-        </div>
+        </div> -->
         <!--Seccion de los libros-->
         <div class="container main-libros">
           <h3 class="titulo-pagina">Gestion de usuarios!</h3>
@@ -448,8 +448,11 @@ echo "</div>";
       
     <script>
       $(document).ready(function(){
-         $('#tablaUsuarios').DataTable(); 
-         responsive: true;
+         $('#tablaUsuarios').DataTable({
+          "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
+        "responsive": true,
+        "pagingType": "simple",
+    });  
          
       });
     </script>

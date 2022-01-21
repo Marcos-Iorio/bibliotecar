@@ -169,10 +169,10 @@ label {
 	font-size: 20px;
 	margin-left: 15px;
     font-weight: 400;
-	color: white;
+	/* color: white; */
 	background:transparent;
     display: inline-block;
-    width: 100px;
+    /* width: 100px; */
 }
 
 

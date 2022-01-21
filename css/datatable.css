@@ -37,8 +37,9 @@ table.dataTable {
         border: 1px solid black;
     }
     .page-link {
-        color: white !important;
-        background-color: #444 !important;
+        /*color: white !important;
+        background-color: #444 !important;*/
+        color: black;
      
     }
     

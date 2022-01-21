@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <?php
-    session_start();
-     //include 'php/cargarDatos.php';
+session_start();
 
-                       include "php/gestion-libros.php";
-
-   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    $user=$_SESSION['username'];
-    $pid=$_SESSION['rol'];
+/*  is_logged(); */
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    $user = $_SESSION['username'];
+    $pid  = $_SESSION['rol'];
 
     $tiempo = time();
 
     if ($tiempo >= $_SESSION['expire']) {
-      session_destroy();
-       echo'<script type="text/javascript">
+        session_destroy();
+        echo '<script type="text/javascript">
               alert("Su sesion ha expirado, por favor vuelva iniciar sesion.");
               </script>';
-      header("Refresh:0");
-    
+        header("Refresh:0");
+
     }
-    
-  }
+
+}
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_SESSION['rol']) || $_SESSION['rol'] == '1') {
+    header("Location: php/unauthorized.php");
+}
 
 ?>
 
@@ -104,7 +106,9 @@
                 </thead>
                 <tbody>
                 <?php
-                    gestionLibros();
+include "php/gestion-libros.php";
+
+gestionLibros();
 
                     if(isset($_POST['btnCrearLibro'])){
 
@@ -135,7 +139,6 @@
 
               </tbody>
               </table>
-              <br><br>
               <?php 
             // $paginas = getPages2();
 
@@ -314,7 +317,6 @@
                       ?>
                 </tbody>
                 </table>
-                <br><br>
                 <?php 
 
             // $paginas = getPages2();
@@ -425,7 +427,6 @@
 
                   </tbody>
                 </table>
-                <br><br>
                 <?php 
             //  $paginas = getPages2();
 
@@ -535,7 +536,6 @@
                       ?>
                   </tbody>
                 </table>
-                <br><br>
                 <?php 
             //  $paginas = getPages2();
 
@@ -555,11 +555,11 @@
                     <div class="wrapper-libros">
 
                       <label for="">Editorial:</label>
-                      <input class="input-libro" type="text" name="editarEditorial" id="autor" placeholder="Editorial">
+                      <input class="input-libro" style="color: black;" type="text" name="editarEditorial" id="autor" placeholder="Editorial">
                       <input hidden type="text" name="idEditorial" id="autor" placeholder="Editorial">
 
                       <label for="">Editorial Nueva:</label>
-                      <input class="input-libro" type="text" name="nuevaEditorial" id="editorial" placeholder="Editorial">
+                      <input class="input-libro"  type="text" name="nuevaEditorial" id="editorial" placeholder="Editorial">
 
 
                     </div>
@@ -790,29 +790,51 @@ spanEdit.onclick = function() {
       
 <!--    Datatables-->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
-      
+<!--       
+    <script type="text/javascript" src="	https://code.jquery.com/jquery-3.5.1.js	"></script>
+<script type="text/javascript" src="	https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js	"></script>
+<script type="text/javascript" src="	https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js	"></script>
+<script type="text/javascript" src="	https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js	"></script>
+<script type="text/javascript" src="	https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js	"></script>
+<script type="text/javascript" src="	https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js	"></script>
+<script type="text/javascript" src="	https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js	"></script>
+<script type="text/javascript" src="	https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js	"></script> -->
+
       
     <script>
       $(document).ready(function(){
-         $('#tablaLibros').DataTable(); 
-         responsive: true;
-         
+         $('#tablaLibros').DataTable({
+        "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
+        "responsive": true,
+        "pagingType": "simple",
+        // dom: 'Bfrtip',
+        // buttons: [
+        //     'excel'
+        // ],
+    });  
       });
       $(document).ready(function(){
-         $('#tablaAutores').DataTable(); 
-         responsive: true;
-         
+         $('#tablaAutores').DataTable({
+          "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
+        "responsive": true,
+        "pagingType": "simple",
+    });  
       });
       $(document).ready(function(){
-         $('#tablaCategorias').DataTable(); 
-         responsive: true;
-         
+         $('#tablaCategorias').DataTable({
+          "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
+        "responsive": true,
+        "pagingType": "simple",
+    });
       });
       $(document).ready(function(){
-         $('#tablaEditoriales').DataTable(); 
-         responsive: true;
-         
+  $('#tablaEditoriales').DataTable({
+        "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
+        "responsive": true,
+        "pagingType": "simple",
+    });
       });
+
     </script>
     
     <script src="js/Spanish.js"></script>

@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-  <title></title>
-</head>
+
 
 
 <?php
@@ -424,12 +419,12 @@ function llenarImagen($Tapa,$contratapa){
 
         //enviarPwd($nombre, $mail, $pass);
         echo "<script>swal({title:'Exito',text:'Registro ingresado correctamente.',type:'success'});</script>";
-        gestionLibros();
+        //gestionLibros();
 
 
     } else {
         echo "<script>swal({title:'Error',text:'Error al ingresar el registro',type:'error'});</script>";
-        gestionLibros();
+        //gestionLibros();
 
     }
 
@@ -1039,8 +1034,3 @@ include('db.php');
 
 
 ?>
-
-<body>
-
-</body>
-</html>

@@ -4,6 +4,33 @@
 <?php 
   include "php/islogin.php";
  ?>
+<?php
+
+/*  is_logged(); */
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    $user = $_SESSION['username'];
+    $pid  = $_SESSION['rol'];
+
+    $tiempo = time();
+
+    if ($tiempo >= $_SESSION['expire']) {
+        session_destroy();
+        echo '<script type="text/javascript">
+              alert("Su sesion ha expirado, por favor vuelva iniciar sesion.");
+              </script>';
+        header("Refresh:0");
+
+    }
+
+}
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_SESSION['rol']) || $_SESSION['rol'] != '3') {
+    header("Location: php/unauthorized.php");
+}
+
+?>
+
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

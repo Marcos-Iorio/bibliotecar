@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <?php
-    session_start();
+session_start();
 
-   /*  is_logged(); */
-   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    $user=$_SESSION['username'];
-    $pid=$_SESSION['rol'];
+/*  is_logged(); */
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    $user = $_SESSION['username'];
+    $pid  = $_SESSION['rol'];
 
     $tiempo = time();
 
     if ($tiempo >= $_SESSION['expire']) {
-      session_destroy();
-       echo'<script type="text/javascript">
+        session_destroy();
+        echo '<script type="text/javascript">
               alert("Su sesion ha expirado, por favor vuelva iniciar sesion.");
               </script>';
-      header("Refresh:0");
-    
+        header("Refresh:0");
+
     }
-    
-  }
+
+}
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_SESSION['rol']) || $_SESSION['rol'] != '2') {
+    header("Location: php/unauthorized.php");
+}
 
 ?>
 
@@ -48,14 +52,14 @@
          ?>
         <main id="main">
             <section class="contenido wrapper">
-                <div class = " filtros-busqueda ">
+                <!-- <div class = " filtros-busqueda ">
                   <div class="busqueda">
                     <i class="fas fa-search"></i>
                   </div>
                   <div class = "filtros">
                     <i class="fas fa-filter"></i>
                   </div>
-                </div>
+                </div> -->
         <!--Seccion de los libros-->
                 <div class="container main-libros">
                     <h3 class="titulo-pagina">Gestion de reservas!</h3>
@@ -256,8 +260,11 @@ function cargarReserva(idReserva, usuario, estadoReserva){
       
     <script>
       $(document).ready(function(){
-         $('#tablaReservas').DataTable(); 
-         responsive: true;
+         $('#tablaReservas').DataTable({
+          "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
+        "responsive": true,
+        "pagingType": "simple",
+    });  
          
       });
     </script>
