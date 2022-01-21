@@ -10,4 +10,9 @@ session_destroy();
 
 header("Location: ../login.php");
 
+function cerrarSesion(){
+    session_destroy();
+    header("Location: ../login.php");
+}
+
 ?>

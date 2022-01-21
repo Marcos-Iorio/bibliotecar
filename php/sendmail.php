@@ -221,6 +221,7 @@ $flag='0';
     $mail = new PHPMailer();
 //Set mailer to use smtp
     $mail->isSMTP();
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 //Define smtp host
     //$mail->Host = "smtp.office365.com";
         $mail->Host = "smtp.gmail.com";
@@ -365,14 +366,26 @@ function enviarRecuperacion($email, $token){
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
     $dotenv->load();
 
+    //Obtiene la url y la descomprime hasta obtener el relative path
+    $link = $_SERVER['REQUEST_URI'];
+    $link = explode("/", $link);
+    $nuevoLink = "";
+    foreach($link as $url){
+        if(str_contains($url, '.php')){
+            unset($url);
+        }else{
+            $nuevoLink .= $url . '/';
+        }
+    }
+
       
     $subject = "Recuperación de la cuenta.";
-    $body = "Hola, hace click en el siguiente <a href=\"http://localhost/bibliotecar/olvide_mi_pass.php?token=" . $token . "\">link</a> para generar una nueva contraseña en nuestro sitio";
+    $body = "Hola, hace click en el siguiente <a href=\"http://localhost" . $nuevoLink . "olvide_mi_pass.php?token=" . $token . "\">link</a> para generar una nueva contraseña en nuestro sitio";
 
     
     $mail = new PHPMailer();
     $mail->isSMTP();
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    /* $mail->SMTPDebug = SMTP::DEBUG_SERVER; */
     $mail->Host = "smtp.gmail.com";
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = "TLS"; 
@@ -406,10 +419,6 @@ function enviarRecuperacion($email, $token){
     //Closing smtp connection
     $mail->smtpClose();
 
-// Recaptcha
-
-if(isset($_POST['g-recaptcha-response'])){
-    echo verify($_POST['g-recaptcha-response']);
 }
 
 function verify($response){
@@ -432,7 +441,6 @@ function verify($response){
   return false;
 }
 
-}
 ?>
 
 	<title></title>

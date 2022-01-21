@@ -31,15 +31,10 @@
             INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
-<<<<<<< HEAD
-            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.idLibro DESC LIMIT $page_first_result , $results_per_page";
-  $stmt = $dbh->prepare($query);
-=======
             INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.idLibro";
             //INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.idLibro DESC LIMIT $page_first_result , $results_per_page";
 
 $stmt = $dbh->prepare($query);
->>>>>>> Jeremias
   
 if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
@@ -887,12 +882,7 @@ if ($stmt->execute()) {
                             <td>". $fila['nombreCategoria']."</td>
 
                             <td><a href='#modal-categoria' id='abrir-modal-categoria'><button onclick=\"javascript:cargarPropiedades('Categoria','".$fila["idCategoria"]."','".$fila["nombreCategoria"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
-<<<<<<< HEAD
-                          </tr>
-                        </tbody>";
-=======
                           </tr>";
->>>>>>> Jeremias
 
   endforeach;
 }

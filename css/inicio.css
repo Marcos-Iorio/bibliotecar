@@ -324,14 +324,6 @@ only screen and (                min-resolution: 2dppx) {
 .card{
     width: 350px;
     height: 350px;
-<<<<<<< HEAD
-    background-color: #ADB6C4;
-    box-shadow: 0px 30px 78px -47px black;
-    text-align: center;
-    color: white;
-    transition: all ease 0.5s;
-    border: none;
-=======
     background-color:white;
     box-shadow: 0px 30px 78px -47px black;
     text-align: center;
@@ -339,7 +331,7 @@ only screen and (                min-resolution: 2dppx) {
     transition: all ease 0.5s;
     border: none;
     border-radius: 20px;
->>>>>>> Jeremias
+
 }
 
 .card:hover{
@@ -392,11 +384,7 @@ div#clockdate{
     background-color: white;
     width: 350px;
     height: 200px;
-<<<<<<< HEAD
-    border-radius: 5px;
-=======
     border-radius: 20px;
->>>>>>> Jeremias
     box-shadow: 0px 30px 78px -47px black;
     -webkit-box-shadow: 0px 30px 78px -47px black;
     -moz-box-shadow: 0px 30px 78px -47px black;

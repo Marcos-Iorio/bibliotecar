@@ -234,11 +234,7 @@ label {
     color: #333;
     background:transparent;
     display: inline-block;
-<<<<<<< HEAD
     width: 10% !important;
-=======
-    /*width: 10% !important;*/
->>>>>>> Jeremias
     margin-right: 20px;
     text-align: left;
 }
@@ -822,8 +818,6 @@ body {
   .circular-menu.active .menu-item-botonera:nth-child(4) {
     transform: translate3d(-7em,1em,0);
   }
-<<<<<<< HEAD
-=======
 
   /* Labels */
   span.label{
@@ -871,8 +865,6 @@ body {
     height: 26px !important;
     line-height: 15px !important;
   }
->>>>>>> Jeremias
-  
 
   #close {
     color: black;
@@ -933,9 +925,4 @@ body {
     text-decoration: none;
     cursor: pointer;
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> Jeremias
-  
   
