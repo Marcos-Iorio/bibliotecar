@@ -1,0 +1,73 @@
+#treinta-dias-reservas, #todo-eltiempo-reserva, #reservas-cancelaciones{
+    background: white;
+    text-align: center;
+	padding: 10px 10px 10px 10px;
+	border-radius: 15px;
+	width: 91%;
+    margin: 50px;
+	box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+}
+
+
+svg{
+    display: block;
+    margin: 0 auto;
+}
+
+#tooltip{
+    position: absolute;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px; 
+    box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    pointer-events: none;
+
+}
+
+#tooltip.hidden{
+    display: none;
+}
+
+#tooltip p{
+    margin: 0;
+    font-size: 15px;
+    line-height: 20px;
+
+}
+
+#tooltip-todo{
+    position: absolute;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px; 
+    box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    pointer-events: none;
+
+}
+
+#tooltip-todo.hidden{
+    display: none;
+}
+
+#tooltip-todo p{
+    margin: 0;
+    font-size: 15px;
+    line-height: 20px;
+
+}

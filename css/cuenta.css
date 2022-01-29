@@ -1,0 +1,307 @@
+li{
+    list-style:none;
+    display: block;
+    margin: 0 auto;
+}
+
+.cuenta-item{
+    list-style: none;
+    color: black;
+    text-decoration: none;
+    font-size: 35px;
+    
+}
+
+.sidebar ul li.active > a, a[aria-expanded="true"] {
+    background:transparent !important;
+    /*color: transparent !important;*/
+    content: 'sdads';
+}
+
+label{
+    padding: 25px;
+    width: 120px;
+}
+
+input[type="submit"]{
+    display: block;
+    margin: 0 auto;
+}
+
+#dar-de-baja{
+    border: none;
+    display: block;
+    color: red;
+    margin: 15px auto;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;   
+    cursor: pointer;
+    border: 2px solid red;
+    background: transparent !important;
+    font-weight: bold;
+    transition: ease all 0.2s;
+}
+
+#dar-de-baja:hover{
+    background: rgba(255, 255, 255, 0.473) !important;
+    transition: ease all 0.2s;
+}
+
+
+table {
+    table-layout: fixed;
+ /*   width: 100%;*/
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 20px;
+}
+
+tbody tr{
+    border-bottom: 2px solid #222;
+    transition: ease 0.3s;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: gray;
+  }
+
+tbody tr:nth-child(even) {
+    background-color: #D6EEEE;
+}
+
+tbody tr:hover{
+    background-color: rgb(206, 206, 206);
+    color: #222;
+    transition: ease 0.3s;
+}
+
+thead{
+    color: white;
+    background: #333;
+}
+
+thead th:nth-child(1) {
+    width: 40%;
+}
+
+thead th:nth-child(2) {
+    width: 40%;
+}
+
+thead th:nth-child(3) {
+    width: 40%;
+}
+
+thead th:nth-child(4) {
+    width: 20%;
+}
+thead th:nth-child(5) {
+    width: 40%;
+}
+thead th:nth-child(6) {
+    width: 20%;
+}
+thead th:nth-child(7) {
+    width: 20%;
+}
+
+.tabla-libros{
+    text-align: center;
+    padding-bottom: 100px;
+}
+
+
+i.fas.fa-chevron-right {
+    padding: 15px;
+}
+
+#flecha, #flecha-reservas{
+    transition: ease 200ms;
+
+
+}
+
+input[type=text], input[type=number], input[type=file] textarea {
+    width: 20%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+    background: transparent;
+    color: black;
+    background-color: white;
+
+}
+
+
+input[type=text]:focus,input[type=number]:focus, input[type=file]:focus, textarea:focus {
+    border-bottom: 4px solid yellow;
+    background: rgba(255, 255, 255, 0.11);
+}
+
+input[type=submit] {
+	border: none;
+	display: block;
+    color: white;
+    margin: 15px auto;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: #333;
+    cursor: pointer;
+}
+
+input[type=submit]:focus {
+	box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+}
+
+
+input[type=submit]:hover {
+	box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+}
+#breadcrumbs{
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.fas.fa-arrow-circle-left{
+    position: fixed;
+    font-size: 30px;
+    left: 200px;
+    top: 20px;
+    color: #333;
+  }
+
+.titulo-cuenta{
+    text-align: center;
+}
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: fixed;
+    bottom: 300px;
+    background-color: #fefefe;
+    width: 60%;
+    left: 300px;
+    border: none;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #333;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .modal-header .close{
+      margin: 0px;
+  }
+
+  .modal-header h2{
+      text-align: center;
+      line-height: 3;
+      width: 700px;
+  }
+
+  input#confirmar{
+    border: none;
+    display: block;
+    color: white;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    border: 2px solid #333;
+    background-color: #333;
+    cursor: pointer;
+    transition: all ease 0.5s;
+  }
+
+  input#confirmar:hover{
+    background: white;
+    border: 2px solid #333;
+    transition: all ease 0.5s;
+    color: #333;
+  
+  }
+
+  button#cancelar{
+    border: 2px solid #333;
+    display: block;
+    color: #333;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
+
+button#cancelar:hover{
+  background: #333;
+  color: white;
+  transition: all ease 0.5s;
+}
+  
+  .modal-header {
+      text-align: center;
+    padding: 2px 16px;
+    background-color: #fefefe !important;
+    color: #333;
+  }
+  
+  .modal-body {
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.body-info{
+	margin-top: 25px;
+	display: inline-block;
+}

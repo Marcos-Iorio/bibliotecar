@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     //include('../js/mensajes.js');
 
     if(isset($_POST['username'])){
-        $username = $_POST['username'];
+        $username = strtolower($_POST['username']);
 
     }
 
@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 
     if(isset($_POST['mail'])){
-        $mail = $_POST['mail'];
+        $mail = strtolower($_POST['mail']);
     }
 
     #chequea si el mail ya esta registrado
@@ -45,24 +45,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(empty($arr)){
 
             #registrando al usuario
-        $stmt = $dbh->prepare("INSERT INTO usuarios (idEstado, idRol, nombre, mail, contrasena, checkMail) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $dbh->prepare("INSERT INTO usuarios (idEstado, idRol, nombre, mail, contrasena, check_mail) VALUES (?, ?, ?, ?, ?, ?)");
         // Bind
         $rol = 1;
         $idEstado = 1;
-        $checkMail = 0;
+        $check_mail = 0;
 
         $stmt->bindParam(3, $username);
         $stmt->bindParam(4, $mail);
         $stmt->bindParam(5, $pass);
         $stmt->bindParam(2, $rol);
         $stmt->bindParam(1, $idEstado);
-        $stmt->bindParam(6, $checkMail);
+        $stmt->bindParam(6, $check_mail);
 
       //print_r($stmt);
         // Execute
         
         if($stmt->execute()){
-                           
                 include('sendmail.php');
                 enviarMail();
                    // if(isset($_POST['confirmarCodigo'])){

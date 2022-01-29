@@ -8,76 +8,114 @@ session_start(); //starting the session for user profile page
 ?>
 
 <?php
-
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
     include('db.php');
 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
     if(isset($_POST['mailL']) && isset($_POST['passL'])){
-        $mail = $_POST['mailL'];
+        $GLOBALS['mail'] = strtolower($_POST['mailL']);
         //$_SESSION['loggedin'] = true;
         $pass = $_POST['passL'];
         
     }
 
-    $stmt = $dbh->prepare('SELECT idRol, contrasena, nombre, checkMail from usuarios where mail = "' . $mail .'" LIMIT 1');
+    $stmt = $dbh->prepare('SELECT idUsuario, idEstado, idRol, contrasena, nombre, check_mail from usuarios where mail = "' . $mail .'" LIMIT 1');
     // Ejecutamos
     $stmt->execute();
+
+
     // Mostramos los resultados
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+
     if($arr['idRol']){
         if(!empty($arr) && password_verify($pass, $arr['contrasena'])){
-        
-            if($arr['checkMail'] == '0'){
+                if($arr['check_mail'] == '0'){
                 
-                echo '
-                <script type="text/javascript">
-                
-                $(document).ready(function(){
-                    Swal.fire({
-                    icon: "error",
-                    title: "Falta confirmar mail!",
-                    didOpen: () => {
-                        timerInterval = setInterval(() => {
-                        const content = Swal.getHtmlContainer()
-                        if (content) {
-                            const b = content.querySelector("b")
-                            if (b) {
-                            b.textContent = Swal.getTimerLeft()
+                    echo '
+                    <script type="text/javascript">
+                    
+                    $(document).ready(function(){
+                        Swal.fire({
+                        icon: "error",
+                        title: "Falta confirmar mail!",
+                        didOpen: () => {
+                            timerInterval = setInterval(() => {
+                            const content = Swal.getHtmlContainer()
+                            if (content) {
+                                const b = content.querySelector("b")
+                                if (b) {
+                                b.textContent = Swal.getTimerLeft()
+                                }
                             }
+                            }, 100)
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval)
                         }
-                        }, 100)
-                    },
-                    willClose: () => {
-                        clearInterval(timerInterval)
-                    }
-                    }).then((result) => {
-                    /* Read more about handling dismissals below */
-                    if (result.dismiss === Swal.DismissReason.timer) {
-                        console.log("I was closed by the timer")
-                    }
-                    }) 
-                });
-                
-                setTimeout(function(){
-                    window.location.href = "../interfaces/login.php";
-                 }, 3000);
-                </script>
-                ';
-        
-            }else{
-                $_SESSION['loggedin'] = true;
-                $_SESSION['username'] = $arr['nombre'];
-                $_SESSION['mailL'] = $_POST['mailL'];
-                $_SESSION['start'] = time();
-                $_SESSION['expire'] = $_SESSION['start'] + 3600;
-                $_SESSION['rol'] = $arr['idRol'];
-                $_SESSION['mail_confirm'] = false;
-                
-                echo'<script type="text/javascript">
-                    setTimeout(window.location.href="../index.php", 3000);
-                    </script>';
-            }
+                        }).then((result) => {
+                        /* Read more about handling dismissals below */
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            console.log("I was closed by the timer")
+                        }
+                        }) 
+                    });
+                    
+                    setTimeout(function(){
+                        window.location.href = "../login.php";
+                     }, 3000);
+                    </script>
+                    ';
+                }elseif($arr['idEstado'] == 2){
+                    echo '
+                    <script type="text/javascript">
+                    
+                    $(document).ready(function(){
+                        Swal.fire({
+                        icon: "error",
+                        title: "Tu cuenta fue dada de baja!, crea una nueva cuenta para disfrutar de todo el contenido del sitio",
+                        didOpen: () => {
+                            timerInterval = setInterval(() => {
+                            const content = Swal.getHtmlContainer()
+                            if (content) {
+                                const b = content.querySelector("b")
+                                if (b) {
+                                b.textContent = Swal.getTimerLeft()
+                                }
+                            }
+                            }, 100)
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval)
+                        }
+                        }).then((result) => {
+                        /* Read more about handling dismissals below */
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            console.log("I was closed by the timer")
+                        }
+                        }) 
+                    });
+                    
+                    setTimeout(function(){
+                        window.location.href = "../login.php";
+                     }, 3000);
+                    </script>
+                    ';
+                }else{
+                    $_SESSION['loggedin'] = true;
+                    $_SESSION['username'] = $arr['nombre'];
+                    $_SESSION['mailL'] = $_POST['mailL'];
+                    $_SESSION['idUsuario'] = $arr['idUsuario'];
+                    $_SESSION['start'] = time();
+                    $_SESSION['expire'] = $_SESSION['start'] + 3600;
+                    $_SESSION['rol'] = $arr['idRol'];
+                    $_SESSION['mail_confirm'] = false;
+                    
+                    echo'<script type="text/javascript">
+                        setTimeout(window.location.href="../index.php", 3000);
+                        </script>';
+                }
         }else{
             echo '
                 <script type="text/javascript">
@@ -109,7 +147,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 });
                 
                 setTimeout(function(){
-                    window.location.href = "../interfaces/login.php";
+                    window.location.href = "../login.php";
                  }, 3000);
                 </script>
                 ';
@@ -125,53 +163,43 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         
     }
 
-    /* elseif($arr['idRol'] === '2'){
 
-        if(!empty($arr) && password_verify($pass, $arr['contrasena'])){
-            echo'<script type="text/javascript">
-                alert("Inicio de sesión con éxito");
-                </script>';
-                  session_start(); //starting the session for user profile page
-
-            echo'<script type="text/javascript">
-                setTimeout(window.location.href="../colaborador/inicioColab.php", 5000);
-                </script>';
-        }else{
-            echo'<script type="text/javascript">
-                alert("Credenciales erróneas");
-                </script>';
-            echo'<script type="text/javascript">
-                setTimeout(window.location.href="../html/login.html", 5000);
-                </script>';  
-        }
-    }elseif($arr['idRol'] === '3'){
-
-        if(!empty($arr) && password_verify($pass, $arr['contrasena'])){
-            echo'<script type="text/javascript">
-                alert("Inicio de sesión con éxito");
-                </script>';
-                        session_start(); //starting the session for user profile page
-
-            echo'<script type="text/javascript">
-                setTimeout(window.location.href="../administrador/inicioAdmin.php", 5000);
-                </script>';
-        }else{
-            echo'<script type="text/javascript">
-                alert("Credenciales erróneas");
-                </script>';
-            echo'<script type="text/javascript">
-                setTimeout(window.location.href="../html/login.html", 5000);
-                </script>';  
-        }
-    }else{
-        echo'<script type="text/javascript">
-                alert("Usuario no registrado!");
-                </script>';
-            echo'<script type="text/javascript">
-                setTimeout(window.location.href="../html/login.html", 5000);
-                </script>';  
-    }*/ 
-
+    if (empty($arr)) {
+                    echo '
+                <script type="text/javascript">
+                
+                $(document).ready(function(){
+                    Swal.fire({
+                    icon: "error",
+                    title: "El usuario ingresado no existe",
+                    didOpen: () => {
+                        timerInterval = setInterval(() => {
+                        const content = Swal.getHtmlContainer()
+                        if (content) {
+                            const b = content.querySelector("b")
+                            if (b) {
+                            b.textContent = Swal.getTimerLeft()
+                            }
+                        }
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                    }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log("I was closed by the timer")
+                    }
+                    }) 
+                });
+                
+                setTimeout(function(){
+                    window.location.href = "../login.php";
+                 }, 3000);
+                </script>
+                ';
+    }
     
 }else{
     echo "metodo no autorizado";

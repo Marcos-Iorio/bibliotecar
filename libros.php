@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <?php
+    include('php/llenarLibros.php');
+    
+
     session_start();
 
    /*  is_logged(); */
@@ -31,42 +34,74 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="css/inicio.css">
-    <link rel="stylesheet" href="css/libros.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/inicio.css" type="text/css">
+    <link rel="stylesheet" href="css/libros.css" type="text/css">
+    <script defer src="js/lazyLoad.js"></script>
     <title>Document</title>
 </head>
 <body>
     <section id="page">
         <?php 
           include "php/panel.php";
-
          ?>
         <main id="main">
             <section class="contenido wrapper">
+
                 <div class = " filtros-busqueda ">
+                <form name="formUsuarios" action="" method = "POST" class= "form-libro">
+
                   <div class="busqueda">
                     <i class="fas fa-search" onclick="showSearch()"></i>
-                    <input class="campo-busqueda" type="text" name="campo-busqueda" id="campo-busqueda">
-                    <input id="buscar" type="submit" value="Buscar">
+                    <input class="campo-busqueda" type="text" style="background-color: #f1f1f1; color: black; height: 80%; margin-top: 20px;" name="campo-busqueda" id="campo-busqueda">
+                    <input id="buscar" name=txtBuscar type="submit" value="Buscar" style=" margin-top: 10px; height: 30px;">
+                    
                   </div>
+                </form>
+
                   <div class = "filtros">
-                    <i class="fas fa-filter"></i>
+                    <button onclick="abrirFiltros()"><i class="fas fa-filter"></i></button>
                   </div>
+                </div>
+                <div class="menu-filtro" id="menu-filtro">
+                    <h3>FILTROS</h3>    
+                    <h3>CATEGORIAS</h3>
+                    <div class="checklist categories">
+                        <ul>
+                            <?php
+                                todasLasCategorias();
+                            ?>
+                        </ul>
+                    </div>
+                    
+                    <h3>Autores</h3>
+                    <div class="checklist autores">
+                        <ul>
+                            <?php
+                                todosLosAutores();
+                            ?>
+                        </ul>   
+                    </div>
                 </div>
         <!--Seccion de los libros-->
                 <div class="container main-libros">
-                    <h3>Portal de libros!</h3>
+                    <h3 class="titulo-pagina">Portal de libros!</h3>
+                                        <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
+                    <div id="breadcrumbs"></div>
                     <div class="grid-libros">
 
                     <?php
-                    include_once('php/llenarLibros.php');
+                    if (!isset($_POST['txtBuscar'])) {
+                        todosLosLibros();
+
+                    } else {
+                        busquedaLibros($_REQUEST["campo-busqueda"]);
+                    }
                     /* Llena el flexbox con los libros traidos de la base de datos */
-                    foreach($resultado as $fila):?>
+                    /* foreach($resultado as $fila):?>
                         <div class="libro-prueba" id="libro-prueba">
                             <a class="link" id="id-libro" href="single-book.php?sku=<?php echo $fila['idLibro'];?>">
                                 <div class="imagen-libro">
-                                    <img class="imagen-libro" src="<?php echo $fila['imagen_libro']; ?>" alt="">
+                                    <img class="imagen-libro" data-lazy="<?php echo $fila['imagen_libro']; ?>" alt="">
                                 </div>
                                 <div class="informacion">
                                     <p class="libro-info">
@@ -85,20 +120,18 @@
                                 </div>
                             </a>
                         </div>
-                    <?php endforeach; ?>
+                    <?php endforeach; */ ?>
 
                     </div>
                 </div>
             </section>
-            <button onclick="contacto()" class="buttonInfo tooltip">
-                <i class="fas fa-question"></i>
-                <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
-            </button>
         </main>
       </section>
 </body>
 <script src="js/navbarToggle.js"></script>
 <script src="js/libros.js"></script>
+<script src="js/breadCrumbs.js"></script>
+
  <!-- jQuery CDN - Slim version =without AJAX -->
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->

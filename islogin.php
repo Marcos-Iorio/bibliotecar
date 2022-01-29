@@ -3,7 +3,7 @@
                     if ($pid == '1' || $pid == '2' || $pid == '3' ) {
                       echo "<li><a href=\"\"  id=\"cuenta\"><span>Cuenta</span></a></li>
                       <li ><a href=\"\" id=\"sugerencias\"><span>Sugerencias</span></a></li>
-                      <li ><a href='..\"interfaces\"contacto.php' id=\"contacto\"><span>Contacto</span></a></li>";
+                      <li ><a href='..\"contacto.php' id=\"contacto\"><span>Contacto</span></a></li>";
                     }
                     
                     if ($pid == '2' || $pid == '3') {
