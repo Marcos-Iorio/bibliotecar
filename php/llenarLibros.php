@@ -114,7 +114,7 @@ if ($stmt->rowCount() == '') {
 
 function singleBook($idLibro){
     include 'db.php';
-    $query = 'SELECT l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial, i.ruta, i.idCategoriaImg
+    $query = 'SELECT l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial, i.ruta, i.ruta_contratapa, i.idCategoriaImg
             FROM libros AS l
             INNER JOIN libro_autores la ON l.idLibro = la.idLibro
             INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
@@ -127,11 +127,16 @@ function singleBook($idLibro){
     $stmt = $dbh->prepare($query);
     $stmt->execute();
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($arr['idCategoriaImg']=='2') {
-            $contratapa= $arr['ruta'];
-          }  else {
-            $contratapa= $arr['ruta'];
-          }
+    //$arr=$stmt->fetchAll();
+    // foreach($arr as $fila):
+
+    // if ($arr['idCategoriaImg']=='2') {
+    //         $contratapa= $arr['ruta_contratapa'];
+    //        }  else {
+    //          $contratapa= $arr['ruta'];
+    //        }
+           
+    //     endforeach;
  
     if ($arr['pdf']=='' or $arr['pdf']==' ') {
             $pdf='';
@@ -143,6 +148,13 @@ function singleBook($idLibro){
     <span><a name="file_pdf" href="'. $arr['pdf'] .'" download="'. $arr['titulo'] .'"><i  class="fas fa-cloud-download-alt"></i></a></span>';
             }
           }
+          
+          if (!($arr['ruta_contratapa']=='')) {
+            $contratapa=$arr['ruta_contratapa'];
+        } else {
+            $contratapa=$arr['ruta'];
+        }
+
 
     echo '
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -151,10 +163,12 @@ function singleBook($idLibro){
         <div class="carousel-item active">
             <img id="img-libro" class="d-block w-100" src="' . $arr['ruta'] . '" alt="Tapa">
         </div>
+
         <div class="carousel-item">
             <img id="img-libro" class="d-block w-100" src="' . $contratapa . '" alt="Contra Tapa">
     
         </div>
+
     </div>
     <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

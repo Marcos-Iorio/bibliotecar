@@ -178,7 +178,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
 <br>
 <br>
    <br>
-                        <input style="width: 10%;" name='email' type='submit'  placeholder='you@dominio.com..' value='Dar de baja'/>
+                        <button style="width: 10%;" id="dar-de-baja" value='Dar de baja'>Dar de baja</button>
                     <?php 
                     //datosUsuario('275');
                      ?>
@@ -186,14 +186,55 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                     </ul>
 
             </li>
+            <!-- Modal dar de baja -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>¿Estás seguro que querés borrar tu cuenta? Este proceso no se puede revertir.</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="POST">
+                            <input class="confirmar" id="confirmar" name="confirmar" value="Confirmar" type="submit">
+                        </form>
+                        <?php 
+                        if (isset($_POST['confirmar'])) {
+                            $id = $_SESSION['idUsuario'];
+                            bajaUsuario($id);
+                        }
+                        ?>
 
-            <button onclick="contacto()" class="buttonInfo tooltip">
-                <i class="fas fa-question"></i>
-                <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
-            </button>
+                        <button id="cancelar">Cancelar</button>
+
+                    </div>
+                </div>
+            
+
         </main>
       </section>
 </body>
+<script>
+    const btnBaja = document.querySelector('#dar-de-baja');
+    const modal = document.querySelector('#myModal');
+
+    btnBaja.addEventListener('click', (e) =>{
+        e.preventDefault();
+        modal.style.display = "block";
+    });
+
+    var span = document.querySelector('.close');
+
+    var cancelar = document.querySelector('#cancelar');
+
+    cancelar.onclick = function () {
+        modal.style.display = "none";
+    }
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+</script>
 
 <script src="js/navbarToggle.js"></script>
    <!-- jQuery CDN - Slim version =without AJAX -->

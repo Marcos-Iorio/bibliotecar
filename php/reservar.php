@@ -66,8 +66,7 @@ function mainReservar($mail, $skuLibro, $fechaDesde, $fechaHasta){
                    //header('Location: ../single-book.php?sku='.$skuLibro);
           confirmarReserva($skuLibro, $nombre, $correo, $codigo);
          } else {
-                    echo "<script>swal({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.$codigo,  $idEjemplar, $reservaEstado, $idUsuario, $fechaDesde, $fechaHasta',type:'error'});</script> ";
-
+            echo "<script>Swal.fire({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.$codigo,  $idEjemplar, $reservaEstado, $idUsuario, $fechaDesde, $fechaHasta',type:'error'});</script> ";
          }
       }
   
@@ -103,7 +102,7 @@ function confirmarReserva($idLibro, $nombre, $correo, $codigo){
         } else {
                     //echo "<script>swal({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.',type:'error', html:'<a href=\"libros.php\">Regresar</a>'});</script> ";
 
-          echo "<script>swal({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.',type:'error'});</script> ";
+          echo "<script>Swal.fire({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.',type:'error'});</script> ";
         }
 
 

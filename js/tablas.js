@@ -170,6 +170,14 @@ function canceladasYFinalizadas(){
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    svg.append("text")
+        .attr("transform", "translate(100,0)")
+        .attr("x",150)
+        .attr("y", 50)
+        .attr("font-size", "24px")
+        .text("Cantidad de reservas canceladas y finalizadas");
+
+
     var x0 = d3.scaleBand()
         .rangeRound([0, width])
         .paddingInner(0.1);
