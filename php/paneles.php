@@ -19,15 +19,20 @@
         // Mostramos los resultados
         $arr = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        if ($arr['totalReservas'] == 0) {
-            echo 'No tenes reservas realizadas';
-        }elseif($nombreUsuario != null){
-            echo $nombreUsuario . ", tenés: <strong>" . $arr['totalReservas'] . "</strong> reservas hechas,
-             la fecha próxima para devolver el libro es: <strong>" . $arr['fechaHasta'] . "</strong>";
-        }else{
-            echo 'Acá aparecerían tus reservas, SI TUVIERAS CUENTA!<br>';
-        }
 
+        if ($nombreUsuario != null) {
+            if ($arr['totalReservas'] == 0 ) {
+            echo 'Actualmente no tenes ninguna reserva activa';
+            }else{
+                echo $nombreUsuario . ", tenés: <strong>" . $arr['totalReservas'] . "</strong> reservas hechas,
+                la fecha próxima para devolver el libro es: <strong>" . $arr['fechaHasta'] . "</strong>
+                <br><br><br>
+                <a class='ver-mas-paneles' href='cuenta.php'>Ver más</a>";
+            }
+        } else {
+            echo 'Ingresá o registrate para acceder a tus libros y reservas.<br>';
+        
+    }
         
     }
 

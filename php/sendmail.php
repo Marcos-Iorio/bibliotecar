@@ -36,8 +36,8 @@ function enviarMail(){
        		if (isset($_POST['username']) && isset($_POST['mail'])) {
         		$name = $_POST['username'];
         		$email = $_POST['mail'];
-                   	$subject = "Confirmacion de registro: Tu codigo de verificacion";
-        	$body = "Hola " . $name . "! <br> <br> Gracias por registrarte. Por favor copia el codigo de abajo y pegalo en la pagina de verificacion. <br> <br> Tu codigo de verificacion es: " . "<b>".$d."<b>";
+                $subject = "Confirmacion de registro: Tu codigo de verificacion";
+        	    $body = "Hola " . $name . "! <br> <br> Gracias por registrarte. Por favor copia el codigo de abajo y pegalo en la pagina de verificacion. <br> <br> Tu codigo de verificacion es: " . "<b>".$d."<b>";
         	    cargarCodigo($d, $email);
 
          	}
@@ -218,7 +218,7 @@ $flag='0';
                 //cargarCodigo2($pin, $email);
 
 //Create instance of PHPMailer
-    $mail = new PHPMailer();
+    $mail = new PHPMailer(true);
 //Set mailer to use smtp
     $mail->isSMTP();
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;
