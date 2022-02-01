@@ -213,7 +213,7 @@ if ($stmt->execute()) {
                         <input name='last_name' type='text'  placeholder='Apellido..' value='".$fila['apellido']."'/>
                         
                         <label for='email'>Email:</label>
-                        <input name='email' type='text'  readonly placeholder='you@dominio.com..' value='".$fila['mail']."'/>
+                        <input name='email' type='text' id='mail'  readonly placeholder='you@dominio.com..' value='".$fila['mail']."'/>
                     </div>  
                       <br>
                     <div  class='input-group'>  
@@ -230,7 +230,7 @@ if ($stmt->execute()) {
                         <br>
                         <div  class='input-group'>
 
-                        <input style='width: 290px; margin-left: 535px;margin-top: 10px;' type='submit' value='Modificar'>
+                        <input class='submit-datos' type='submit' value='Modificar'>
                   </div>
       </form>
 

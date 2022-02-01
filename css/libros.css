@@ -47,9 +47,7 @@ div#libro-prueba{
     height: 250px;
     align-self: center;
     justify-self: center;
-    box-shadow: 0px 30px 78px -47px black;
-    -webkit-box-shadow: 0px 30px 78px -47px black;
-    -moz-box-shadow: 0px 30px 78px -47px black;
+   
 }
 .tabla-libros{
     text-align: center;
@@ -60,6 +58,9 @@ div#libro-prueba{
 div#libro-prueba:hover{
     overflow: hidden;
     transition: ease 0.3s;
+    box-shadow: 0px 30px 78px -10px black;
+    -webkit-box-shadow: 0px 30px 78px -10px black;
+    -moz-box-shadow: 0px 30px 78px 0px black;
     /* transform: scale(1.05); */
     
 }
@@ -726,7 +727,7 @@ body {
     width: 3.5em;
     height: 3.5em;
     border-radius: 50%;
-    background-color: hsl(236, 98%, 60%);
+    background-color: rgb(53, 66, 253);
     box-shadow: 0 2px 5px 0 hsla(0, 0%, 0%, .26);  
     color: hsl(0, 0%, 100%);
     text-align: center;
@@ -820,52 +821,33 @@ body {
   }
 
   /* Labels */
-  span.label{
-    position: absolute !important;
-    top: -60px !important;
-    left: -15px !important;
-    color: white !important;
-    font-size: 15px !important;
-    font-weight: 400;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: hsl(236, 98%, 60%);
-    border-radius: 20px;
-    padding: 5px;
+.menu-item-botonera {
+    text-decoration:block;
+    position:relative;
+}
+.menu-item-botonera a span {
     display: none;
-    height: 26px !important;
-    line-height: 15px !important;
-  }
-  
-  span.label-left{
-    position: absolute !important;
-    left: -120px !important;
-    color: white !important;
-    font-size: 15px !important;
+    position: relative;
+    color: white;
+    /* background-color:hsl(236, 98%, 60%);
+    border-radius: 15px; */
+    width: 200%;
+    height: 20%;
     font-weight: 400;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: hsl(236, 98%, 60%);
-    border-radius: 20px;
-    padding: 5px;
-    display: none;
-    height: 26px !important;
-    line-height: 15px !important;
-  }
+    height: 51%;
+    line-height: 24px;
 
-  span.label-left-2{
-    position: absolute !important;
-    left: -135px !important;
-    color: white !important;
-    font-size: 15px !important;
-    font-weight: 400;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: hsl(236, 98%, 60%);
-    border-radius: 20px;
-    padding: 5px;
-    display: none;
-    height: 26px !important;
-    line-height: 15px !important;
-  }
-  
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(53, 66, 253, 0.75);
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+.menu-item-botonera:hover a span {
+    display:block;
+    position:absolute;
+    overflow:hidden;
+}
 
   #close {
     color: black;

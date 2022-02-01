@@ -38,7 +38,7 @@
                 //if($_SERVER['REQUEST_METHOD'] == 'GET'){
                     include "php/llenarLibros.php";
                     $GLOBALS['idLibro'] = $_GET['sku'];
-                    $idUsuario = $_SESSION['idUsuario'];
+                    
                     
                     singleBook($idLibro);
 

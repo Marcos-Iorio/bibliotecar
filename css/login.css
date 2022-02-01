@@ -37,20 +37,6 @@ body {
     100%{background-position:92% 0%}
 }
 
-#libroIcon {
-	width: 70px;
-	height: 70px;
-	position: absolute;
-	background: none;
-	top: 5px;
-	left: 10px;
-}
-  
-#libroIcon {
-	top: 50px;
-	left: 50px;
-}
-
 h1 {
 	font-weight: bold;
 	margin: 0;
@@ -70,6 +56,7 @@ p {
 	margin: 20px 0 30px;
 	text-align: center;
 }
+
 
 span {
 	font-size: 12px;
@@ -93,6 +80,7 @@ button {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+	cursor: pointer;
 }
 
 button:active {
@@ -504,4 +492,262 @@ footer a {
 
   .fas.fa-arrow-circle-left:hover{
     color: rgb(95, 95, 95);
+}
+
+@media (max-width: 768px) {
+	h1 {
+		font-weight: bold;
+		margin: 0;
+		font-size: 17px;
+	}
+	
+	.logo{
+		text-align: center;
+		width: 7em;
+		height: 7em;
+		display: none;
+	}
+	
+	p {
+		font-size: 15px;
+		font-weight: 100;
+		line-height: 20px;
+		letter-spacing: 0.5px;
+		margin: 20px 0 30px;
+		text-align: center;
+	}
+
+	p.require{
+		font-size: 10px;
+		line-height: 3px;
+	}
+	
+	span {
+		font-size: 13px !important;
+	}
+	
+	a {
+		color: #333;
+		font-size: 9px;
+		text-decoration: none;
+		margin: 15px 0;
+	}
+	
+	button, button#btn-registro {
+		border-radius: 20px;
+		border: 1px solid #333;
+		background-color: #333;
+		color: #FFFFFF;
+		font-size: 8px;
+		font-weight: bold;
+		padding: 7px 11px;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		transition: transform 80ms ease-in;
+		cursor: pointer;
+	}
+
+	button:active {
+		transform: scale(0.95);
+	}
+	
+	button:focus {
+		outline: none;
+	}
+	
+	button.ghost {
+		background-color: transparent;
+		border-color: #FFFFFF;
+	}
+	form {
+		background-color: #FFFFFF;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		margin-top: 67% !important;
+		padding: 0 50px;
+		height: 50%;
+		text-align: center;
+	}
+	
+	input {
+		background-color: #eee;
+		border: none;
+		padding: 12px 15px;
+		margin: 8px 0;
+		width: 100%;
+		font-size: 12px;
+	}
+	
+	.container {
+		background-color: #fff;
+		border-radius: 10px;
+		  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+				0 10px 10px rgba(0,0,0,0.22);
+		position: relative;
+		overflow: hidden;
+		width: 90% !important;
+		max-width: 100%;
+		min-height: 75% !important;
+	}
+	
+	.form-container {
+		position: absolute;
+		top: 0;
+		height: 100% !important;
+		transition: all 0.6s ease-in-out;
+	}
+	
+	.sign-in-container {
+		left: 0;
+		height: 100% !important;
+		width: 100%;
+		z-index: 2;
+	}
+	
+	.container.right-panel-active .sign-in-container {
+		transform: translateY(100%) !important;
+	}
+	
+	.sign-up-container {
+		left: 0;
+		width: 100%;
+		opacity: 0;
+		z-index: 1;
+	}
+	
+	.container.right-panel-active .sign-up-container {
+		transform: translateY(-50%) !important;
+		opacity: 1;
+		z-index: 5;
+		animation: show 0.6s;
+	}
+	
+	.pass__require{
+		background-color: white;
+		border-radius: 0px;
+		padding: 0px;
+		position: absolute;
+		bottom: 0px;
+		right: 0px;
+		color: #222;
+		width: 100%;
+		height: 23%;
+		font-size: 10px;
+		font-weight: 400;
+		box-shadow: 2px 2px 2px 1px rgb(27 27 27);
+		animation-name: appear;
+		animation-duration: 3s;
+		z-index: 1000;
+	}
+
+	.overlay-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100% !important;
+		height: 50% !important;
+		overflow: hidden;
+		transition: transform 0.6s ease-in-out;
+		z-index: 100;
+	}
+	
+	.container.right-panel-active .overlay-container{
+		transform: translateY(100%) !important;
+	}
+	
+	.overlay {
+		background: #FF416C;
+		background: -webkit-linear-gradient(to right, #333, #222);
+		background: linear-gradient(to right, #333, #222);
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: 0 0;
+		color: #FFFFFF;
+		position: relative;
+		left: 0;
+		height: 100% !important;
+		width: 100% !important;
+		  transform: translateY(0)!important;
+		transition: transform 0.6s ease-in-out;
+	}
+	
+	.container.right-panel-active .overlay {
+		  transform: translateY(0) !important;
+	}
+	
+	.overlay-panel {
+		position: absolute;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		padding: 0 40px;
+		text-align: center;
+		top: 0;
+		height: 100% !important;
+		width: 100% !important;
+		transform: translateY(0) !important;
+		transition: transform 0.6s ease-in-out;
+	}
+	
+	.overlay-left {
+		transform: translateY(240%) !important;
+		margin-top: 0;
+	}
+	
+	.container.right-panel-active .overlay-left {
+		transform: translateY(0%) !important;
+	}
+	
+	.overlay-right {
+		right: 0;
+		margin-top: 54px;
+		transform: translateY(-20%) !important;
+	}
+	
+	.container.right-panel-active .overlay-right {
+		transform: translateY(-100%) !important;
+	}
+	
+	.social-container {
+		margin: 20px 0;
+	}
+	
+	.social-container a {
+		border: 1px solid #DDDDDD;
+		border-radius: 50%;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0 5px;
+		height: 40px;
+		width: 40px;
+	}
+	#mostrar-pass{
+		display: block;
+		position: absolute;
+		bottom: 13%;
+		right: 73px;
+	  }
+	
+	  #mostrar-pass-login{
+		display: block;
+		position: absolute;
+		bottom: 24%;
+    	right: 69px;
+	  }
+	
+	  .fas.fa-eye-slash{
+		  display: none;
+		  font-size: 12px;
+	  }
+	  .fas.fa-eye{
+		  display: none;
+		  font-size: 12px;
+	  }
+	  h3{
+		display: none;
+	}
 }

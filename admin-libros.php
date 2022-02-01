@@ -37,6 +37,7 @@
   <link rel="stylesheet" href="css/inicio.css">
   <link rel="stylesheet" href="css/libros.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <title>Document</title>
 </head>
 
@@ -579,10 +580,10 @@
         </a>
 
         <menu class="items-wrapper">
-        <button onclick="abrirSeccionLibro()" class="menu-item-botonera fas fa-book"><a href="#seccion-libros"></a><span class="label">Libros</span></button>
-        <button onclick="abrirSeccionAutor()" class="menu-item-botonera fas fa-user-alt"><a href="#seccion-autor" ></a><span class="label">Autores</span></button>
-        <button onclick="abrirSeccionCategoria()" class="menu-item-botonera fas fa-list-ul"><a href="#seccion-categorias"><span class="label-left">Categorias</span></a></button>
-        <button onclick="abrirSeccionEditorial()" class="menu-item-botonera far fa-newspaper"><a href="#seccion-editorial"></a><span class="label-left-2">Editoriales</span></button>
+        <button onclick="abrirSeccionLibro()" class="menu-item-botonera fas fa-book"><a href="#seccion-libros"><span style="top:-60px; left: -50px" class="tooltip-span-libros">Libros</span></a></button>
+        <button onclick="abrirSeccionAutor()" class="menu-item-botonera fas fa-user-alt"><a href="#seccion-autor" ><span style="top:-30px; left: -110px" class="tooltip-span">Autores</span></a></button>
+        <button onclick="abrirSeccionCategoria()" class="menu-item-botonera fas fa-list-ul"><a href="#seccion-categorias"><span style="top:-20px; left: -110px" class="tooltip-span">Categorias</span></a></button>
+        <button onclick="abrirSeccionEditorial()" class="menu-item-botonera far fa-newspaper"><a href="#seccion-editorial"><span style="top:-20px; left: -120px" class="tooltip-span">Editoriales</span></a></button>
         </menu>
 
       </div>
@@ -764,15 +765,20 @@ spanEdit.onclick = function() {
 
 
 <script src="js/navbarToggle.js"></script>
-
-<!-- jQuery CDN - Slim version =without AJAX -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <!-- Popper.JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
   integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <!-- Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
   integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
+  
+<script>
+  /* $('.menu-item-botonera').on('mousemove', function(e){
+  var tooltipImg = $(this).find('.tooltip-span');
+    $(tooltipImg).css({
+    'top' : '-20px',
+    'left' : '-100px'
+    });
+  }); */
+</script>
 </html>
