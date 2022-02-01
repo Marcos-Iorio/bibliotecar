@@ -49,9 +49,9 @@ input[type="submit"]{
 }
 
 
-table {
+table.table-cuenta {
     table-layout: fixed;
- /*   width: 100%;*/
+    width: 80%;
     border-collapse: collapse;
 }
 
@@ -305,3 +305,16 @@ button#cancelar:hover{
 	margin-top: 25px;
 	display: inline-block;
 }
+
+@media screen and (orientation: landscape) 
+and (max-device-width: 1000px) {
+    table.table-cuenta{
+        width: 100%;
+    }
+    button#dar-de-baja{
+        width: 50% !important;
+    }
+    input[type="text"]{
+        width: 29% !important;
+    }
+}   

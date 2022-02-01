@@ -9,6 +9,7 @@ exit;
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -22,10 +23,10 @@ exit;
 <body>
     <div class="pass__require hidden" id ="passRequire">
         <h3>La contraseña debe contener:</h3>
-        <p id="letter" class="invalid">Una <b>letra</b> Minúscula</p>
-        <p id="capital" class="invalid">Una <b>letra</b> Mayúscula</p>
-        <p id="number" class="invalid">Un <b>numero</b></p>
-        <p id="length" class="invalid">Mínimo <b>8 carácteres</b></p>
+        <p id="letter" class="require invalid">Una <b>letra</b> Minúscula</p>
+        <p id="capital" class="require invalid">Una <b>letra</b> Mayúscula</p>
+        <p id="number" class="require invalid">Un <b>numero</b></p>
+        <p id="length" class="require invalid">Mínimo <b>8 carácteres</b></p>
     </div>
     <div class="container" id="container">
         <div class="form-container sign-up-container">

@@ -43,7 +43,7 @@ section.contenido.wrapper{
 #page > #sidebar {
     grid-area: nav;
     width: 60px;
-    height: 100vh;
+    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
@@ -439,7 +439,7 @@ div#clockdate{
         background: #ADB7F5;
         width: 100%;
         padding: 16px;
-        padding-right: 0px;
+        padding-right: -1px;
         padding-bottom: 0px;
         transition: padding-left 0.5s;
         overflow-y: hidden;
@@ -462,4 +462,11 @@ div#clockdate{
 
   .fas.fa-arrow-circle-left:hover{
     color: rgb(95, 95, 95);
+}
+
+@media screen and (orientation: landscape) 
+and (max-device-width: 1000px){
+    #page > #sidebar{
+        overflow-y: scroll !important;
+    }
 }
