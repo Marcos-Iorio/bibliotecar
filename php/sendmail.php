@@ -212,7 +212,7 @@ function enviarMail(){
                 //cargarCodigo2($pin, $email);
 
 //Create instance of PHPMailer
-    $mail = new PHPMailer();
+    $mail = new PHPMailer(true);
 //Set mailer to use smtp
     $mail->isSMTP();
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;

@@ -218,13 +218,13 @@ if ($stmt->execute()) {
                       <br>
                     <div  class='input-group'>  
                         <label for='message'>DNI:</label>
-                        <input type='text' value='".$fila['numeroDocumento']."'>
+                        <input type='text' name='numeroDocumento' value='".$fila['numeroDocumento']."'>
                         
                         <label for='message'>Telefono:</label>
-                        <input type='text' value='".$fila['telefono']."'>
+                        <input type='text' name='telefono' value='".$fila['telefono']."'>
                         
                         <label for='message'>Direccion:</label>
-                        <input type='text' value='".$fila['direccion']."'>
+                        <input type='text' name='direccion' value='".$fila['direccion']."'>
                         
                         </div>
                         <br>
@@ -244,7 +244,7 @@ if ($stmt->execute()) {
 
 
 
-function modificarDatos($idUsuario){
+function modificarDatos($idUsuario, $nombre, $apellido, $documento, $telefono, $direccion){
   include 'db.php';
 
   /*if (!isset ($_GET['page']) ) {  
@@ -266,43 +266,15 @@ function modificarDatos($idUsuario){
   $stmt = $dbh->prepare("SELECT * FROM usuarios LIMIT " . $page_first_result . ',' . $results_per_page);*/
   
 
-  $stmt = $dbh->prepare("SELECT * FROM usuarios where idUsuario = '$idUsuario'");
+  $stmt = $dbh->prepare("UPDATE usuarios set nombre='$nombre', apellido='$apellido', numeroDocumento='$documento', telefono='$telefono', direccion='$direccion' where idUsuario = '$idUsuario'");
 
 
 if ($stmt->execute()) {
-  $resultado=$stmt->fetchAll();
+  echo "<script>swal({title:'Exito',text:'Tus datos fueron modificados correctamente.',type:'success'});</script> ";
 
-  foreach($resultado as $fila):
+} else {
+  echo "<script>swal({title:'Error',text:'Hubo un problema al modificar los datos. Por favor intenta nuevamente.',type:'error'});</script> ";
 
-
-    echo "
-<form method='POST' name='contact_form' id='contact-form'>
-                        <label for='first_name'>Nombre</label>
-                        <input name='name' type='text'  placeholder='Nombre..' value='".$fila['nombre']."'/>
-                        <br>
-                        <label for='last_name'>Apellido:</label>
-                        <input name='last_name' type='text'  placeholder='Apellido..' value='".$fila['apellido']."'/>
-                        <br>
-                        <label for='email'>Email:</label>
-                        <input name='email' type='text'  readonly placeholder='you@dominio.com..' value='".$fila['mail']."'/>
-                        <br>
-                        <label for='message'>DNI:</label>
-                        <input type='text' value='".$fila['numeroDocumento']."'>
-                        <br>
-                        <label for='message'>Telefono:</label>
-                        <input type='text' value='".$fila['telefono']."'>
-                        <br>
-                        <label for='message'>Direccion:</label>
-                        <input type='text' value='".$fila['direccion']."'>
-                        <br>
-                        <label for='message'>Localidad:</label>
-                        <input type='text' value='".$fila['idLocalidad']."'>
-                        <div class='center'>
-                        <input style='width: 200px; margin-left: 1px;' type='submit' value='Modificar'>
-                    </form>
-
-    ";
-    endforeach;
 }
 
 

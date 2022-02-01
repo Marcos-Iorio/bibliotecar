@@ -213,6 +213,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                         if (isset($_POST['confirmar'])) {
                             $id = $_SESSION['idUsuario'];
                             bajaUsuario($id);
+                            
+                        }
+
+                        if (isset($_POST['modificarUsuario'])) {
+                            $id = $_SESSION['idUsuario'];
+                            modificarDatos($id,$_POST['name'],$_POST['last_name'],$_POST['numeroDocumento'],$_POST['telefono'],$_POST['direccion']);
                         }
                         ?>
 
@@ -220,7 +226,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
 
                     </div>
                 </div>
-
 
         </main>
     </section>

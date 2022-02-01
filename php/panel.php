@@ -44,7 +44,7 @@
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 if ($pid == '1' || $pid == '2' || $pid == '3' ) {
         ?>        
-                  <li ><a class="scroll-link" href="sugerencias.php" id="sugerencias"><i class="fas fa-file-signature"></i><span class="menu-item">Sugerencias</span></a></li>
+                  <!-- <li ><a class="scroll-link" href="sugerencias.php" id="sugerencias"><i class="fas fa-file-signature"></i><span class="menu-item">Sugerencias</span></a></li> -->
                   <li ><a class="scroll-link" href='contacto.php' id="contacto"><i class="fas fa-envelope"></i><span class="menu-item">Contacto</span></a></li>
                 <?php
                 }
