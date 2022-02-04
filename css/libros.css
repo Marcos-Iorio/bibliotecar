@@ -87,15 +87,16 @@ div#libro-prueba:hover{
     bottom: 0px;
     left: 0;
     width: 100%;
-    transform: translateY(-100px);
+    transform: translateY(2%);
     display: grid;
     place-content: center;
+    height: 80%;
 }
 
 div#libro-prueba:hover .informacion{
-    transform: translateY(0px);
+    transform: translateY(2%);
     width: 100%;
-    height: 75%;
+    height: 80%;
     opacity: 1;
     transition: all ease 0.3s;
 }
@@ -145,16 +146,36 @@ img.imagen-libro{
     opacity: 0;
 }
 
-p.libro-info{
+div.libro-info{
     font-size: 14px;
     width: 100% !important;
-    padding: 5px 0 0 0;
+    padding: 15px;
     background-color: transparent;
     font-weight: bold;
     color: white;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    flex-flow: column-reverse;
+    word-break: break-word;
 }
 
-span.portal-info{
+p.portal-info-titulo{
+    font-size: 20px;
+}
+
+p.portal-info-autor{
+    font-size: 14px;
+    color: rgb(177, 177, 177);
+    margin-bottom: 0px !important;
+}
+
+p.portal-info-categoria{
+    font-size: 14px;
+    margin-bottom: 0px !important;
+}
+
+p.portal-info{
     color: white;
     font-weight: 500 !important;
 }
@@ -165,9 +186,9 @@ span.portal-info{
     background-color: rgb(0, 172, 0);
     border-radius: 5px;
     position: absolute;
-    top: 4px;
+    top: -48px;
     left: 3px;
-    width: 100px;
+    width: 85%;
     height: 20px;
 }
 
@@ -178,6 +199,7 @@ p.etiqueta-info{
     line-height: 19px;
     background-color: transparent;
     color: white;
+    font-weight: 400;
 }
 
 .libro-prueba-sinStock:hover{

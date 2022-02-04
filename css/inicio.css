@@ -58,6 +58,7 @@ section.contenido.wrapper{
 #page > #main {
     grid-area: main;
     background: #ADB7F5;
+    background-size: cover;
     width: 100%;
     padding: 16px;
     padding-right: 0px;
@@ -317,20 +318,21 @@ only screen and (                min-resolution: 2dppx) {
     justify-items: center;
     flex-wrap: wrap;
     justify-content:space-around;
-    margin-bottom: 100px;
     margin-top: 50px;
 }
 
 .card{
     width: 350px;
     height: 350px;
-    background-color:white;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
     box-shadow: 0px 30px 78px -47px black;
     text-align: center;
     color: #333;
     transition: all ease 0.5s;
-    border: none;
-    border-radius: 20px;
 }
 
 .card:hover{
@@ -356,14 +358,21 @@ a.ver-mas-paneles{
 }
 
 .titulo-panel {
-    background: #adb7f5;
+    /* background: #adb7f5;
     border: 2px solid #909adb;
-    border-radius: 10px;
+    border-radius: 10px; */
+    backdrop-filter: blur(1px) saturate(180%);
+    -webkit-backdrop-filter: blur(1px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
     padding: 10px;
     margin-bottom: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 1;
+    color: white;
 }
 
 .info-reserva{
