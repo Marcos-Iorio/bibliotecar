@@ -1,20 +1,25 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <title></title>
+</head>
 
 
 <?php
 
   function gestionLibros(){
 
-  // if (!isset ($_GET['page']) ) {  
-  //           $page = 1;  
-  //       } else {  
-  //           $page = $_GET['page'];  
-  //       }  
-  //         $results_per_page = 5;  
+  if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        } else {  
+            $page = $_GET['page'];  
+        }  
+          $results_per_page = 5;  
 
-  //       //determine the sql LIMIT starting number for the results on the displaying page  
-  //       $page_first_result = ($page-1) * $results_per_page;  
-  //       //retrieve the selected results from database   
+        //determine the sql LIMIT starting number for the results on the displaying page  
+        $page_first_result = ($page-1) * $results_per_page;  
+        //retrieve the selected results from database   
         //$res = mysqli_query($this->con, $query);  
         //$start = 1 * ($page - 1);
         //$rows = 10;
@@ -31,27 +36,28 @@
             INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
-            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.idLibro";
-            //INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.idLibro DESC LIMIT $page_first_result , $results_per_page";
-
-$stmt = $dbh->prepare($query);
+            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.idLibro DESC LIMIT $page_first_result , $results_per_page";
+  $stmt = $dbh->prepare($query);
   
 if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
 
   foreach($resultado as $fila):
     //echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
-
+   $idLibro = $fila['idLibro'];
     echo "
+    <tbody>
                           <tr>
-                            <td>" . $fila['idLibro']. "</td>
+                            <td class='ids'>" . $fila['idLibro']. "</td>
                             <td>".  $fila['titulo']."</td>
                             <td>". $fila['nombreAutor']."</td>
                             <td>". $fila['nombreCategoria']."</td>
                             <td>". $fila['stock']. "</td>
                             <td>" . $fila['fechaAlta']. "</td>
                             <td><a href='#modal-libros' id='abrir-modal-libros'><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."','".$fila["descripcion"]."','".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
+                            <td><a href='#modal-ejemplares' id='abrir-ejemplares'>Ver Ejemplares</a></td>
                           </tr>
+                        </tbody>
 
 
                         ";
@@ -247,11 +253,6 @@ function llenarImagen($Tapa,$contratapa){
 
 
 }
-
-
-
-    
-
                 function cargarLibro($titulo,$descripcion,$stock,$fechaAlta,$destino){
                     include('db.php');
 
@@ -276,12 +277,11 @@ function llenarImagen($Tapa,$contratapa){
                     $buscarAutor->execute();
 
                     $arr=$buscarAutor->fetch(PDO::FETCH_ASSOC);
-                    $idAutor=$arr['idAutores'];
+                    $idAutor = $arr['idAutores'];
 
                     if (!$idAutor == '') {
-                      $idLibro=buscarIdLibro();
+                      $idLibro = buscarIdLibro();
                       llenarAutorLibro($idAutor, $idLibro);
-                      # code...
                     } else {
                     //$insertAutor = $dbh->prepare("INSERT into `autores` (nombreAutor) values(?)");
                     //$insertAutor->bindParam(1, $autor);    
@@ -419,12 +419,12 @@ function llenarImagen($Tapa,$contratapa){
 
         //enviarPwd($nombre, $mail, $pass);
         echo "<script>swal({title:'Exito',text:'Registro ingresado correctamente.',type:'success'});</script>";
-        //gestionLibros();
+        gestionLibros();
 
 
     } else {
         echo "<script>swal({title:'Error',text:'Error al ingresar el registro',type:'error'});</script>";
-        //gestionLibros();
+        gestionLibros();
 
     }
 
@@ -757,15 +757,15 @@ if (!isset ($_GET['page']) ) {
 
 function gestionAutores(){
 
-  // if (!isset ($_GET['page']) ) {  
-  //           $page = 1;  
-  //       } else {  
-  //           $page = $_GET['page'];  
-  //       }  
-  //         $results_per_page = 5;  
+  if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        } else {  
+            $page = $_GET['page'];  
+        }  
+          $results_per_page = 5;  
 
-  //       //determine the sql LIMIT starting number for the results on the displaying page  
-  //       $page_first_result = ($page-1) * $results_per_page;  
+        //determine the sql LIMIT starting number for the results on the displaying page  
+        $page_first_result = ($page-1) * $results_per_page;  
         //retrieve the selected results from database   
         //$res = mysqli_query($this->con, $query);  
         //$start = 1 * ($page - 1);
@@ -775,7 +775,7 @@ function gestionAutores(){
   include 'db.php';
 
 
-  $query="SELECT * from autores";
+  $query="SELECT * from autores LIMIT $page_first_result , $results_per_page";
 
   $stmt = $dbh->prepare($query);
   
@@ -785,13 +785,14 @@ if ($stmt->execute()) {
   foreach($resultado as $fila):
 
     echo "
+    <tbody>
                           <tr>
                             <td>".  $fila['idAutores']."</td>
                             <td>". $fila['nombreAutor']."</td>
 
                             <td><a href='#modal-autor' id='abrir-modal-autor'><button onclick=\"javascript:cargarPropiedades('Autor','".$fila["idAutores"]."','".$fila["nombreAutor"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                           </tr>
-                        ";
+                        </tbody>";
 
   endforeach;
 }
@@ -849,15 +850,15 @@ include('db.php');
 
   function gestionCategorias(){
 
-  // if (!isset ($_GET['page']) ) {  
-  //           $page = 1;  
-  //       } else {  
-  //           $page = $_GET['page'];  
-  //       }  
-  //         $results_per_page = 5;  
+  if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        } else {  
+            $page = $_GET['page'];  
+        }  
+          $results_per_page = 5;  
 
-  //       //determine the sql LIMIT starting number for the results on the displaying page  
-  //       $page_first_result = ($page-1) * $results_per_page;  
+        //determine the sql LIMIT starting number for the results on the displaying page  
+        $page_first_result = ($page-1) * $results_per_page;  
         //retrieve the selected results from database   
         //$res = mysqli_query($this->con, $query);  
         //$start = 1 * ($page - 1);
@@ -867,7 +868,7 @@ include('db.php');
   include 'db.php';
 
 
-  $query="SELECT * from categorias";
+  $query="SELECT * from categorias LIMIT $page_first_result , $results_per_page";
 
   $stmt = $dbh->prepare($query);
   
@@ -877,12 +878,14 @@ if ($stmt->execute()) {
   foreach($resultado as $fila):
 
     echo "
+    <tbody>
                           <tr>
                             <td>".  $fila['idCategoria']."</td>
                             <td>". $fila['nombreCategoria']."</td>
 
                             <td><a href='#modal-categoria' id='abrir-modal-categoria'><button onclick=\"javascript:cargarPropiedades('Categoria','".$fila["idCategoria"]."','".$fila["nombreCategoria"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
-                          </tr>";
+                          </tr>
+                        </tbody>";
 
   endforeach;
 }
@@ -943,15 +946,15 @@ include('db.php');
 
 function gestionEditoriales(){
 
-  // if (!isset ($_GET['page']) ) {  
-  //           $page = 1;  
-  //       } else {  
-  //           $page = $_GET['page'];  
-  //       }  
-  //         $results_per_page = 5;  
+  if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        } else {  
+            $page = $_GET['page'];  
+        }  
+          $results_per_page = 5;  
 
-  //       //determine the sql LIMIT starting number for the results on the displaying page  
-  //       $page_first_result = ($page-1) * $results_per_page;  
+        //determine the sql LIMIT starting number for the results on the displaying page  
+        $page_first_result = ($page-1) * $results_per_page;  
         //retrieve the selected results from database   
         //$res = mysqli_query($this->con, $query);  
         //$start = 1 * ($page - 1);
@@ -961,7 +964,7 @@ function gestionEditoriales(){
   include 'db.php';
 
 
-  $query="SELECT * from editoriales";
+  $query="SELECT * from editoriales LIMIT $page_first_result , $results_per_page";
 
   $stmt = $dbh->prepare($query);
   
@@ -971,12 +974,13 @@ if ($stmt->execute()) {
   foreach($resultado as $fila):
 
     echo "
+    <tbody>
                           <tr>
                             <td>".  $fila['idEditorial']."</td>
                             <td>". $fila['nombreEditorial']."</td>
                             <td><a href='#modal-editorial' id='abrir-modal-editorial'><button onclick=\"javascript:cargarPropiedades('Editorial','".$fila["idEditorial"]."','".$fila["nombreEditorial"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                           </tr>
-                        ";
+                        </tbody>";
 
   endforeach;
 }
@@ -1032,5 +1036,33 @@ include('db.php');
 
   }
 
+function mostrarEjemplares($idLibro){
+  include 'db.php';
+
+  $query = "SELECT * from ejemplaresidEjemplar like ‘L+$idLibro+E%’";
+  $stmt = $dbh->prepare($query);
+  
+  if ($stmt->execute()) {
+    $resultado=$stmt->fetchAll();
+
+    foreach($resultado as $fila):
+      //echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
+      echo "
+          <tr>
+            <td>" . $fila['idEjemplar']. "</td>
+            <td>".  $fila['idEjemplarEstado']."</td>
+            <td>".  $fila['idEjemplar'] ."</td>
+          </tr>
+      ";
+
+    endforeach;
+  }
+}
+
 
 ?>
+
+<body>
+
+</body>
+</html>

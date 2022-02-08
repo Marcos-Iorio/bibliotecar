@@ -2,10 +2,11 @@
 <?php
 session_start();
 
-/*  is_logged(); */
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    $user = $_SESSION['username'];
-    $pid  = $_SESSION['rol'];
+     include "php/gestion-libros.php";
+
+   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    $user=$_SESSION['username'];
+    $pid=$_SESSION['rol'];
 
     $tiempo = time();
 
@@ -71,7 +72,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
             <!-- <form method="POST" action="#" name="busqueda">
               <div>
 
-                <h6 >Buscar por:</h6>
+                <h6>Buscar por:</h6>
                 <select class="form-control" name="txtCriterio" style="width: 200px; margin-right: 200px;">
                   <option value="" disabled selected>Seleccionar</option>
                   <option value="mail">Titulo</option>
@@ -103,13 +104,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                     <th>Stock</th>
                     <th>Fecha de Alta</th>
                     <th>Editar</th>
+                    <th>Ejemplares</th>
                   </tr>
                 </thead>
                 <tbody>
                 <?php
-include "php/gestion-libros.php";
 
-gestionLibros();
+    gestionLibros();
 
                     if(isset($_POST['btnCrearLibro'])){
 
@@ -126,7 +127,6 @@ gestionLibros();
                       
 
                       if(isset($_POST['btnEditarLibro'])){
-
                       editarLibro($_POST['idLibro'],$_POST['titulo'],$_POST['selectAutor'],$_POST['desc'] ,$_POST['selectCategoria'],$_POST['selectEditorial'],
                       $_POST['stock'], $_FILES['pdf'], $_FILES['tapa'], $_FILES['contratapa']);
 
@@ -150,7 +150,8 @@ gestionLibros();
 
                ?>
             </div>
-            <button onclick="modalLibros()" class="boton-agregar-libro"><a href="#modal-libros"></a><i class="fas fa-add">Agregar Libro</i></button>
+            <button onclick="modalLibros()" class="boton-agregar-libro"><a href="#modal-libros"></a><i
+                class="fas fa-add">Agregar Libro</i></button>
           </div>
           
 
@@ -172,10 +173,25 @@ gestionLibros();
                     <?php getAutores(); ?>
                   </select>
 
-                </div>
-                <br><br>
 
-                <div class="secciones-form" style="display:flex;">
+          <div id="modal-libros">
+            <span id="close">&times;</span>
+            <h3 id="titulo-libro">Modificar libro:</h3>
+            <div class="subir-libro">
+              <form name="formLibros" action="" id="form-libros" method="POST" class="form-libro"
+                enctype="multipart/form-data">
+
+                <div class="wrapper-libros">
+                  <div class="secciones-form" style="display:flex;">
+                    <label for="">Titulo:</label>
+                    <input style="background-color: white; color: black;" class="input-libro" type="text" name="titulo"
+                      id="titulo" required placeholder="Titulo">
+                    <label for="">Autor:</label>
+                    <select required id="select-autor" style="background-color: white; color: black; width: 20%;"
+                      class="form-control" name="selectAutor">
+                      <option value="0" disabled selected>Seleccionar autor</option>
+                      <?php getAutores(); ?>
+                    </select>
 
                   <label class="label-modal" for="">Descripcion: </label>
                   <input maxlength="1000" style="background-color: white; color: black;" class="input-libro" type="text"
@@ -191,24 +207,24 @@ gestionLibros();
                     <?php 
                             getCategorias();
                             ?>
-                  </select>
-                </div>
+                    </select>
+                  </div>
 
 
-                <br><br>
-                <div class="secciones-form" style="display:flex;">
+                  <br><br>
+                  <div class="secciones-form" style="display:flex;">
 
                   <label class="label-modal" for="">Editorial:</label>
                   <select required id="select-editorial" style="background-color: white; color: black; width: 20%;" class="form-control"
                     name="selectEditorial">
                     <option value="0" disabled selected>Seleccionar editorial</option>
 
-                    <?php 
+                      <?php 
 
                           getEditoriales(); 
                               ?>
 
-                  </select>
+                    </select>
 
 
                   <label class="label-modal" for="">Stock:</label>
@@ -216,10 +232,10 @@ gestionLibros();
                     oninput="javascript: if (this.value > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                     type="number" maxlength="2" name="stock" id="stock" required placeholder="Maximo: 99">
 
-                </div>
+                  </div>
 
-                <br><br>
-                <div class="secciones-form" style="display:flex;">
+                  <br><br>
+                  <div class="secciones-form" style="display:flex;">
 
                   <!--<label class="label-modal" for="">Fecha de alta</label>
                         <input style="background-color: white; color: black;"class="input-libro"  type="date" name="fechaAlta" id="fechaAlta"><br><br>-->
@@ -231,6 +247,11 @@ gestionLibros();
                   <input class="input-libro" type='file' name='contratapa' id="contratapa">
                   <br><br>
 
+                  </div>
+                  <div class="secciones-form" style="display:flex;">
+                    <label for="">Pdf de libro (Opcional):</label>
+                    <input class="input-libro" type="file" name="pdf" id="pdf">
+                  </div>
                 </div>
                 <div class="secciones-form" style="display:flex;">
                   <label class="label-modal" for="">Pdf de libro (Opcional):</label>
@@ -243,12 +264,13 @@ gestionLibros();
                   onclick="return ModificarLibro('editar')" />
                 <label class="label-modal" for="" ></label>
 
-                <input value="Crear libro" style="width: 20%; " type="submit" name="btnCrearLibro" id="crear-libro"
-                  onclick="return ModificarLibro('crear')" />
+                  <input value="Crear libro" style="width: 20%; " type="submit" name="btnCrearLibro" id="crear-libro"
+                    onclick="ModificarLibro('crear')" />
 
-                <input name="txtID" style="background-color: white; color: black; width: 20%;" type="hidden" name="genero"
-                  id="genero" placeholder="Seleccionar">
-              </div>
+                  <input name="txtID" style="background-color: white; color: black; width: 20%;" type="hidden"
+                    name="genero" id="genero" placeholder="Seleccionar">
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -267,13 +289,8 @@ gestionLibros();
               <form method="POST" action="#" name="busqueda">
 <!--                 <div>
 
-                  <h6 >Buscar por:</h6>
-                  <select class="form-control" name="txtCriterio" style="width: 200px; margin-right: 200px;">
-                    <option value="" disabled selected>Seleccionar</option>
-                    <option value="mail">Titulo</option>
-                    <option value="idRol">Autor</option>
-                    <option value="check_mail">Categoria</option>
-                  </select>
+          <!-- <h3>Gestion de libros!</h3>
+            <div class="tabla-libros">-->
 
                   <input style="background-color: white; width: 200px; height: 40px; color:black;" type="text"
                     name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control">
@@ -331,37 +348,36 @@ gestionLibros();
               </div>
               <button onclick="modalAutores()" class="boton-agregar-libro"><a href="#modal-autor"></a><i class="fas fa-add">Agregar Autor</i></button>
               
-              <div id="modal-autor">
-                <span id="close-autor">&times;</span>
-                <div class="subir-autor">
-                  <form name="formAutores" action="" id="formAutores" method="POST" class="form-autor" enctype="multipart/form-data">
+            <div id="modal-autor">
+              <span id="close-autor">&times;</span>
+              <div class="subir-autor">
+                <form name="formAutores" action="" id="formAutores" method="POST" class="form-autor"
+                  enctype="multipart/form-data">
 
-                    <div class="wrapper-libros">
+                  <div class="wrapper-libros">
 
-                      <label for="">Autor:</label>
-                      <input class="input-libro" type="text" name="editarAutor" id="autor" placeholder="Autor">
-                      <input hidden type="text" name="idAutor" id="autor" placeholder="Autor">
+                    <label id="label-autor" for="">Autor:</label>
+                    <input class="input-libro" type="text" name="editarAutor" id="autor" placeholder="Autor">
 
-                      <label for="">Autor Nuevo:</label>
-                      <input class="input-libro" type="text" name="nuevoAutor" id="autor" placeholder="Autor">
+                    <label for="">Autor Nuevo:</label>
+                    <input class="input-libro" type="text" name="nuevoAutor" id="autor-nuevo" placeholder="Autor">
 
 
-                    </div>
+                  </div>
 
-                    <div class="center">
-                      <input value="Editar autor" style="width: 20%;" type="submit" name="btnEditarAutor" id="editar-autor"
-                        onclick="return ModificarLibro('editar')" />
-                      <label for="" ></label>
+                  <div class="center">
+                    <input value="Editar autor" style="width: 20%;" type="submit" name="btnEditarAutor"
+                      id="editar-autor" onclick="return ModificarLibro('editar')" />
+                    <label for=""></label>
 
-                      <input value="Crear autor" style="width: 20%; " type="submit" name="btnCrearAutor" id="crear-autor"
-                        onclick="return ModificarLibro('crear')" />
-                    </div>
-                  </form>
-                </div>
+                    <input value="Crear autor" style="width: 20%; " type="submit" name="btnCrearAutor" id="crear-autor"
+                      onclick="return ModificarLibro('crear')" />
+                  </div>
+                </form>
               </div>
+            </div>
           </div>
         </div>
-           
 
        <!--Seccion Categorias-->
 
@@ -377,21 +393,20 @@ gestionLibros();
               <!-- <form method="POST" action="#" name="busqueda">
                 <div>
 
-                  <h6 style="width: 100px;">Buscar por:</h6>
-                  <select class="form-control" name="txtCriterio" style="width: 200px; margin-right: 200px;">
-                    <option value="" disabled selected>Seleccionar</option>
-                    <option value="mail">Titulo</option>
-                    <option value="idRol">Autor</option>
-                    <option value="check_mail">Categoria</option>
-                  </select>
+                <h6 style="width: 100px;">Buscar por:</h6>
+                <select class="form-control" name="txtCriterio" style="width: 200px; margin-right: 200px;">
+                  <option value="" disabled selected>Seleccionar</option>
+                  <option value="mail">Titulo</option>
+                  <option value="idRol">Autor</option>
+                  <option value="check_mail">Categoria</option>
+                </select>
 
-                  <input style="background-color: white; width: 200px; height: 40px; color:black;" type="text"
-                    name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control">
-                  <div style="text-align: right;">
-                    <input type="submit" value="Buscar" href="#?page=1" name="btnBuscar"
-                      class="btn btn-outline-dark my-2 my-sm-0" /><a href="admin-usuarios.php?page=1"></a>
-                    <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0" />
-                  </div>
+                <input style="background-color: white; width: 200px; height: 40px; color:black;" type="text"
+                  name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control">
+                <div style="text-align: right;">
+                  <input type="submit" value="Buscar" href="#?page=1" name="btnBuscar"
+                    class="btn btn-outline-dark my-2 my-sm-0" /><a href="admin-usuarios.php?page=1"></a>
+                  <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0" />
                 </div>
                 <hr>
               </form> -->
@@ -444,34 +459,38 @@ gestionLibros();
               <div class="subir-categoria">
                 <form action="" name="formCategorias" id="formCategorias" method="POST" class="form-libro" enctype="multipart/form-data">
 
-                  <div class="wrapper-libros">
+                    <div class="wrapper-libros">
 
-                    <label for="">Categoria:</label>
-                    <input class="input-libro" type="text" name="editarCategoria" id="autor" placeholder="Categoria">
-                    <input hidden type="text" name="idCategoria" id="autor" placeholder="Categoria">
-                    <label for="">Categoria Nueva:</label>
-                    <input class="input-libro" type="text" name="nuevaCategoria" id="categoria" placeholder="Categoria">
+                      <label id="label-categoria" for="">Categoria:</label>
+                      <input class="input-libro" type="text" name="editarCategoria" id="categoria"
+                        placeholder="Categoria">
+                      <input hidden type="text" name="idCategoria" id="autor" placeholder="Categoria">
+                      <label for="">Categoria Nueva:</label>
+                      <input class="input-libro" type="text" name="nuevaCategoria" id="categoria-nueva"
+                        placeholder="Categoria">
 
 
-                  </div>
+                    </div>
 
-                  <div class="center">
-                    <input value="Editar categoria" style="width: 20%;" type="submit" name="btnEditarCategoria"
-                      id="editar-categoria" onclick="return ModificarLibro('editar')" />
-                    <label for="" ></label>
+                    <div class="center">
+                      <input value="Editar categoria" style="width: 20%;" type="submit" name="btnEditarCategoria"
+                        id="editar-categoria" onclick="return ModificarLibro('editar')" />
+                      <label for=""></label>
 
-                    <input value="Crear categoria" style="width: 20%; " type="submit" name="btnCrearCategoria"
-                      id="crear-categoria" onclick="return ModificarLibro('crear')" />
+                      <input value="Crear categoria" style="width: 20%; " type="submit" name="btnCrearCategoria"
+                        id="crear-categoria" onclick="return ModificarLibro('crear')" />
 
-                  </div>
-                </form>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
           
 
-      <!--Seccion Editoriales-->
+
+          <!--Seccion Editoriales-->
 
           <div class="contenido wrapper" id="seccion-editorial">
             <!--Seccion de los libros-->
@@ -485,7 +504,7 @@ gestionLibros();
                <!-- <form method="POST" action="#" name="busqueda">
                 <div>
 
-                  <h6 >Buscar por:</h6>
+                  <h6>Buscar por:</h6>
                   <select class="form-control" name="txtCriterio" style="width: 200px; margin-right: 200px;">
                     <option value="" disabled selected>Seleccionar</option>
                     <option value="mail">Titulo</option>
@@ -553,48 +572,77 @@ gestionLibros();
               <div class="subir-editorial">
                   <form name="formEditoriales" action="" id="formEditorial" method="POST" class="form-libro" enctype="multipart/form-data">
 
-                    <div class="wrapper-libros">
+                      <div class="wrapper-libros">
 
-                      <label for="">Editorial:</label>
-                      <input class="input-libro" style="color: black;" type="text" name="editarEditorial" id="autor" placeholder="Editorial">
-                      <input hidden type="text" name="idEditorial" id="autor" placeholder="Editorial">
+                        <label id="label-edito" for="">Editorial:</label>
+                        <input class="input-libro" type="text" name="editarEditorial" id="editorial"
+                          placeholder="Editorial">
+                        <input hidden type="text" name="idEditorial" id="autor" placeholder="Editorial">
 
-                      <label for="">Editorial Nueva:</label>
-                      <input class="input-libro"  type="text" name="nuevaEditorial" id="editorial" placeholder="Editorial">
+                        <label for="">Editorial Nueva:</label>
+                        <input class="input-libro" type="text" name="nuevaEditorial" id="editorial-nueva"
+                          placeholder="Editorial">
 
 
-                    </div>
+                      </div>
 
-                    <div class="center">
-                      <input value="Editar Editorial" style="width: 20%;" type="submit" name="btnEditarEditorial"
-                        id="editar-editorial" onclick="return ModificarLibro('editar')" />
-                      <label for="" ></label>
+                      <div class="center">
+                        <input value="Editar Editorial" style="width: 20%;" type="submit" name="btnEditarEditorial"
+                          id="editar-editorial" onclick="ModificarLibro('editar')" />
+                        <label for=""></label>
 
-                      <input value="Crear Editorial" style="width: 20%; " type="submit" name="btnCrearEditorial"
-                        id="crear-editorial" onclick="return ModificarLibro('crear')" />
-                    </div>
-                  </form>
+                        <input value="Crear Editorial" style="width: 20%; " type="submit" name="btnCrearEditorial"
+                          id="crear-editorial" onclick="ModificarLibro('crear')" />
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
+            </div>
           </div>
+
+           <!-- Modal ejemplares -->
+
+           <div id="modal-ejemplares">
+                <span id="close-ejemplares">&times;</span>
+                <table class="bordered">
+                    <thead>
+                        <tr>
+                          <th>ID Ejemplar</th>
+                          <th>Estado</th>
+                          <th>Des/habilitar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      
+                    </tbody>
+                </table>
+                </div>
+              </div>
+
+          <!-- Botones a los menús -->
+          <div id="circularMenu" class="circular-menu">
+
+            <a class="floating-btn" onclick="document.getElementById('circularMenu').classList.toggle('active');">
+              <i class="fa fa-plus"></i>
+            </a>
+
+            <menu class="items-wrapper">
+              <button onclick="abrirSeccionLibro()" class="menu-item-botonera fas fa-book"><a
+                  href="#seccion-libros"><span style="top:-60px; left: -50px"
+                    class="tooltip-span-libros">Libros</span></a></button>
+              <button onclick="abrirSeccionAutor()" class="menu-item-botonera fas fa-user-alt"><a
+                  href="#seccion-autor"><span style="top:-30px; left: -110px"
+                    class="tooltip-span">Autores</span></a></button>
+              <button onclick="abrirSeccionCategoria()" class="menu-item-botonera fas fa-list-ul"><a
+                  href="#seccion-categorias"><span style="top:-20px; left: -110px"
+                    class="tooltip-span">Categorias</span></a></button>
+              <button onclick="abrirSeccionEditorial()" class="menu-item-botonera far fa-newspaper"><a
+                  href="#seccion-editorial"><span style="top:-20px; left: -120px"
+                    class="tooltip-span">Editoriales</span></a></button>
+            </menu>
+
           </div>
-        </div>
-        
-      <!-- Botones a los menús -->
-      <div id="circularMenu" class="circular-menu">
-
-        <a class="floating-btn" onclick="document.getElementById('circularMenu').classList.toggle('active');">
-          <i class="fa fa-plus"></i>
-        </a>
-
-        <menu class="items-wrapper">
-        <button onclick="abrirSeccionLibro()" class="menu-item-botonera fas fa-book"><a href="#seccion-libros"><span style="top:-60px; left: -50px" class="tooltip-span-libros">Libros</span></a></button>
-        <button onclick="abrirSeccionAutor()" class="menu-item-botonera fas fa-user-alt"><a href="#seccion-autor" ><span style="top:-30px; left: -110px" class="tooltip-span">Autores</span></a></button>
-        <button onclick="abrirSeccionCategoria()" class="menu-item-botonera fas fa-list-ul"><a href="#seccion-categorias"><span style="top:-20px; left: -110px" class="tooltip-span">Categorias</span></a></button>
-        <button onclick="abrirSeccionEditorial()" class="menu-item-botonera far fa-newspaper"><a href="#seccion-editorial"><span style="top:-20px; left: -120px" class="tooltip-span">Editoriales</span></a></button>
-        </menu>
-
-      </div>
 
     </main>
   </section>
@@ -612,8 +660,20 @@ gestionLibros();
     }
     var usr = confirm(msg);
     if (usr == true) {
+      document.querySelector('#crear-libro').style.display = 'none';
+      document.querySelector('#crear-autor').style.display = 'none';
+      document.querySelector('#crear-editorial').style.display = 'none';
+      document.querySelector('#crear-categoria').style.display = 'none';
+
+      document.querySelector('#editar-libro').style.display = 'none';
+      document.querySelector('#editar-autor').style.display = 'none';
+      document.querySelector('#editar-editorial').style.display = 'none';
+      document.querySelector('#editar-categoria').style.display = 'none';
+      
       return true;
+      
     }
+    document.querySelector('#crear-libro').disabled = false;
     return false;
 
 
@@ -622,42 +682,42 @@ gestionLibros();
 
 
 <script>
-const menuCircular = document.querySelector('#circularMenu')
+  const menuCircular = document.querySelector('#circularMenu')
 
-menuCircular.addEventListener('click', () =>{
-  if(menuCircular.classList.contains('active')){
-    document.querySelector('span.label').style.display = "inline-block";
-    document.querySelectorAll('span.label')[1].style.display = "inline-block";
-    document.querySelector('span.label-left').style.display = "inline-block";
-    document.querySelector('span.label-left-2').style.display = "inline-block";
-  }else{
-    document.querySelector('span.label').style.display = "none";
-    document.querySelectorAll('span.label')[1].style.display = "none";
-    document.querySelector('span.label-left').style.display = "none";
-    document.querySelector('span.label-left-2').style.display = "none";
-  }
-});
+  menuCircular.addEventListener('click', () => {
+    if (menuCircular.classList.contains('active')) {
+      document.querySelector('span.label').style.display = "inline-block";
+      document.querySelectorAll('span.label')[1].style.display = "inline-block";
+      document.querySelector('span.label-left').style.display = "inline-block";
+      document.querySelector('span.label-left-2').style.display = "inline-block";
+    } else {
+      document.querySelector('span.label').style.display = "none";
+      document.querySelectorAll('span.label')[1].style.display = "none";
+      document.querySelector('span.label-left').style.display = "none";
+      document.querySelector('span.label-left-2').style.display = "none";
+    }
+  });
 
 
 
   /* Obtiene el modal */
-var modalLibro = document.getElementById('modal-libros')
+  var modalLibro = document.getElementById('modal-libros')
 
-/* Obtiene el botón que abre el modal */
-var btn = document.querySelectorAll("#abrir-modal-libros");
+  /* Obtiene el botón que abre el modal */
+  var btn = document.querySelectorAll("#abrir-modal-libros");
 
-for(var i = 0; i < btn.length ; i++) {
-  btn[i].onclick = function() {
-    modalLibro.style.display = "block";
-  }
-};
-
-var span = document.getElementById("close");
-
-span.onclick = function() {
-        modalLibro.style.display = "none";
+  for (var i = 0; i < btn.length; i++) {
+    btn[i].onclick = function () {
+      modalLibro.style.display = "block";
     }
-  
+  };
+
+  var span = document.getElementById("close");
+
+  span.onclick = function () {
+    modalLibro.style.display = "none";
+  }
+
   function cargarLibros(titulo, nombreAutor, nombreCategoria, stock, descripcion, nombreEditorial, idLibro) {
     document.formLibros.titulo.value = titulo;
     document.formLibros.stock.value = stock;
@@ -681,65 +741,65 @@ span.onclick = function() {
   }
 
   /* Autores */
-   /* Obtiene el modal */
-var modalAutor = document.getElementById('modal-autor')
+  /* Obtiene el modal */
+  var modalAutor = document.getElementById('modal-autor')
 
-/* Obtiene el botón que abre el modal */
-var btnAutor = document.querySelectorAll("#abrir-modal-autor");
+  /* Obtiene el botón que abre el modal */
+  var btnAutor = document.querySelectorAll("#abrir-modal-autor");
 
-for(var i = 0; i < btnAutor.length ; i++) {
-  btnAutor[i].onclick = function() {
-    modalAutor.style.display = "block";
-  }
-};
+  for (var i = 0; i < btnAutor.length; i++) {
+    btnAutor[i].onclick = function () {
+      modalAutor.style.display = "block";
+    }
+  };
 
-var span = document.getElementById("close-autor");
+  var span = document.getElementById("close-autor");
 
-span.onclick = function() {
+  span.onclick = function () {
     modalAutor.style.display = "none";
-}
+  }
 
 
-/* Categorias */
+  /* Categorias */
 
   /* Obtiene el modal */
   var modalCategoria = document.getElementById('modal-categoria')
 
-/* Obtiene el botón que abre el modal */
-var btnCategoria = document.querySelectorAll("#abrir-modal-categoria");
+  /* Obtiene el botón que abre el modal */
+  var btnCategoria = document.querySelectorAll("#abrir-modal-categoria");
 
-for(var i = 0; i < btnCategoria.length ; i++) {
-  btnCategoria[i].onclick = function() {
-    modalCategoria.style.display = "block";
-  }
-};
+  for (var i = 0; i < btnCategoria.length; i++) {
+    btnCategoria[i].onclick = function () {
+      modalCategoria.style.display = "block";
+    }
+  };
 
-var spanCat = document.getElementById("close-categoria");
+  var spanCat = document.getElementById("close-categoria");
 
-spanCat.onclick = function() {
+  spanCat.onclick = function () {
     modalCategoria.style.display = "none";
-}
-
-
-/* Editorial */
-
- /* Obtiene el modal */
- var modalEditorial = document.getElementById('modal-editorial')
-
-/* Obtiene el botón que abre el modal */
-var btnEditorial = document.querySelectorAll("#abrir-modal-editorial");
-
-for(var i = 0; i < btnEditorial.length ; i++) {
-  btnEditorial[i].onclick = function() {
-    modalEditorial.style.display = "block";
   }
-};
 
-var spanEdit = document.getElementById("close-editorial");
 
-spanEdit.onclick = function() {
+  /* Editorial */
+
+  /* Obtiene el modal */
+  var modalEditorial = document.getElementById('modal-editorial')
+
+  /* Obtiene el botón que abre el modal */
+  var btnEditorial = document.querySelectorAll("#abrir-modal-editorial");
+
+  for (var i = 0; i < btnEditorial.length; i++) {
+    btnEditorial[i].onclick = function () {
+      modalEditorial.style.display = "block";
+    }
+  };
+
+  var spanEdit = document.getElementById("close-editorial");
+
+  spanEdit.onclick = function () {
     modalEditorial.style.display = "none";
-}
+  }
 
   function cargarPropiedades(tipo, id, nombre) {
 
@@ -769,6 +829,26 @@ spanEdit.onclick = function() {
     }
 
   }
+
+  /* Ejemplares */
+  const botonEjemplar = document.querySelectorAll('#abrir-ejemplares');
+
+  const modalEjemplar = document.querySelector('#modal-ejemplares');
+
+    for (var i = 0; i < botonEjemplar.length; i++) {
+    botonEjemplar[i].onclick = function () {
+      modalEjemplar.style.display = "block";
+    }
+  };
+
+  
+
+  var span = document.getElementById("close-ejemplares");
+
+  span.onclick = function() {
+      modalEjemplar.style.display = "none";
+  }
+
 </script>
 
 

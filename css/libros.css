@@ -87,15 +87,16 @@ div#libro-prueba:hover{
     bottom: 0px;
     left: 0;
     width: 100%;
-    transform: translateY(-100px);
+    transform: translateY(2%);
     display: grid;
     place-content: center;
+    height: 80%;
 }
 
 div#libro-prueba:hover .informacion{
-    transform: translateY(0px);
+    transform: translateY(2%);
     width: 100%;
-    height: 75%;
+    height: 80%;
     opacity: 1;
     transition: all ease 0.3s;
 }
@@ -145,16 +146,36 @@ img.imagen-libro{
     opacity: 0;
 }
 
-p.libro-info{
+div.libro-info{
     font-size: 14px;
     width: 100% !important;
-    padding: 5px 0 0 0;
+    padding: 15px;
     background-color: transparent;
     font-weight: bold;
     color: white;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    flex-flow: column-reverse;
+    word-break: break-word;
 }
 
-span.portal-info{
+p.portal-info-titulo{
+    font-size: 20px;
+}
+
+p.portal-info-autor{
+    font-size: 14px;
+    color: rgb(177, 177, 177);
+    margin-bottom: 0px !important;
+}
+
+p.portal-info-categoria{
+    font-size: 14px;
+    margin-bottom: 0px !important;
+}
+
+p.portal-info{
     color: white;
     font-weight: 500 !important;
 }
@@ -165,9 +186,9 @@ span.portal-info{
     background-color: rgb(0, 172, 0);
     border-radius: 5px;
     position: absolute;
-    top: 4px;
+    top: -48px;
     left: 3px;
-    width: 100px;
+    width: 85%;
     height: 20px;
 }
 
@@ -178,6 +199,7 @@ p.etiqueta-info{
     line-height: 19px;
     background-color: transparent;
     color: white;
+    font-weight: 400;
 }
 
 .libro-prueba-sinStock:hover{
@@ -263,7 +285,7 @@ input[type=text], input[type=number], input[type=file] textarea {
     margin-right: 50px;
     resize: vertical;
     background: transparent;
-    color: white;
+    color: black;
 }
 
 
@@ -322,7 +344,6 @@ input#portada{
 }
 
 .container{
-    margin-bottom: 200px;
 }
 
 .container-form{
@@ -373,22 +394,22 @@ thead{
 }
 
 thead th:nth-child(1) {
-    width: 40%;
+    width: 20%;
 }
 
 thead th:nth-child(2) {
-    width: 40%;
+    width: 20%;
 }
 
 thead th:nth-child(3) {
-    width: 40%;
+    width: 20%;
 }
 
 thead th:nth-child(4) {
     width: 20%;
 }
 thead th:nth-child(5) {
-    width: 40%;
+    width: 20%;
 }
 thead th:nth-child(6) {
     width: 20%;
@@ -396,6 +417,9 @@ thead th:nth-child(6) {
 thead th:nth-child(7) {
     width: 20%;
 }
+thead th:nth-child(8){
+    width: 20%;
+} 
 
 .separador{
     border: 2px solid #333;
@@ -405,7 +429,7 @@ thead th:nth-child(7) {
 
 .fas.fa-pencil-alt{
     color:white; 
-    font-size: 25px;   
+    font-size: 15px;   
 }
 
 i.far.fa-trash-alt {
@@ -424,7 +448,7 @@ i.far.fa-trash-alt.tbody-icon{
 }
 
 i.fas.fa-pencil-alt.tbody-icon{
-    font-size: 30px;
+    font-size: 25px;
     outline: none;
     border: none;
     background: none;
@@ -628,6 +652,37 @@ i.fas.fa-times {
 }
 
 /* modals */
+
+#modal-ejemplares{
+    padding: 15px;
+    border: 2px solid #333;
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    display: none;
+    height: 100%;
+    margin-left: 85px;
+    width: 85%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+}
+
+#close-ejemplares {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 20px;
+  }
+  
+  #close-ejemplares:hover,
+  #close-ejemplares:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
 #modal-libros{
     border: 2px solid #333;
