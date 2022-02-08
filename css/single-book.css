@@ -1,0 +1,369 @@
+main{
+    margin-right: 1000px;
+}
+
+.libro{
+  padding-left: 70px;
+    margin-top: 30px;
+    justify-content: right;
+    align-items: start;
+    display: grid;
+    grid-template-areas: "imagenes-libros libro-info"
+                        "descripcion descripcion";
+    grid-template-columns:2fr 3fr;
+    grid-template-rows: 2fr 1fr;
+    margin-bottom: 70px;
+}
+
+#imagenes-libros{
+    box-shadow: 0px 30px 78px -47px black;
+-webkit-box-shadow: 0px 30px 78px -47px black;
+-moz-box-shadow: 0px 30px 78px -47px black;
+    grid-area: imagenes-libros;
+    align-self: center;
+    height: 400px;
+    width: 400px;
+    align-self: auto;
+    justify-self: center;
+	margin-left: 40px;
+}
+
+img#img-libro{
+    border-radius: 15px;
+    height: 520px;
+}
+
+.libro-info{
+    box-shadow: 0px 30px 78px -47px black;
+-webkit-box-shadow: 0px 30px 78px -47px black;
+-moz-box-shadow: 0px 30px 78px -47px black;
+    border-radius: 15px;
+    background-color: rgb(231, 231, 231);
+    padding: 20px;
+    position: relative;
+    width: 65%;
+    height: 100%;
+    grid-area: libro-info;
+	justify-self: center;
+}
+
+a{
+  color: black
+}
+
+.descripcion{
+    box-shadow: 0px 30px 78px -47px black;
+-webkit-box-shadow: 0px 30px 78px -47px black;
+-moz-box-shadow: 0px 30px 78px -47px black;
+    border-radius: 15px;
+    background-color: rgb(231, 231, 231);
+    grid-area: descripcion;
+    width: 88.3%;
+    height: 200px;
+    margin-top: 50px;
+    padding: 20px;
+	justify-self: center;
+}
+
+label[for=titulo]{
+    padding: 10px 0 0 10px;
+    font-size: 35px;
+    font-weight: bold;
+	text-align: center;
+    
+}
+
+label{
+	font-weight: bold;
+}
+
+.reservar{
+  border: 2px solid #333;
+  display: block;
+  color: #333;
+  margin: 15px auto;
+  height: 50px;
+  width: 200px;
+  border-radius: 48px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all ease 0.5s;
+}
+
+div#dateFormat{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.boton-reservar{
+	display: block;
+	margin: 0 auto;
+	margin-top: 50px;
+  }
+
+.alerta-reserva{
+	text-align: center;
+	position: absolute;
+    bottom: 0px;
+}
+
+.reservar:hover{
+  transition: all ease 0.5s;
+  background: white;
+
+}
+
+label{
+    padding: 10px 0 0 45px;
+}
+
+.titulo-desc{
+    text-align: center;
+}
+
+.titulo-info{
+	text-align: center;
+}
+
+.fas.fa-cloud-download-alt{
+    font-size: 50px;
+
+}
+
+.desc{
+    text-align: center;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: fixed;
+    bottom: 300px;
+    background-color: #fefefe;
+    width: 60%;
+    left: 300px;
+    border: none;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #333;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .modal-header .close{
+      margin: 0px;
+  }
+
+  .modal-header h2{
+      text-align: center;
+      line-height: 3;
+      width: 700px;
+  }
+
+  input#confirmar{
+    border: none;
+    display: block;
+    color: white;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    border: 2px solid #333;
+    background-color: #333;
+    cursor: pointer;
+    transition: all ease 0.5s;
+  }
+
+  input#confirmar:hover{
+    background: white;
+    border: 2px solid #333;
+    transition: all ease 0.5s;
+    color: #333;
+  
+  }
+
+  button#cancelar{
+    border: 2px solid #333;
+    display: block;
+    color: #333;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
+
+button#cancelar:hover{
+  background: #333;
+  color: white;
+  transition: all ease 0.5s;
+}
+  
+  .modal-header {
+      text-align: center;
+    padding: 2px 16px;
+    background-color: #fefefe !important;
+    color: #333;
+  }
+  
+  .modal-body {
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.body-info{
+	margin-top: 25px;
+	display: inline-block;
+}
+
+/* Date pickers */
+
+input#datePicker{
+    padding: 5px;
+    text-align: center;
+    border-radius: 37px;
+    border: 2px solid #333;
+    background: transparent;
+}
+
+  
+  /* Add Animation */
+  @-webkit-keyframes slideIn {
+    from {bottom: -300px; opacity: 0} 
+    to {bottom: 300; opacity: 1}
+  }
+  
+  @keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 300px; opacity: 1}
+  }
+  
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+  }
+
+  #breadcrumbs{
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.fas.fa-arrow-circle-left{
+  position: fixed;
+  font-size: 30px;
+  left: 200px;
+  top: 20px;
+  color: #333;
+  z-index: 1000;
+}
+
+.fas.fa-arrow-circle-left:hover{
+  color: rgb(95, 95, 95);
+}
+
+@media(max-width: 768px){
+  .libro{
+    padding-left: 0%;
+    margin-top: 30px;
+    justify-content: left;
+    align-items: start;
+    display: grid;
+    grid-template-areas:"imagenes-libros"
+                        "libro-info"
+                        "descripcion";
+    grid-template-columns:95%;
+    grid-template-rows: 30%;
+  }
+
+  #imagenes-libros{
+    box-shadow: 0px 30px 78px -47px black;
+-webkit-box-shadow: 0px 30px 78px -47px black;
+-moz-box-shadow: 0px 30px 78px -47px black;
+    grid-area: imagenes-libros;
+    align-self: center;
+    height: 95%;
+    width: 30%;
+    justify-self: start;
+	  margin-left: 0px;
+}
+
+img#img-libro{
+    border-radius: 15px;
+    height: 320px;
+}
+
+.libro-info{
+    box-shadow: 0px 30px 78px -47px black;
+-webkit-box-shadow: 0px 30px 78px -47px black;
+-moz-box-shadow: 0px 30px 78px -47px black;
+    border-radius: 15px;
+    background-color: rgb(231, 231, 231);
+    padding: 20px;
+    width: 30%;
+    height: 100%;
+    grid-area: libro-info;
+	  justify-self: start;
+}
+
+a{
+  color: black
+}
+
+.descripcion{
+    box-shadow: 0px 30px 78px -47px black;
+-webkit-box-shadow: 0px 30px 78px -47px black;
+-moz-box-shadow: 0px 30px 78px -47px black;
+    border-radius: 15px;
+    background-color: rgb(231, 231, 231);
+    grid-area: descripcion;
+    width: 30%;
+    height: 60%;
+    padding: 20px;
+    justify-self: left;
+    margin-bottom: 350px;
+}
+}
