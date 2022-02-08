@@ -1,0 +1,758 @@
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: linear-gradient(214deg, #0a036e, #030443, #0c3761);
+    background-size: 600% 600%;
+
+    -webkit-animation: fondo 9s ease infinite;
+    -moz-animation: fondo 9s ease infinite;
+    animation: fondo 9s ease infinite;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+	height: 100vh;
+	margin: -20px 0 50px;
+}
+
+@-webkit-keyframes fondo {
+    0%{background-position:92% 0%}
+    50%{background-position:9% 100%}
+    100%{background-position:92% 0%}
+}
+@-moz-keyframes fondo {
+    0%{background-position:92% 0%}
+    50%{background-position:9% 100%}
+    100%{background-position:92% 0%}
+}
+@keyframes fondo {
+    0%{background-position:92% 0%}
+    50%{background-position:9% 100%}
+    100%{background-position:92% 0%}
+}
+
+h1 {
+	font-weight: bold;
+	margin: 0;
+}
+
+.logo{
+	text-align: center;
+	width: 12em;
+	height: 12em;
+}
+
+p {
+	font-size: 14px;
+	font-weight: 100;
+	line-height: 20px;
+	letter-spacing: 0.5px;
+	margin: 20px 0 30px;
+	text-align: center;
+}
+
+
+span {
+	font-size: 12px;
+}
+
+a {
+	color: #333;
+	font-size: 14px;
+	text-decoration: none;
+	margin: 15px 0;
+}
+
+button {
+	border-radius: 20px;
+	border: 1px solid #333;
+	background-color: #333;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+	cursor: pointer;
+}
+
+button:active {
+	transform: scale(0.95);
+}
+
+button:focus {
+	outline: none;
+}
+
+button.ghost {
+	background-color: transparent;
+	border-color: #FFFFFF;
+}
+form {
+	background-color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 50px;
+	height: 100%;
+	text-align: center;
+}
+
+input {
+	background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+	width: 100%;
+}
+
+.container {
+	background-color: #fff;
+	border-radius: 10px;
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22);
+	position: relative;
+	overflow: hidden;
+	width: 768px;
+	max-width: 100%;
+	min-height: 480px;
+}
+
+.form-container {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+	left: 0;
+	width: 50%;
+	z-index: 2;
+}
+
+.container.right-panel-active .sign-in-container {
+	transform: translateX(100%);
+}
+
+.sign-up-container {
+	left: 0;
+	width: 50%;
+	opacity: 0;
+	z-index: 1;
+}
+
+.container.right-panel-active .sign-up-container {
+	transform: translateX(100%);
+	opacity: 1;
+	z-index: 5;
+	animation: show 0.6s;
+}
+
+.pass__require{
+	background-color: white;
+	border-radius: 8px;
+	padding: 20px;
+	position: absolute;
+	bottom: 150px;
+	right: 70px;
+	color: #222;
+	width: 200px;
+	font-size: 15px;
+	font-weight: 400;
+	box-shadow: 2px 2px 2px 1px rgb(27, 27, 27);
+	animation-name: appear;
+	animation-duration: 3s;
+}
+
+h3{
+	font-size: 18px;
+}
+
+#passwordRe{
+	outline: none
+}
+
+.valid {
+	color: green;
+  }
+  
+  .valid:before {
+	position: relative;
+	left: -15px;
+	content: "\2705";
+  }
+  
+  /* Add a red text color and an "x" icon when the requirements are wrong */
+  .invalid {
+	color: red;
+  }
+  
+  .invalid:before {
+	position: relative;
+	left: -15px;
+	content: "\274C";
+  }
+
+  .campo-pass{
+	  position: relative;
+	  width: 100%;
+  }
+
+  /* Show password */
+  #mostrar-pass{
+	display: block;
+	position: absolute;
+    bottom: 34.5%;
+    right: 21px;
+  }
+
+  #mostrar-pass-login{
+	display: block;
+	position: absolute;
+    bottom: 37.5%;
+    right: 21px;
+  }
+
+  .fas.fa-eye-slash{
+	  display: none;
+  }
+  .fas.fa-eye{
+	  display: none;
+  }
+
+  .mostrar{
+	  display: block !important;
+  }
+ 
+
+  /* Modal olvide contraseña */
+
+  /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: absolute; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: fixed;
+    bottom: 25%;
+    background-color: #fefefe;
+    width: 70%;
+    left: 20%;
+    border: none;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #333;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .modal-header .close{
+      margin: 0px;
+  }
+
+  .modal-header h2{
+      text-align: center;
+      line-height: 3;
+      width: 700px;
+  }
+
+  input#confirmar{
+    border: none;
+    display: block;
+    color: white;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    border: 2px solid #333;
+    background-color: #333;
+    cursor: pointer;
+    transition: all ease 0.5s;
+  }
+
+  input#confirmar:hover{
+    background: white;
+    border: 2px solid #333;
+    transition: all ease 0.5s;
+    color: #333;
+  
+  }
+
+  button#cancelar{
+    border: 2px solid #333;
+    display: block;
+    color: #333;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
+
+button#cancelar:hover{
+  background: #333;
+  color: white;
+  transition: all ease 0.5s;
+}
+
+p#info-pass{
+	font-size: 20px;
+}
+  
+  .modal-header {
+      text-align: center;
+    padding: 2px 16px;
+    background-color: #fefefe !important;
+    color: #333;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+  }
+  
+  .modal-body {
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+form#formulario-olvidar-pass{
+	display:flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+@keyframes show {
+	0%, 49.99% {
+		opacity: 0;
+		z-index: 1;
+	}
+	
+	50%, 100% {
+		opacity: 1;
+		z-index: 5;
+	}
+}
+
+.overlay-container {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 50%;
+	height: 100%;
+	overflow: hidden;
+	transition: transform 0.6s ease-in-out;
+	z-index: 100;
+}
+
+.container.right-panel-active .overlay-container{
+	transform: translateX(-100%);
+}
+
+.overlay {
+	background: #FF416C;
+	background: -webkit-linear-gradient(to right, #333, #222);
+	background: linear-gradient(to right, #333, #222);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0 0;
+	color: #FFFFFF;
+	position: relative;
+	left: -100%;
+	height: 100%;
+	width: 200%;
+  	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay {
+  	transform: translateX(50%);
+}
+
+.overlay-panel {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 40px;
+	text-align: center;
+	top: 0;
+	height: 100%;
+	width: 50%;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+	transform: translateX(-20%);
+	margin-top: 70px
+}
+
+.container.right-panel-active .overlay-left {
+	transform: translateX(0);
+}
+
+.overlay-right {
+	right: 0;
+	margin-top: 54px;
+	transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+	transform: translateX(20%);
+}
+
+.social-container {
+	margin: 20px 0;
+}
+
+.social-container a {
+	border: 1px solid #DDDDDD;
+	border-radius: 50%;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 5px;
+	height: 40px;
+	width: 40px;
+}
+
+footer {
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+    bottom: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 999;
+}
+
+footer p {
+    margin: 10px 0;
+}
+
+footer i {
+    color: red;
+}
+
+footer a {
+    color: #3c97bf;
+    text-decoration: none;
+}
+
+.fas.fa-arrow-circle-left{
+    position: fixed;
+    font-size: 30px;
+    left: 200px;
+    top: 20px;
+    color: #333;
+  }
+
+  .fas.fa-arrow-circle-left:hover{
+    color: rgb(95, 95, 95);
+}
+
+@media (max-width: 768px) {
+	h1 {
+		font-weight: bold;
+		margin: 0;
+		font-size: 17px;
+	}
+	
+	.logo{
+		text-align: center;
+		width: 7em;
+		height: 7em;
+		display: none;
+	}
+	
+	p {
+		font-size: 15px;
+		font-weight: 100;
+		line-height: 20px;
+		letter-spacing: 0.5px;
+		margin: 20px 0 30px;
+		text-align: center;
+	}
+
+	p.require{
+		font-size: 10px;
+		line-height: 3px;
+	}
+	
+	span {
+		font-size: 13px !important;
+	}
+	
+	a {
+		color: #333;
+		font-size: 9px;
+		text-decoration: none;
+		margin: 15px 0;
+	}
+	
+	button, button#btn-registro {
+		border-radius: 20px;
+		border: 1px solid #333;
+		background-color: #333;
+		color: #FFFFFF;
+		font-size: 8px;
+		font-weight: bold;
+		padding: 7px 11px;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		transition: transform 80ms ease-in;
+		cursor: pointer;
+	}
+
+	button:active {
+		transform: scale(0.95);
+	}
+	
+	button:focus {
+		outline: none;
+	}
+	
+	button.ghost {
+		background-color: transparent;
+		border-color: #FFFFFF;
+	}
+	form {
+		background-color: #FFFFFF;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		margin-top: 73% !important;
+		padding: 0 50px;
+		height: 50%;
+		text-align: center;
+	}
+	
+	input {
+		background-color: #eee;
+		border: none;
+		padding: 12px 15px;
+		margin: 8px 0;
+		width: 100%;
+		font-size: 12px;
+	}
+	
+	.container {
+		background-color: #fff;
+		border-radius: 10px;
+		  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+				0 10px 10px rgba(0,0,0,0.22);
+		position: relative;
+		overflow: hidden;
+		width: 90% !important;
+		max-width: 100%;
+		min-height: 75% !important;
+	}
+	
+	.form-container {
+		position: absolute;
+		top: 0;
+		height: 100% !important;
+		transition: all 0.6s ease-in-out;
+	}
+	
+	.sign-in-container {
+		left: 0;
+		height: 100% !important;
+		width: 100%;
+		z-index: 2;
+	}
+	
+	.container.right-panel-active .sign-in-container {
+		transform: translateY(100%) !important;
+	}
+	
+	.sign-up-container {
+		left: 0;
+		width: 100%;
+		opacity: 0;
+		z-index: 1;
+	}
+	
+	.container.right-panel-active .sign-up-container {
+		transform: translateY(-50%) !important;
+		opacity: 1;
+		z-index: 5;
+		animation: show 0.6s;
+	}
+	
+	.pass__require{
+		background-color: white;
+		border-radius: 0px;
+		padding: 0px;
+		position: absolute;
+		bottom: 0px;
+		right: 0px;
+		color: #222;
+		width: 100%;
+		height: 23%;
+		font-size: 10px;
+		font-weight: 400;
+		box-shadow: 2px 2px 2px 1px rgb(27 27 27);
+		animation-name: appear;
+		animation-duration: 3s;
+		z-index: 1000;
+	}
+
+	.overlay-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100% !important;
+		height: 50% !important;
+		overflow: hidden;
+		transition: transform 0.6s ease-in-out;
+		z-index: 100;
+	}
+	
+	.container.right-panel-active .overlay-container{
+		transform: translateY(100%) !important;
+	}
+	
+	.overlay {
+		background: #FF416C;
+		background: -webkit-linear-gradient(to right, #333, #222);
+		background: linear-gradient(to right, #333, #222);
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: 0 0;
+		color: #FFFFFF;
+		position: relative;
+		left: 0;
+		height: 100% !important;
+		width: 100% !important;
+		  transform: translateY(0)!important;
+		transition: transform 0.6s ease-in-out;
+	}
+	
+	.container.right-panel-active .overlay {
+		  transform: translateY(0) !important;
+	}
+	
+	.overlay-panel {
+		position: absolute;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		padding: 0 40px;
+		text-align: center;
+		top: 0;
+		height: 100% !important;
+		width: 100% !important;
+		transform: translateY(0) !important;
+		transition: transform 0.6s ease-in-out;
+	}
+	
+	.overlay-left {
+		transform: translateY(240%) !important;
+		margin-top: 0;
+	}
+	
+	.container.right-panel-active .overlay-left {
+		transform: translateY(0%) !important;
+	}
+	
+	.overlay-right {
+		right: 0;
+		margin-top: 54px;
+		transform: translateY(-20%) !important;
+	}
+	
+	.container.right-panel-active .overlay-right {
+		transform: translateY(-100%) !important;
+	}
+	
+	.social-container {
+		margin: 20px 0;
+	}
+	
+	.social-container a {
+		border: 1px solid #DDDDDD;
+		border-radius: 50%;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0 5px;
+		height: 40px;
+		width: 40px;
+	}
+	#mostrar-pass{
+		display: block;
+		position: absolute;
+		bottom: 13%;
+		right: 73px;
+	  }
+	
+	  #mostrar-pass-login{
+		display: block;
+		position: absolute;
+		bottom: 24%;
+    	right: 69px;
+	  }
+	
+	  .fas.fa-eye-slash{
+		  display: none;
+		  font-size: 12px;
+	  }
+	  .fas.fa-eye{
+		  display: none;
+		  font-size: 12px;
+	  }
+	  h3{
+		display: none;
+	}
+}
