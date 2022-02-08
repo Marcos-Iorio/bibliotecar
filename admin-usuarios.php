@@ -264,13 +264,13 @@ echo "</div>";
               <div class="wrapper-libros">
                 <div style="display:flex;">
                   <input name="txtID" hidden name="genero" id="genero" placeholder="Seleccionar">
-                  <label for="" style="width: 100px;">Nombre:</label>
+                  <label class="label-modal" for="" style="width: 100px;">Nombre:</label>
                   <input name="txtNombre" style="background-color: white; color: black; width: 20%;" type="text"
                     name="titulo" id="titulo" placeholder="Ingresar dato">
-                  <label for="" style="width: 100px;">Apellido: </label>
+                  <label class="label-modal" for="" style="width: 100px;">Apellido: </label>
                   <input name="txtApellido" style="background-color: white; color: black; width: 20%;" type="text"
                     placeholder="Ingresar dato">
-                  <label for="" style="width: 100px;">Rol: </label>
+                  <label class="label-modal" for="" style="width: 100px;">Rol: </label>
                   <select style="background-color: white; color: black; width: 20%;" name="selecRol" id="selecRol"
                     class="form-control" style="width: 200px; margin-right: 200px;">
                     <option value="" disabled selected>Seleccionar rol</option>
@@ -280,13 +280,13 @@ echo "</div>";
                 <!--<input name="txtRol" style="background-color: white; color: black; width: 20%;"type="text" name="desc" id="desc"  placeholder="Seleccionar">  -->
                 <br>
                 <div style="display:flex;">
-                      <label for="" style="width: 100px;">DNI: </label>
+                      <label class="label-modal" for="" style="width: 100px;">DNI: </label>
                       <input name="txtDNI" style="background-color: white; color: black; width: 20%;" type="text"
                         placeholder="Ingresar dato">
-                      <label for="" style="width: 100px;">Mail:</label>
+                      <label class="label-modal" for="" style="width: 100px;">Mail:</label>
                       <input name="txtMail" style="background-color: white; color: black; width: 20%;" type="text"
                         placeholder="Ingresar dato">
-                      <label for="" style="width: 100px;">Alta mail:</label>
+                      <label class="label-modal" for="" style="width: 100px;">Alta mail:</label>
                       <select style="background-color: white; color: black; width: 20%;" name="selecEstadoMail"
                         id="selecEstadoMail" class="form-control" style="width: 200px; margin-right: 200px;">
                         <option value="" disabled selected>Seleccionar estado</option>
@@ -297,7 +297,7 @@ echo "</div>";
                     <br>
 
                     <div style="display:flex;">
-                      <label for="" style="width: 100px;">Estado:</label>
+                      <label class="label-modal" for="" style="width: 100px;">Estado:</label>
                       <select style="background-color: white; color: black; width: 20%;" name="selecEstadoUsuario"
                         id="selecEstadoUsuario" class="form-control" style="width: 200px; margin-right: 200px;">
                         <option value="" disabled selected>Seleccionar estado</option>

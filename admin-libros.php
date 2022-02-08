@@ -162,10 +162,10 @@ gestionLibros();
 
               <div class="wrapper-libros">
                 <div class="secciones-form" style="display:flex;">
-                  <label for="">Titulo:</label>
+                  <label class="label-modal" for="">Titulo:</label>
                   <input style="background-color: white; color: black;" class="input-libro" type="text" name="titulo"
                     id="titulo" required placeholder="Titulo">
-                  <label for="">Autor:</label>
+                  <label class="label-modal" for="">Autor:</label>
                   <select required id="select-autor" style="background-color: white; color: black; width: 20%;" class="form-control"
                     name="selectAutor">
                     <option value="0" disabled selected>Seleccionar autor</option>
@@ -177,14 +177,14 @@ gestionLibros();
 
                 <div class="secciones-form" style="display:flex;">
 
-                  <label for="">Descripcion: </label>
+                  <label class="label-modal" for="">Descripcion: </label>
                   <input maxlength="1000" style="background-color: white; color: black;" class="input-libro" type="text"
                     name="desc" id="desc" required placeholder="Maximo: 1000 caracteres">
 
                   <input hidden type="text" name="idLibro" id="idLibro">
                   <br><br>
 
-                  <label for="">Categoria:</label>
+                  <label class="label-modal" for="">Categoria:</label>
                   <select required id="select-categoria" style="background-color: white; color: black; width: 20%;" class="form-control"
                     name="selectCategoria">
                     <option value="0" disabled selected>Seleccionar categoria</option>
@@ -198,7 +198,7 @@ gestionLibros();
                 <br><br>
                 <div class="secciones-form" style="display:flex;">
 
-                  <label for="">Editorial:</label>
+                  <label class="label-modal" for="">Editorial:</label>
                   <select required id="select-editorial" style="background-color: white; color: black; width: 20%;" class="form-control"
                     name="selectEditorial">
                     <option value="0" disabled selected>Seleccionar editorial</option>
@@ -211,7 +211,7 @@ gestionLibros();
                   </select>
 
 
-                  <label for="">Stock:</label>
+                  <label class="label-modal" for="">Stock:</label>
                   <input style="background-color: white; color: black;" class="input-libro"
                     oninput="javascript: if (this.value > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                     type="number" maxlength="2" name="stock" id="stock" required placeholder="Maximo: 99">
@@ -221,19 +221,19 @@ gestionLibros();
                 <br><br>
                 <div class="secciones-form" style="display:flex;">
 
-                  <!--<label for="">Fecha de alta</label>
+                  <!--<label class="label-modal" for="">Fecha de alta</label>
                         <input style="background-color: white; color: black;"class="input-libro"  type="date" name="fechaAlta" id="fechaAlta"><br><br>-->
 
-                  <label for="">Tapa:</label>
+                  <label class="label-modal" for="">Tapa:</label>
                   <input class="input-libro" type='file' name='tapa' id="tapa" required>
 
-                  <label for="">ContraTapa (Opcional):</label>
+                  <label class="label-modal" for="">ContraTapa (Opcional):</label>
                   <input class="input-libro" type='file' name='contratapa' id="contratapa">
                   <br><br>
 
                 </div>
                 <div class="secciones-form" style="display:flex;">
-                  <label for="">Pdf de libro (Opcional):</label>
+                  <label class="label-modal" for="">Pdf de libro (Opcional):</label>
                   <input class="input-libro" type="file" name="pdf" id="pdf">
                 </div>
               </div>
@@ -241,7 +241,7 @@ gestionLibros();
               <div class="center">
                 <input value="Editar libro" style="width: 20%;" type="submit" name="btnEditarLibro" id="editar-libro"
                   onclick="return ModificarLibro('editar')" />
-                <label for="" ></label>
+                <label class="label-modal" for="" ></label>
 
                 <input value="Crear libro" style="width: 20%; " type="submit" name="btnCrearLibro" id="crear-libro"
                   onclick="return ModificarLibro('crear')" />

@@ -67,12 +67,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                    <form method="POST" id="form-reservas" action="#" name="busqueda" >
 
 
-                    <label for="" style="width: 210px; text-align: left;">Ingresar reserva:</label>
+                    <label class="label-modal" for="" style="width: 210px; text-align: left;">Ingresar reserva:</label>
                     <input type="text" style="background-color: white; color: black; width: 40%;" name="ingresarReserva" id="titulo"  placeholder="Ingrese ID de reserva">
                     <input type="submit" name="btnReserva" id="subir-libro" value="Cargar" />
                     <br><br>
                     
-                    <label for="" style="width: 210px; text-align: left;">Ingresar devolucion: </label>
+                    <label class="label-modal" for="" style="width: 210px; text-align: left;">Ingresar devolucion: </label>
                     <input type="text" style="background-color: white; color: black; width: 40%;"name="ingresarDevolucion" id="autor"  placeholder="Ingrese ID de libro">
                     <input type="submit" name="btnDevolucion" id="subir-libro" value="Cargar"/>
                     <br>
@@ -159,11 +159,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                 <form name="formReservas" id="formReserva" action="" method = "POST" class= "form-libro">
 
                   <div class="wrapper-reserva">
-                    <label class="modal-reserva" for="" >Reserva:</label>
+                    <label class="label-modal" class="modal-reserva" for="" >Reserva:</label>
                     <input name="txtReserva" class="reserva-libro" type="text" name="titulo" id="titulo" readonly>
-                    <label class="modal-reserva" for="">Usuario: </label>
+                    <label class="label-modal" class="modal-reserva" for="">Usuario: </label>
                     <input name="txtUsuario" class="reserva-libro" type="text" name="autor" id="autor" readonly>
-                    <label class="modal-reserva" for="">Estado: </label>
+                    <label class="label-modal" class="modal-reserva" for="">Estado: </label>
                     <select name="selectEstado" id="selectEstado" class="form-control">
                     <option name="txtEstado" value="" class="reserva-libro" disabled selected >Seleccionar</option>
                     <?php getEstadoReservas(); ?>
