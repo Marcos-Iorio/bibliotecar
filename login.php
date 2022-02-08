@@ -37,11 +37,13 @@ exit;
                 <h1>Crear cuenta</h1>
                 <input type="text" placeholder="Nombre" name="username" id="username"  required/>
                 <input type="email" placeholder="Email" name="mail" id="mail" onblur="validarMail()" required />
-                <input type="password" placeholder="Contraseña" name="passwordRe" id="passwordRe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-                  <div id="mostrar-pass" onclick="mostrarContrasenia()">
-                    <i class="fas fa-eye-slash"></i>
-                    <i class="fas fa-eye mostrar"></i>
-                  </div>  
+                <div class="campo-pass">
+                  <input type="password" placeholder="Contraseña" name="passwordRe" id="passwordRe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                    <div id="mostrar-pass" onclick="mostrarContrasenia()">
+                        <i class="fas fa-eye-slash"></i>
+                        <i class="fas fa-eye mostrar"></i>
+                    </div> 
+                </div>
                 <button name="registrophp" id="btn-registro">Registrarse</button>
                 <span id="resultado"></span>
                 <?php 
@@ -61,11 +63,13 @@ exit;
             <form action="php/login-back.php" method="POST">
                 <h1>Iniciar sesión</h1>
                 <input type="email" placeholder="Email" name="mailL" id="mailL" required />
-                <input type="password" placeholder="Contraseña" name="passL" id="passL" required />
-                <div id="mostrar-pass-login" onclick="mostrarContraseniaLogin()">
-                    <i class="fas fa-eye-slash login"></i>
-                    <i class="fas fa-eye mostrar login"></i>
-                  </div>  
+                <div class="campo-pass">
+                  <input type="password" placeholder="Contraseña" name="passL" id="passL" required />
+                  <div id="mostrar-pass-login" onclick="mostrarContraseniaLogin()">
+                      <i class="fas fa-eye-slash login"></i>
+                      <i class="fas fa-eye mostrar login"></i>
+                    </div>
+                </div>   
                 <a href="#myModal" id="olvide_pass">¿Olvidaste tu contraseña?</a>
                 <button>Iniciar sesión</button>
                 <span id="resultadoL"></span>
