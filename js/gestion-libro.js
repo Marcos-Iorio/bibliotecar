@@ -20,8 +20,6 @@ function abrirSeccionAutor(){
     document.getElementById('seccion-categorias').style.display = "none";
     document.getElementById('seccion-editorial').style.display = "none";
 
-    console.log("entro a la funcion")
-
    let seccionAutor = document.getElementById('seccion-autor');
 
    if(seccionAutor.style.display == ''){
@@ -38,8 +36,6 @@ function abrirSeccionCategoria(){
     document.getElementById('seccion-libros').style.display = "none";
     document.getElementById('seccion-autor').style.display = "none";
     document.getElementById('seccion-editorial').style.display = "none";
-
-    console.log("entro a la funcion")
 
    let seccionCategoria = document.getElementById('seccion-categorias');
 
@@ -88,14 +84,16 @@ function modalLibros(){
         modalLibro.style.display = "block"
         document.getElementById('editar-libro').style.display = "none";
         document.getElementById('crear-libro').style.display = "block";
+
         tituloLibro.innerHTML = "Agregar libro";
     }else if(modalLibro.style.display = "none"){
         modalLibro.style.display = "block";
         document.getElementById('editar-libro').style.display = "none";
         document.getElementById('crear-libro').style.display = "block";
+
         tituloLibro.innerHTML = "Agregar libro";
     }else{
-        tituloLibro.innerHTML = "Modificar Libro"
+        tituloLibro.innerHTML = "Modificar Libro";
 
     }
 
@@ -113,13 +111,20 @@ function modalAutores(){
         modalAutor.style.display = "block"
         document.getElementById('editar-autor').style.display = "none";
         document.getElementById('crear-autor').style.display = "block";
+        document.querySelector('#autor').style.display = "none";
+        document.querySelector('#label-autor').style.display = "none";
 
     }else if(modalAutor.style.display = "none"){
         modalAutor.style.display = "block";
         document.getElementById('editar-autor').style.display = "none";
         document.getElementById('crear-autor').style.display = "block";
+        document.querySelector('#autor').style.display = "none";
+        document.querySelector('#label-autor').style.display = "none";
+
 
     }else{
+        document.querySelector('#autor').style.display = "block";
+        document.querySelector('#label-autor').style.display = "block";
 
     }
     var span = document.getElementById("close-autor");
@@ -141,14 +146,19 @@ function modalCategorias(){
         modalCategoria.style.display = "block"
         document.getElementById('editar-categoria').style.display = "none";
         document.getElementById('crear-categoria').style.display = "block";
+        document.querySelector('#label-categoria').style.display = "none";
+        document.querySelector('#categoria').style.display = "none";
 
     }else if(modalCategoria.style.display = "none"){
         modalCategoria.style.display = "block";
         document.getElementById('editar-categoria').style.display = "none";
         document.getElementById('crear-categoria').style.display = "block";
+        document.querySelector('#label-categoria').style.display = "none";
+        document.querySelector('#categoria').style.display = "none";
 
     }else{
-
+        document.querySelector('#label-categoria').style.display = "block";
+        document.querySelector('#categoria').style.display = "block";
     }
     var span = document.getElementById("close-categoria");
 
@@ -170,13 +180,19 @@ function modalEditoriales(){
         modalEditorial.style.display = "block"
         document.getElementById('editar-editorial').style.display = "none";
         document.getElementById('crear-editorial').style.display = "block";
+        document.querySelector('#label-edito').style.display = "none";
+        document.querySelector('#editorial').style.display = "none";
 
     }else if(modalEditorial.style.display = "none"){
         modalEditorial.style.display = "block";
         document.getElementById('editar-editorial').style.display = "none";
         document.getElementById('crear-editorial').style.display = "block";
+        document.querySelector('#label-edito').style.display = "none";
+        document.querySelector('#editorial').style.display = "none";
 
     }else{
+        document.querySelector('#label-edito').style.display = "block";
+        document.querySelector('#editorial').style.display = "block";
 
     }
     var span = document.getElementById("close-editorial");
@@ -214,3 +230,4 @@ function modalUsuario(){
     }
 
 }
+

@@ -285,7 +285,7 @@ input[type=text], input[type=number], input[type=file] textarea {
     margin-right: 50px;
     resize: vertical;
     background: transparent;
-    color: white;
+    color: black;
 }
 
 
@@ -344,7 +344,6 @@ input#portada{
 }
 
 .container{
-    margin-bottom: 200px;
 }
 
 .container-form{
@@ -395,22 +394,22 @@ thead{
 }
 
 thead th:nth-child(1) {
-    width: 40%;
+    width: 20%;
 }
 
 thead th:nth-child(2) {
-    width: 40%;
+    width: 20%;
 }
 
 thead th:nth-child(3) {
-    width: 40%;
+    width: 20%;
 }
 
 thead th:nth-child(4) {
     width: 20%;
 }
 thead th:nth-child(5) {
-    width: 40%;
+    width: 20%;
 }
 thead th:nth-child(6) {
     width: 20%;
@@ -418,6 +417,9 @@ thead th:nth-child(6) {
 thead th:nth-child(7) {
     width: 20%;
 }
+thead th:nth-child(8){
+    width: 20%;
+} 
 
 .separador{
     border: 2px solid #333;
@@ -427,7 +429,7 @@ thead th:nth-child(7) {
 
 .fas.fa-pencil-alt{
     color:white; 
-    font-size: 25px;   
+    font-size: 15px;   
 }
 
 i.far.fa-trash-alt {
@@ -446,7 +448,7 @@ i.far.fa-trash-alt.tbody-icon{
 }
 
 i.fas.fa-pencil-alt.tbody-icon{
-    font-size: 30px;
+    font-size: 25px;
     outline: none;
     border: none;
     background: none;
@@ -650,6 +652,37 @@ i.fas.fa-times {
 }
 
 /* modals */
+
+#modal-ejemplares{
+    padding: 15px;
+    border: 2px solid #333;
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    display: none;
+    height: 100%;
+    margin-left: 85px;
+    width: 85%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+}
+
+#close-ejemplares {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 20px;
+  }
+  
+  #close-ejemplares:hover,
+  #close-ejemplares:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
 #modal-libros{
     border: 2px solid #333;

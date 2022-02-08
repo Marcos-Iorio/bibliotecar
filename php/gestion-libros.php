@@ -44,17 +44,18 @@ if ($stmt->execute()) {
 
   foreach($resultado as $fila):
     //echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
-
+   $idLibro = $fila['idLibro'];
     echo "
     <tbody>
                           <tr>
-                            <td>" . $fila['idLibro']. "</td>
+                            <td class='ids'>" . $fila['idLibro']. "</td>
                             <td>".  $fila['titulo']."</td>
                             <td>". $fila['nombreAutor']."</td>
                             <td>". $fila['nombreCategoria']."</td>
                             <td>". $fila['stock']. "</td>
                             <td>" . $fila['fechaAlta']. "</td>
                             <td><a href='#modal-libros' id='abrir-modal-libros'><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."','".$fila["descripcion"]."','".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
+                            <td><a href='#modal-ejemplares' id='abrir-ejemplares'>Ver Ejemplares</a></td>
                           </tr>
                         </tbody>
 
@@ -252,11 +253,6 @@ function llenarImagen($Tapa,$contratapa){
 
 
 }
-
-
-
-    
-
                 function cargarLibro($titulo,$descripcion,$stock,$fechaAlta,$destino){
                     include('db.php');
 
@@ -281,12 +277,11 @@ function llenarImagen($Tapa,$contratapa){
                     $buscarAutor->execute();
 
                     $arr=$buscarAutor->fetch(PDO::FETCH_ASSOC);
-                    $idAutor=$arr['idAutores'];
+                    $idAutor = $arr['idAutores'];
 
                     if (!$idAutor == '') {
-                      $idLibro=buscarIdLibro();
+                      $idLibro = buscarIdLibro();
                       llenarAutorLibro($idAutor, $idLibro);
-                      # code...
                     } else {
                     //$insertAutor = $dbh->prepare("INSERT into `autores` (nombreAutor) values(?)");
                     //$insertAutor->bindParam(1, $autor);    
@@ -1040,6 +1035,29 @@ include('db.php');
     }
 
   }
+
+function mostrarEjemplares($idLibro){
+  include 'db.php';
+
+  $query = "SELECT * from ejemplaresidEjemplar like ‘L+$idLibro+E%’";
+  $stmt = $dbh->prepare($query);
+  
+  if ($stmt->execute()) {
+    $resultado=$stmt->fetchAll();
+
+    foreach($resultado as $fila):
+      //echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
+      echo "
+          <tr>
+            <td>" . $fila['idEjemplar']. "</td>
+            <td>".  $fila['idEjemplarEstado']."</td>
+            <td>".  $fila['idEjemplar'] ."</td>
+          </tr>
+      ";
+
+    endforeach;
+  }
+}
 
 
 ?>
