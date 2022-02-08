@@ -202,19 +202,24 @@ h3{
 	content: "\274C";
   }
 
+  .campo-pass{
+	  position: relative;
+	  width: 100%;
+  }
+
   /* Show password */
   #mostrar-pass{
 	display: block;
 	position: absolute;
     bottom: 34.5%;
-    right: 69px;
+    right: 21px;
   }
 
   #mostrar-pass-login{
 	display: block;
 	position: absolute;
-    bottom: 46.5%;
-    right: 69px;
+    bottom: 37.5%;
+    right: 21px;
   }
 
   .fas.fa-eye-slash{
