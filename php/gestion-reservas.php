@@ -55,7 +55,7 @@ if ($fila['idReservaEstado'] == '4' ) {
                   <td id='mailUsuario'>" .  $mailUsuario. "</td>
                   <td>" .  $fila['fechaDesde']. "</td>
                   <td>" .  $fila['fechaHasta']. "</td>
-                  <td><a href='#container-form' id='modal-reservas'><button onclick=\"javascript:cargarReserva('".$fila["idReserva"]."','".$mailUsuario."','".$idEstado."')\" ><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
+                  <td><a href='#container-form' id='modal-reservas'><button onclick=\"javascript:cargarReserva('".$fila["idReserva"]."','".$mailUsuario."','".$idEstado."','".$fila['idEjemplar']."')\" ><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                 </tr>
 
 
@@ -93,13 +93,33 @@ function ingresarReserva ($idReserva){
 }
 
 
-function editarReserva ($idReserva, $idEstado){
+function editarReserva ($idReserva, $idEstado, $idEjemplar){
 include 'db.php';
+include 'reservar.php';
     //include 'sendmail.php';
 
     $idEstadoReserva = getReservaID($idEstado);
-
+    $idLibro = obtenerIDLibro($idEjemplar);
     //echo $sql;
+
+    if ($idEstadoReserva == 0 || $idEstadoReserva == 4) {
+      cambiarEstadoEjemplar($idEjemplar, "0");
+      $stock = obtenerStock($idLibro);
+      $stock = $stock+1;
+
+      $stmt = $dbh->prepare("UPDATE libros SET stock='".$stock."' where idLibro ='".$idLibro."'");
+      $stmt->execute();
+      
+    } else {
+      cambiarEstadoEjemplar($idEjemplar, "1");
+      $stock = obtenerStock($idLibro);
+      $stock = $stock-1;
+
+      $stmt = $dbh->prepare("UPDATE libros SET stock='".$stock."' where idLibro ='".$idLibro."'");
+      $stmt->execute();
+    }
+
+
     $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '$idEstadoReserva' where idReserva = '$idReserva'");
     if ($stmt->execute()) {
 
@@ -116,12 +136,44 @@ include 'db.php';
     
 }
 
+function obtenerIDLibro($idEjemplar){
+  include 'db.php';
+
+  $stmt = $dbh->prepare("SELECT idLibro FROM ejemplares where idEjemplar='$idEjemplar'");
+
+
+  if ($stmt->execute()) {
+    //$idReserva=$stmt->fetchColumn();
+      $arr=$stmt->fetch(PDO::FETCH_ASSOC);
+      $idLibro=$arr['idLibro'];
+      return $idLibro;
+      }
+
+}
+
+function obtenerStock($idLibro){
+  include 'db.php';
+
+  $stmt = $dbh->prepare("SELECT stock FROM libros where idLibro='$idLibro'");
+
+
+  if ($stmt->execute()) {
+    //$idReserva=$stmt->fetchColumn();
+      $arr=$stmt->fetch(PDO::FETCH_ASSOC);
+      $stock=$arr['stock'];
+      return $stock;
+      }
+
+}
+
 //function ingresarDevolucion ($idReserva, $idEstado, $idEjemplar){
 
 function ingresarDevolucion ($idEjemplar){
 
     include 'db.php';
+    include 'reservar.php';
     //include 'sendmail.php';
+    $idLibro = obtenerIDLibro($idEjemplar);
 
 
     $stmt = $dbh->prepare("SELECT idReserva FROM reservas where idEjemplar='$idEjemplar' and idReservaEstado = '2'");
@@ -134,7 +186,15 @@ if ($stmt->execute()) {
         echo "<script>swal({title:'Error',text:'Para realizar una devolucion, la reserva debe estar en estado Activo',type:'error'});</script>";
         gestionReservas();
 
-} else {   
+} else {  
+  
+    cambiarEstadoEjemplar($idEjemplar, "0");
+    $stock = obtenerStock($idLibro);
+    $stock = $stock+1;
+
+    $stmt = $dbh->prepare("UPDATE libros SET stock='".$stock."' where idLibro ='".$idLibro."'");
+    $stmt->execute();
+
     //echo $sql;
     $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar' and idReserva= '$idReserva'");
     //echo "UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar' and idReserva= '$idReserva'";

@@ -29,7 +29,8 @@
                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ) {
                   echo '<h1 class="titulo-pagina"  style="margin-left: 50px;">Hola '. $user . '!</h1>';
                }else{
-                  echo '<h1 style="margin-left: 50px;" >BibliotecAr</h1>';
+                // echo '<div class="logo-inicio" ><img class="logo-inicio" src="assets/logo sin fondo.png" alt=""></div>'
+                  echo '<h1 class="titulo-pagina"  style="margin-left: 50px;" >BibliotecAr</h1>';
 
                } 
 
@@ -48,12 +49,12 @@
                 <div class="card">
                     <div class="info-paneles">
                         <div class="titulo-panel">
-                            <h4>Mis reservas</h4>
+                            <h4>Mis libros</h4>
                         </div>
                         <div class="info-reserva" >
                             <p class="texto-panel">
                             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ) {
-                              panelReserva($_SESSION['username']);
+                              panelReserva($_SESSION['mailL']);
                             }else{
                                 panelReserva(null);
                             }

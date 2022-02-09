@@ -130,7 +130,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                       }
 
                       if (isset($_POST['btnEditar'])) {
-                        editarReserva($_POST['txtReserva'], $_POST['selectEstado']);
+                        editarReserva($_POST['txtReserva'], $_POST['selectEstado'], $_POST['txtIDEjemplar']);
                       }
 
                       ?>
@@ -161,6 +161,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                   <div class="wrapper-reserva">
                     <label class="modal-reserva" for="" >Reserva:</label>
                     <input name="txtReserva" class="reserva-libro" type="text" name="titulo" id="titulo" readonly>
+                    <label hidden class="modal-reserva" for="" >idLibro:</label>
+                    <input hidden name="txtIDEjemplar" class="reserva-libro" type="text" >
                     <label class="modal-reserva" for="">Usuario: </label>
                     <input name="txtUsuario" class="reserva-libro" type="text" name="autor" id="autor" readonly>
                     <label class="modal-reserva" for="">Estado: </label>
@@ -224,10 +226,12 @@ window.onclick = function(event) {
 }
       
 
-function cargarReserva(idReserva, usuario, estadoReserva){
+function cargarReserva(idReserva, usuario, estadoReserva, idEjemplar){
 
   document.formReservas.txtReserva.value = idReserva;
   
+  document.formReservas.txtIDEjemplar.value = idEjemplar;
+
   document.formReservas.txtUsuario.value = usuario;
 
     let estado = document.getElementById('selectEstado');
