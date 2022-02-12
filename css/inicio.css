@@ -3,13 +3,16 @@
 
 html{
     scroll-behavior: smooth;
-    height: 100%;
-    background: #ccd3fd;
 }
 
 *{
     margin: 0;
     padding: 0;
+}
+
+body{
+    height: 100%;
+    overflow-y: scroll;
 }
 
 h1,h2,h3,h4{
@@ -24,6 +27,11 @@ input, div, p, a{
 section.contenido.wrapper{
   width: 100%;
   background: none;
+}
+
+body{
+    height: 100%;
+    overflow-y: scroll;
 }
 
 /*SIDEBAR*/
@@ -57,8 +65,9 @@ section.contenido.wrapper{
   
 #page > #main {
     grid-area: main;
+    background-image: url("../assets/stacked-waves-haikei.svg") !important;
     /* background: #ADB7F5; */
-    background: #ccd3fd;
+    background-size: cover;
     width: 100%;
     padding: 16px;
     padding-right: 0px;
@@ -462,7 +471,8 @@ div#clockdate{
 @media (max-width: 768px){
     #page > #main {
         grid-area: main;
-        background: #ccd3fd;
+        background-image: url("../assets/stacked-waves-haikei.svg");
+        background: #ADB7F5;
         width: 100%;
         padding: 16px;
         padding-right: -1px;

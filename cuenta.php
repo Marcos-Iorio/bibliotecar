@@ -46,7 +46,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
     <title>Mi cuenta</title>
     <script src="js/pleaserotate.js"></script>
 </head>
-
+<style>
+    html.pleaserotate-hiding{
+        height: 100% !important;
+    }
+</style>
 <body onload="startTime()">
     <section id="page">
         <?php 
@@ -78,7 +82,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                                     <th>Libro</th>
                                     <th>Estado</th>
                                     <th>Fecha reserva</th>
-                                    <th>Fecha devolucion</th>
+                                    <th>Fecha devolución</th>
                                 </tr>
                             </thead>
 
@@ -142,7 +146,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                 <i id="flecha" class="fas fa-chevron-right"></i><a href="#configuracion" onclick="moveArrow()"
                     class="scroll-link" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"
                     id="dropdown-toggle" role="button" aria-controls="otherSections"><span
-                        class="cuenta-item">Informacion de cuenta</span></a>
+                        class="cuenta-item">Información de cuenta</span></a>
 
                 <ul class="collapse list-unstyled" id="configuracion">
                     <br>

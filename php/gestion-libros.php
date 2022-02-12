@@ -1,6 +1,4 @@
 
-
-
 <?php
 
   function gestionLibros(){
@@ -51,6 +49,7 @@ if ($stmt->execute()) {
                             <td>". $fila['stock']. "</td>
                             <td>" . $fila['fechaAlta']. "</td>
                             <td><a href='#modal-libros' id='abrir-modal-libros'><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."','".$fila["descripcion"]."','".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
+                            <td><a href='#modal-ejemplares' id='abrir-ejemplares'><button onclick=\"javascript:cargarEjemplares('".$fila["idLibro"]."')\">Ver ejemplares</button></a></td>
                           </tr>
 
 
@@ -1079,8 +1078,6 @@ include('db.php');
 
   }
 
-
-
 function buscarIdEjemplar($idLibro){
   include('db.php');
 
@@ -1145,39 +1142,95 @@ function getCantidadEjemplares($idLibro){
 
 function agregarEjemplar($idLibro, $stock, $fechaAlta){
   include('db.php');
-$idEjemplarEstado="0";
+  $idEjemplarEstado="0";
 
-// $idLibro = buscarIdLibro();
+  // $idLibro = buscarIdLibro();
 
-$stockActual = getUltimoEjemplar($idLibro);
+  $stockActual = getUltimoEjemplar($idLibro);
 
-if ($stockActual > 0) {
-$stockActual = $stockActual;
-} else {
-$stockActual = 0;
+  if ($stockActual > 0) {
+    $stockActual = $stockActual;
+  } else {
+    $stockActual = 0;
+  }
+
+
+
+  for ($i = $stockActual+1; $i <= $stock; $i++) {
+
+    // for ($i = 1; $i <= $stock; $i++) {
+
+    $idEjemplar="L".$idLibro."E".$i;
+    //echo"INSERT into `ejemplares` (idEjemplar, fechaIngreso, idLibro, idEjemplarEstado) 
+    //values($idEjemplar,$fechaAlta,$idLibro, '1')";
+    $insertEjemplar = $dbh->prepare("INSERT into ejemplares (idEjemplar, idLibro, idEjemplarEstado, fechaIngreso) 
+    values(?,?,?,?)");
+
+    $insertEjemplar->bindParam(1, $idEjemplar);
+    $insertEjemplar->bindParam(2, $idLibro);
+    $insertEjemplar->bindParam(3, $idEjemplarEstado);
+    $insertEjemplar->bindParam(4, $fechaAlta);
+
+    $insertEjemplar->execute();
+
+  }
+
+
+}
+
+if(isset($_POST['idLibro'])){
+  $idLibro = $_POST['idLibro'];
+  return mostrarEjemplares($idLibro);
 }
 
 
+function mostrarEjemplares($idLibro){
+    include 'db.php';
 
-for ($i = $stockActual+1; $i <= $stock; $i++) {
+    $query = "SELECT idEjemplar, idEjemplarEstado from ejemplares where idLibro = $idLibro";
+    $stmt = $dbh->prepare($query);
 
-// for ($i = 1; $i <= $stock; $i++) {
+    if ($stmt->execute()) {
+      $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      echo json_encode($resultado);
 
-$idEjemplar="L".$idLibro."E".$i;
-//echo"INSERT into `ejemplares` (idEjemplar, fechaIngreso, idLibro, idEjemplarEstado) 
-//values($idEjemplar,$fechaAlta,$idLibro, '1')";
-$insertEjemplar = $dbh->prepare("INSERT into ejemplares (idEjemplar, idLibro, idEjemplarEstado, fechaIngreso) 
-values(?,?,?,?)");
+      /* foreach($resultado as $fila):
+        //echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
+        echo "
+        <tbody>
+            <tr>
+              <td>" . $fila['idEjemplar']. "</td>
+              <td>".  $fila['idEjemplarEstado']."</td>
+              <td>".  $fila['idEjemplar'] ."</td>
+            </tr>
+        </tbody>
+        ";
 
-$insertEjemplar->bindParam(1, $idEjemplar);
-$insertEjemplar->bindParam(2, $idLibro);
-$insertEjemplar->bindParam(3, $idEjemplarEstado);
-$insertEjemplar->bindParam(4, $fechaAlta);
+      endforeach; */
+    }
+}
 
-$insertEjemplar->execute();
-
+if(isset($_POST['idEjemplar'])){
+  $idEjemplar = $_POST['idEjemplar'];
+  return eliminarEjemplar($idEjemplar);
 }
 
 
+function eliminarEjemplar($idEjemplar){
+  include 'db.php';
+
+  $query = "UPDATE ejemplares
+            SET idEjemplarEstado = 2
+            WHERE idEjemplar = '$idEjemplar'";
+
+  $stmt = $dbh->prepare($query);
+  
+  if ($stmt->execute()) {
+    echo "success";
+  }else{
+    echo "error";
+  }
 }
+
+
 ?>

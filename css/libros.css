@@ -346,6 +346,10 @@ table {
 
 th, td{
     padding: 20px;
+    text-align: center;
+}
+tbody{
+    color: #333;
 }
 
 tbody tr{
@@ -353,13 +357,9 @@ tbody tr{
     transition: ease 0.3s;
 }
 
-tbody tr:nth-child(odd) {
+tbody tr {
     background-color: gray;
   }
-
-tbody tr:nth-child(even) {
-    background-color: #D6EEEE;
-}
 
 tbody tr:hover{
     background-color: rgb(206, 206, 206);
@@ -628,6 +628,37 @@ i.fas.fa-times {
 }
 
 /* modals */
+
+#modal-ejemplares{
+    padding: 15px;
+    border: 2px solid #333;
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    display: none;
+    height: 100%;
+    margin-left: 85px;
+    width: 85%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+}
+
+#close-ejemplares {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 20px;
+  }
+
+  #close-ejemplares:hover,
+  #close-ejemplares:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
 #modal-libros{
     border: 2px solid #333;

@@ -35,7 +35,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
   <script src="js/mensajes.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="css/inicio.css">
   <link rel="stylesheet" href="css/libros.css">
   <link rel="stylesheet" href="css/datatable.css">
@@ -43,7 +43,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
 
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+  
   <title>Document</title>
 </head>
 
@@ -103,6 +104,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                     <th>Stock</th>
                     <th>Fecha de Alta</th>
                     <th>Editar</th>
+                    <th>Ejemplares</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -175,7 +177,29 @@ gestionLibros();
                 </div>
                 <br><br>
 
-                <div class="secciones-form" style="display:flex;">
+          <div id="modal-libros">
+            <span id="close">&times;</span>
+            <h3 id="titulo-libro">Modificar libro:</h3>
+            <div class="subir-libro">
+              <form name="formLibros" action="" id="form-libros" method="POST" class="form-libro"
+                enctype="multipart/form-data">
+
+                <div class="wrapper-libros">
+                  <div class="secciones-form" style="display:flex;">
+                    <label for="">Titulo:</label>
+                    <input style="background-color: white; color: black;" class="input-libro" type="text" name="titulo"
+                      id="titulo" required placeholder="Titulo">
+                    <label for="">Autor:</label>
+                    <select required id="select-autor" style="background-color: white; color: black; width: 20%;"
+                      class="form-control" name="selectAutor">
+                      <option value="0" selected>Seleccionar autor</option>
+                      <?php getAutores(); ?>
+                    </select>
+
+                  </div>
+                  <br><br>
+
+                  <div class="secciones-form" style="display:flex;">
 
                   <label for="">Descripcion: </label>
                   <input maxlength="1000" style="background-color: white; color: black;" class="input-libro" type="text"
@@ -579,28 +603,129 @@ gestionLibros();
           </div>
           </div>
         </div>
-        
-      <!-- Botones a los menús -->
-      <div id="circularMenu" class="circular-menu">
+     <!-- Modal ejemplares -->
 
-        <a class="floating-btn" onclick="document.getElementById('circularMenu').classList.toggle('active');">
-          <i class="fa fa-plus"></i>
-        </a>
+     <div id="modal-ejemplares">
+                <span id="close-ejemplares">&times;</span>
+                <table class="bordered" id="tabla-ejemplar">
+                    <thead>
+                        <tr>
+                          <th>ID Ejemplar</th>
+                          <th>Estado</th>
+                          <th>Des/habilitar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
 
-        <menu class="items-wrapper">
-        <button onclick="abrirSeccionLibro()" class="menu-item-botonera fas fa-book"><a href="#seccion-libros"><span style="top:-60px; left: -50px" class="tooltip-span-libros">Libros</span></a></button>
-        <button onclick="abrirSeccionAutor()" class="menu-item-botonera fas fa-user-alt"><a href="#seccion-autor" ><span style="top:-30px; left: -110px" class="tooltip-span">Autores</span></a></button>
-        <button onclick="abrirSeccionCategoria()" class="menu-item-botonera fas fa-list-ul"><a href="#seccion-categorias"><span style="top:-20px; left: -110px" class="tooltip-span">Categorias</span></a></button>
-        <button onclick="abrirSeccionEditorial()" class="menu-item-botonera far fa-newspaper"><a href="#seccion-editorial"><span style="top:-20px; left: -120px" class="tooltip-span">Editoriales</span></a></button>
-        </menu>
+                    </tbody>
+                </table>
+                </div>
+              </div>
 
-      </div>
+          <!-- Botones a los menús -->
+          <div id="circularMenu" class="circular-menu">
+
+            <a class="floating-btn" onclick="document.getElementById('circularMenu').classList.toggle('active');">
+              <i class="fa fa-plus"></i>
+            </a>
+
+            <menu class="items-wrapper">
+              <button onclick="abrirSeccionLibro()" class="menu-item-botonera fas fa-book"><a
+                  href="#seccion-libros"><span style="top:-60px; left: -50px"
+                    class="tooltip-span-libros">Libros</span></a></button>
+              <button onclick="abrirSeccionAutor()" class="menu-item-botonera fas fa-user-alt"><a
+                  href="#seccion-autor"><span style="top:-30px; left: -110px"
+                    class="tooltip-span">Autores</span></a></button>
+              <button onclick="abrirSeccionCategoria()" class="menu-item-botonera fas fa-list-ul"><a
+                  href="#seccion-categorias"><span style="top:-20px; left: -110px"
+                    class="tooltip-span">Categorias</span></a></button>
+              <button onclick="abrirSeccionEditorial()" class="menu-item-botonera far fa-newspaper"><a
+                  href="#seccion-editorial"><span style="top:-20px; left: -120px"
+                    class="tooltip-span">Editoriales</span></a></button>
+            </menu>
+
+          </div>
 
     </main>
   </section>
 </body>
 <script src="js/gestion-libro.js"></script>
 <script type="text/javascript">
+
+  function cargarEjemplares(idLibro){
+
+    const data = {'idLibro': Number(idLibro)};
+    $.ajax({
+            type: "POST",
+            url: "php/gestion-libros.php",
+            dataType: "json",
+            data: data,
+            success: function(data){
+              limpiarHTML()
+              $(data).each(
+                  function() {
+                    this.idEjemplarEstado = this.idEjemplarEstado == 1 ? 'Reservado' : this.idEjemplarEstado == 2 ? 'Eliminado' : 'Disponible';
+                      $('#tbody').append(
+                              '<tr><td>' + this.idEjemplar
+                                      + '</td><td>'
+                                      + this.idEjemplarEstado
+                                      + '</td><td>'
+                                      + `<button onclick="borrarEjemplar('${this.idEjemplar}')"><i class="fa-solid fa-trash"></i></button>`
+                                      + '</td></tr>')
+                  });
+              
+            }
+            });
+
+      function limpiarHTML(){
+         const tbody = document.querySelector('#tbody');
+         while(tbody.firstChild){
+           tbody.removeChild(tbody.firstChild);
+         }
+      }
+  }
+
+  function borrarEjemplar(idEjemplar) {
+    Swal.fire({
+      icon: 'warning',
+      title: "Vas a borrar el ejemplar",
+      text: "",
+      showCancelButton: true,
+      confirmButtonColor: "#1FAB45",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancel",
+      buttonsStyling: true
+    }).then((result) => {   
+      if(result.value === true){
+        $.ajax({
+            type: "POST",
+            url: "php/gestion-libros.php",
+            data: { 'idEjemplar': idEjemplar},
+            cache: false,
+            success: function(response) {
+                Swal.fire(
+                "Success!",
+                "El ejemplar se eliminó!",
+                "success"
+                )
+            },
+            failure: function (response) {
+                Swal.fire(
+                "Internal Error",
+                "No se pudo eliminar.", // had a missing comma
+                "error"
+                )
+            }
+        })
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000)
+        
+      }
+    })
+  }
+
+
   function ModificarLibro(tipo) {
 
     if (tipo == 'editar') {
@@ -769,6 +894,26 @@ spanEdit.onclick = function() {
     }
 
   }
+
+  /* Ejemplares */
+  const botonEjemplar = document.querySelectorAll('#abrir-ejemplares');
+
+  const modalEjemplar = document.querySelector('#modal-ejemplares');
+
+    for (var i = 0; i < botonEjemplar.length; i++) {
+    botonEjemplar[i].onclick = function () {
+      modalEjemplar.style.display = "block";
+    }
+  };
+
+  
+
+  var span = document.getElementById("close-ejemplares");
+
+  span.onclick = function() {
+      modalEjemplar.style.display = "none";
+  }
+
 </script>
 
 

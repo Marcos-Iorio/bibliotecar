@@ -175,6 +175,13 @@ label {
     /* width: 100px; */
 }
 
+.label-reserva{
+    color: #333;
+    line-height: 70px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 
 input[type=text], input[type=number], input[type=file] textarea {
     width: 50%;
@@ -302,6 +309,11 @@ thead th:nth-child(6) {
 }
 thead th:nth-child(7) {
     width: 20%;
+}
+
+.ingresar-reserva, .ingresar-devolucion{
+    display: flex;
+    margin-bottom: 50px;
 }
 
 .separador{

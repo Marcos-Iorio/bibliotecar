@@ -66,18 +66,18 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
 
                    <form method="POST" id="form-reservas" action="#" name="busqueda" >
 
+                    <div class="ingresar-reserva">
+                        <label class="label-reserva" for="" style="width: 210px; text-align: left;">Ingresar reserva:</label>
+                        <input type="text" style="background-color: white; color: black; width: 40%;" name="ingresarReserva" id="titulo"  placeholder="Ingrese ID de reserva">
+                        <input type="submit" name="btnReserva" id="subir-libro" value="Cargar" />
+                    </div>
+                    <div class="ingresar-devolucion">
+                        <label class="label-reserva" for="" style="width: 210px; text-align: left;">Ingresar devolución: </label>
+                        <input type="text" style="background-color: white; color: black; width: 40%;"name="ingresarDevolucion" id="autor"  placeholder="Ingrese ID de libro">
+                        <input type="submit" name="btnDevolucion" id="subir-libro" value="Cargar"/>
+                    </div>
 
-                    <label for="" style="width: 210px; text-align: left;">Ingresar reserva:</label>
-                    <input type="text" style="background-color: white; color: black; width: 40%;" name="ingresarReserva" id="titulo"  placeholder="Ingrese ID de reserva">
-                    <input type="submit" name="btnReserva" id="subir-libro" value="Cargar" />
-                    <br><br>
-                    
-                    <label for="" style="width: 210px; text-align: left;">Ingresar devolucion: </label>
-                    <input type="text" style="background-color: white; color: black; width: 40%;"name="ingresarDevolucion" id="autor"  placeholder="Ingrese ID de libro">
-                    <input type="submit" name="btnDevolucion" id="subir-libro" value="Cargar"/>
-                    <br>
-
-                    <!-- <div style="display: flex;justify-content: space-between;align-items: center;">
+                    <div style="display: flex;justify-content: space-between;align-items: center;">
 
                     <h6 style="width: 100px;">Buscar por:</h6>
                     <select class="form-control"name="txtCriterio" style="width: 200px; margin-right: 200px;">
@@ -107,7 +107,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                   <th>Estado</th>
                   <th>Usuario</th>
                   <th>Fecha solicitud</th>
-                  <th>Fecha devolucion</th>
+                  <th>Fecha devolución</th>
                   <th>Editar</th>
                   
                         </thead>
@@ -183,11 +183,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
 
                   </form>
               </div>         
-            </section>
-            <button onclick="contacto()" class="buttonInfo tooltip">
-                <i class="fas fa-question"></i>
-                <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
-            </button>
+            </section>  
         </main>
       </section>
 </body>
