@@ -75,7 +75,7 @@
                             
                             $query = "SELECT * FROM reservas
                                     INNER JOIN ejemplares ON ejemplares.idEjemplar = reservas.idEjemplar
-                                    WHERE ejemplares.idLibro = $idLibro AND reservas.idUsuario = $idUsuario";
+                                    WHERE ejemplares.idLibro = $idLibro AND reservas.idUsuario = $idUsuario and idReservaEstado = '1'";
 
                             $stmt = $dbh->prepare($query);
 

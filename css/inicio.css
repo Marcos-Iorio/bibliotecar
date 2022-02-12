@@ -4,7 +4,7 @@
 html{
     scroll-behavior: smooth;
     height: 100%;
-    background: #ADB7F5;
+    background: #ccd3fd;
 }
 
 *{
@@ -57,7 +57,8 @@ section.contenido.wrapper{
   
 #page > #main {
     grid-area: main;
-    background: #ADB7F5;
+    /* background: #ADB7F5; */
+    background: #ccd3fd;
     width: 100%;
     padding: 16px;
     padding-right: 0px;
@@ -109,6 +110,10 @@ section#page{
     color: #fff;
 }
  
+
+
+ 
+
 .sidebar ul li a i {
     /* margin-right: 10px; */
     padding-right: 10px;
@@ -287,14 +292,28 @@ only screen and (                min-resolution: 2dppx) {
   }
 }
 
+.logo-inicio{
+    /* margin-right: 10px; */
+    text-align: center;
+}
+
+img.logo-inicio{
+    /* margin-right: 10px; */
+    text-align: center;
+    width: 200px;
+}
+
 .titulo-pagina{
     margin-top: 20px;
     font-family: 'Raleway', sans-serif;
     font-weight: 400;
     text-align: center;
-    padding: 20px 0 20px 0;
+    padding: 50px 0 20px 0;
     font-size: 45px;
-    color: white;
+     color: #444;
+     
+    /*background-color: #535355; */
+
 
 }
 
@@ -317,7 +336,7 @@ only screen and (                min-resolution: 2dppx) {
     justify-items: center;
     flex-wrap: wrap;
     justify-content:space-around;
-    margin-bottom: 100px;
+    /* margin-bottom: 100px; */
     margin-top: 50px;
 }
 
@@ -328,15 +347,21 @@ only screen and (                min-resolution: 2dppx) {
     box-shadow: 0px 30px 78px -47px black;
     text-align: center;
     color: #333;
-    transition: all ease 0.5s;
+    transition: all ease 0.3s;
     border: none;
     border-radius: 20px;
+    border-color: gray;
 
 }
 
 .card:hover{
-    box-shadow: none;
-    transition: ease 0.5s;
+    /* box-shadow: none; */
+    transition: ease 0.3s;
+    transform: scale(1.05);
+    /* box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75); */
+
 }
 
 .info-paneles{
@@ -357,14 +382,15 @@ a.ver-mas-paneles{
 }
 
 .titulo-panel {
-    background: #adb7f5;
-    border: 2px solid #909adb;
+    background: #535355;
+    border: 2px solid rgb(63, 63, 63);
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
 }
 
 .info-reserva{
@@ -436,7 +462,7 @@ div#clockdate{
 @media (max-width: 768px){
     #page > #main {
         grid-area: main;
-        background: #ADB7F5;
+        background: #ccd3fd;
         width: 100%;
         padding: 16px;
         padding-right: -1px;

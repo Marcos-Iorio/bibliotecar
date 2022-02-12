@@ -198,6 +198,8 @@ function editarLibro($idLibro, $titulo, $autor, $descripcion,$categoria,$editori
                           }
                   }
 
+                  editarStockEjemplar($idLibro, $stock);
+
                   //Editar tapa y/o contratapa
                   //Insertar contratapa si no hay registro existente
                   //Editar ejemplares, eliminar/agregar registros segun stock libro 
@@ -205,14 +207,14 @@ function editarLibro($idLibro, $titulo, $autor, $descripcion,$categoria,$editori
 
    
 
-                    if ($flagLibro="ok" || $flagEditorial="ok" || $flagAutor="ok" || $flagCategoria="ok" ) {
+                     if ($flagLibro="ok" || $flagEditorial="ok" || $flagAutor="ok" || $flagCategoria="ok" ) {
         echo "<script>swal({title:'Exito',text:'Registro editado correctamente.',type:'success'});</script>";
-                     # code...
+// //                      # code...
                     } else {
-        //echo "<script>swal({title:'Error',text:'El registro no pudo ser editado. flagLibro= $flagLibro, flagEditorial= $flagEditorial, flagAutor= $flagAutor, flagCategoria= $flagCategoria, $varLibro ',type:'error'});</script>";
+// //         //echo "<script>swal({title:'Error',text:'El registro no pudo ser editado. flagLibro= $flagLibro, flagEditorial= $flagEditorial, flagAutor= $flagAutor, flagCategoria= $flagCategoria, $varLibro ',type:'error'});</script>";
             echo "<script>swal({title:'Error',text:'El registro no pudo ser editado.',type:'error'});</script>";
                     }
-}
+ }
 
 
 function llenarImagen($Tapa,$contratapa){
@@ -569,8 +571,20 @@ echo "<option>".$fila['nombreEditorial']."</option>";
       $idEjemplarEstado="0";
 
       $idLibro = buscarIdLibro();
+
+      $stockActual = getUltimoEjemplar($idLibro);
+
+      if ($stockActual > 0) {
+        $stockActual = $stockActual;
+      } else {
+        $stockActual = 0;
+      }
       
-      for ($i = 1; $i <= $stock; $i++) {
+      
+      
+      for ($i = $stockActual+1; $i <= $stockActual+$stock; $i++) {
+      
+      // for ($i = 1; $i <= $stock; $i++) {
 
         $idEjemplar="L".$idLibro."E".$i;
 //echo"INSERT into `ejemplares` (idEjemplar, fechaIngreso, idLibro, idEjemplarEstado) 
@@ -593,6 +607,39 @@ echo "<option>".$fila['nombreEditorial']."</option>";
 
 
 
+
+
+//     function eliminarEjemplar($stock){
+//       include('db.php');
+// $idEjemplarEstado="0";
+
+// $idLibro = buscarIdLibro();
+
+// $stockActual = getUltimoEjemplar($idLibro);
+
+// if ($stockActual > 0) {
+//   $stockEliminar = $stockActual-$stock;
+
+//   $quitarStock = $dbh->prepare("delete from ejemplares where idLibro = $idLibro and idEjemplarEstado = 0 LIMIT $stockEliminar");
+//   $quitarStock->execute();
+
+
+// } 
+
+// }
+
+
+function getUltimoEjemplar($idLibro) {
+
+  include('db.php');
+
+  $buscarStock = $dbh->prepare("select substr(idEjemplar,instr(idEjemplar,'E') + 1) AS cantidad from ejemplares where idLibro= $idLibro order by idEjemplar DESC LIMIT 1");
+  $buscarStock->execute();
+  $arr = $buscarStock->fetch(PDO::FETCH_ASSOC);
+  $cantidadEjemplar = $arr['cantidad'];
+  
+   return $cantidadEjemplar;
+}
 
 
 
@@ -1033,4 +1080,104 @@ include('db.php');
   }
 
 
+
+function buscarIdEjemplar($idLibro){
+  include('db.php');
+
+  $buscarIdEjemplar = $dbh->prepare("select * from ejemplares where idLibro = '$idLibro' and idEjemplar like '%L".$idLibro."E%' and idEjemplarEstado = '0' LIMIT 1");
+  $buscarIdEjemplar->execute();
+  $arr = $buscarIdEjemplar->fetch(PDO::FETCH_ASSOC);
+  $idEjemplar = $arr['idEjemplar'];
+  
+        return $idEjemplar;
+
+}
+
+function reservarEjemplar($idLibro, $estado){
+  include('db.php');
+  $idEjemplar=buscarIdEjemplar($idLibro);
+
+  if (!$idEjemplar == null) {
+
+    $buscarIdEjemplar = $dbh->prepare("UPDATE ejemplares SET idEjemplarEstado = '$estado' where idEjemplar '$idEjemplar'");
+    $buscarIdEjemplar->execute();
+    // $arr = $buscarIdEjemplar->fetch(PDO::FETCH_ASSOC);
+    // $idEjemplar = $arr['idEjemplar'];
+    echo "<script>swal({title:'Cheto',text:'Error al reservar un ejemplar.',type:'error'});</script>";
+
+  } else {
+    echo "<script>swal({title:'Error',text:'Error al reservar un ejemplar.',type:'error'});</script>";
+  }
+
+
+  
+        return $idEjemplar;
+
+}
+
+function editarStockEjemplar($idLibro, $stock){
+  include('db.php');
+  $stockActual=getCantidadEjemplares($idLibro);
+  $fechaAlta = date('Y-m-d');
+
+  // if ($stockActual >  $stock) {
+    
+  //   eliminarEjemplar($stock);
+  // }
+  
+  if ($stockActual <  $stock) {
+    agregarEjemplar($idLibro, $stock, $fechaAlta);
+  }
+  
+}
+
+function getCantidadEjemplares($idLibro){
+  include('db.php');
+
+  $buscarStock = $dbh->prepare("select count(*) AS cantidad from ejemplares where idLibro = '$idLibro' and idEjemplarEstado = 0");
+  $buscarStock->execute();
+  $arr = $buscarStock->fetch(PDO::FETCH_ASSOC);
+  $cantidadEjemplar = $arr['cantidad'];
+  
+   return $cantidadEjemplar;
+
+}
+
+function agregarEjemplar($idLibro, $stock, $fechaAlta){
+  include('db.php');
+$idEjemplarEstado="0";
+
+// $idLibro = buscarIdLibro();
+
+$stockActual = getUltimoEjemplar($idLibro);
+
+if ($stockActual > 0) {
+$stockActual = $stockActual;
+} else {
+$stockActual = 0;
+}
+
+
+
+for ($i = $stockActual+1; $i <= $stock; $i++) {
+
+// for ($i = 1; $i <= $stock; $i++) {
+
+$idEjemplar="L".$idLibro."E".$i;
+//echo"INSERT into `ejemplares` (idEjemplar, fechaIngreso, idLibro, idEjemplarEstado) 
+//values($idEjemplar,$fechaAlta,$idLibro, '1')";
+$insertEjemplar = $dbh->prepare("INSERT into ejemplares (idEjemplar, idLibro, idEjemplarEstado, fechaIngreso) 
+values(?,?,?,?)");
+
+$insertEjemplar->bindParam(1, $idEjemplar);
+$insertEjemplar->bindParam(2, $idLibro);
+$insertEjemplar->bindParam(3, $idEjemplarEstado);
+$insertEjemplar->bindParam(4, $fechaAlta);
+
+$insertEjemplar->execute();
+
+}
+
+
+}
 ?>
