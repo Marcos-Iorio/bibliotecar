@@ -155,28 +155,6 @@ gestionLibros();
             <button onclick="modalLibros()" class="boton-agregar-libro"><a href="#modal-libros"></a><i class="fas fa-add">Agregar Libro</i></button>
           </div>
           
-
-        <div id="modal-libros">
-          <span id="close">&times;</span>
-          <h3 id="titulo-libro">Modificar libros:</h3>
-          <div class="subir-libro">
-            <form name="formLibros" action="" id="form-libros" method="POST" class="form-libro" enctype="multipart/form-data">
-
-              <div class="wrapper-libros">
-                <div class="secciones-form" style="display:flex;">
-                  <label for="">Titulo:</label>
-                  <input style="background-color: white; color: black;" class="input-libro" type="text" name="titulo"
-                    id="titulo" required placeholder="Titulo">
-                  <label for="">Autor:</label>
-                  <select required id="select-autor" style="background-color: white; color: black; width: 20%;" class="form-control"
-                    name="selectAutor">
-                    <option value="0" disabled selected>Seleccionar autor</option>
-                    <?php getAutores(); ?>
-                  </select>
-
-                </div>
-                <br><br>
-
           <div id="modal-libros">
             <span id="close">&times;</span>
             <h3 id="titulo-libro">Modificar libro:</h3>

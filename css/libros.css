@@ -240,6 +240,10 @@ label {
     text-align: left;
 }
 
+div#tablaLibros_length label, div#tablaLibros_filter label{
+    width: 100% !important;
+}
+
 input#crear-libro{
     display: block;
     color: white;
