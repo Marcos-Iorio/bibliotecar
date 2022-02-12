@@ -939,4 +939,21 @@ body {
     text-decoration: none;
     cursor: pointer;
   }
+
+  /* Data tables */
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button{
+      background: #333 !important;
+      border-radius: 44px !important;
+  }
+
+  .page-item .page-link{
+      background: transparent !important;
+      border: none;
+      color: white !important;
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .aginate_button.disabled:active{
+      color: #666 !important;
+  }
   
