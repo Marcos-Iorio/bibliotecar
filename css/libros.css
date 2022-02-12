@@ -367,6 +367,10 @@ table {
 
 th, td{
     padding: 20px;
+    text-align: center;
+}
+tbody{
+    color: white;
 }
 
 tbody tr{
@@ -374,13 +378,9 @@ tbody tr{
     transition: ease 0.3s;
 }
 
-tbody tr:nth-child(odd) {
+tbody tr {
     background-color: gray;
   }
-
-tbody tr:nth-child(even) {
-    background-color: #D6EEEE;
-}
 
 tbody tr:hover{
     background-color: rgb(206, 206, 206);

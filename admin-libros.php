@@ -33,11 +33,12 @@
   <script src="js/mensajes.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="css/inicio.css">
   <link rel="stylesheet" href="css/libros.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+  
   <title>Document</title>
 </head>
 
@@ -162,7 +163,7 @@
                     <label for="">Autor:</label>
                     <select required id="select-autor" style="background-color: white; color: black; width: 20%;"
                       class="form-control" name="selectAutor">
-                      <option value="0" disabled selected>Seleccionar autor</option>
+                      <option value="0" selected>Seleccionar autor</option>
                       <?php getAutores(); ?>
                     </select>
 
@@ -588,7 +589,7 @@
 
            <div id="modal-ejemplares">
                 <span id="close-ejemplares">&times;</span>
-                <table class="bordered">
+                <table class="bordered" id="tabla-ejemplar">
                     <thead>
                         <tr>
                           <th>ID Ejemplar</th>
@@ -596,8 +597,8 @@
                           <th>Des/habilitar</th>
                         </tr>
                     </thead>
-                    <tbody>
-                      
+                    <tbody id="tbody">
+
                     </tbody>
                 </table>
                 </div>
@@ -632,6 +633,81 @@
 </body>
 <script src="js/gestion-libro.js"></script>
 <script type="text/javascript">
+
+  function cargarEjemplares(idLibro){
+
+    const data = {'idLibro': Number(idLibro)};
+    $.ajax({
+            type: "POST",
+            url: "php/gestion-libros.php",
+            dataType: "json",
+            data: data,
+            success: function(data){
+              limpiarHTML()
+              $(data).each(
+                  function() {
+                    this.idEjemplarEstado = this.idEjemplarEstado == 1 ? 'Reservado' : this.idEjemplarEstado == 2 ? 'Eliminado' : 'Disponible';
+                      $('#tbody').append(
+                              '<tr><td>' + this.idEjemplar
+                                      + '</td><td>'
+                                      + this.idEjemplarEstado
+                                      + '</td><td>'
+                                      + `<button onclick="borrarEjemplar('${this.idEjemplar}')"><i class="fa-solid fa-trash"></i></button>`
+                                      + '</td></tr>')
+                  });
+              
+            }
+            });
+
+      function limpiarHTML(){
+         const tbody = document.querySelector('#tbody');
+         while(tbody.firstChild){
+           tbody.removeChild(tbody.firstChild);
+         }
+      }
+  }
+
+  function borrarEjemplar(idEjemplar) {
+    Swal.fire({
+      icon: 'warning',
+      title: "Vas a borrar el ejemplar",
+      text: "",
+      showCancelButton: true,
+      confirmButtonColor: "#1FAB45",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancel",
+      buttonsStyling: true
+    }).then((result) => {   
+      if(result.value === true){
+        $.ajax({
+            type: "POST",
+            url: "php/gestion-libros.php",
+            data: { 'idEjemplar': idEjemplar},
+            cache: false,
+            success: function(response) {
+                Swal.fire(
+                "Success!",
+                "El ejemplar se eliminó!",
+                "success"
+                )
+            },
+            failure: function (response) {
+                Swal.fire(
+                "Internal Error",
+                "No se pudo eliminar.", // had a missing comma
+                "error"
+                )
+            }
+        })
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000)
+        
+      }
+    })
+  }
+
+
   function ModificarLibro(tipo) {
 
     if (tipo == 'editar') {

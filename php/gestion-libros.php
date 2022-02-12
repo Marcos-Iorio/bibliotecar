@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-  <title></title>
-</head>
-
 
 <?php
 
@@ -55,7 +48,7 @@ if ($stmt->execute()) {
                             <td>". $fila['stock']. "</td>
                             <td>" . $fila['fechaAlta']. "</td>
                             <td><a href='#modal-libros' id='abrir-modal-libros'><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."','".$fila["descripcion"]."','".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
-                            <td><a href='#modal-ejemplares' id='abrir-ejemplares'>Ver Ejemplares</a></td>
+                            <td><a href='#modal-ejemplares' id='abrir-ejemplares'><button onclick=\"javascript:cargarEjemplares('".$fila["idLibro"]."')\">Ver ejemplares</button></a></td>
                           </tr>
                         </tbody>
 
@@ -1036,33 +1029,59 @@ include('db.php');
 
   }
 
+  if(isset($_POST['idLibro'])){
+    $idLibro = $_POST['idLibro'];
+    return mostrarEjemplares($idLibro);
+  }
+
+  
 function mostrarEjemplares($idLibro){
   include 'db.php';
 
-  $query = "SELECT * from ejemplaresidEjemplar like ‘L+$idLibro+E%’";
+  $query = "SELECT idEjemplar, idEjemplarEstado from ejemplares where idLibro = $idLibro";
   $stmt = $dbh->prepare($query);
   
   if ($stmt->execute()) {
-    $resultado=$stmt->fetchAll();
+    $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($resultado);
 
-    foreach($resultado as $fila):
+    /* foreach($resultado as $fila):
       //echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
       echo "
+      <tbody>
           <tr>
             <td>" . $fila['idEjemplar']. "</td>
             <td>".  $fila['idEjemplarEstado']."</td>
             <td>".  $fila['idEjemplar'] ."</td>
           </tr>
+      </tbody>
       ";
 
-    endforeach;
+    endforeach; */
+  }
+}
+
+if(isset($_POST['idEjemplar'])){
+  $idEjemplar = $_POST['idEjemplar'];
+  return eliminarEjemplar($idEjemplar);
+}
+
+
+function eliminarEjemplar($idEjemplar){
+  include 'db.php';
+
+  $query = "UPDATE ejemplares
+            SET idEjemplarEstado = 2
+            WHERE idEjemplar = '$idEjemplar'";
+
+  $stmt = $dbh->prepare($query);
+  
+  if ($stmt->execute()) {
+    echo "success";
+  }else{
+    echo "error";
   }
 }
 
 
 ?>
-
-<body>
-
-</body>
-</html>

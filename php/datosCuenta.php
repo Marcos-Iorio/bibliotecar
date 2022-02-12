@@ -322,10 +322,10 @@ if ($stmt->execute()) {
       cerrarSesion();
       
       echo "<script>
-      swal({title:'Exito',text:'Tu cuenta se dio de baja éxitosamente, esperamos volver a verte!. Serás redireccionado en 3 segundos.',type:'success'});
+      swal({title:'Exito',text:'Tu cuenta se dio de baja éxitosamente, esperamos volver a verte!. Serás redireccionado en 1 segundo.',type:'success'});
       setTimeout(function(){
         window.location.href = 'login.php';
-      }, 3000);
+      }, 1500);
     </script>";
                 
                 
