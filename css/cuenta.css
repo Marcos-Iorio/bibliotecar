@@ -12,6 +12,11 @@ li{
     
 }
 
+
+#main{
+    overflow-y: auto !important;
+}
+
 .sidebar ul li.active > a, a[aria-expanded="true"] {
     background:transparent !important;
     /*color: transparent !important;*/
