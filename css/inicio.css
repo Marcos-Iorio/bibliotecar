@@ -448,7 +448,7 @@ div#clockdate{
     #page > #main {
         grid-area: main;
         background-image: url("../assets/stacked-waves-haikei.svg");
-        background: #ADB7F5;
+        background-size: cover;
         width: 100%;
         padding: 16px;
         padding-right: -1px;
@@ -456,6 +456,10 @@ div#clockdate{
         transition: padding-left 0.5s;
         overflow-y: hidden;
         overflow-x: hidden;
+    }
+
+    .column{
+        flex: 100%;
     }
 }
 
