@@ -39,7 +39,7 @@ body{
     grid-template-rows: 50px 1fr ;
     grid-template-columns: 60px auto;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
   
 #page > #sidebar {
@@ -67,13 +67,10 @@ body{
     padding-right: 0px;
     padding-bottom: 150px;
     transition: padding-left 0.5s;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
 }
 
-section#page{
-    overflow: hidden;
-}
 /*Fin SIDEBAR*/
 
 /***** Wrapper *****/

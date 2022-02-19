@@ -344,8 +344,8 @@ gestionLibros();
                       <input class="input-libro" type="text" name="editarAutor" id="autor" placeholder="Autor">
                       <input hidden type="text" name="idAutor" id="autor" placeholder="Autor">
 
-                      <label for="">Autor Nuevo:</label>
-                      <input class="input-libro" type="text" name="nuevoAutor" id="autor" placeholder="Autor">
+                      <label for="" class="autor-nuevo">Autor Nuevo:</label>
+                      <input class="input-libro" type="text" name="nuevoAutor" class="autor-nuevo" placeholder="Autor">
 
 
                     </div>
@@ -449,10 +449,10 @@ gestionLibros();
                   <div class="wrapper-libros">
 
                     <label for="">Categoria:</label>
-                    <input class="input-libro" type="text" name="editarCategoria" id="autor" placeholder="Categoria">
+                    <input class="input-libro" type="text" name="editarCategoria" id="categoria" placeholder="Categoria">
                     <input hidden type="text" name="idCategoria" id="autor" placeholder="Categoria">
-                    <label for="">Categoria Nueva:</label>
-                    <input class="input-libro" type="text" name="nuevaCategoria" id="categoria" placeholder="Categoria">
+                    <label for="" class="categoria-nueva">Categoria Nueva:</label>
+                    <input class="input-libro" type="text" name="nuevaCategoria" class="categoria-nueva" placeholder="Categoria">
 
 
                   </div>
@@ -558,11 +558,11 @@ gestionLibros();
                     <div class="wrapper-libros">
 
                       <label for="">Editorial:</label>
-                      <input class="input-libro" style="color: black;" type="text" name="editarEditorial" id="autor" placeholder="Editorial">
+                      <input class="input-libro" style="color: black;" type="text" name="editarEditorial" id="editorial" placeholder="Editorial">
                       <input hidden type="text" name="idEditorial" id="autor" placeholder="Editorial">
 
-                      <label for="">Editorial Nueva:</label>
-                      <input class="input-libro"  type="text" name="nuevaEditorial" id="editorial" placeholder="Editorial">
+                      <label for="" class="editorial-nueva">Editorial Nueva:</label>
+                      <input class="input-libro"  type="text" name="nuevaEditorial" class="editorial-nueva" placeholder="Editorial">
 
 
                     </div>
@@ -776,6 +776,7 @@ span.onclick = function() {
     document.getElementsByName('selectCategoria')[0].options[0].innerHTML = nombreCategoria;
 
     document.getElementById('crear-libro').style.display = "none";
+  
     document.getElementById('editar-libro').style.display = "block";
 
     let tituloLibro = document.getElementById('titulo-libro').innerHTML = "Modificar Libro"
@@ -866,7 +867,6 @@ spanEdit.onclick = function() {
     if (tipo == 'Categoria') {
       document.formCategorias.idCategoria.value = id;
       document.formCategorias.editarCategoria.value = nombre;
-
       document.getElementById('crear-categoria').style.display = "none";
       document.getElementById('editar-categoria').style.display = "block";
     }
