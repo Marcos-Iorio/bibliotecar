@@ -146,7 +146,7 @@ function enviarMail(){
     $mail->isSMTP();
 //Define smtp host
     //$mail->Host = "smtp.office365.com";
-        $mail->Host = 'localhost'/* "smtp.gmail.com" */;
+        $mail->Host = 'smtp.gmail.com'/* "smtp.gmail.com" */;
 
 //Enable smtp authentication
     $mail->SMTPAuth = true;

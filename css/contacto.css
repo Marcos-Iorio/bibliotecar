@@ -186,6 +186,12 @@ input[type=submit]:hover {
 	}
 }
 
+@media (max-width: 1200px){
+	.column{
+		flex: 44% !important;
+	}
+}
+
 #breadcrumbs{
     text-align: center;
     padding-bottom: 50px;

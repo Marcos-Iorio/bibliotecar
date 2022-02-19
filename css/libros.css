@@ -457,7 +457,8 @@ input#campo-busqueda{
     border-radius: 0px ;
     color: white;
     border: none ;
-    border-bottom: 2px solid white ;
+    border-bottom: 2px solid white;
+    border-radius: 5px !important;
     width: 170px ;
     z-index: 100;
     top: -20px;
@@ -478,13 +479,15 @@ input#buscar{
     border: none;
     width: 100px;
     height: 40px;
-    left: 220px;
-    top: -10px;
     padding: 0px;
     display: none;
+    position: absolute !important;
+    left: 223px !important;
+    top: -12px !important;
 }
 input#buscar:hover{
     background: white;
+    color: #333;
     
 }
 
