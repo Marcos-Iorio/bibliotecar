@@ -1,4 +1,4 @@
-#treinta-dias-reservas, #todo-eltiempo-reserva, #reservas-cancelaciones{
+#autores-reservas, #todo-eltiempo-reserva, #reservas-cancelaciones, #libros-reservados{
     background: white;
     text-align: center;
 	padding: 10px 10px 10px 10px;
@@ -16,7 +16,7 @@ svg{
     margin: 0 auto;
 }
 
-#tooltip{
+#tooltip,  #tooltip-libros{
     position: absolute;
     width: 200px;
     height: auto;
@@ -33,11 +33,11 @@ svg{
 
 }
 
-#tooltip.hidden{
+#tooltip.hidden, #tooltip-libros.hidden{
     display: none;
 }
 
-#tooltip p{
+#tooltip p,  #tooltip-libros p{
     margin: 0;
     font-size: 15px;
     line-height: 20px;
@@ -64,6 +64,7 @@ svg{
 #tooltip-todo.hidden{
     display: none;
 }
+
 
 #tooltip-todo p{
     margin: 0;

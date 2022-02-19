@@ -170,6 +170,8 @@ label{
   
   /* The Close Button */
   .close {
+    position: absolute;
+    right: 21px;
     color: #333;
     float: right;
     font-size: 35px;

@@ -285,7 +285,7 @@ input[type=text], input[type=number], input[type=file] textarea {
     margin-right: 50px;
     resize: vertical;
     background: transparent;
-    color: black;
+    color: black !important;
 }
 
 
@@ -665,6 +665,10 @@ i.fas.fa-times {
     width: 85%;
     background: white;
     border-radius: 15px;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
     box-shadow: 0px 30px 78px -47px black;
     -webkit-box-shadow: 0px 30px 78px -47px black;
 }
@@ -694,6 +698,10 @@ i.fas.fa-times {
     width: 85%;
     background: white;
     border-radius: 15px;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
     box-shadow: 0px 30px 78px -47px black;
     -webkit-box-shadow: 0px 30px 78px -47px black;
     -moz-box-shadow: 0px 30px 78px -47px black;
@@ -709,6 +717,10 @@ i.fas.fa-times {
     width: 85%;
     background: white;
     border-radius: 15px;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
     box-shadow: 0px 30px 78px -47px black;
     -webkit-box-shadow: 0px 30px 78px -47px black;
     -moz-box-shadow: 0px 30px 78px -47px black;
@@ -724,6 +736,10 @@ i.fas.fa-times {
     width: 85%;
     background: white;
     border-radius: 15px;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
     box-shadow: 0px 30px 78px -47px black;
     -webkit-box-shadow: 0px 30px 78px -47px black;
     -moz-box-shadow: 0px 30px 78px -47px black;
@@ -739,10 +755,34 @@ i.fas.fa-times {
     width: 85%;
     background: white;
     border-radius: 15px;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
     box-shadow: 0px 30px 78px -47px black;
     -webkit-box-shadow: 0px 30px 78px -47px black;
     -moz-box-shadow: 0px 30px 78px -47px black;
 }
+
+@-webkit-keyframes slideIn {
+    from {bottom: -300px; opacity: 0} 
+    to {bottom: 300; opacity: 1}
+  }
+  
+  @keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 300px; opacity: 1}
+  }
+  
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+  }
 
 button.boton-agregar-libro{
     display: block;

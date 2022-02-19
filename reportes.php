@@ -31,19 +31,19 @@
         }
     </style>
 </head>
-<body onload="diasReserva(), historialReserva(), canceladasYFinalizadas()">
+<body onload="autoresReservas(), historialReserva(), canceladasYFinalizadas(), librosReservados()">
     <section id="page">
         <?php 
           include "php/panel.php";
          ?>
         <main id="main">
             <div id="breadcrumbs"></div>
-            <div id="treinta-dias-reservas">
+            <div id="autores-reservas">
                 <div id="tooltip" class="hidden">
                     <p><strong id="nombre-libro">sdads</strong></p>
                     <p><span id="cantidad-reservas">100</span></p>
                 </div>
-                <svg width=1500 height=600 id="dias-reserva"></svg>
+                <svg width=1500 height=600 id="autores-reservados"></svg>
             </div>
             <div id="todo-eltiempo-reserva">
                 <div id="tooltip-todo" class="hidden">
@@ -54,6 +54,13 @@
             </div>
             <div id="reservas-cancelaciones">
                 <svg width="960" height="500" id="can-y-fin"></svg>
+            </div>
+            <div id="libros-reservados">
+                <div id="tooltip-libros" class="hidden">
+                    <p><strong id="nombre-libro">sdads</strong></p>
+                    <p><span id="cantidad-libros">100</span></p>
+                </div>
+                <svg width="1000" height="500" id="libros-treinta-dias"></svg>
             </div>
         </main>
     </section>

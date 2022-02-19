@@ -207,18 +207,18 @@ if ($stmt->execute()) {
       <form method='POST' name='contact_form' id='contact-form'>
                   <div  class='input-group'>
                         <label for='first_name'>Nombre</label>
-                        <input name='name' type='text'  placeholder='Nombre..' value='".$fila['nombre']."'/>
+                        <input name='name' type='text'  placeholder='Nombre..' value='".$fila['nombre']."' required/>
                         
                         <label for='last_name'>Apellido:</label>
-                        <input name='last_name' type='text'  placeholder='Apellido..' value='".$fila['apellido']."'/>
+                        <input name='last_name' type='text'  placeholder='Apellido..' value='".$fila['apellido']."' required/>
                         
                         <label for='email'>Email:</label>
-                        <input name='email' type='text' id='mail'  readonly placeholder='you@dominio.com..' value='".$fila['mail']."'/>
+                        <input name='email' type='text' id='mail'  readonly placeholder='you@dominio.com..' value='".$fila['mail']."' required/>
                     </div>  
                       <br>
                     <div  class='input-group'>  
                         <label for='message'>DNI:</label>
-                        <input type='text' value='".$fila['numeroDocumento']."'>
+                        <input type='text' value='".$fila['numeroDocumento']."'required>
                         
                         <label for='message'>Telefono:</label>
                         <input type='text' value='".$fila['telefono']."'>
@@ -230,7 +230,9 @@ if ($stmt->execute()) {
                         <br>
                         <div  class='input-group'>
 
-                        <input class='submit-datos' type='submit' value='Modificar'>
+                        <div class='boton-modificar'>
+                            <button class='modificar' id='modificar'>Modificar</button>
+                        </div>
                   </div>
       </form>
 
