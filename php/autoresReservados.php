@@ -1,8 +1,8 @@
 <?php
-diasReservas();
+autoresReservados();
 
 
-function diasReservas(){
+function autoresReservados(){
     /* Obtiene los libros más reservados de los ultimos 30 días de mayor a menor */
 
     include("db.php");

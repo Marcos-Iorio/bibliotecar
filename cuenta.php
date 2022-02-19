@@ -47,10 +47,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
     <script src="js/pleaserotate.js"></script>
 </head>
 <style>
-    html.pleaserotate-hiding{
+    html.pleaserotate-hiding {
         height: 100% !important;
     }
 </style>
+
 <body onload="startTime()">
     <section id="page">
         <?php 
@@ -158,6 +159,37 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                 </ul>
             </li>
 
+            <!-- Modal datos personales -->
+            <div id="modal-datos" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close-datos">&times;</span>
+                        <h2>¿Querés modificar tus datos<?php /* echo $arr['titulo']; */?>?</h2>
+                    </div>
+                    <?php 
+                    /*if (isset($codigo)) {
+                        echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+                                  <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
+
+                    }*/
+                     ?>
+                    <div class="modal-body">
+                        <form action="#" method="POST">
+                            <input class="confirmar" id="confirmarDatos" name="confirmarDatos" value="Confirmar" type="submit">
+                        </form>
+                        <?php 
+                        if (isset($_POST['confirmarDatos'])) {
+                            
+                        } 
+                        ?>
+
+                        <button id="cancelar-datos">Cancelar</button>
+
+                    </div>
+                </div>
+            </div>
+
             <br>
 
             <hr style="width: 80%;">
@@ -177,18 +209,50 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                      ?>
                     <form method='POST' name='contact_form' id='contact-form'>
                         <label for='first_name' style="width: 20%;">Contraseña actual</label>
-                        <input name='name' type='text' value='' />
+                        <input name='name' type='text' value='' required/>
                         <br>
                         <label for='last_name' style="width: 20%;">Nueva contraseña:</label>
-                        <input name='last_name' type='text' value='' />
+                        <input name='last_name' type='text' value='' required/>
                         <br>
                         <label for='email' style="width: 20%;">Reingresar contraseña:</label>
-                        <input name='email' type='text' value='' />
+                        <input name='email' type='text' value='' required/>
                         <br>
                         <br>
-                        <div class='center'>
-                            <input style="width: 200px; margin-left: 200px;" type='submit' value='Cambiar'>
+
+                        <button class='modificar-pass' id='modificar-pass'>Modificar</button>
+
                     </form>
+
+                    <!-- Modal contraseña -->
+                    <div id="modal-contrasenia" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="close-contrasenia">&times;</span>
+                                <h2>¿Querés modificar tu contraseña<?php /* echo $arr['titulo']; */?>?</h2>
+                            </div>
+                            <?php 
+                            /*if (isset($codigo)) {
+                                echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+                                        <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
+
+                            }*/
+                            ?>
+                            <div class="modal-body">
+                                <form action="#" method="POST">
+                                    <input class="confirmar" id="confirmarPass" name="confirmarPass" value="Confirmar" type="submit">
+                                </form>
+                                <?php 
+                                if (isset($_POST['confirmarPass'])) {
+                                    
+                                } 
+                                ?>
+
+                                <button id="cancelar-contrasenia">Cancelar</button>
+
+                            </div>
+                        </div>
+                    </div>
 
                     <br>
                     <br>
@@ -253,6 +317,50 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
     span.onclick = function () {
         modal.style.display = "none";
     }
+</script>
+<script>
+    const modalDatos = document.querySelector('#modal-datos');
+    const botonModal = document.querySelector('#modificar');
+
+    botonModal.addEventListener('click', (e) => {
+        e.preventDefault();
+        modalDatos.style.display = 'block';
+    })
+
+    var spanDatos = document.querySelector('.close-datos');
+
+    var cancelarDatos = document.querySelector('#cancelar-datos');
+
+    cancelarDatos.onclick = function () {
+        modalDatos.style.display = "none";
+    }
+    spanDatos.onclick = function () {
+        modalDatos.style.display = "none";
+    }
+
+
+</script>
+<script>
+    const modalPass = document.querySelector('#modal-contrasenia');
+    const botonModalPass = document.querySelector('#modificar-pass');
+
+    botonModalPass.addEventListener('click', (e) => {
+        e.preventDefault();
+        modalPass.style.display = 'block';
+    })
+
+    var spanDatosPass = document.querySelector('.close-contrasenia');
+
+    var cancelarDatosPass = document.querySelector('#cancelar-contrasenia');
+
+    cancelarDatosPass.onclick = function () {
+        modalPass.style.display = "none";
+    }
+    spanDatosPass.onclick = function () {
+        modalPass.style.display = "none";
+    }
+
+
 </script>
 
 <script src="js/navbarToggle.js"></script>
