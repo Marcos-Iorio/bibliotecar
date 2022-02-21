@@ -418,7 +418,7 @@ i.far.fa-trash-alt {
 }
 
 i.far.fa-trash-alt.tbody-icon{
-    font-size: 30px;
+    font-size: 25px;
     outline: none;
     border: none;
     background: none;
@@ -428,7 +428,7 @@ i.far.fa-trash-alt.tbody-icon{
 }
 
 i.fas.fa-pencil-alt.tbody-icon{
-    font-size: 30px;
+    font-size: 25px;
     outline: none;
     border: none;
     background: none;
@@ -1002,5 +1002,9 @@ body {
 
   .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .aginate_button.disabled:active{
       color: #666 !important;
+  }
+
+  input#autor, input.input-libro.autor, input#categoria, input.input-libro.categoria, input#editorial, input.input-libro.editorial{
+      width: 100% !important;
   }
   

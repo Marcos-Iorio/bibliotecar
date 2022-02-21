@@ -345,15 +345,15 @@ gestionLibros();
                   <form name="formAutores" action="" id="formAutores" method="POST" class="form-autor" enctype="multipart/form-data">
 
                     <div class="wrapper-libros">
-
-                      <label for="">Autor:</label>
-                      <input class="input-libro" type="text" name="editarAutor" id="autor" placeholder="Autor">
-                      <input hidden type="text" name="idAutor" id="autor" placeholder="Autor">
-
-                      <label for="" class="autor-nuevo">Autor Nuevo:</label>
-                      <input class="input-libro" type="text" name="nuevoAutor" class="autor-nuevo" placeholder="Autor">
-
-
+                      <div id="autor-viejo">
+                        <label for="">Autor:</label>
+                        <input class="input-libro" type="text" name="editarAutor" id="autor" placeholder="Autor">
+                        <input hidden type="text" name="idAutor" id="autor" placeholder="Autor">
+                      </div>
+                      <div id="autor-nuevo">
+                        <label for="" >Autor Nuevo:</label>
+                        <input class="input-libro autor" type="text" name="nuevoAutor"  placeholder="Autor">
+                      </div>
                     </div>
 
                     <div class="center">
@@ -453,12 +453,16 @@ gestionLibros();
                 <form action="" name="formCategorias" id="formCategorias" method="POST" class="form-libro" enctype="multipart/form-data">
 
                   <div class="wrapper-libros">
+                    <div id="categoria-vieja">
+                      <label for="">Categoria:</label>
+                      <input class="input-libro" type="text" name="editarCategoria" id="categoria" placeholder="Categoria">
+                      <input hidden type="text" name="idCategoria" id="autor" placeholder="Categoria">
+                    </div>
 
-                    <label for="">Categoria:</label>
-                    <input class="input-libro" type="text" name="editarCategoria" id="categoria" placeholder="Categoria">
-                    <input hidden type="text" name="idCategoria" id="autor" placeholder="Categoria">
-                    <label for="" class="categoria-nueva">Categoria Nueva:</label>
-                    <input class="input-libro" type="text" name="nuevaCategoria" class="categoria-nueva" placeholder="Categoria">
+                    <div id="categoria-nueva">
+                      <label for="">Categoria Nueva:</label>
+                      <input class="input-libro categoria" type="text" name="nuevaCategoria" placeholder="Categoria">
+                    </div>
 
 
                   </div>
@@ -563,12 +567,16 @@ gestionLibros();
 
                     <div class="wrapper-libros">
 
-                      <label for="">Editorial:</label>
-                      <input class="input-libro" style="color: black;" type="text" name="editarEditorial" id="editorial" placeholder="Editorial">
-                      <input hidden type="text" name="idEditorial" id="autor" placeholder="Editorial">
+                      <div id="editorial-vieja">
+                        <label for="">Editorial:</label>
+                        <input class="input-libro" style="color: black;" type="text" name="editarEditorial" id="editorial" placeholder="Editorial">
+                        <input hidden type="text" name="idEditorial" id="autor" placeholder="Editorial">
+                      </div>
 
-                      <label for="" class="editorial-nueva">Editorial Nueva:</label>
-                      <input class="input-libro"  type="text" name="nuevaEditorial" class="editorial-nueva" placeholder="Editorial">
+                      <div id="editorial-nueva">
+                        <label for="">Editorial Nueva:</label>
+                        <input class="input-libro editorial"  type="text" name="nuevaEditorial" placeholder="Editorial">
+                      </div>
 
 
                     </div>
@@ -862,12 +870,6 @@ span.onclick = function() {
     }
   
   function cargarLibros(titulo, nombreAutor, nombreCategoria, stock, descripcion, nombreEditorial, idLibro) {
-
-
-
-
-
-
     document.formLibros.titulo.value = titulo;
     document.formLibros.stock.value = stock;
     //document.formUsuarios.txtRol.value=rol;
@@ -966,7 +968,9 @@ spanEdit.onclick = function() {
       document.formAutores.editarAutor.value = nombre;
 
       document.getElementById('crear-autor').style.display = "none";
+      document.querySelector('#autor-nuevo').style.display ="none";
       document.getElementById('editar-autor').style.display = "block";
+      document.querySelector('#autor-viejo').style.display ="block";
     }
 
 
@@ -974,6 +978,8 @@ spanEdit.onclick = function() {
       document.formEditoriales.idEditorial.value = id;
       document.formEditoriales.editarEditorial.value = nombre;
       document.getElementById('crear-editorial').style.display = "none";
+      document.querySelector('#editorial-vieja').style.display ="block";
+      document.querySelector('#editorial-nueva').style.display ="none";
       document.getElementById('editar-editorial').style.display = "block";
     }
 
@@ -983,6 +989,8 @@ spanEdit.onclick = function() {
       document.formCategorias.editarCategoria.value = nombre;
       document.getElementById('crear-categoria').style.display = "none";
       document.getElementById('editar-categoria').style.display = "block";
+      document.querySelector('#categoria-nueva').style.display ="none";
+      document.querySelector('#categoria-vieja').style.display ="block";
     }
 
   }

@@ -290,7 +290,7 @@ i.far.fa-trash-alt {
 }
 
 i.far.fa-trash-alt.tbody-icon{
-    font-size: 30px;
+    font-size: 25px;
     outline: none;
     border: none;
     background: none;
@@ -300,7 +300,7 @@ i.far.fa-trash-alt.tbody-icon{
 }
 
 i.fas.fa-pencil-alt.tbody-icon{
-    font-size: 30px;
+    font-size: 25px;
     outline: none;
     border: none;
     background: none;
@@ -375,4 +375,15 @@ input#buscar:hover{
 
   .fas.fa-arrow-circle-left:hover{
     color: rgb(95, 95, 95);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    background: #333 !important;
+    border-radius: 44px !important;
+}
+
+.page-item .page-link{
+    background: transparent !important;
+    border: none;
+    color: white !important;
 }

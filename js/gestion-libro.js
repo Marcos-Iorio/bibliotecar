@@ -112,11 +112,19 @@ function modalAutores(){
     if(modalAutor.style.display == ''){
         modalAutor.style.display = "block"
         document.getElementById('editar-autor').style.display = "none";
+        document.querySelector('#autor-viejo').style.display ="none";
+
+        document.querySelector('#autor-nuevo').style.display ="block";
+
         document.getElementById('crear-autor').style.display = "block";
 
     }else if(modalAutor.style.display = "none"){
         modalAutor.style.display = "block";
         document.getElementById('editar-autor').style.display = "none";
+        document.querySelector('#autor-viejo').style.display ="none";
+
+        document.querySelector('#autor-nuevo').style.display ="block";
+
         document.getElementById('crear-autor').style.display = "block";
 
     }else{
@@ -140,11 +148,15 @@ function modalCategorias(){
     if(modalCategoria.style.display == ''){
         modalCategoria.style.display = "block"
         document.getElementById('editar-categoria').style.display = "none";
+        document.querySelector('#categoria-vieja').style.display ="none";
+        document.querySelector('#categoria-nueva').style.display ="block";
         document.getElementById('crear-categoria').style.display = "block";
 
     }else if(modalCategoria.style.display = "none"){
         modalCategoria.style.display = "block";
         document.getElementById('editar-categoria').style.display = "none";
+        document.querySelector('#categoria-vieja').style.display ="none";
+        document.querySelector('#categoria-nueva').style.display ="block";
         document.getElementById('crear-categoria').style.display = "block";
 
     }else{
@@ -170,11 +182,15 @@ function modalEditoriales(){
         modalEditorial.style.display = "block"
         document.getElementById('editar-editorial').style.display = "none";
         document.getElementById('crear-editorial').style.display = "block";
+        document.querySelector('#editorial-vieja').style.display ="none";
+        document.querySelector('#editorial-nueva').style.display ="block";
 
     }else if(modalEditorial.style.display = "none"){
         modalEditorial.style.display = "block";
         document.getElementById('editar-editorial').style.display = "none";
         document.getElementById('crear-editorial').style.display = "block";
+        document.querySelector('#editorial-vieja').style.display ="none";
+        document.querySelector('#editorial-nueva').style.display ="block";
 
     }else{
 
