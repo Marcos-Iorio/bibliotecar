@@ -223,7 +223,7 @@ input[type=submit]:hover {
   /* The Close Button */
   .close {
     position: absolute;
-    right: 21p;
+    right: 21px;
     color: #333;
     float: right;
     font-size: 35px;
@@ -291,6 +291,7 @@ button#cancelar:hover{
     padding: 2px 16px;
     background-color: #fefefe !important;
     color: #333;
+    justify-content: center;
   }
   
   .modal-body {
