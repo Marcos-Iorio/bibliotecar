@@ -1,8 +1,15 @@
 <?php
 
-function gestionUsuarios()
-{
+function gestionUsuarios(){
+   
+if (isset($_SESSION["gestion"])) {
+  unset($_SESSION["gestion"]);
+  echo "";
+
+  // code...
+} 
     include 'db.php';
+
 
  /*   if (!isset($_GET['page'])) {
         $page = 1;
@@ -85,6 +92,9 @@ function gestionUsuarios()
     }
 
 }
+
+
+
 
 /*function getPages(){
 include_once 'db.php';
@@ -173,18 +183,22 @@ function insertarUsuario($nombre, $apellido, $rol, $dni, $mail, $alta, $estado)
 
     $passHash = password_hash($pass, PASSWORD_DEFAULT);
 
+    $rol= getIdRol($rol);
+
+    $alta= getIdAltaMail($alta);
+
+    $estado= getIdEstadoUsuario($estado);
+
     //echo $sql;
     $stmt = $dbh->prepare("INSERT INTO usuarios (nombre, apellido, idRol, numeroDocumento, mail, check_mail, idEstado, contrasena) VALUES ('$nombre', '$apellido', '$rol', '$dni', '$mail', '$alta', '$estado', '$passHash')");
 
     if ($stmt->execute()) {
 
         enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Usuario creado correctamente. Se ha enviado un correo a $mail',type:'success'});</script>";
-        gestionUsuarios();
+        echo "<script>swal({title:'Exito',text:'Usuario creado correctamente. Se ha enviado un correo a $mail',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-usuarios.php\">OK</a></button>'});</script>";
 
     } else {
-        echo "<script>swal({title:'Error',text:'El usuario no pudo ser creado',type:'error'});</script>";
-        gestionUsuarios();
+        echo "<script>swal({title:'Error',text:'El usuario no pudo ser creado INSERT INTO usuarios (nombre, apellido, idRol, numeroDocumento, mail, check_mail, idEstado, contrasena) VALUES ($nombre, $apellido, $rol, $dni, $mail, $alta, $estado, $passHash',type:'error'});</script>";
 
     }
     /*if($this->con->query($sql)){
@@ -254,12 +268,12 @@ function editarUsuario($id, $nombre, $apellido, $rol, $dni, $mail, $alta, $estad
 //echo "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', idRol='$idRol', numeroDocumento='$dni', mail='$mail', check_mail='$idAltaMail', idEstado='$idEstadoUsuario' where idUsuario='$id'";
     if ($stmt->execute()) {
         $resultado = $stmt->fetchAll();
-        echo "<script>swal({title:'Exito',text:'El usuario fue modificado satisfactoriamente',type:'success'});</script>";
-        gestionUsuarios();
+
+            echo "<script>swal({title:'Exito',text:'El usuario fue modificado satisfactoriamente',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-usuarios.php\">OK</a></button>'});</script>";
+
 
     } else {
-        echo "<script>swal({title:'Error',text:'El usuario no pudo ser modificado',type:'error'});</script>";
-        gestionUsuarios();
+        echo "<script>swal({title:'Error',text:'El usuario no pudo ser modificado.',type:'error'});</script>";
 
     }
     /*if($this->con->query($sql)){

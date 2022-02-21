@@ -77,23 +77,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                         <input type="submit" name="btnDevolucion" id="subir-libro" value="Cargar"/>
                     </div>
 
-                    <div style="display: flex;justify-content: space-between;align-items: center;">
-
-                    <h6 style="width: 100px;">Buscar por:</h6>
-                    <select class="form-control"name="txtCriterio" style="width: 200px; margin-right: 200px;">
-                      <option value="" disabled selected>Seleccionar</option>
-                        <option value="mail">Nro Reserva</option> 
-                        <option value="idRol">ID Libro</option>
-                        <option value="check_mail">Usuario</option>
-                        <option value="idEstado">Estado </option>    
-                    </select>
-
-                    <input style="background-color: white; width: 200px; height: 40px; color:black;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
-                    <div style="text-align: right; height: 150px">
-                    <input style="margin-bottom: 10px !important;" type="submit"  value="Buscar" href="#?page=1" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/><a href="admin-reservas.php?page=1"></a>
-                    <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0"/>
-                    </div>
-                    </div> -->
+                   
 
                     <hr>
                 </form>
@@ -256,7 +240,16 @@ function cargarReserva(idReserva, usuario, estadoReserva, idEjemplar){
       
 <!--    Datatables-->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
-      
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap4.min.js"></script>
+
       
     <script>
       $(document).ready(function(){
@@ -264,8 +257,16 @@ function cargarReserva(idReserva, usuario, estadoReserva, idEjemplar){
           "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
         "responsive": true,
         "pagingType": "simple",
+                  dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
     });  
-         
       });
     </script>
     

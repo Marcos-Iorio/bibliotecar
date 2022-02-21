@@ -101,7 +101,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                     <th>Titulo</th>
                     <th>Autor</th>
                     <th>Categoria</th>
-                    <th>Stock</th>
+                    <th>Stock disponible</th>
                     <th>Fecha de Alta</th>
                     <th>Editar</th>
                     <th>Ejemplares</th>
@@ -114,6 +114,7 @@ include "php/gestion-libros.php";
 gestionLibros();
 
                     if(isset($_POST['btnCrearLibro'])){
+                      $_SESSION['btnCrearLibro']=$_POST['btnCrearLibro'];
 
                       //llenarTabla ($_POST['titulo'],$_POST['autor'],$_POST['desc'] ,$_POST['categoria'],$_POST['editorial'],
                       //$_POST['stock'],$_POST['fechaAlta'], $_FILES['pdf']);
@@ -128,7 +129,7 @@ gestionLibros();
                       
 
                       if(isset($_POST['btnEditarLibro'])){
-
+                        $_SESSION["btnEditarLibro"] = $_POST['btnEditarLibro'];
                       editarLibro($_POST['idLibro'],$_POST['titulo'],$_POST['selectAutor'],$_POST['desc'] ,$_POST['selectCategoria'],$_POST['selectEditorial'],
                       $_POST['stock'], $_FILES['pdf'], $_FILES['tapa'], $_FILES['contratapa']);
 
@@ -168,11 +169,14 @@ gestionLibros();
                     <input style="background-color: white; color: black;" class="input-libro" type="text" name="titulo"
                       id="titulo" required placeholder="Titulo">
                     <label for="">Autor:</label>
-                    <select required id="select-autor" style="background-color: white; color: black; width: 20%;"
-                      class="form-control" name="selectAutor">
-                      <option value="0" selected>Seleccionar autor</option>
-                      <?php getAutores(); ?>
-                    </select>
+
+                  <select required id="select-autor" style="background-color: white; color: black; width: 20%;" class="form-control"
+                    name="selectAutor">
+                    <option value="0" disabled selected>Seleccionar autor</option>
+                    <?php 
+                            getAutores();
+                            ?>
+                  </select>
 
                   </div>
                   <br><br>
@@ -180,8 +184,8 @@ gestionLibros();
                   <div class="secciones-form" style="display:flex;">
 
                   <label for="">Descripcion: </label>
-                  <input maxlength="1000" style="background-color: white; color: black;" class="input-libro" type="text"
-                    name="desc" id="desc" required placeholder="Maximo: 1000 caracteres">
+                  <textarea maxlength="1000" style="background-color: white; color: black; width: 380px; height: 100px;" class="input-libro" type="text"
+                    name="desc" id="desc" required placeholder="Maximo: 1000 caracteres"></textarea>
 
                   <input hidden type="text" name="idLibro" id="idLibro">
                   <br><br>
@@ -194,6 +198,7 @@ gestionLibros();
                             getCategorias();
                             ?>
                   </select>
+
                 </div>
 
 
@@ -251,6 +256,7 @@ gestionLibros();
                 <input name="txtID" style="background-color: white; color: black; width: 20%;" type="hidden" name="genero"
                   id="genero" placeholder="Seleccionar">
               </div>
+              </form>
             </div>
           </div>
         </div>
@@ -266,8 +272,8 @@ gestionLibros();
             <div class="tabla-libros">-->
 
               <br>
-              <form method="POST" action="#" name="busqueda">
-<!--                 <div>
+       <!--         <form method="POST" action="#" name="busqueda">
+               <div>
 
                   <h6 >Buscar por:</h6>
                   <select class="form-control" name="txtCriterio" style="width: 200px; margin-right: 200px;">
@@ -285,8 +291,8 @@ gestionLibros();
                     <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0" />
                   </div>
                 </div>
-                <hr> -->
-              </form>
+                <hr> 
+              </form>-->
 
 
               <div class="tabla-libros">
@@ -583,14 +589,18 @@ gestionLibros();
         </div>
      <!-- Modal ejemplares -->
 
-     <div id="modal-ejemplares">
+     <div id="modal-ejemplares" class="tabla-libros">
+      <form name="formEjemplares" action="#modal-ejemplares">
+      <input hidden type="text" name="datoLibro">
+</form>
+
                 <span id="close-ejemplares">&times;</span>
-                <table class="bordered" id="tabla-ejemplar">
+                <table id="tabla-ejemplar" class="table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                           <th>ID Ejemplar</th>
                           <th>Estado</th>
-                          <th>Des/habilitar</th>
+                          <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
@@ -631,86 +641,176 @@ gestionLibros();
 <script type="text/javascript">
 
   function cargarEjemplares(idLibro){
+document.formEjemplares.datoLibro.value = idLibro;
 
-    const data = {'idLibro': Number(idLibro)};
-    $.ajax({
-            type: "POST",
-            url: "php/gestion-libros.php",
-            dataType: "json",
-            data: data,
-            success: function(data){
-              limpiarHTML()
-              $(data).each(
-                  function() {
-                    this.idEjemplarEstado = this.idEjemplarEstado == 1 ? 'Reservado' : this.idEjemplarEstado == 2 ? 'Eliminado' : 'Disponible';
-                      $('#tbody').append(
-                              '<tr><td>' + this.idEjemplar
-                                      + '</td><td>'
-                                      + this.idEjemplarEstado
-                                      + '</td><td>'
-                                      + `<button onclick="borrarEjemplar('${this.idEjemplar}')"><i class="fa-solid fa-trash"></i></button>`
-                                      + '</td></tr>')
-                  });
-              
-            }
-            });
 
-      function limpiarHTML(){
-         const tbody = document.querySelector('#tbody');
-         while(tbody.firstChild){
-           tbody.removeChild(tbody.firstChild);
-         }
-      }
-  }
+const data = {
+  'idLibro': Number(idLibro)
+};
+$.ajax({
+  type: "POST",
+  url: "php/gestion-libros.php",
+  dataType: "json",
+  data: data,
+  success: function (data) {
+    limpiarHTML()
+    $(data).each(
+      function () {
+        this.idEjemplarEstado = this.idEjemplarEstado == 1 ? 'Reservado' : this.idEjemplarEstado == 2 ? 'Inhabilitado' : 'Disponible';
+        this.ejemplarEstado = this.idEjemplarEstado == 'Reservado' ? `<button><i title="Reserva activa" class="fas fa-minus"></i></button>` : this.idEjemplarEstado == 'Inhabilitado' ? `<button onclick="activarEjemplar('${this.idEjemplar}')"><i title="Habilitar" class="fas fa-plus-circle"></i></button>` : `<button onclick="borrarEjemplar('${this.idEjemplar}')"><i title="Deshabilitar" class="fas fa-minus-circle"></i></button>`;
+        $('#tbody').append(
+          '<tr><td>' + this.idEjemplar +
+          '</td><td>' +
+          this.idEjemplarEstado +
+          '</td><td>' +
+          this.ejemplarEstado +
+          '</td></tr>')
 
-  function borrarEjemplar(idEjemplar) {
-    Swal.fire({
-      icon: 'warning',
-      title: "Vas a borrar el ejemplar",
-      text: "",
-      showCancelButton: true,
-      confirmButtonColor: "#1FAB45",
-      confirmButtonText: "Eliminar",
-      cancelButtonText: "Cancel",
-      buttonsStyling: true
-    }).then((result) => {   
-      if(result.value === true){
-        $.ajax({
-            type: "POST",
-            url: "php/gestion-libros.php",
-            data: { 'idEjemplar': idEjemplar},
-            cache: false,
-            success: function(response) {
-                Swal.fire(
-                "Success!",
-                "El ejemplar se eliminó!",
-                "success"
-                )
+        $(document).ready(function () {
+          $('#tabla-ejemplar').DataTable({
+            "lengthMenu": [
+              [5, 10, 20, 30],
+              [5, 10, 20, 30]
+            ],
+            "responsive": true,
+            "pagingType": "simple",
+            "retrieve": true,
+            // dom: 'Bfrtip',
+            // buttons: [
+            //     'excel'
+            // ],
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'excel',
+                text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>',
+                className: 'btn btn-light'
+              }
+
+
+            ],
+            "oLanguage": {
+              "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
             },
-            failure: function (response) {
-                Swal.fire(
-                "Internal Error",
-                "No se pudo eliminar.", // had a missing comma
-                "error"
-                )
-            }
-        })
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000)
-        
-      }
-    })
+          });
+        });
+      })
+
   }
+
+});
+
+
+function limpiarHTML() {
+  const tbody = document.querySelector('#tbody');
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
+    $("#tabla-ejemplar").dataTable().fnDestroy();
+
+  }
+
+}
+}
+
+function borrarEjemplar(idEjemplar) {
+  var estado = "Desactivar";
+  Swal.fire({
+    title: "¿Deseas deshabilitar este ejemplar?",
+    text: "",
+    showCancelButton: true,
+    confirmButtonColor: "#333",
+    confirmButtonText: "Confirmar",
+    cancelButtonText: "Cancelar",
+    buttonsStyling: true
+  }).then((result) => {
+    if (result.value === true) {
+      $.ajax({
+        type: "POST",
+        url: "php/gestion-libros.php",
+        data: {
+          'idEjemplar': idEjemplar,
+          'estado': estado
+        },
+        cache: false,
+        success: function (response) {
+          swal({
+            title: 'Exito',
+            text: 'Ejemplar desactivado correctamente.',
+            type: 'success',
+            showConfirmButton: false,
+            html: '<h5>Ejemplar desactivado correctamente.</h5><br><button type="submit" style="background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;" ><a  style=\"background-color: #343A40; color:white;" href="admin-libros.php">OK</a></button>'
+          });
+        },
+        failure: function (response) {
+          Swal.fire(
+            "Error",
+            "No se pudo deshabilitar el ejemplar.", // had a missing comma
+            "error"
+          )
+        }
+      })
+      // setTimeout(() => {
+      //  window.location.reload();
+      //}, 2000)
+
+    }
+  })
+}
+
+
+
+function activarEjemplar(idEjemplar) {
+  var estado = "Activar";
+  Swal.fire({
+    title: "¿Deseas habilitar este ejemplar?",
+    text: "",
+    showCancelButton: true,
+    confirmButtonColor: "#333",
+    confirmButtonText: "Confirmar",
+    cancelButtonText: "Cancelar",
+    buttonsStyling: true
+  }).then((result) => {
+    if (result.value === true) {
+      $.ajax({
+        type: "POST",
+        url: "php/gestion-libros.php",
+        data: {
+          'idEjemplar': idEjemplar,
+          'estado': estado
+        },
+        cache: false,
+        success: function (response) {
+          swal({
+            title: 'Exito',
+            text: 'Ejemplar activado correctamente.',
+            type: 'success',
+            showConfirmButton: false,
+            html: '<h5>Ejemplar activado correctamente.</h5><br><button type="submit" style="background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;" ><a  style=\"background-color: #343A40; color:white;" href="admin-libros.php">OK</a></button>'
+          });
+        },
+        failure: function (response) {
+          Swal.fire(
+            "Error",
+            "No se pudo habilitar el ejemplar.", // had a missing comma
+            "error"
+          )
+        }
+      })
+      //setTimeout(() => {
+      //window.location.reload();
+      //}, 2000)
+
+    }
+  })
+}
 
 
   function ModificarLibro(tipo) {
 
     if (tipo == 'editar') {
-      msg = "Confirma que desea modificar este registro?";
+      msg = "¿Confirma que desea modificar este registro?";
 
     } else {
-      msg = "Confirma que desea crear este registro?";
+      msg = "¿Confirma que desea crear este registro?";
 
     }
     var usr = confirm(msg);
@@ -762,6 +862,12 @@ span.onclick = function() {
     }
   
   function cargarLibros(titulo, nombreAutor, nombreCategoria, stock, descripcion, nombreEditorial, idLibro) {
+
+
+
+
+
+
     document.formLibros.titulo.value = titulo;
     document.formLibros.stock.value = stock;
     //document.formUsuarios.txtRol.value=rol;
@@ -771,9 +877,17 @@ span.onclick = function() {
     //document.formUsuarios.txtAlta.value=alta;
     //document.formUsuarios.txtEstadoUsuario.value=estado;
     //document.formUsuarios.txtID.value = id;
-    document.getElementsByName('selectAutor')[0].options[0].innerHTML = nombreAutor;
-    document.getElementsByName('selectEditorial')[0].options[0].innerHTML = nombreEditorial;
-    document.getElementsByName('selectCategoria')[0].options[0].innerHTML = nombreCategoria;
+    //document.getElementsByName('selectAutor')[0].options[0].innerHTML = nombreAutor;
+    //document.getElementsByName('selectEditorial')[0].options[0].innerHTML = nombreEditorial;
+    //document.getElementsByName('selectCategoria')[0].options[0].innerHTML = nombreCategoria;
+    let elementAutor = document.getElementById('select-autor');
+    elementAutor.value = nombreAutor;
+    let elementEditorial = document.getElementById('select-editorial');
+    elementEditorial.value = nombreEditorial;
+    let elementCategoria = document.getElementById('select-categoria');
+    elementCategoria.value = nombreCategoria;
+
+
 
     document.getElementById('crear-libro').style.display = "none";
   
@@ -910,15 +1024,15 @@ spanEdit.onclick = function() {
       
 <!--    Datatables-->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
-<!--       
-    <script type="text/javascript" src="	https://code.jquery.com/jquery-3.5.1.js	"></script>
-<script type="text/javascript" src="	https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js	"></script>
-<script type="text/javascript" src="	https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js	"></script>
-<script type="text/javascript" src="	https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js	"></script>
-<script type="text/javascript" src="	https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js	"></script>
-<script type="text/javascript" src="	https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js	"></script>
-<script type="text/javascript" src="	https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js	"></script>
-<script type="text/javascript" src="	https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js	"></script> -->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap4.min.js"></script>
 
       
     <script>
@@ -931,13 +1045,34 @@ spanEdit.onclick = function() {
         // buttons: [
         //     'excel'
         // ],
+                  dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
     });  
       });
+
+      
+
       $(document).ready(function(){
          $('#tablaAutores').DataTable({
           "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
         "responsive": true,
         "pagingType": "simple",
+                  dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
     });  
       });
       $(document).ready(function(){
@@ -945,6 +1080,15 @@ spanEdit.onclick = function() {
           "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
         "responsive": true,
         "pagingType": "simple",
+                  dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
     });
       });
       $(document).ready(function(){
@@ -952,6 +1096,15 @@ spanEdit.onclick = function() {
         "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
         "responsive": true,
         "pagingType": "simple",
+                  dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
     });
       });
 
