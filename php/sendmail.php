@@ -39,7 +39,6 @@ function enviarMail(){
                 $subject = "Confirmacion de registro: Tu codigo de verificacion";
         	    $body = "Hola " . $name . "! <br> <br> Gracias por registrarte. Por favor copia el codigo de abajo y pegalo en la pagina de verificacion. <br> <br> Tu codigo de verificacion es: " . "<b>".$d."<b>";
         	    cargarCodigo($d, $email);
-
          	}
         }
 
@@ -87,59 +86,54 @@ function enviarMail(){
 
 	 //$mail->SMTPDebug = 6;
 	 $mail->SMTPOptions = array(
-    'ssl' => array(
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-        'allow_self_signed' => true
-    )
-);
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
 
 // Recaptcha
-
-    if(!empty($_POST['g-recaptcha-response'])){
-        
-        $secret = $_ENV['SECRET_KEY'];
-        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
-        $responseData = json_decode($verifyResponse);
-        if($responseData->success == true){
-            //Finally send email
-            if ($mail->send()) {
-                //$status = "success";
-                //$response = "Email is sent!";
-                if (isset($_POST['contactophp'])) {
-                    echo "<script>swal({title:'Exito',text:'Su consulta fue enviada. Nos estaremos poniendo en contacto con usted a la brevedad.',type:'success'});</script>";
-                }
-            } else {
-                //$status = "failed";
-                //$response = "Something is wrong: <br><br>" . $mail->ErrorInfo;
-                echo $mail->ErrorInfo;
-                echo "<script>swal({title:'Error',text:'Hubo un problema al enviar el mail. Por favor reintente o pongase en contacto con el soporte. Disculpe las molestias',type:'error'});</script>";
-                }
-                //Closing smtp connection
-                $mail->smtpClose();
-        }else{
-            $message = "Error al verificar el recaptcha";
-            echo $message;
+    if (isset($_POST['contactophp'])) {
+        if(!empty($_POST['g-recaptcha-response'])){
+            
+            $secret = $_ENV['SECRET_KEY'];
+            $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+            $responseData = json_decode($verifyResponse);
+            if($responseData->success == true){
+                //Finally send email
+                if ($mail->send()) {
+                    //$status = "success";
+                    //$response = "Email is sent!";
+                    if (isset($_POST['contactophp'])) {
+                        echo "<script>swal({title:'Exito',text:'Su consulta fue enviada. Nos estaremos poniendo en contacto con usted a la brevedad.',type:'success'});</script>";
+                    }
+                } else {
+                    //$status = "failed";
+                    //$response = "Something is wrong: <br><br>" . $mail->ErrorInfo;
+                    echo $mail->ErrorInfo;
+                    echo "<script>swal({title:'Error',text:'Hubo un problema al enviar el mail. Por favor reintente o pongase en contacto con el soporte. Disculpe las molestias',type:'error'});</script>";
+                    }
+                    //Closing smtp connection
+                    $mail->smtpClose();
+            }else{
+                $message = "Error al verificar el recaptcha";
+                echo $message;
+            }
+            //exit(json_encode(array("status" => $status, "response" => $response)));
         }
-
-        
-        
-        //exit(json_encode(array("status" => $status, "response" => $response)));
+    }else{
+        $mail->send();
     }
 }
 
 
    function reenviar($name, $email, $pin){
 
-    require('./vendor/autoload.php');
+    require('../vendor/autoload.php');
 
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
     $dotenv->load();
-//Include required PHPMailer files
-    require 'PHPMailer.php';
-    require 'SMTP.php';
-    require 'Exception.php';
-//Define name spaces
 
     $subject = "Confirmacion de registro: Nuevo codigo de verificacion";
     $body = "Hola " . $name . "! <br> <br> Gracias por registrarte. Por favor copia tu nuevo codigo y pegalo en la pagina de verificacion. <br> <br> Tu nuevo codigo de verificacion es: " . "<b>".$pin."<b>";
@@ -152,7 +146,7 @@ function enviarMail(){
     $mail->isSMTP();
 //Define smtp host
     //$mail->Host = "smtp.office365.com";
-        $mail->Host = 'localhost'/* "smtp.gmail.com" */;
+        $mail->Host = 'smtp.gmail.com'/* "smtp.gmail.com" */;
 
 //Enable smtp authentication
     $mail->SMTPAuth = true;
@@ -184,23 +178,23 @@ function enviarMail(){
 
      //$mail->SMTPDebug = 6;
      $mail->SMTPOptions = array(
-    'ssl' => array(
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-        'allow_self_signed' => true
-    )
-);
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
 
 //Finally send email
 
-if ($mail->send()) {
-$flag='0';
-        }
-    //Closing smtp connection
+    if ($mail->send()) {
+        $flag='0';
+    }
+        //Closing smtp connection
     $mail->smtpClose();
     
     //exit(json_encode(array("status" => $status, "response" => $response)));
-   }
+}
 
    function enviarReserva($name, $email, $pin){
     require('./vendor/autoload.php');

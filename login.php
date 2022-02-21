@@ -9,6 +9,7 @@ exit;
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -22,10 +23,10 @@ exit;
 <body>
     <div class="pass__require hidden" id ="passRequire">
         <h3>La contraseña debe contener:</h3>
-        <p id="letter" class="invalid">Una <b>letra</b> Minúscula</p>
-        <p id="capital" class="invalid">Una <b>letra</b> Mayúscula</p>
-        <p id="number" class="invalid">Un <b>numero</b></p>
-        <p id="length" class="invalid">Mínimo <b>8 carácteres</b></p>
+        <p id="letter" class="require invalid">Una <b>letra</b> Minúscula</p>
+        <p id="capital" class="require invalid">Una <b>letra</b> Mayúscula</p>
+        <p id="number" class="require invalid">Un <b>numero</b></p>
+        <p id="length" class="require invalid">Mínimo <b>8 carácteres</b></p>
     </div>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
@@ -36,11 +37,13 @@ exit;
                 <h1>Crear cuenta</h1>
                 <input type="text" placeholder="Nombre" name="username" id="username"  required/>
                 <input type="email" placeholder="Email" name="mail" id="mail" onblur="validarMail()" required />
-                <input type="password" placeholder="Contraseña" name="passwordRe" id="passwordRe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-                  <div id="mostrar-pass" onclick="mostrarContrasenia()">
-                    <i class="fas fa-eye-slash"></i>
-                    <i class="fas fa-eye mostrar"></i>
-                  </div>  
+                <div class="campo-pass">
+                  <input type="password" placeholder="Contraseña" name="passwordRe" id="passwordRe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                    <div id="mostrar-pass" onclick="mostrarContrasenia()">
+                        <i class="fas fa-eye-slash"></i>
+                        <i class="fas fa-eye mostrar"></i>
+                    </div> 
+                </div>  
                 <button name="registrophp" id="btn-registro">Registrarse</button>
                 <span id="resultado"></span>
                 <?php 
@@ -60,11 +63,13 @@ exit;
             <form action="php/login-back.php" method="POST">
                 <h1>Iniciar sesión</h1>
                 <input type="email" placeholder="Email" name="mailL" id="mailL" required />
-                <input type="password" placeholder="Contraseña" name="passL" id="passL" required />
-                <div id="mostrar-pass-login" onclick="mostrarContraseniaLogin()">
-                    <i class="fas fa-eye-slash login"></i>
-                    <i class="fas fa-eye mostrar login"></i>
-                  </div>  
+                <div class="campo-pass">
+                  <input type="password" placeholder="Contraseña" name="passL" id="passL" required />
+                  <div id="mostrar-pass-login" onclick="mostrarContraseniaLogin()">
+                      <i class="fas fa-eye-slash login"></i>
+                      <i class="fas fa-eye mostrar login"></i>
+                  </div>
+                </div> 
                 <a href="#myModal" id="olvide_pass">¿Olvidaste tu contraseña?</a>
                 <button>Iniciar sesión</button>
                 <span id="resultadoL"></span>

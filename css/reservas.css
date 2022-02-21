@@ -175,6 +175,13 @@ label {
     /* width: 100px; */
 }
 
+.label-reserva{
+    color: #333;
+    line-height: 70px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 
 input[type=text], input[type=number], input[type=file] textarea {
     width: 50%;
@@ -304,6 +311,11 @@ thead th:nth-child(7) {
     width: 20%;
 }
 
+.ingresar-reserva, .ingresar-devolucion{
+    display: flex;
+    margin-bottom: 50px;
+}
+
 .separador{
     border: 2px solid #333;
     width: 200px;
@@ -361,6 +373,7 @@ input#campo-busqueda{
     color: white;
     border: none ;
     border-bottom: 2px solid white ;
+    border-radius: 5px !important;
     width: 170px ;
     z-index: 100;
     top: -20px;
@@ -376,15 +389,16 @@ input#campo-busqueda:focus{
 }
 
 input#buscar{
+    position: absolute !important;
     font-size: 15px;
     border-radius: 5px;
     border: none;
     width: 100px;
     height: 40px;
-    left: 220px;
-    top: -10px;
     padding: 0px;
     display: none;
+    left: 223px !important;
+    top: -12px !important;
 }
 input#buscar:hover{
     background: white;

@@ -8,7 +8,7 @@
 h3 {
 	font-size: 40px;
 	text-align: center;
-    color: white;
+    color: #333;
 	background: transparent;
 }
 form#contact-form{
@@ -27,13 +27,43 @@ h4{
     text-align: center;
 	padding: 12px 24px 24px 24px;
 	border-radius: 15px;
-	width: 80%;
+	width: 90%;
 	box-shadow:0px 30px 78px -47px black;
     -webkit-box-shadow:0px 30px 78px -47px black;
     -moz-box-shadow:0px 30px 78px -47px black;
 }
 #main{
 	padding-left: 85px;
+}
+
+.row{
+	display: flex;
+}
+
+.column{
+	flex: 50%;
+	padding: 25px;
+}
+
+.info-contacto{
+	width: 85%;
+	text-align: justify;
+	height: 100%;
+}
+
+.info-contacto h3{
+	padding-bottom: 50px;
+}
+
+.social-media{
+	height: 29%;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+ 
+.social-media i{
+	font-size: 40px !important;
 }
 
 label {
@@ -65,6 +95,8 @@ input[type=text]:focus,input[type=email]:focus, textarea:focus {
 	background: rgba(255, 255, 255, 0.11);
 
 }
+
+
 
 
 input[type=submit] {
@@ -110,7 +142,11 @@ input[type=submit]:hover {
 		font-family: inherit;
 		font-size: inherit;
 		line-height: inherit;
-		width: 42%;
+		width: 100% !important;
+	}
+	h3{
+		color: #333;
+		font-size: 25px;
 	}
 
 	.container-form{
@@ -118,7 +154,7 @@ input[type=submit]:hover {
 	}
 
 	input[type=text], input[type=number], input[type=file] textarea {
-		width: 72%;
+		width: 100%;
 		padding: 12px;
 		border: 1px solid #ccc;
 		border-radius: 4px;
@@ -128,6 +164,31 @@ input[type=submit]:hover {
 		resize: vertical;
 		background: transparent;
 		color: white;
+	}
+	.container{
+		width: 137%;
+	}
+	section.contenido.wrapper {
+		width: 74%;
+	}
+	.info-contacto p{
+		width: 100%;
+	}
+
+	iframe{
+		width: 100%;
+	}
+	.social-media{
+		margin-bottom: 100px;
+	}
+	form#contact-form{
+		width: 70%;
+	}
+}
+
+@media (max-width: 1200px){
+	.column{
+		flex: 44% !important;
 	}
 }
 

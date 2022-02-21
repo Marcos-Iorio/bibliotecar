@@ -43,27 +43,25 @@ function cargarCodigo($codigo, $mail){
     $stmt->bindParam(1, $mail);
 
     // Ejecutamos
-        if($stmt->execute()){
-        	echo '<script>swal({
-    title:"Exito",
-    text:"",
-    type: "success",
-    html:\'<form method="POST" action="php/ping.php" style="height:50%;"><br><h5>Te enviamos un codigo a tu mail. Ingresalo debajo para confirmar tu usuario.</h5><br><input name="codigoIngresado" style="width: 180px; font-size: 36px; color: black; font-weight: bold; text-align: center;" type="text" required; maxlength = "6";"/><br> <div> <input type="submit" style="background-color: #495F91; color:white; width: 150px;" name="confirmarCodigo" value="Confirmar"><br><input type="submit" style="background-color: gray; color:white; width: 150px;" name="reenviarCodigo" value="Reenviar codigo"></div><br><br></form>\',
-   showCancelButton: false,
-      showConfirmButton: false,
+    if($stmt->execute()){
+      echo '<script>swal({
+        title:"Exito",
+        text:"",
+        type: "success",
+        html:\'<form method="POST" action="php/ping.php" style="height:50%;"><br><h5>Te enviamos un codigo a tu mail. Ingresalo debajo para confirmar tu usuario.</h5><br><input name="codigoIngresado" style="width: 180px; font-size: 36px; color: black; font-weight: bold; text-align: center;" type="text" required; maxlength = "6";"/><br> <div> <input type="submit" style="background-color: #495F91; color:white; width: 150px;" name="confirmarCodigo" value="Confirmar"><br><input type="submit" style="background-color: gray; color:white; width: 150px;" name="reenviarCodigo" value="Reenviar codigo"></div><br><br></form>\',
+      showCancelButton: false,
+          showConfirmButton: false,
 
-    cancelButtonColor: "gray",
-    confirmButtonColor: "#495F91",
+        cancelButtonColor: "gray",
+        confirmButtonColor: "#495F91",
 
-    width: 500,
-    padding: "3em"
+        width: 500,
+        padding: "3em"
 
-});</script>  
- ';
+      });</script>  
+      ';
 
-  
-
-}
+    } 
 
 }
 

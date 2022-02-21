@@ -80,13 +80,12 @@ function ingresarReserva ($idReserva){
     if ($stmt->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Reserva realizada correctamente.',type:'success'});</script>";
-        gestionReservas();
+        echo "<script>swal({title:'Exito',text:'Reserva realizada correctamente.',type:'success', showConfirmButton: false, html: '<h5>Reserva realizada correctamente.</h5><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\">OK</a></button>'});</script>";
+
 
 
     } else {
         echo "<script>swal({title:'Error',text:'Error al ingresar reserva',type:'error'});</script>";
-        gestionReservas();
 
     }
 
@@ -124,13 +123,11 @@ include 'reservar.php';
     if ($stmt->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Reserva modificada correctamente.',type:'success'});</script>";
-        gestionReservas();
+      echo "<script>swal({title:'Exito',text:'Reserva modificada correctamente.',type:'success', showConfirmButton: false, html: '<h5>Reserva modificada correctamente.</h5><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\">OK</a></button>'});</script>";
 
 
     } else {
         echo "<script>swal({title:'Error',text:'Error al modificar la reserva',type:'error'});</script>";
-        gestionReservas();
 
     }
     
@@ -184,7 +181,6 @@ if ($stmt->execute()) {
     $idReserva=$arr['idReserva'];
     if ($idReserva == '') {
         echo "<script>swal({title:'Error',text:'Para realizar una devolucion, la reserva debe estar en estado Activo',type:'error'});</script>";
-        gestionReservas();
 
 } else {  
   
@@ -202,13 +198,11 @@ if ($stmt->execute()) {
     if ($stmt->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Devolucion realizada correctamente.',type:'success'});</script>";
-        gestionReservas();
+      echo "<script>swal({title:'Exito',text:'Devolucion realizada correctamente.',type:'success', showConfirmButton: false, html: '<h5>Devolucion realizada correctamente.</h5><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\">OK</a></button>'});</script>";
 
 
     } else {
         echo "<script>swal({title:'Error',text:'Error al ingresar devolucion',type:'error'});</script>";
-        gestionReservas();
 
     }
   }
@@ -277,81 +271,7 @@ if ($stmt->execute()) {
 }
 }
 
-       function getPages2(){
-      include 'db.php';
-
-        if (!isset ($_GET['page']) ) {  
-            $page = 1;  
-        } else {  
-            $page = $_GET['page'];  
-        }  
-        //define total number of results you want per page 
-        $results_per_page = 5;  
-        $page_first_result = ($page-1) * $results_per_page; 
-
-
-          $stmt = $dbh->prepare("SELECT * from usuarios");
-
-    //echo $sql;
-
-    if ($stmt->execute()) {
-        $number_of_result = $stmt->rowCount();  
-
-    }
-        //$page_filtro = 0;
-        //$page_total = 0;
-        
-        //$_GET[$page_filtro] = $page_filtro; 
-        //$_GET[$page_total] = $page_total; 
-
-        //determine the total number of pages available  
-        $number_of_page = ceil ($number_of_result / $results_per_page);  
-
-          //$page_total = $number_of_page;
-
-          return $number_of_page;
-    }
-
-
-
-
-
-    function getPages(){
-      include 'db.php';
-
-        if (!isset ($_GET['page']) ) {  
-            $page = 1;  
-        } else {  
-            $page = $_GET['page'];  
-        }  
-        //define total number of results you want per page 
-        $results_per_page = 5;  
-        $page_first_result = ($page-1) * $results_per_page; 
-
-        
-          $stmt = $dbh->prepare("SELECT * FROM reservas WHERE idReservaEstado <> '0'");
-
-       
-
       
-    //echo $sql;
-
-    if ($stmt->execute()) {
-        $number_of_result = $stmt->rowCount();  
-
-    }
-        $page_filtro = 0;
-        $page_total = 0;
-        
-        //$_GET[$page_filtro] = $page_filtro; 
-        //$_GET[$page_total] = $page_total; 
-
-        //determine the total number of pages available  
-        $number_of_page = ceil ($number_of_result / $results_per_page);  
-
-
-          return $number_of_page;
-    }
 
 function getEstadoReservas(){
 

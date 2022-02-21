@@ -3,8 +3,6 @@
 
 html{
     scroll-behavior: smooth;
-    height: 100%;
-    background: #ccd3fd;
 }
 
 *{
@@ -26,6 +24,10 @@ section.contenido.wrapper{
   background: none;
 }
 
+body{
+    height: 100%;
+}
+
 /*SIDEBAR*/
 #page {
     display: grid;
@@ -37,13 +39,13 @@ section.contenido.wrapper{
     grid-template-rows: 50px 1fr ;
     grid-template-columns: 60px auto;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
   
 #page > #sidebar {
     grid-area: nav;
     width: 60px;
-    height: 100vh;
+    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
@@ -57,8 +59,9 @@ section.contenido.wrapper{
   
 #page > #main {
     grid-area: main;
+    background-image: url("../assets/stacked-waves-haikei.svg") !important;
     /* background: #ADB7F5; */
-    background: #ccd3fd;
+    background-size: cover;
     width: 100%;
     padding: 16px;
     padding-right: 0px;
@@ -68,9 +71,6 @@ section.contenido.wrapper{
     overflow-x: hidden;
 }
 
-section#page{
-    overflow: hidden;
-}
 /*Fin SIDEBAR*/
 
 /***** Wrapper *****/
@@ -110,10 +110,6 @@ section#page{
     color: #fff;
 }
  
-
-
- 
-
 .sidebar ul li a i {
     /* margin-right: 10px; */
     padding-right: 10px;
@@ -292,28 +288,14 @@ only screen and (                min-resolution: 2dppx) {
   }
 }
 
-.logo-inicio{
-    /* margin-right: 10px; */
-    text-align: center;
-}
-
-img.logo-inicio{
-    /* margin-right: 10px; */
-    text-align: center;
-    width: 200px;
-}
-
 .titulo-pagina{
     margin-top: 20px;
     font-family: 'Raleway', sans-serif;
     font-weight: 400;
     text-align: center;
-    padding: 50px 0 20px 0;
+    padding: 20px 0 20px 0;
     font-size: 45px;
-     color: #444;
-     
-    /*background-color: #535355; */
-
+    color: white;
 
 }
 
@@ -336,32 +318,26 @@ img.logo-inicio{
     justify-items: center;
     flex-wrap: wrap;
     justify-content:space-around;
-    /* margin-bottom: 100px; */
     margin-top: 50px;
 }
 
 .card{
     width: 350px;
     height: 350px;
-    background-color:white;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
     box-shadow: 0px 30px 78px -47px black;
     text-align: center;
     color: #333;
-    transition: all ease 0.3s;
-    border: none;
-    border-radius: 20px;
-    border-color: gray;
-
+    transition: all ease 0.5s;
 }
 
 .card:hover{
-    /* box-shadow: none; */
-    transition: ease 0.3s;
-    transform: scale(1.05);
-    /* box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -webkit-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
-    -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75); */
-
+    box-shadow: none;
+    transition: ease 0.5s;
 }
 
 .info-paneles{
@@ -382,14 +358,20 @@ a.ver-mas-paneles{
 }
 
 .titulo-panel {
-    background: #535355;
-    border: 2px solid rgb(63, 63, 63);
-    border-radius: 10px;
+    /* background: #adb7f5;
+    border: 2px solid #909adb;
+    border-radius: 10px; */
+    backdrop-filter: blur(1px) saturate(180%);
+    -webkit-backdrop-filter: blur(1px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
     padding: 10px;
     margin-bottom: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 1;
     color: white;
 }
 
@@ -462,14 +444,19 @@ div#clockdate{
 @media (max-width: 768px){
     #page > #main {
         grid-area: main;
-        background: #ccd3fd;
+        background-image: url("../assets/stacked-waves-haikei.svg");
+        background-size: cover;
         width: 100%;
         padding: 16px;
-        padding-right: 0px;
+        padding-right: -1px;
         padding-bottom: 0px;
         transition: padding-left 0.5s;
         overflow-y: hidden;
         overflow-x: hidden;
+    }
+
+    .column{
+        flex: 100%;
     }
 }
 
@@ -488,4 +475,11 @@ div#clockdate{
 
   .fas.fa-arrow-circle-left:hover{
     color: rgb(95, 95, 95);
+}
+
+@media screen and (orientation: landscape) 
+and (max-device-width: 1000px){
+    #page > #sidebar{
+        overflow-y: scroll !important;
+    }
 }
