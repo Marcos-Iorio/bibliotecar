@@ -223,28 +223,30 @@ function singleBook($idLibro){
 
   function gestionLibros(){
     include 'db.php';
-  $stmt = $dbh->prepare('SELECT * FROM libros, categorias, autores');
+    $stmt = $dbh->prepare('SELECT * FROM libros, categorias, autores');
+
   
-if ($stmt->execute()) {
-  $resultado=$stmt->fetchAll();
+    if ($stmt->execute()) {
+    $resultado=$stmt->fetchAll();
 
-  foreach($resultado as $fila):
+    foreach($resultado as $fila):
 
-    echo "<tbody>
-                          <tr>
-                            <td>".  $fila['titulo']."</td>
-                            <td>". $fila['nombreAutor']."</td>
-                            <td>". $fila['nombreCategoria']."</td>
-                            <td>". $fila['stock']. "</td>
-                            <td>" . $fila['fechaAlta']. "</td>
-                            <td><button><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
-                            <td><button><i class=\"far fa-trash-alt tbody-icon\"></i></button></td>
-                          </tr>
-                        </tbody>";
+        echo "<tbody>
+                            <tr>
+                                <td>".  $fila['titulo']."</td>
+                                <td>". $fila['nombreAutor']."</td>
+                                <td>". $fila['nombreCategoria']."</td>
+                                <td>". $fila['stock']. "</td>
+                                <td>" . $fila['fechaAlta']. "</td>
+                                <td><button><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
+                                <td><button><i class=\"far fa-trash-alt tbody-icon\"></i></button></td>
+                            </tr>
+                            </tbody>";
 
-  endforeach;
+    endforeach;
+
+    }
 }
-  }
 
   function todasLasCategorias(){
      include 'db.php'; 
@@ -257,47 +259,79 @@ if ($stmt->execute()) {
         echo '<li><a href="librosFiltrados.php?categoria=' . $fila['nombreCategoria'] . '"><span></span> ' . $fila['nombreCategoria'] . ' </a></li>';
 
     endforeach;
-}
-
-function todosLosAutores(){
-    
-    include 'db.php'; 
-
-
-   $stmt = $dbh->prepare('SELECT distinct nombreAutor from autores');
-   // Ejecutamos
-   $stmt->execute();
-   // Mostramos los resultados
-    
-   $resultado = $stmt->fetchAll();
-   foreach($resultado as $fila):
-       echo '<li><a href="librosFiltrados.php? autor=' . $fila['nombreAutor'] . '"><span></span> ' . $fila['nombreAutor'] . ' </a></li>';
-
-   endforeach;
-}
-
+    }
 
 function librosFiltrados(){
     include('db.php');
 
-    $query ="SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
-            FROM libros AS l 
-            INNER JOIN libro_autores la ON l.idLibro = la.idLibro
-            INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
-            INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
-            INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
-            INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
-            INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
-            INNER JOIN autores a ON la.idAutores = a.idAutores
-            ";
+    $query = "";
 
-    if(isset($_GET['categoria'])){
-        $variableDelFront = $_GET['categoria'];
-        $query .="WHERE c.nombreCategoria LIKE '$variableDelFront%'";
+    if(isset($_GET['stock'])){
+        $filtro = $_GET['stock'];
+        if($filtro == 1){
+            $query .="SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+                    FROM libros AS l 
+                    INNER JOIN libro_autores la ON l.idLibro = la.idLibro
+                    INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
+                    INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
+                    INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
+                    INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
+                    INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
+                    INNER JOIN autores a ON la.idAutores = a.idAutores
+                    WHERE l.stock > 0 ORDER BY l.stock DESC";
+        }else{
+            $query .="SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+                    FROM libros AS l 
+                    INNER JOIN libro_autores la ON l.idLibro = la.idLibro
+                    INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
+                    INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
+                    INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
+                    INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
+                    INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
+                    INNER JOIN autores a ON la.idAutores = a.idAutores
+                    WHERE l.stock <= 0 ORDER BY l.stock DESC";
+        }
     }
+
     if(isset($_GET['autor'])){
-        $variableDelFront = $_GET['autor'];
-        $query .="WHERE a.nombreAutor LIKE '$variableDelFront%'";
+        $filtro = $_GET['autor'];
+        $query .="SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+                    FROM libros AS l 
+                    INNER JOIN libro_autores la ON l.idLibro = la.idLibro
+                    INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
+                    INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
+                    INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
+                    INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
+                    INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
+                    INNER JOIN autores a ON la.idAutores = a.idAutores
+                    WHERE a.nombreAutor = $filtro ORDER BY l.stock DESC";
+    }
+
+    if(isset($_GET['pdf'])){
+        $filtro = $_GET['pdf'];
+        if($filtro == 1){
+            $query .= "SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+                    FROM libros AS l 
+                    INNER JOIN libro_autores la ON l.idLibro = la.idLibro
+                    INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
+                    INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
+                    INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
+                    INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
+                    INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
+                    INNER JOIN autores a ON la.idAutores = a.idAutores
+                    WHERE l.pdf IS NOT NULL ORDER BY l.stock DESC";
+        }else{
+            $query .= "SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+                    FROM libros AS l 
+                    INNER JOIN libro_autores la ON l.idLibro = la.idLibro
+                    INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
+                    INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
+                    INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
+                    INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
+                    INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
+                    INNER JOIN autores a ON la.idAutores = a.idAutores
+                    WHERE l.pdf IS NULL ORDER BY l.stock DESC";
+        }
     }
 
     $stmt = $dbh->prepare($query);

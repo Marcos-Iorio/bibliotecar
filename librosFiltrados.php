@@ -63,6 +63,20 @@
                 <div class="menu-filtro" id="menu-filtro">
                     <h3>FILTROS</h3> 
                     <a href="libros.php"><i class="fas fa-times"></i></a>  
+                    <h3>STOCK</h3>
+                    <div class="checklist autores">
+                        <ul>
+                            <li><a href="librosFiltrados.php?stock=1">Disponible</a></li>
+                            <li><a href="librosFiltrados.php?stock=0">No Disponible</a></li>
+                        </ul>   
+                    </div> 
+                    <h3>PDF</h3>
+                    <div class="checklist autores">
+                        <ul>
+                            <li><a href="librosFiltrados.php?pdf=0">Sin PDF</a></li>
+                            <li><a href="librosFiltrados.php?pdf=1">Con PDF</a></li>
+                        </ul>   
+                    </div>  
                     <h3>CATEGORIAS</h3>
                     <div class="checklist categories">
                         <ul>
@@ -71,16 +85,6 @@
                             ?>
                         </ul>
                     </div>
-                    
-                    <h3>Autores</h3>
-                    <div class="checklist autores">
-                        <ul>
-                            <?php
-                                todosLosAutores();
-                            ?>
-                        </ul>   
-                    </div>
-                    <h3>Editoriales</h3>
                 </div>
         <!--Seccion de los libros-->
                 <div class="container main-libros">
@@ -95,10 +99,6 @@
                     </div>
                 </div>
             </section>
-            <button onclick="contacto()" class="buttonInfo tooltip">
-                <i class="fas fa-question"></i>
-                <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
-            </button>
         </main>
       </section>
 </body>

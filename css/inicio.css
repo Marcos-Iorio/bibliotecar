@@ -68,7 +68,7 @@ body{
     padding-right: 0px;
     padding-bottom: 150px;
     transition: padding-left 0.5s;
-    overflow-y: hidden;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 

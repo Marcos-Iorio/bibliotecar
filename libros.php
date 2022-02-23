@@ -62,7 +62,21 @@
                   </div>
                 </div>
                 <div class="menu-filtro" id="menu-filtro">
-                    <h3>FILTROS</h3>    
+                    <h3>FILTROS</h3> 
+                    <h3>STOCK</h3>
+                    <div class="checklist autores">
+                        <ul>
+                            <li><a href="librosFiltrados.php?stock=1">Disponible</a></li>
+                            <li><a href="librosFiltrados.php?stock=0">No Disponible</a></li>
+                        </ul>   
+                    </div> 
+                    <h3>PDF</h3>
+                    <div class="checklist autores">
+                        <ul>
+                            <li><a href="librosFiltrados.php?pdf=0">Sin PDF</a></li>
+                            <li><a href="librosFiltrados.php?pdf=1">Con PDF</a></li>
+                        </ul>   
+                    </div>  
                     <h3>CATEGORIAS</h3>
                     <div class="checklist categories">
                         <ul>
@@ -71,15 +85,6 @@
                             ?>
                         </ul>
                     </div>
-                    
-                    <h3>Autores</h3>
-                    <div class="checklist autores">
-                        <ul>
-                            <?php
-                                todosLosAutores();
-                            ?>
-                        </ul>   
-                    </div>
                 </div>
         <!--Seccion de los libros-->
                 <div class="container main-libros">
@@ -87,7 +92,6 @@
                                         <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
                     <div id="breadcrumbs"></div>
                     <div class="grid-libros">
-
                     <?php
                     if (!isset($_POST['txtBuscar'])) {
                         todosLosLibros();

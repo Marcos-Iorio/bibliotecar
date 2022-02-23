@@ -243,6 +243,7 @@ label {
 div#tablaLibros_length label, div#tablaLibros_filter label, div#tablaCategorias_length label, div#tablaCategorias_filter label,
 div#tablaAutores_length label, div#tablaAutores_filter label, div#tablaEditoriales_length label, div#tablaEditoriales_filter label, div#tabla-ejemplar_filter label{
     width: 100% !important;
+    white-space: wrap !important;
 }
 
 input#crear-libro{
@@ -990,6 +991,7 @@ body {
   /* Data tables */
 
   .dataTables_wrapper .dataTables_paginate .paginate_button{
+      border: 1px solid black !important;
       background: transparent !important;
       border-radius: 44px !important;
   }
@@ -1001,7 +1003,7 @@ body {
   }
 
   .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .paginate_button.disabled:active{
-      background: #666 ;
+      border: 1px solid rgb(124, 124, 124) !important;
   }
 
   input#autor, input.input-libro.autor, input#categoria, input.input-libro.categoria, input#editorial, input.input-libro.editorial{

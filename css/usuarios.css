@@ -379,6 +379,7 @@ input#buscar:hover{
 
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     background: transparent !important;
+    border: 1px solid black !important;
     border-radius: 44px !important;
 }
 
@@ -386,4 +387,12 @@ input#buscar:hover{
     background: white !important;
     border: none;
     color: #333 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active{
+    border: 1px solid rgb(124, 124, 124) !important;
+}
+
+#tablaUsuarios_filter label {
+    white-space: normal !important;
 }

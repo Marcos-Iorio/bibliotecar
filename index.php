@@ -24,7 +24,7 @@
           include "php/panel.php";
 
          ?>
-        <main id="main">
+        <main id="main" style="overflow-y: hidden">
             <?php 
                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ) {
                   echo '<h1 class="titulo-pagina"  style="margin-left: 50px;">Hola '. $user . '!</h1>';
