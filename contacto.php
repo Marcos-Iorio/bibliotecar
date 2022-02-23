@@ -50,8 +50,9 @@
                           <label for="message">Mensaje</label><br>
                           <textarea style= "color: black; height: 150px;" maxlength="1000" name="body" cols="30" rows="10" type="text" placeholder="Ingresá tu mensaje ..." required></textarea>
                           <div class="center">
-                          <div name="btncaptcha" class="g-recaptcha brochure__form__captcha" data-sitekey="6LcArdAdAAAAAOUQbgqIYOPr5M0v2EAYx6A70DUn" required></div>
-                              <input type="submit" name="contactophp" value="Enviar">
+                          <div name="btncaptcha" class="g-recaptcha brochure__form__captcha" data-sitekey="6LcArdAdAAAAAOUQbgqIYOPr5M0v2EAYx6A70DUn" data-callback="checked" required></div>
+                          <input type="submit" id="btn-enviar-consulta" name="contactophp" disabled value="Enviar">
+                          <div id="error"></div>
                               <?php 
                                 if (isset($_POST['contactophp'])) {
                                   enviarMail();
@@ -109,6 +110,17 @@
       </section>
 
 </body>
+<script>
+  if(document.querySelector('#btn-enviar-consulta').disabled == true){
+    document.querySelector('#error').textContent = "Falta validación recaptcha"
+    document.querySelector('#error').style.color = "red";
+  }
+  
+  function checked(){
+    document.querySelector('#btn-enviar-consulta').disabled = false;
+    document.querySelector('#error').remove();
+  }
+</script>
 
   <script src="js/navbarToggle.js"></script>
   <script src="https://www.google.com/recaptcha/api.js"></script>
