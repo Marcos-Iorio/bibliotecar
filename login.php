@@ -15,13 +15,14 @@ exit;
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet"  href="css/login.css">
     <script src="js/sweetalert2.js"></script>
     <link rel="stylesheet" href="css/sweetalert2.css">
     
 </head>
 <body>
-    <div class="pass__require hidden" id ="passRequire">
+    <div class="pass__require hidden" id ="passRequire" style="z-index: 50;">
         <h3>La contraseña debe contener:</h3>
         <p id="letter" class="require invalid">Una <b>letra</b> Minúscula</p>
         <p id="capital" class="require invalid">Una <b>letra</b> Mayúscula</p>
@@ -60,7 +61,7 @@ exit;
         </div>
         
         <div class="form-container sign-in-container">
-            <form action="php/login-back.php" method="POST">
+            <form action="" method="POST">
                 <h1>Iniciar sesión</h1>
                 <input type="email" placeholder="Email" name="mailL" id="mailL" required />
                 <div class="campo-pass">
@@ -71,10 +72,20 @@ exit;
                   </div>
                 </div> 
                 <a href="#myModal" id="olvide_pass">¿Olvidaste tu contraseña?</a>
-                <button>Iniciar sesión</button>
+                <button name="iniciarSesion">Iniciar sesión</button>
                 <span id="resultadoL"></span>
                 <!--<h6>Volver a pagina principal</h6>-->
             </form>
+            <?php 
+            include "php/login-back.php";
+    if(isset($_POST['iniciarSesion'])){
+        
+      accederSistema($_POST['mailL'], $_POST['passL']);
+    //<?php if(isset($_POST[\'confirmarMail\'])){ registrarUsuario();} 
+    }
+
+                 ?>
+            
         </div>
         <div class="overlay-container">
             <div class="overlay">
@@ -203,3 +214,4 @@ const modal  = document.querySelector('#myModal');
   }
 </script>
 <script type="text/javascript" src="js/login.js"></script>
+

@@ -56,7 +56,7 @@ h4{
 }
 
 .social-media{
-	height: 29%;
+	height: 5%;
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
@@ -208,3 +208,9 @@ input[type=submit]:hover {
   .fas.fa-arrow-circle-left:hover{
 	  color: rgb(95, 95, 95);
   }
+
+  @media (max-width: 1318px){
+	.column{
+		flex: 44% !important;
+	}
+}
