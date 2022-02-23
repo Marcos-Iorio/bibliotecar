@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="es">
+<html lang="es" style="height: 100%">
   
 <?php 
   include "php/islogin.php";

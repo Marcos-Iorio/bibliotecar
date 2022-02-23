@@ -990,17 +990,17 @@ body {
   /* Data tables */
 
   .dataTables_wrapper .dataTables_paginate .paginate_button{
-      background: #333 !important;
+      background: transparent !important;
       border-radius: 44px !important;
   }
 
   .page-item .page-link{
-      background: transparent !important;
+      background: white !important;
       border: none;
-      color: white !important;
+      color: #333 !important;
   }
 
-  .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .aginate_button.disabled:active{
+  .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .paginate_button.disabled:active{
       color: #666 !important;
   }
 

@@ -378,12 +378,12 @@ input#buscar:hover{
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button{
-    background: #333 !important;
+    background: transparent !important;
     border-radius: 44px !important;
 }
 
 .page-item .page-link{
-    background: transparent !important;
+    background: white !important;
     border: none;
-    color: white !important;
+    color: #333 !important;
 }
