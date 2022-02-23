@@ -166,10 +166,29 @@ input[type=submit]:hover {
 		color: white;
 	}
 	.container{
-		width: 100%;
+		width: 137%;
 	}
 	section.contenido.wrapper {
 		width: 74%;
+	}
+	.info-contacto p{
+		width: 100%;
+	}
+
+	iframe{
+		width: 100%;
+	}
+	.social-media{
+		margin-bottom: 100px;
+	}
+	form#contact-form{
+		width: 70%;
+	}
+}
+
+@media (max-width: 1200px){
+	.column{
+		flex: 44% !important;
 	}
 }
 

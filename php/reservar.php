@@ -62,8 +62,9 @@ function mainReservar($mail, $skuLibro, $fechaDesde, $fechaHasta){
          $stmt->bindParam(5, $fechaDesde);
          $stmt->bindParam(6, $fechaHasta);
          if($stmt->execute()){
-
+          
                    //header('Location: ../single-book.php?sku='.$skuLibro);
+          cambiarEstadoEjemplar($idEjemplar, "1");
           confirmarReserva($skuLibro, $nombre, $correo, $codigo);
          } else {
             echo "<script>Swal.fire({title:'Error',text:'Su reserva no ha podido realizarse. Por favor contacta al administrador para mas informacion.$codigo,  $idEjemplar, $reservaEstado, $idUsuario, $fechaDesde, $fechaHasta',type:'error'});</script> ";
@@ -119,6 +120,14 @@ function reservaEjemplar($idLibro){
   return $resultado;
 
 }
+}
+
+function cambiarEstadoEjemplar($idEjemplar, $estado){
+  include('db.php');
+
+  $buscarIdEjemplar = $dbh->prepare("UPDATE ejemplares SET idEjemplarEstado = '$estado' where idEjemplar = '$idEjemplar'");
+  $buscarIdEjemplar->execute();
+
 }
 
 

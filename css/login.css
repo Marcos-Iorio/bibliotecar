@@ -6,7 +6,7 @@
 }
 
 body {
-	background: linear-gradient(214deg, #0a036e, #030443, #0c3761);
+	background: linear-gradient(214deg, #0c3761, #0c3761, #0c3761);
     background-size: 600% 600%;
 
     -webkit-animation: fondo 9s ease infinite;
@@ -570,7 +570,7 @@ footer a {
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
-		margin-top: 67% !important;
+		margin-top: 73% !important;
 		padding: 0 50px;
 		height: 50%;
 		text-align: center;

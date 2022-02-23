@@ -3,16 +3,16 @@
 
   function gestionLibros(){
 
-  if (!isset ($_GET['page']) ) {  
-            $page = 1;  
-        } else {  
-            $page = $_GET['page'];  
-        }  
-          $results_per_page = 5;  
+  // if (!isset ($_GET['page']) ) {  
+  //           $page = 1;  
+  //       } else {  
+  //           $page = $_GET['page'];  
+  //       }  
+  //         $results_per_page = 5;  
 
-        //determine the sql LIMIT starting number for the results on the displaying page  
-        $page_first_result = ($page-1) * $results_per_page;  
-        //retrieve the selected results from database   
+  //       //determine the sql LIMIT starting number for the results on the displaying page  
+  //       $page_first_result = ($page-1) * $results_per_page;  
+  //       //retrieve the selected results from database   
         //$res = mysqli_query($this->con, $query);  
         //$start = 1 * ($page - 1);
         //$rows = 10;
@@ -29,19 +29,20 @@
             INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
-            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.idLibro DESC LIMIT $page_first_result , $results_per_page";
-  $stmt = $dbh->prepare($query);
+            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.idLibro";
+            //INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.idLibro DESC LIMIT $page_first_result , $results_per_page";
+
+$stmt = $dbh->prepare($query);
   
 if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
 
   foreach($resultado as $fila):
     //echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
-   $idLibro = $fila['idLibro'];
+
     echo "
-    <tbody>
                           <tr>
-                            <td class='ids'>" . $fila['idLibro']. "</td>
+                            <td>" . $fila['idLibro']. "</td>
                             <td>".  $fila['titulo']."</td>
                             <td>". $fila['nombreAutor']."</td>
                             <td>". $fila['nombreCategoria']."</td>
@@ -50,7 +51,6 @@ if ($stmt->execute()) {
                             <td><a href='#modal-libros' id='abrir-modal-libros'><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."','".$fila["descripcion"]."','".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                             <td><a href='#modal-ejemplares' id='abrir-ejemplares'><button onclick=\"javascript:cargarEjemplares('".$fila["idLibro"]."')\">Ver ejemplares</button></a></td>
                           </tr>
-                        </tbody>
 
 
                         ";
@@ -105,7 +105,7 @@ function editarLibro($idLibro, $titulo, $autor, $descripcion,$categoria,$editori
             $flagEditorial="error";
             $flagCategoria="error";
             $flagImagen="error";
-
+            $flagStock="error";
 
 
         if(!$_FILES['pdf']['name'] == ""){
@@ -119,17 +119,31 @@ function editarLibro($idLibro, $titulo, $autor, $descripcion,$categoria,$editori
         }
 
 
-           
+                               $stockOriginal= getStockActual($idLibro);
 
 
+                    if ($stockOriginal <= $stock) {
+                        $flagStock="ok";
+                    $updateStock = $dbh->prepare("UPDATE libros set stock = ? where idLibro = ?");
 
-                    $updateLibro = $dbh->prepare("UPDATE libros set titulo = ?, descripcion= ?, stock= ?, pdf= ? where idLibro = ?");
+                    $updateStock->bindParam(1, $stock);
+                    $updateStock->bindParam(2, $idLibro);
+
+                    if ($updateStock->execute()) {
+                      editarStockEjemplar($idLibro, $stock);
+                      
+                      }
+
+
+                    }
+
+
+                    $updateLibro = $dbh->prepare("UPDATE libros set titulo = ?, descripcion= ?, pdf= ? where idLibro = ?");
 
                     $updateLibro->bindParam(1, $titulo);
                     $updateLibro->bindParam(2, $descripcion);
-                    $updateLibro->bindParam(3, $stock);
-                    $updateLibro->bindParam(4, $destinoPdf);
-                    $updateLibro->bindParam(5, $idLibro);
+                    $updateLibro->bindParam(3, $destinoPdf);
+                    $updateLibro->bindParam(4, $idLibro);
 
 //$varLibro = "UPDATE libros set titulo = $titulo, descripcion= $descripcion, stock= $stock, pdf=$destinoPdf where idLibro = $idLibro";
                           if ($updateLibro->execute()) {
@@ -197,21 +211,31 @@ function editarLibro($idLibro, $titulo, $autor, $descripcion,$categoria,$editori
                           }
                   }
 
+
+
                   //Editar tapa y/o contratapa
                   //Insertar contratapa si no hay registro existente
                   //Editar ejemplares, eliminar/agregar registros segun stock libro 
                   // ver js cuando hay un quote '' en el medio 
 
-   
-
-                    if ($flagLibro="ok" || $flagEditorial="ok" || $flagAutor="ok" || $flagCategoria="ok" ) {
-        echo "<script>swal({title:'Exito',text:'Registro editado correctamente.',type:'success'});</script>";
-                     # code...
+                    if ($flagStock=="error") {
+                        $msjStock="El stock ingresado es menor al original. Para reducir el stock, por favor gestionelo desde ejemplares.";
+                        $titulo="Alerta";
+                        $tipo="warning";
                     } else {
-        //echo "<script>swal({title:'Error',text:'El registro no pudo ser editado. flagLibro= $flagLibro, flagEditorial= $flagEditorial, flagAutor= $flagAutor, flagCategoria= $flagCategoria, $varLibro ',type:'error'});</script>";
+                        $msjStock="Registro editado correctamente";
+                        $titulo="Exito";
+                        $tipo="success";
+                    }
+
+                     if ($flagLibro="ok" || $flagEditorial="ok" || $flagAutor="ok" || $flagCategoria="ok" || $flagStock="ok") {
+                    echo "<script>swal({title:'$titulo',text:'Registro editado correctamente.',type:'$tipo', showConfirmButton: false, html: '<h6>$msjStock</h6><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
+// //                      # code...
+                    } else {
+// //         //echo "<script>swal({title:'Error',text:'El registro no pudo ser editado. flagLibro= $flagLibro, flagEditorial= $flagEditorial, flagAutor= $flagAutor, flagCategoria= $flagCategoria, $varLibro ',type:'error'});</script>";
             echo "<script>swal({title:'Error',text:'El registro no pudo ser editado.',type:'error'});</script>";
                     }
-}
+ }
 
 
 function llenarImagen($Tapa,$contratapa){
@@ -246,6 +270,11 @@ function llenarImagen($Tapa,$contratapa){
 
 
 }
+
+
+
+    
+
                 function cargarLibro($titulo,$descripcion,$stock,$fechaAlta,$destino){
                     include('db.php');
 
@@ -270,11 +299,12 @@ function llenarImagen($Tapa,$contratapa){
                     $buscarAutor->execute();
 
                     $arr=$buscarAutor->fetch(PDO::FETCH_ASSOC);
-                    $idAutor = $arr['idAutores'];
+                    $idAutor=$arr['idAutores'];
 
                     if (!$idAutor == '') {
-                      $idLibro = buscarIdLibro();
+                      $idLibro=buscarIdLibro();
                       llenarAutorLibro($idAutor, $idLibro);
+                      # code...
                     } else {
                     //$insertAutor = $dbh->prepare("INSERT into `autores` (nombreAutor) values(?)");
                     //$insertAutor->bindParam(1, $autor);    
@@ -411,13 +441,13 @@ function llenarImagen($Tapa,$contratapa){
                 if ($insertTapa->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Registro ingresado correctamente.',type:'success'});</script>";
-        gestionLibros();
+                    echo "<script>swal({title:'Exito',text:'Registro ingresado correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
+        //gestionLibros();
 
 
     } else {
-        echo "<script>swal({title:'Error',text:'Error al ingresar el registro',type:'error'});</script>";
-        gestionLibros();
+        echo "<script>swal({title:'Error',text:'Error al ingresar el registro.',type:'error'});</script>";
+        //gestionLibros();
 
     }
 
@@ -520,7 +550,7 @@ function llenarImagen($Tapa,$contratapa){
                             $stmt ->execute();
                             $arr = $stmt->fetchAll();
                             foreach($arr as $fila):
-                                echo "<option value=".$fila['nombreAutor'].">".$fila['nombreAutor']."</option>";
+                                echo "<option>".$fila['nombreAutor']."</option>";
                             endforeach;  
                       }
 
@@ -562,8 +592,20 @@ echo "<option>".$fila['nombreEditorial']."</option>";
       $idEjemplarEstado="0";
 
       $idLibro = buscarIdLibro();
+
+      $stockActual = getUltimoEjemplar($idLibro);
+
+      if ($stockActual > 0) {
+        $stockActual = $stockActual;
+      } else {
+        $stockActual = 0;
+      }
       
-      for ($i = 1; $i <= $stock; $i++) {
+      
+      
+      for ($i = $stockActual+1; $i <= $stockActual+$stock; $i++) {
+      
+      // for ($i = 1; $i <= $stock; $i++) {
 
         $idEjemplar="L".$idLibro."E".$i;
 //echo"INSERT into `ejemplares` (idEjemplar, fechaIngreso, idLibro, idEjemplarEstado) 
@@ -588,177 +630,55 @@ echo "<option>".$fila['nombreEditorial']."</option>";
 
 
 
+//     function eliminarEjemplar($stock){
+//       include('db.php');
+// $idEjemplarEstado="0";
+
+// $idLibro = buscarIdLibro();
+
+// $stockActual = getUltimoEjemplar($idLibro);
+
+// if ($stockActual > 0) {
+//   $stockEliminar = $stockActual-$stock;
+
+//   $quitarStock = $dbh->prepare("delete from ejemplares where idLibro = $idLibro and idEjemplarEstado = 0 LIMIT $stockEliminar");
+//   $quitarStock->execute();
 
 
-                      function getPages2(){
-      include 'db.php';
+// } 
 
-        if (!isset ($_GET['page']) ) {  
-            $page = 1;  
-        } else {  
-            $page = $_GET['page'];  
-        }  
-        //define total number of results you want per page 
-        $results_per_page = 5;  
-        $page_first_result = ($page-1) * $results_per_page; 
-
-$query='SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
-            FROM libros AS l
-            INNER JOIN libro_autores la ON l.idLibro = la.idLibro
-            INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
-            INNER JOIN libro_editoriales le ON l.idLibro = le.idLibro
-            INNER JOIN imagen_libros i ON l.idLibro = i.idLibro
-            INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
-            INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
-            INNER JOIN autores a ON la.idAutores = a.idAutores ORDER BY l.stock DESC';
-          $stmt = $dbh->prepare($query);
-
-    //echo $sql;
-
-    if ($stmt->execute()) {
-        $number_of_result = $stmt->rowCount();  
-
-    }
-        //$page_filtro = 0;
-        //$page_total = 0;
-        
-        //$_GET[$page_filtro] = $page_filtro; 
-        //$_GET[$page_total] = $page_total; 
-
-        //determine the total number of pages available  
-        $number_of_page = ceil ($number_of_result / $results_per_page);  
-
-          //$page_total = $number_of_page;
-
-          return $number_of_page;
-    }
+// }
 
 
+function getUltimoEjemplar($idLibro) {
 
+  include('db.php');
 
-
-    function getPages($buscar, $criterio){
-      include 'db.php';
-
-        if (!isset ($_GET['page']) ) {  
-            $page = 1;  
-        } else {  
-            $page = $_GET['page'];  
-        }  
-        //define total number of results you want per page 
-        $results_per_page = 5;  
-        $page_first_result = ($page-1) * $results_per_page; 
-
-        if (!$buscar == 0 && !$criterio == 0) {
-          $stmt = $dbh->prepare("SELECT * from libros where $criterio like '%$buscar%'");
-
-        } else {
-
-          $stmt = $dbh->prepare("SELECT * from libros");
-
-        }
-    //echo $sql;
-
-    if ($stmt->execute()) {
-        $number_of_result = $stmt->rowCount();  
-
-    }
-        $page_filtro = 0;
-        $page_total = 0;
-        
-        //$_GET[$page_filtro] = $page_filtro; 
-        //$_GET[$page_total] = $page_total; 
-
-        //determine the total number of pages available  
-        $number_of_page = ceil ($number_of_result / $results_per_page);  
-        if (!$buscar == 0 && !$criterio == 0) {
-
-          $page_filtro = $number_of_page;
-        } else {
-
-          $page_total = $number_of_page;
-        }
-
-          return $number_of_page;
-    }
-
-
-
-    function getFiltro($buscar, $criterio){
-
-   include 'db.php';
-
-if (!isset ($_GET['page']) ) {  
-            $page = 1;  
-        } else {  
-            $page = $_GET['page'];  
-        }  
-          $results_per_page = 5;  
-
-        //determine the sql LIMIT starting number for the results on the displaying page  
-        $page_first_result = ($page-1) * $results_per_page;  
-        //retrieve the selected results from database   
-        //$res = mysqli_query($this->con, $query);  
-        //$start = 1 * ($page - 1);
-        //$rows = 10;
-        //$query ="select * from producto LIMIT $start, $rows";
-
-
-    //echo $sql;
-    $stmt = $dbh->prepare("SELECT * from libros where $criterio like '%$buscar%' LIMIT " . $page_first_result . ',' . $results_per_page);
-
-    if ($stmt->execute()) {
-      $resultado=$stmt->fetchAll();
-
-     foreach($resultado as $fila):
-
-    if ($fila['idEstado'] == '2')  {
-      $icono='fas fa-ban';
-      $titulo = 'Dada de baja';
-    } else {
-      $icono='far fa-check-circle';
-        $titulo = 'Activa';
-    
-     /*if ($fila['check_mail'] == '0')  {
-      $icono='fas fa-exclamation';
-      $titulo='Mail';
-    } */
-    }
-
-    
-    //echo "<form action='' method = 'POST'>
-
-
-
-    echo "<form action='' method = 'POST' class= 'form-libro'>
-    <tbody>
-                          <tr>
-                            <td>".  $fila['titulo']."</td>
-                            <td>". $fila['nombreAutor']."</td>
-                            <td>". $fila['nombreCategoria']."</td>
-                            <td>". $fila['stock']. "</td>
-                            <td>" . $fila['fechaAlta']. "</td>
-                            <td><button><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></td>
-                          </tr>
-                        </tbody>";
-    endforeach;
- 
-    }
-
+  $buscarStock = $dbh->prepare("select substr(idEjemplar,instr(idEjemplar,'E') + 1) AS cantidad from ejemplares where idLibro= $idLibro order by idEjemplar DESC LIMIT 1");
+  $buscarStock->execute();
+  $arr = $buscarStock->fetch(PDO::FETCH_ASSOC);
+  $cantidadEjemplar = $arr['cantidad'];
+  
+   return $cantidadEjemplar;
 }
 
 
+
+
+
+   
+
 function gestionAutores(){
 
-  if (!isset ($_GET['page']) ) {  
-            $page = 1;  
-        } else {  
-            $page = $_GET['page'];  
-        }  
-          $results_per_page = 5;  
+  // if (!isset ($_GET['page']) ) {  
+  //           $page = 1;  
+  //       } else {  
+  //           $page = $_GET['page'];  
+  //       }  
+  //         $results_per_page = 5;  
 
-        //determine the sql LIMIT starting number for the results on the displaying page  
-        $page_first_result = ($page-1) * $results_per_page;  
+  //       //determine the sql LIMIT starting number for the results on the displaying page  
+  //       $page_first_result = ($page-1) * $results_per_page;  
         //retrieve the selected results from database   
         //$res = mysqli_query($this->con, $query);  
         //$start = 1 * ($page - 1);
@@ -768,7 +688,7 @@ function gestionAutores(){
   include 'db.php';
 
 
-  $query="SELECT * from autores LIMIT $page_first_result , $results_per_page";
+  $query="SELECT * from autores";
 
   $stmt = $dbh->prepare($query);
   
@@ -778,14 +698,13 @@ if ($stmt->execute()) {
   foreach($resultado as $fila):
 
     echo "
-    <tbody>
                           <tr>
                             <td>".  $fila['idAutores']."</td>
                             <td>". $fila['nombreAutor']."</td>
 
                             <td><a href='#modal-autor' id='abrir-modal-autor'><button onclick=\"javascript:cargarPropiedades('Autor','".$fila["idAutores"]."','".$fila["nombreAutor"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                           </tr>
-                        </tbody>";
+                        ";
 
   endforeach;
 }
@@ -803,7 +722,7 @@ if ($stmt->execute()) {
                 if ($cargarAutor->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Autor ingresado correctamente.',type:'success'});</script>";
+        echo "<script>swal({title:'Exito',text:'Autor ingresado correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
         //gestionAutores();
 
 
@@ -827,7 +746,7 @@ include('db.php');
                 if ($editarAutor->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Autor editado correctamente.',type:'success'});</script>";
+            echo "<script>swal({title:'Exito',text:'Autor editado correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
         //gestionAutores();
 
 
@@ -843,15 +762,15 @@ include('db.php');
 
   function gestionCategorias(){
 
-  if (!isset ($_GET['page']) ) {  
-            $page = 1;  
-        } else {  
-            $page = $_GET['page'];  
-        }  
-          $results_per_page = 5;  
+  // if (!isset ($_GET['page']) ) {  
+  //           $page = 1;  
+  //       } else {  
+  //           $page = $_GET['page'];  
+  //       }  
+  //         $results_per_page = 5;  
 
-        //determine the sql LIMIT starting number for the results on the displaying page  
-        $page_first_result = ($page-1) * $results_per_page;  
+  //       //determine the sql LIMIT starting number for the results on the displaying page  
+  //       $page_first_result = ($page-1) * $results_per_page;  
         //retrieve the selected results from database   
         //$res = mysqli_query($this->con, $query);  
         //$start = 1 * ($page - 1);
@@ -861,7 +780,7 @@ include('db.php');
   include 'db.php';
 
 
-  $query="SELECT * from categorias LIMIT $page_first_result , $results_per_page";
+  $query="SELECT * from categorias";
 
   $stmt = $dbh->prepare($query);
   
@@ -871,14 +790,12 @@ if ($stmt->execute()) {
   foreach($resultado as $fila):
 
     echo "
-    <tbody>
                           <tr>
                             <td>".  $fila['idCategoria']."</td>
                             <td>". $fila['nombreCategoria']."</td>
 
                             <td><a href='#modal-categoria' id='abrir-modal-categoria'><button onclick=\"javascript:cargarPropiedades('Categoria','".$fila["idCategoria"]."','".$fila["nombreCategoria"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
-                          </tr>
-                        </tbody>";
+                          </tr>";
 
   endforeach;
 }
@@ -896,7 +813,7 @@ function crearCategoria($nombreCategoria) {
                 if ($cargarCategoria->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Categoria ingresada correctamente.',type:'success'});</script>";
+         echo "<script>swal({title:'Exito',text:'Categoria ingresada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
         //gestionAutores();
 
 
@@ -921,7 +838,7 @@ include('db.php');
                 if ($editarCategoria->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Categoria editada correctamente.',type:'success'});</script>";
+            echo "<script>swal({title:'Exito',text:'Categoria editada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
         //gestionAutores();
 
 
@@ -939,15 +856,15 @@ include('db.php');
 
 function gestionEditoriales(){
 
-  if (!isset ($_GET['page']) ) {  
-            $page = 1;  
-        } else {  
-            $page = $_GET['page'];  
-        }  
-          $results_per_page = 5;  
+  // if (!isset ($_GET['page']) ) {  
+  //           $page = 1;  
+  //       } else {  
+  //           $page = $_GET['page'];  
+  //       }  
+  //         $results_per_page = 5;  
 
-        //determine the sql LIMIT starting number for the results on the displaying page  
-        $page_first_result = ($page-1) * $results_per_page;  
+  //       //determine the sql LIMIT starting number for the results on the displaying page  
+  //       $page_first_result = ($page-1) * $results_per_page;  
         //retrieve the selected results from database   
         //$res = mysqli_query($this->con, $query);  
         //$start = 1 * ($page - 1);
@@ -957,7 +874,7 @@ function gestionEditoriales(){
   include 'db.php';
 
 
-  $query="SELECT * from editoriales LIMIT $page_first_result , $results_per_page";
+  $query="SELECT * from editoriales";
 
   $stmt = $dbh->prepare($query);
   
@@ -967,13 +884,12 @@ if ($stmt->execute()) {
   foreach($resultado as $fila):
 
     echo "
-    <tbody>
                           <tr>
                             <td>".  $fila['idEditorial']."</td>
                             <td>". $fila['nombreEditorial']."</td>
                             <td><a href='#modal-editorial' id='abrir-modal-editorial'><button onclick=\"javascript:cargarPropiedades('Editorial','".$fila["idEditorial"]."','".$fila["nombreEditorial"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                           </tr>
-                        </tbody>";
+                        ";
 
   endforeach;
 }
@@ -992,7 +908,8 @@ function crearEditorial($nombreEditorial) {
                 if ($cargarEditorial->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Editorial ingresada correctamente.',type:'success'});</script>";
+
+            echo "<script>swal({title:'Exito',text:'Editorial ingresada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
         //gestionAutores();
 
 
@@ -1017,7 +934,7 @@ include('db.php');
                 if ($editarEditorial->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Editorial editada correctamente.',type:'success'});</script>";
+         echo "<script>swal({title:'Exito',text:'Editorial editada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
         //gestionAutores();
 
 
@@ -1029,46 +946,178 @@ include('db.php');
 
   }
 
-  if(isset($_POST['idLibro'])){
-    $idLibro = $_POST['idLibro'];
-    return mostrarEjemplares($idLibro);
-  }
+function buscarIdEjemplar($idLibro){
+  include('db.php');
 
+  $buscarIdEjemplar = $dbh->prepare("select * from ejemplares where idLibro = '$idLibro' and idEjemplar like '%L".$idLibro."E%' and idEjemplarEstado = '0' LIMIT 1");
+  $buscarIdEjemplar->execute();
+  $arr = $buscarIdEjemplar->fetch(PDO::FETCH_ASSOC);
+  $idEjemplar = $arr['idEjemplar'];
   
-function mostrarEjemplares($idLibro){
-  include 'db.php';
+        return $idEjemplar;
 
-  $query = "SELECT idEjemplar, idEjemplarEstado from ejemplares where idLibro = $idLibro";
-  $stmt = $dbh->prepare($query);
-  
-  if ($stmt->execute()) {
-    $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    echo json_encode($resultado);
-
-    /* foreach($resultado as $fila):
-      //echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
-      echo "
-      <tbody>
-          <tr>
-            <td>" . $fila['idEjemplar']. "</td>
-            <td>".  $fila['idEjemplarEstado']."</td>
-            <td>".  $fila['idEjemplar'] ."</td>
-          </tr>
-      </tbody>
-      ";
-
-    endforeach; */
-  }
 }
 
-if(isset($_POST['idEjemplar'])){
+function reservarEjemplar($idLibro, $estado){
+  include('db.php');
+  $idEjemplar=buscarIdEjemplar($idLibro);
+
+  if (!$idEjemplar == null) {
+
+    $buscarIdEjemplar = $dbh->prepare("UPDATE ejemplares SET idEjemplarEstado = '$estado' where idEjemplar '$idEjemplar'");
+    $buscarIdEjemplar->execute();
+    // $arr = $buscarIdEjemplar->fetch(PDO::FETCH_ASSOC);
+    // $idEjemplar = $arr['idEjemplar'];
+    echo "<script>swal({title:'Cheto',text:'Error al reservar un ejemplar.',type:'error'});</script>";
+
+  } else {
+    echo "<script>swal({title:'Error',text:'Error al reservar un ejemplar.',type:'error'});</script>";
+  }
+
+
+  
+        return $idEjemplar;
+
+}
+
+function editarStockEjemplar($idLibro, $stock){
+  include('db.php');
+  $stockActual=getCantidadEjemplares($idLibro);
+  $fechaAlta = date('Y-m-d');
+
+  // if ($stockActual >  $stock) {
+    
+  //   eliminarEjemplar($stock);
+  // }
+  
+  if ($stockActual <  $stock) {
+    agregarEjemplar($idLibro, $stock, $fechaAlta);
+  }
+  
+}
+
+function getCantidadEjemplares($idLibro){
+  include('db.php');
+
+  $buscarStock = $dbh->prepare("select count(*) AS cantidad from ejemplares where idLibro = '$idLibro'");
+  $buscarStock->execute();
+  $arr = $buscarStock->fetch(PDO::FETCH_ASSOC);
+  $cantidadEjemplar = $arr['cantidad'];
+  
+   return $cantidadEjemplar;
+
+}
+
+function getStockActual($idLibro){
+  include('db.php');
+
+  $buscarStock = $dbh->prepare("select stock from libros where idLibro = '$idLibro'");
+  $buscarStock->execute();
+
+  $arr = $buscarStock->fetch(PDO::FETCH_ASSOC);
+  $cantidadStock = $arr['stock'];
+  
+   return $cantidadStock;
+
+}
+
+
+function agregarEjemplar($idLibro, $stock, $fechaAlta){
+  include('db.php');
+  $idEjemplarEstado="0";
+
+  // $idLibro = buscarIdLibro();
+
+  $stockActual = getUltimoEjemplar($idLibro);
+
+  if ($stockActual > 0) {
+    $stockActual = $stockActual;
+  } else {
+    $stockActual = 0;
+  }
+
+
+
+  for ($i = $stockActual+1; $i <= $stock; $i++) {
+
+    // for ($i = 1; $i <= $stock; $i++) {
+
+    $idEjemplar="L".$idLibro."E".$i;
+    //echo"INSERT into `ejemplares` (idEjemplar, fechaIngreso, idLibro, idEjemplarEstado) 
+    //values($idEjemplar,$fechaAlta,$idLibro, '1')";
+    $insertEjemplar = $dbh->prepare("INSERT into ejemplares (idEjemplar, idLibro, idEjemplarEstado, fechaIngreso) 
+    values(?,?,?,?)");
+
+    $insertEjemplar->bindParam(1, $idEjemplar);
+    $insertEjemplar->bindParam(2, $idLibro);
+    $insertEjemplar->bindParam(3, $idEjemplarEstado);
+    $insertEjemplar->bindParam(4, $fechaAlta);
+
+    $insertEjemplar->execute();
+
+  }
+
+
+}
+
+if(isset($_POST['idLibro'])){
+  $idLibro = $_POST['idLibro'];
+    $_SESSION['idLibro'] = $idLibro;
+
+  mostrarEjemplares($idLibro);
+} else {
+    $_SESSION['sindatos'] = "sindatos";
+}
+
+
+function mostrarEjemplares($idLibro){
+    include 'db.php';
+
+    $query = "SELECT idEjemplar, idEjemplarEstado from ejemplares where idLibro = $idLibro";
+    $stmt = $dbh->prepare($query);
+
+    if ($stmt->execute()) {
+      $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      if (!isset($_SESSION['sindatos'])) {
+
+      echo json_encode($resultado);
+      }
+
+      /* foreach($resultado as $fila):
+        //echo "<form action='' method = 'POST' class= 'form-libro' enctype='multipart/form-data'
+        echo "
+        <tbody>
+            <tr>
+              <td>" . $fila['idEjemplar']. "</td>
+              <td>".  $fila['idEjemplarEstado']."</td>
+              <td>".  $fila['idEjemplar'] ."</td>
+            </tr>
+        </tbody>
+        ";
+
+      endforeach; */
+    }
+}
+
+if(isset($_POST['idEjemplar']) && isset($_POST['estado'])){
   $idEjemplar = $_POST['idEjemplar'];
-  return eliminarEjemplar($idEjemplar);
+  $estado = $_POST['estado'];
+
+    if ($estado=="Desactivar" ) {
+        return eliminarEjemplar($idEjemplar);
+    }
+
+    if ($estado=="Activar" ) {
+        return activarEjemplar($idEjemplar);
+    }
 }
 
 
 function eliminarEjemplar($idEjemplar){
   include 'db.php';
+
+  $idLibro=obtenerIDLibro($idEjemplar);
+  $stock=obtenerStockLibro($idLibro);
 
   $query = "UPDATE ejemplares
             SET idEjemplarEstado = 2
@@ -1077,11 +1126,66 @@ function eliminarEjemplar($idEjemplar){
   $stmt = $dbh->prepare($query);
   
   if ($stmt->execute()) {
+    if ($stock > 0) {
+    
+    $stmt = $dbh->prepare("UPDATE libros SET stock=stock-1 where idLibro ='".$idLibro."'");
+      $stmt->execute();
+      }
     echo "success";
   }else{
     echo "error";
   }
 }
 
+
+function activarEjemplar($idEjemplar){
+  include 'db.php';
+
+  $idLibro=obtenerIDLibro($idEjemplar);
+
+  $query = "UPDATE ejemplares
+            SET idEjemplarEstado = 0
+            WHERE idEjemplar = '$idEjemplar'";
+
+  $stmt = $dbh->prepare($query);
+  
+  if ($stmt->execute()) {
+
+    $stmt = $dbh->prepare("UPDATE libros SET stock=stock+1 where idLibro ='".$idLibro."'");
+      $stmt->execute();
+    echo "success";
+  }else{
+    echo "error";
+  }
+}
+
+function obtenerIDLibro($idEjemplar){
+  include 'db.php';
+
+  $stmt = $dbh->prepare("SELECT idLibro FROM ejemplares where idEjemplar='$idEjemplar'");
+
+
+  if ($stmt->execute()) {
+    //$idReserva=$stmt->fetchColumn();
+      $arr=$stmt->fetch(PDO::FETCH_ASSOC);
+      $idLibro=$arr['idLibro'];
+      return $idLibro;
+      }
+
+}
+
+function obtenerStockLibro($idLibro){
+  include 'db.php';
+
+  $stmt = $dbh->prepare("SELECT stock FROM libros where idLibro='$idLibro'");
+
+
+  if ($stmt->execute()) {
+    //$idReserva=$stmt->fetchColumn();
+      $arr=$stmt->fetch(PDO::FETCH_ASSOC);
+      $stock=$arr['stock'];
+      return $stock;
+      }
+}
 
 ?>

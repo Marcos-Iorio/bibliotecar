@@ -195,7 +195,10 @@ input[type=submit]:hover {
 
 input#portada{
     background: transparent;
+    width: 4px;
 }
+
+
 
 .center{
     background: transparent;
@@ -287,7 +290,7 @@ i.far.fa-trash-alt {
 }
 
 i.far.fa-trash-alt.tbody-icon{
-    font-size: 30px;
+    font-size: 25px;
     outline: none;
     border: none;
     background: none;
@@ -297,7 +300,7 @@ i.far.fa-trash-alt.tbody-icon{
 }
 
 i.fas.fa-pencil-alt.tbody-icon{
-    font-size: 30px;
+    font-size: 25px;
     outline: none;
     border: none;
     background: none;
@@ -372,4 +375,24 @@ input#buscar:hover{
 
   .fas.fa-arrow-circle-left:hover{
     color: rgb(95, 95, 95);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    background: transparent !important;
+    border: 1px solid black !important;
+    border-radius: 44px !important;
+}
+
+.page-item .page-link{
+    background: white !important;
+    border: none;
+    color: #333 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active{
+    border: 1px solid red !important;
+}
+
+#tablaUsuarios_filter label {
+    white-space: normal !important;
 }

@@ -26,6 +26,7 @@ function historialReservas(){
     GROUP BY nombreCategoria
     ORDER BY cantidad" ; 
 
+
      $stmt = $dbh->prepare($query2);
      $stmt->execute();
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);

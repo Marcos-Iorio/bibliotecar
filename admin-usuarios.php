@@ -21,7 +21,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 }
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_SESSION['rol']) || $_SESSION['rol'] != '3') {
-    header("Location: php/identidad.php");
+    header("Location: php/unauthorized.php");
 }
 
 ?>
@@ -36,23 +36,20 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">
+ <!--  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">-->
   <link rel="stylesheet" href="css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="css/inicio.css">
   <link rel="stylesheet" href="css/usuarios.css">
+  <link rel="stylesheet" href="css/datatable.css">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
   <title>Document</title>
 
   <!--    Datatables  -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
   <title></title>
-  <style>
-    table.dataTable thead {
-      background: linear-gradient(to right, #0575E6, #00F260);
-      color: white;
-    }
-  </style>
 
+</head>
 <body>
   <section id="page">
     <?php
@@ -61,16 +58,16 @@ include "php/panel.php";
 ?>
     <main id="main">
       <section class="contenido wrapper">
-        <div class=" filtros-busqueda ">
+        <!-- <div class=" filtros-busqueda ">
           <div class="busqueda">
           </div>
           <div class="filtros">
           </div>
-        </div>
+        </div> -->
         <!--Seccion de los libros-->
         <div class="container main-libros">
           <h3 class="titulo-pagina">Gestion de usuarios!</h3>
-          <form method="POST" action="#" name="busqueda">
+          <!--<form method="POST" action="#" name="busqueda">
               <div>
 
                 <h6 >Buscar por:</h6>
@@ -92,11 +89,12 @@ include "php/panel.php";
               <hr>
             </form>
 
-
+-->
           <div class="tabla-libros">
-            <table id="tablaUsuarios" class="bordered">
+          <!--<table id="tablaUsuarios" class="bordered">-->
+
+            <table id="tablaUsuarios" class="table-striped table-bordered" style="width:100%">
               <thead>
-                <tr>
                   <th>ID</th>
                   <th>Rol</th>
                   <th>Nombre</th>
@@ -106,22 +104,20 @@ include "php/panel.php";
                   <th>Alta mail</th>
                   <th>Estado cuenta</th>
                   <th>Editar</th>
-                </tr>
               </thead>
+              <tbody>
               <?php
 include "php/gestion-usuarios.php";
-if (!isset($_POST["editarUsuario"]) && !isset($_POST["crearUsuario"]) && !isset($_POST["btnBuscar"]) && !isset($_SESSION['pages']) && !isset($_SESSION['busqueda']) && !isset($_SESSION['criterio'])) {
-    # code...
 
     gestionUsuarios();
-}
 
-if (isset($_POST['btnreset'])) {
-    unset($_SESSION['pages']);
-    unset($_SESSION['criterio']);
-    unset($_SESSION['busqueda']);
-    gestionUsuarios();
-}
+
+// if (isset($_POST['btnreset'])) {
+//     unset($_SESSION['pages']);
+//     unset($_SESSION['criterio']);
+//     unset($_SESSION['busqueda']);
+//     gestionUsuarios();
+// }
 
 if (isset($_POST["editarUsuario"])) {
     //include "php/gestion-usuarios.php";
@@ -178,17 +174,17 @@ if (isset($_POST["btnEstado"])) {
 
 }
 
-if (isset($_REQUEST["btnBuscar"])) {
-    unset($_SESSION['pages']);
-    unset($_SESSION['criterio']);
-    unset($_SESSION['busqueda']);
-    getFiltro($_REQUEST["txtBusqueda"], $_REQUEST["txtCriterio"]);
+// if (isset($_REQUEST["btnBuscar"])) {
+//     unset($_SESSION['pages']);
+//     unset($_SESSION['criterio']);
+//     unset($_SESSION['busqueda']);
+//     getFiltro($_REQUEST["txtBusqueda"], $_REQUEST["txtCriterio"]);
 
-}
+// }
 
-if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION['criterio'])) {
-    getFiltro($_SESSION['busqueda'], $_SESSION['criterio']);
-}
+// if (isset($_SESSION['pages']) && isset($_SESSION['busqueda']) && isset($_SESSION['criterio'])) {
+//     getFiltro($_SESSION['busqueda'], $_SESSION['criterio']);
+// }
 /* Llena el tabla con todos los libros de la base de datos */
 ?>
 
@@ -205,10 +201,10 @@ echo '<a style="margin-left:20px"  class="btn btn-dark" href = "vistaProducto.ph
 
 
 
-
+</tbody>
             </table>
             <?php
-
+/*
 //$_GLOBALS[$page_filtro] < $_GLOBALS[$page_total]
 $page_filtro = 0;
 $page_total  = 0;
@@ -250,7 +246,7 @@ for ($page = 1; $page <= $paginas; $page++) {
     echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-usuarios.php?page=' . $page . '">' . $page . ' </a>';
 }
 echo "</div>";
-?>
+*/?>
           </div>
           <button onclick="modalUsuario()" class="boton-agregar-libro"><a href="#modal-libros"></a><i
               class="fas fa-add">Agregar usuario</i></button>
@@ -269,13 +265,13 @@ echo "</div>";
                 <div style="display:flex;">
                   <input name="txtID" hidden name="genero" id="genero" placeholder="Seleccionar">
                   <label for="" style="width: 100px;">Nombre:</label>
-                  <input name="txtNombre" style="background-color: white; color: black; width: 20%;" type="text"
+                  <input  required name="txtNombre" style="background-color: white; color: black; width: 20%;" type="text"
                     name="titulo" id="titulo" placeholder="Ingresar dato">
                   <label for="" style="width: 100px;">Apellido: </label>
-                  <input name="txtApellido" style="background-color: white; color: black; width: 20%;" type="text"
+                  <input  required name="txtApellido" style="background-color: white; color: black; width: 20%;" type="text"
                     placeholder="Ingresar dato">
                   <label for="" style="width: 100px;">Rol: </label>
-                  <select style="background-color: white; color: black; width: 20%;" name="selecRol" id="selecRol"
+                  <select required style="background-color: white; color: black; width: 20%;" name="selecRol" id="selecRol"
                     class="form-control" style="width: 200px; margin-right: 200px;">
                     <option value="" disabled selected>Seleccionar rol</option>
                     <?php getRoles();?>
@@ -285,13 +281,13 @@ echo "</div>";
                 <br>
                 <div style="display:flex;">
                       <label for="" style="width: 100px;">DNI: </label>
-                      <input name="txtDNI" style="background-color: white; color: black; width: 20%;" type="text"
+                      <input required maxlength="15" name="txtDNI" style="background-color: white; color: black; width: 20%;" type="text"
                         placeholder="Ingresar dato">
                       <label for="" style="width: 100px;">Mail:</label>
-                      <input name="txtMail" style="background-color: white; color: black; width: 20%;" type="text"
+                      <input required name="txtMail" style="background-color: white; color: black; width: 20%;" type="text"
                         placeholder="Ingresar dato">
                       <label for="" style="width: 100px;">Alta mail:</label>
-                      <select style="background-color: white; color: black; width: 20%;" name="selecEstadoMail"
+                      <select required style="background-color: white; color: black; width: 20%;" name="selecEstadoMail"
                         id="selecEstadoMail" class="form-control" style="width: 200px; margin-right: 200px;">
                         <option value="" disabled selected>Seleccionar estado</option>
                         <?php getEstadoMail();?>
@@ -302,7 +298,7 @@ echo "</div>";
 
                     <div style="display:flex;">
                       <label for="" style="width: 100px;">Estado:</label>
-                      <select style="background-color: white; color: black; width: 20%;" name="selecEstadoUsuario"
+                      <select required style="background-color: white; color: black; width: 20%;" name="selecEstadoUsuario"
                         id="selecEstadoUsuario" class="form-control" style="width: 200px; margin-right: 200px;">
                         <option value="" disabled selected>Seleccionar estado</option>
                         <?php getEstadoUsuario();?>
@@ -335,7 +331,6 @@ echo "</div>";
       $('#tablaUsuarios').DataTable();
     });
   </script>
-
 </body>
 <!-- jQuery CDN - Slim version =without AJAX -->
 <script src="js/navbarToggle.js"></script>
@@ -372,12 +367,15 @@ echo "</div>";
     document.formUsuarios.txtID.value = id;
     document.formUsuarios.txtNombre.value = nombre;
     document.formUsuarios.txtApellido.value = apellido;
-    document.getElementsByName('selecRol')[0].options[0].innerHTML = rol;
+    let element1 = document.getElementById('selecRol');
+    element1.value = rol;
     document.formUsuarios.txtDNI.value = dni;
     document.formUsuarios.txtMail.value = mail;
-    document.getElementsByName('selecEstadoMail')[0].options[0].innerHTML = alta;
-    document.getElementsByName('selecEstadoUsuario')[0].options[0].innerHTML = estado;
-
+    let element2 = document.getElementById('selecEstadoMail');
+    element2.value = alta;
+    let element3 = document.getElementById('selecEstadoUsuario');
+    element3.value = estado;
+  
     document.getElementById('crear-usuario').style.display = "none";
     document.getElementById('editar-usuario').style.display = "block";
 
@@ -441,6 +439,49 @@ echo "</div>";
   }*/
 </script>
 
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      
+      
+<!--    Datatables-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap4.min.js"></script>
 
 
-</html>
+ 
+ 
+      
+    <script>
+      $(document).ready(function(){
+        $('#tablaUsuarios').DataTable({
+          "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
+          "responsive": true,
+          "pagingType": "simple",
+          "deferRender": true,
+          dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
+
+        });  
+
+      });
+    </script>
+    
+    <script src="js/Spanish.js"></script>
+    </html>

@@ -87,16 +87,15 @@ div#libro-prueba:hover{
     bottom: 0px;
     left: 0;
     width: 100%;
-    transform: translateY(2%);
+    transform: translateY(-100px);
     display: grid;
     place-content: center;
-    height: 80%;
 }
 
 div#libro-prueba:hover .informacion{
-    transform: translateY(2%);
+    transform: translateY(0px);
     width: 100%;
-    height: 80%;
+    height: 75%;
     opacity: 1;
     transition: all ease 0.3s;
 }
@@ -146,36 +145,16 @@ img.imagen-libro{
     opacity: 0;
 }
 
-div.libro-info{
+p.libro-info{
     font-size: 14px;
     width: 100% !important;
-    padding: 15px;
+    padding: 5px 0 0 0;
     background-color: transparent;
     font-weight: bold;
     color: white;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    flex-flow: column-reverse;
-    word-break: break-word;
 }
 
-p.portal-info-titulo{
-    font-size: 20px;
-}
-
-p.portal-info-autor{
-    font-size: 14px;
-    color: rgb(177, 177, 177);
-    margin-bottom: 0px !important;
-}
-
-p.portal-info-categoria{
-    font-size: 14px;
-    margin-bottom: 0px !important;
-}
-
-p.portal-info{
+span.portal-info{
     color: white;
     font-weight: 500 !important;
 }
@@ -186,9 +165,9 @@ p.portal-info{
     background-color: rgb(0, 172, 0);
     border-radius: 5px;
     position: absolute;
-    top: -48px;
+    top: 4px;
     left: 3px;
-    width: 85%;
+    width: 100px;
     height: 20px;
 }
 
@@ -199,7 +178,6 @@ p.etiqueta-info{
     line-height: 19px;
     background-color: transparent;
     color: white;
-    font-weight: 400;
 }
 
 .libro-prueba-sinStock:hover{
@@ -260,6 +238,12 @@ label {
     width: 10% !important;
     margin-right: 20px;
     text-align: left;
+}
+
+div#tablaLibros_length label, div#tablaLibros_filter label, div#tablaCategorias_length label, div#tablaCategorias_filter label,
+div#tablaAutores_length label, div#tablaAutores_filter label, div#tablaEditoriales_length label, div#tablaEditoriales_filter label, div#tabla-ejemplar_filter label{
+    width: 100% !important;
+    white-space: wrap !important;
 }
 
 input#crear-libro{
@@ -370,7 +354,7 @@ th, td{
     text-align: center;
 }
 tbody{
-    color: white;
+    color: #333;
 }
 
 tbody tr{
@@ -394,22 +378,22 @@ thead{
 }
 
 thead th:nth-child(1) {
-    width: 20%;
+    width: 40%;
 }
 
 thead th:nth-child(2) {
-    width: 20%;
+    width: 40%;
 }
 
 thead th:nth-child(3) {
-    width: 20%;
+    width: 40%;
 }
 
 thead th:nth-child(4) {
     width: 20%;
 }
 thead th:nth-child(5) {
-    width: 20%;
+    width: 40%;
 }
 thead th:nth-child(6) {
     width: 20%;
@@ -417,9 +401,6 @@ thead th:nth-child(6) {
 thead th:nth-child(7) {
     width: 20%;
 }
-thead th:nth-child(8){
-    width: 20%;
-} 
 
 .separador{
     border: 2px solid #333;
@@ -429,7 +410,7 @@ thead th:nth-child(8){
 
 .fas.fa-pencil-alt{
     color:white; 
-    font-size: 15px;   
+    font-size: 25px;   
 }
 
 i.far.fa-trash-alt {
@@ -438,7 +419,7 @@ i.far.fa-trash-alt {
 }
 
 i.far.fa-trash-alt.tbody-icon{
-    font-size: 30px;
+    font-size: 25px;
     outline: none;
     border: none;
     background: none;
@@ -477,7 +458,8 @@ input#campo-busqueda{
     border-radius: 0px ;
     color: white;
     border: none ;
-    border-bottom: 2px solid white ;
+    border-bottom: 2px solid white;
+    border-radius: 5px !important;
     width: 170px ;
     z-index: 100;
     top: -20px;
@@ -498,13 +480,15 @@ input#buscar{
     border: none;
     width: 100px;
     height: 40px;
-    left: 220px;
-    top: -10px;
     padding: 0px;
     display: none;
+    position: absolute !important;
+    left: 223px !important;
+    top: -12px !important;
 }
 input#buscar:hover{
     background: white;
+    color: #333;
     
 }
 
@@ -533,8 +517,8 @@ input#buscar:hover{
 }
 
 div#menu-filtro{
-    height: 100%;
-    overflow: scroll !important;
+    height: 95%;
+    overflow-y: scroll !important;
     position: fixed;
     right: 0;
     z-index: 1;
@@ -603,7 +587,7 @@ i.fas.fa-times {
 
 #breadcrumbs{
     text-align: center;
-    padding-bottom: 50px;
+
 }
 
 .fas.fa-arrow-circle-left{
@@ -680,7 +664,7 @@ i.fas.fa-times {
     font-weight: bold;
     padding: 20px;
   }
-  
+
   #close-ejemplares:hover,
   #close-ejemplares:focus {
     color: black;
@@ -1004,5 +988,25 @@ body {
     cursor: pointer;
   }
 
-  
+  /* Data tables */
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button{
+      border: 1px solid black !important;
+      background: transparent !important;
+      border-radius: 44px !important;
+  }
+
+  .page-item .page-link{
+      background: white !important;
+      border: none;
+      color: #333 !important;
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .paginate_button.disabled:active{
+      border: 1px solid red !important;
+  }
+
+  input#autor, input.input-libro.autor, input#categoria, input.input-libro.categoria, input#editorial, input.input-libro.editorial{
+      width: 100% !important;
+  }
   

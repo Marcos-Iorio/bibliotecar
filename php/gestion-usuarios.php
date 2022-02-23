@@ -1,10 +1,17 @@
 <?php
 
-function gestionUsuarios()
-{
+function gestionUsuarios(){
+   
+if (isset($_SESSION["gestion"])) {
+  unset($_SESSION["gestion"]);
+  echo "";
+
+  // code...
+} 
     include 'db.php';
 
-    if (!isset($_GET['page'])) {
+
+ /*   if (!isset($_GET['page'])) {
         $page = 1;
     } else {
         $page = $_GET['page'];
@@ -12,14 +19,15 @@ function gestionUsuarios()
     $results_per_page = 5;
 
     //determine the sql LIMIT starting number for the results on the displaying page
-    $page_first_result = ($page - 1) * $results_per_page;
+    $page_first_result = ($page - 1) * $results_per_page;*/
     //retrieve the selected results from database
     //$res = mysqli_query($this->con, $query);
     //$start = 1 * ($page - 1);
     //$rows = 10;
     //$query ="select * from producto LIMIT $start, $rows";
 
-    $stmt = $dbh->prepare("SELECT * FROM usuarios LIMIT " . $page_first_result . ',' . $results_per_page);
+    //$stmt = $dbh->prepare("SELECT * FROM usuarios LIMIT " . $page_first_result . ',' . $results_per_page);
+    $stmt = $dbh->prepare("SELECT * FROM usuarios");
 
     if ($stmt->execute()) {
         $resultado = $stmt->fetchAll();
@@ -66,7 +74,6 @@ function gestionUsuarios()
             echo "<form action='' method = 'POST'>*/
 
             echo "
-      <tbody>
                   <tr>
                     <td>" . $fila['idUsuario'] . "</td>
                     <td>" . $idRol . "</td>
@@ -79,13 +86,15 @@ function gestionUsuarios()
                     <td><a href='#container-form' id='abrir-modal-usuario'><button  onclick=\"javascript:cargarUsuario('" . $fila["idUsuario"] . "','" . $fila["nombre"] . "','" . $fila["apellido"] . "','" . $idRol . "','" . $fila["numeroDocumento"] . "','" . $fila["mail"] . "','" . $check_mail . "','" . $titulo . "')\"><i title='Editar'class=\"fas fa-pencil-alt tbody-icon\" value=\"Modificar\" name=\"btnModificar\"></i></button></a></td>
 
                   </tr>
-                </tbody>
 
       ";
         endforeach;
     }
 
 }
+
+
+
 
 /*function getPages(){
 include_once 'db.php';
@@ -174,18 +183,22 @@ function insertarUsuario($nombre, $apellido, $rol, $dni, $mail, $alta, $estado)
 
     $passHash = password_hash($pass, PASSWORD_DEFAULT);
 
+    $rol= getIdRol($rol);
+
+    $alta= getIdAltaMail($alta);
+
+    $estado= getIdEstadoUsuario($estado);
+
     //echo $sql;
     $stmt = $dbh->prepare("INSERT INTO usuarios (nombre, apellido, idRol, numeroDocumento, mail, check_mail, idEstado, contrasena) VALUES ('$nombre', '$apellido', '$rol', '$dni', '$mail', '$alta', '$estado', '$passHash')");
 
     if ($stmt->execute()) {
 
         enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Usuario creado correctamente. Se ha enviado un correo a $mail',type:'success'});</script>";
-        gestionUsuarios();
+        echo "<script>swal({title:'Exito',text:'Usuario creado correctamente. Se ha enviado un correo a $mail',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-usuarios.php\">OK</a></button>'});</script>";
 
     } else {
-        echo "<script>swal({title:'Error',text:'El usuario no pudo ser creado',type:'error'});</script>";
-        gestionUsuarios();
+        echo "<script>swal({title:'Error',text:'El usuario no pudo ser creado INSERT INTO usuarios (nombre, apellido, idRol, numeroDocumento, mail, check_mail, idEstado, contrasena) VALUES ($nombre, $apellido, $rol, $dni, $mail, $alta, $estado, $passHash',type:'error'});</script>";
 
     }
     /*if($this->con->query($sql)){
@@ -255,12 +268,12 @@ function editarUsuario($id, $nombre, $apellido, $rol, $dni, $mail, $alta, $estad
 //echo "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', idRol='$idRol', numeroDocumento='$dni', mail='$mail', check_mail='$idAltaMail', idEstado='$idEstadoUsuario' where idUsuario='$id'";
     if ($stmt->execute()) {
         $resultado = $stmt->fetchAll();
-        echo "<script>swal({title:'Exito',text:'El usuario fue modificado satisfactoriamente',type:'success'});</script>";
-        gestionUsuarios();
+
+            echo "<script>swal({title:'Exito',text:'El usuario fue modificado satisfactoriamente',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-usuarios.php\">OK</a></button>'});</script>";
+
 
     } else {
-        echo "<script>swal({title:'Error',text:'El usuario no pudo ser modificado',type:'error'});</script>";
-        gestionUsuarios();
+        echo "<script>swal({title:'Error',text:'El usuario no pudo ser modificado.',type:'error'});</script>";
 
     }
     /*if($this->con->query($sql)){
@@ -274,169 +287,169 @@ $this->desconectar();*/
 
 }
 
-function getPages2()
-{
-    include 'db.php';
+// function getPages2()
+// {
+//     include 'db.php';
 
-    if (!isset($_GET['page'])) {
-        $page = 1;
-    } else {
-        $page = $_GET['page'];
-    }
-    //define total number of results you want per page
-    $results_per_page  = 5;
-    $page_first_result = ($page - 1) * $results_per_page;
+//     if (!isset($_GET['page'])) {
+//         $page = 1;
+//     } else {
+//         $page = $_GET['page'];
+//     }
+//     define total number of results you want per page
+//     $results_per_page  = 5;
+//     $page_first_result = ($page - 1) * $results_per_page;
 
-    $stmt = $dbh->prepare("SELECT * from usuarios");
+//     $stmt = $dbh->prepare("SELECT * from usuarios");
 
-    //echo $sql;
+//     echo $sql;
 
-    if ($stmt->execute()) {
-        $number_of_result = $stmt->rowCount();
+//     if ($stmt->execute()) {
+//         $number_of_result = $stmt->rowCount();
 
-    }
-    //$page_filtro = 0;
-    //$page_total = 0;
+//     }
+//     $page_filtro = 0;
+//     $page_total = 0;
 
-    //$_GET[$page_filtro] = $page_filtro;
-    //$_GET[$page_total] = $page_total;
+//     $_GET[$page_filtro] = $page_filtro;
+//     $_GET[$page_total] = $page_total;
 
-    //determine the total number of pages available
-    $number_of_page = ceil($number_of_result / $results_per_page);
+//     determine the total number of pages available
+//     $number_of_page = ceil($number_of_result / $results_per_page);
 
-    //$page_total = $number_of_page;
+//     $page_total = $number_of_page;
 
-    return $number_of_page;
-}
+//     return $number_of_page;
+// }
 
-function getPages($buscar, $criterio)
-{
-    include 'db.php';
+// function getPages($buscar, $criterio)
+// {
+//     include 'db.php';
 
-    if (!isset($_GET['page'])) {
-        $page = 1;
-    } else {
-        $page = $_GET['page'];
-    }
-    //define total number of results you want per page
-    $results_per_page  = 5;
-    $page_first_result = ($page - 1) * $results_per_page;
+//     if (!isset($_GET['page'])) {
+//         $page = 1;
+//     } else {
+//         $page = $_GET['page'];
+//     }
+//     define total number of results you want per page
+//     $results_per_page  = 5;
+//     $page_first_result = ($page - 1) * $results_per_page;
 
-    if (!$buscar == 0 && !$criterio == 0) {
-        $stmt = $dbh->prepare("SELECT * from usuarios where $criterio like '%$buscar%'");
+//     if (!$buscar == 0 && !$criterio == 0) {
+//         $stmt = $dbh->prepare("SELECT * from usuarios where $criterio like '%$buscar%'");
 
-    } else {
+//     } else {
 
-        $stmt = $dbh->prepare("SELECT * from usuarios");
+//         $stmt = $dbh->prepare("SELECT * from usuarios");
 
-    }
-    //echo $sql;
+//     }
+//     echo $sql;
 
-    if ($stmt->execute()) {
-        $number_of_result = $stmt->rowCount();
+//     if ($stmt->execute()) {
+//         $number_of_result = $stmt->rowCount();
 
-    }
-    $page_filtro = 0;
-    $page_total  = 0;
+//     }
+//     $page_filtro = 0;
+//     $page_total  = 0;
 
-    //$_GET[$page_filtro] = $page_filtro;
-    //$_GET[$page_total] = $page_total;
+//     $_GET[$page_filtro] = $page_filtro;
+//     $_GET[$page_total] = $page_total;
 
-    //determine the total number of pages available
-    $number_of_page = ceil($number_of_result / $results_per_page);
-    if (!$buscar == 0 && !$criterio == 0) {
+//     determine the total number of pages available
+//     $number_of_page = ceil($number_of_result / $results_per_page);
+//     if (!$buscar == 0 && !$criterio == 0) {
 
-        $page_filtro = $number_of_page;
-    } else {
+//         $page_filtro = $number_of_page;
+//     } else {
 
-        $page_total = $number_of_page;
-    }
+//         $page_total = $number_of_page;
+//     }
 
-    return $number_of_page;
-}
+//     return $number_of_page;
+// }
 
-function getFiltro($buscar, $criterio)
-{
+// function getFiltro($buscar, $criterio)
+// {
 
-    include 'db.php';
+//     include 'db.php';
 
-    if (!isset($_GET['page'])) {
-        $page = 1;
-    } else {
-        $page = $_GET['page'];
-    }
-    $results_per_page = 5;
+//     if (!isset($_GET['page'])) {
+//         $page = 1;
+//     } else {
+//         $page = $_GET['page'];
+//     }
+//     $results_per_page = 5;
 
-    //determine the sql LIMIT starting number for the results on the displaying page
-    $page_first_result = ($page - 1) * $results_per_page;
-    //retrieve the selected results from database
-    //$res = mysqli_query($this->con, $query);
-    //$start = 1 * ($page - 1);
-    //$rows = 10;
-    //$query ="select * from producto LIMIT $start, $rows";
+//     determine the sql LIMIT starting number for the results on the displaying page
+//     $page_first_result = ($page - 1) * $results_per_page;
+//     retrieve the selected results from database
+//     $res = mysqli_query($this->con, $query);
+//     $start = 1 * ($page - 1);
+//     $rows = 10;
+//     $query ="select * from producto LIMIT $start, $rows";
 
-    //echo $sql;
-    $stmt = $dbh->prepare("SELECT * from usuarios where $criterio like '%$buscar%' LIMIT " . $page_first_result . ',' . $results_per_page);
+//     echo $sql;
+//     $stmt = $dbh->prepare("SELECT * from usuarios where $criterio like '%$buscar%' LIMIT " . $page_first_result . ',' . $results_per_page);
 
-    if ($stmt->execute()) {
-        $resultado = $stmt->fetchAll();
+//     if ($stmt->execute()) {
+//         $resultado = $stmt->fetchAll();
 
-        foreach ($resultado as $fila):
+//         foreach ($resultado as $fila):
 
-            if ($fila['idEstado'] == '2') {
-                $icono  = 'fas fa-ban';
-                $titulo = 'Dada de baja';
-            } else {
-                $icono  = 'far fa-check-circle';
-                $titulo = 'Activa';
+//             if ($fila['idEstado'] == '2') {
+//                 $icono  = 'fas fa-ban';
+//                 $titulo = 'Dada de baja';
+//             } else {
+//                 $icono  = 'far fa-check-circle';
+//                 $titulo = 'Activa';
 
-                /*if ($fila['check_mail'] == '0')  {
-            $icono='fas fa-exclamation';
-            $titulo='Mail';
-            } */
-            }
+//                 /*if ($fila['check_mail'] == '0')  {
+//             $icono='fas fa-exclamation';
+//             $titulo='Mail';
+//             } */
+//             }
 
-            if ($fila['check_mail'] == '1') {
-                $check_mail = 'Si';
-            } else {
-                $check_mail = 'No';
-            }
+//             if ($fila['check_mail'] == '1') {
+//                 $check_mail = 'Si';
+//             } else {
+//                 $check_mail = 'No';
+//             }
 
-            if ($fila['idRol'] == '1') {
-                $idRol = 'Usuario';
-            }
+//             if ($fila['idRol'] == '1') {
+//                 $idRol = 'Usuario';
+//             }
 
-            if ($fila['idRol'] == '2') {
-                $idRol = 'Colaborador';
-            }
+//             if ($fila['idRol'] == '2') {
+//                 $idRol = 'Colaborador';
+//             }
 
-            if ($fila['idRol'] == '3') {
-                $idRol = 'Administrador';
-            }
-            //echo "<form action='' method = 'POST'>
+//             if ($fila['idRol'] == '3') {
+//                 $idRol = 'Administrador';
+//             }
+//             echo "<form action='' method = 'POST'>
 
-            echo "
-      <tbody>
-                  <tr>
-                    <td>" . $fila['idUsuario'] . "</td>
-                    <td>" . $idRol . "</td>
-                    <td>" . $fila['nombre'] . "</td>
-                    <td>" . $fila['apellido'] . "</td>
-                    <td>" . $fila['numeroDocumento'] . "</td>
-                    <td>" . $fila['mail'] . "</td>
-                    <td>" . $check_mail . "</td>
-                    <td><button><i title='" . $titulo . "'class=\"" . $icono . "\" value=\"Estado\" name=\"btnEstado\" id=\"btnEstado\" title=" . $titulo . " ></i></button></td>
-                    <td><button  onclick=\"javascript:cargarUsuario('" . $fila["idUsuario"] . "','" . $fila["nombre"] . "','" . $fila["apellido"] . "','" . $fila["idRol"] . "','" . $fila["numeroDocumento"] . "','" . $fila["mail"] . "','" . $fila["check_mail"] . "','" . $fila["idEstado"] . "')\"><i title='Editar'class=\"fas fa-pencil-alt tbody-icon\" value=\"Modificar\" name=\"btnModificar\"></i></button></td>
+//             echo "
+//       <tbody>
+//                   <tr>
+//                     <td>" . $fila['idUsuario'] . "</td>
+//                     <td>" . $idRol . "</td>
+//                     <td>" . $fila['nombre'] . "</td>
+//                     <td>" . $fila['apellido'] . "</td>
+//                     <td>" . $fila['numeroDocumento'] . "</td>
+//                     <td>" . $fila['mail'] . "</td>
+//                     <td>" . $check_mail . "</td>
+//                     <td><button><i title='" . $titulo . "'class=\"" . $icono . "\" value=\"Estado\" name=\"btnEstado\" id=\"btnEstado\" title=" . $titulo . " ></i></button></td>
+//                     <td><button  onclick=\"javascript:cargarUsuario('" . $fila["idUsuario"] . "','" . $fila["nombre"] . "','" . $fila["apellido"] . "','" . $fila["idRol"] . "','" . $fila["numeroDocumento"] . "','" . $fila["mail"] . "','" . $fila["check_mail"] . "','" . $fila["idEstado"] . "')\"><i title='Editar'class=\"fas fa-pencil-alt tbody-icon\" value=\"Modificar\" name=\"btnModificar\"></i></button></td>
 
-                  </tr>
-                </tbody>
+//                   </tr>
+//                 </tbody>
 
-      ";
-        endforeach;
+//       ";
+//         endforeach;
 
-    }
+//     }
 
-}
+// }
 
 function getEstadousuario()
 {

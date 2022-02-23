@@ -3,6 +3,7 @@
 
 html{
     scroll-behavior: smooth;
+    /*height: 100%; */
 }
 
 *{
@@ -39,7 +40,7 @@ body{
     grid-template-rows: 50px 1fr ;
     grid-template-columns: 60px auto;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
   
 #page > #sidebar {
@@ -67,13 +68,10 @@ body{
     padding-right: 0px;
     padding-bottom: 150px;
     transition: padding-left 0.5s;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
-section#page{
-    overflow: hidden;
-}
 /*Fin SIDEBAR*/
 
 /***** Wrapper *****/
@@ -322,6 +320,7 @@ only screen and (                min-resolution: 2dppx) {
     flex-wrap: wrap;
     justify-content:space-around;
     margin-top: 50px;
+    padding-bottom: 100px;
 }
 
 .card{
@@ -336,6 +335,7 @@ only screen and (                min-resolution: 2dppx) {
     text-align: center;
     color: #333;
     transition: all ease 0.5s;
+    margin-bottom: 50px;
 }
 
 .card:hover{
@@ -448,7 +448,7 @@ div#clockdate{
     #page > #main {
         grid-area: main;
         background-image: url("../assets/stacked-waves-haikei.svg");
-        background: #ADB7F5;
+        background-size: cover;
         width: 100%;
         padding: 16px;
         padding-right: -1px;
@@ -456,6 +456,10 @@ div#clockdate{
         transition: padding-left 0.5s;
         overflow-y: hidden;
         overflow-x: hidden;
+    }
+
+    .column{
+        flex: 100%;
     }
 }
 

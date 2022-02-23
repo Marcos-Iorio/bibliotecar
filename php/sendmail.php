@@ -146,7 +146,7 @@ function enviarMail(){
     $mail->isSMTP();
 //Define smtp host
     //$mail->Host = "smtp.office365.com";
-        $mail->Host = 'localhost'/* "smtp.gmail.com" */;
+        $mail->Host = 'smtp.gmail.com'/* "smtp.gmail.com" */;
 
 //Enable smtp authentication
     $mail->SMTPAuth = true;
@@ -212,7 +212,7 @@ function enviarMail(){
                 //cargarCodigo2($pin, $email);
 
 //Create instance of PHPMailer
-    $mail = new PHPMailer();
+    $mail = new PHPMailer(true);
 //Set mailer to use smtp
     $mail->isSMTP();
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;
@@ -413,8 +413,28 @@ function enviarRecuperacion($email, $token){
     //Closing smtp connection
     $mail->smtpClose();
 
-
 }
+
+function verify($response){
+    require('vendor/autoload.php');
+
+    $dotenv = \Dotenv\Dotenv::createImmutable('./');
+    if(file_exists(".env")) {
+        $dotenv->load();
+    }
+
+  $ip = $_SERVER['REMOTE_ADDR'];
+  $key = getenv('SECRET_KEY');
+  $url = 'https://www.google.com/recaptcha/api/siteverify';
+  $full_url = $url.'?secret='.$key.'&response='.$response.'&remoteip='.$ip;
+
+  $data = json_decode(file_get_contents($full_url));
+  if(isset($data->success) && $data->success == true){
+     return true;
+  }
+  return false;
+}
+
 ?>
 
 	<title></title>

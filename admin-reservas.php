@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <?php
-    session_start();
+session_start();
 
-   /*  is_logged(); */
-   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    $user=$_SESSION['username'];
-    $pid=$_SESSION['rol'];
+/*  is_logged(); */
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    $user = $_SESSION['username'];
+    $pid  = $_SESSION['rol'];
 
     $tiempo = time();
 
     if ($tiempo >= $_SESSION['expire']) {
-      session_destroy();
-       echo'<script type="text/javascript">
+        session_destroy();
+        echo '<script type="text/javascript">
               alert("Su sesion ha expirado, por favor vuelva iniciar sesion.");
               </script>';
-      header("Refresh:0");
-    
+        header("Refresh:0");
+
     }
-    
-  }
+
+}
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_SESSION['rol']) || $_SESSION['rol'] != '2') {
+    header("Location: php/unauthorized.php");
+}
 
 ?>
 
@@ -33,6 +37,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="css/reservas.css">
+    <link rel="stylesheet" href="css/datatable.css">
+
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Document</title>
 </head>
@@ -44,14 +52,14 @@
          ?>
         <main id="main">
             <section class="contenido wrapper">
-                <div class = " filtros-busqueda ">
+                <!-- <div class = " filtros-busqueda ">
                   <div class="busqueda">
                     <i class="fas fa-search"></i>
                   </div>
                   <div class = "filtros">
                     <i class="fas fa-filter"></i>
                   </div>
-                </div>
+                </div> -->
         <!--Seccion de los libros-->
                 <div class="container main-libros">
                     <h3 class="titulo-pagina">Gestion de reservas!</h3>
@@ -69,31 +77,14 @@
                         <input type="submit" name="btnDevolucion" id="subir-libro" value="Cargar"/>
                     </div>
 
-                    <div style="display: flex;justify-content: space-between;align-items: center;">
-
-                    <h6 style="width: 100px;">Buscar por:</h6>
-                    <select class="form-control"name="txtCriterio" style="width: 200px; margin-right: 200px;">
-                      <option value="" disabled selected>Seleccionar</option>
-                        <option value="mail">Nro Reserva</option> 
-                        <option value="idRol">ID Libro</option>
-                        <option value="check_mail">Usuario</option>
-                        <option value="idEstado">Estado </option>    
-                    </select>
-
-                    <input style="background-color: white; width: 200px; height: 40px; color:black;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
-                    <div style="text-align: right; height: 150px">
-                    <input style="margin-bottom: 10px !important;" type="submit"  value="Buscar" href="#?page=1" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/><a href="admin-reservas.php?page=1"></a>
-                    <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0"/>
-                    </div>
-                    </div>
+                   
 
                     <hr>
                 </form>
-                    <div class="tabla-libros">
+                <div class="tabla-libros">
+                <table id="tablaReservas" class="table-striped table-bordered" style="width:100%">
 
-                      <table class = "bordered">
                       <thead>
-                          <tr>
                   <th>Reserva Nº</th>
                   <th>ID Libro</th>
                   <th>Titulo</th>
@@ -103,14 +94,14 @@
                   <th>Fecha devolución</th>
                   <th>Editar</th>
                   
-                          </tr>
                         </thead>
+                        <tbody>
                       <?php
                       include "php/gestion-reservas.php";
 
-                       if (!isset($_POST['btnReserva']) && !isset($_POST['btnDevolucion'])  && !isset($_POST['btnEditar'])) {
+                       //if (!isset($_POST['btnReserva']) && !isset($_POST['btnDevolucion'])  && !isset($_POST['btnEditar'])) {
                       gestionReservas();
-                        }
+                        //}
                       /* Llena el tabla con todos los libros de la base de datos */
    
 
@@ -123,21 +114,22 @@
                       }
 
                       if (isset($_POST['btnEditar'])) {
-                        editarReserva($_POST['txtReserva'], $_POST['selectEstado']);
+                        editarReserva($_POST['txtReserva'], $_POST['selectEstado'], $_POST['txtIDEjemplar']);
                       }
 
                       ?>
                         
                         
                       <?php  ?>
+                      </tbody>
                       </table>
                       <br>
                       <?php 
-            $paginas = getPages();
+            // $paginas = getPages();
 
-             for($page = 1; $page<= $paginas; $page++) {  
-              echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-reservas.php?page=' . $page . '">' . $page . ' </a>';  
-            }  
+            //  for($page = 1; $page<= $paginas; $page++) {  
+            //   echo '<a style="margin-left:20px; text-align: center;"  class="btn btn-dark" href = "admin-reservas.php?page=' . $page . '">' . $page . ' </a>';  
+            // }  
               echo "</div>";
 
                ?>
@@ -153,6 +145,8 @@
                   <div class="wrapper-reserva">
                     <label class="modal-reserva" for="" >Reserva:</label>
                     <input name="txtReserva" class="reserva-libro" type="text" name="titulo" id="titulo" readonly>
+                    <label hidden class="modal-reserva" for="" >idLibro:</label>
+                    <input hidden name="txtIDEjemplar" class="reserva-libro" type="text" >
                     <label class="modal-reserva" for="">Usuario: </label>
                     <input name="txtUsuario" class="reserva-libro" type="text" name="autor" id="autor" readonly>
                     <label class="modal-reserva" for="">Estado: </label>
@@ -212,10 +206,12 @@ window.onclick = function(event) {
 }
       
 
-function cargarReserva(idReserva, usuario, estadoReserva){
+function cargarReserva(idReserva, usuario, estadoReserva, idEjemplar){
 
   document.formReservas.txtReserva.value = idReserva;
   
+  document.formReservas.txtIDEjemplar.value = idEjemplar;
+
   document.formReservas.txtUsuario.value = usuario;
 
     let estado = document.getElementById('selectEstado');
@@ -235,6 +231,46 @@ function cargarReserva(idReserva, usuario, estadoReserva){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-</html>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      
+      
+<!--    Datatables-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap4.min.js"></script>
+
+      
+    <script>
+      $(document).ready(function(){
+         $('#tablaReservas').DataTable({
+          "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
+        "responsive": true,
+        "pagingType": "simple",
+                  dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
+    });  
+      });
+    </script>
+    
+    <script src="js/Spanish.js"></script>
+    </html>
    
  

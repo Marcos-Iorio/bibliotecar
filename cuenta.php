@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 
-<html lang="es">
+<html lang="es" style="height: 100%">
+  
 <?php 
   include "php/islogin.php";
  ?>
 
+<?php
+
+/*  is_logged(); */
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    $user = $_SESSION['username'];
+    $pid  = $_SESSION['rol'];
+
+    $tiempo = time();
+
+    if ($tiempo >= $_SESSION['expire']) {
+        session_destroy();
+        echo '<script type="text/javascript">
+              alert("Su sesion ha expirado, por favor vuelva iniciar sesion.");
+              </script>';
+        header("Refresh:0");
+
+    }
+
+}
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
+    header("Location: php/unauthorized.php");
+}
+
+?>
+  
+ 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +43,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/cuenta.css">
     <link rel="stylesheet" href="css/inicio.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Mi cuenta</title>
     <script src="js/pleaserotate.js"></script>
 </head>
@@ -202,7 +229,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <span class="close-contrasenia">&times;</span>
-                                <h2>¿Querés modificar tus contraseña<?php /* echo $arr['titulo']; */?>?</h2>
+                                <h2>¿Querés modificar tu contraseña<?php /* echo $arr['titulo']; */?>?</h2>
                             </div>
                             <?php 
                             /*if (isset($codigo)) {
@@ -254,6 +281,12 @@
                         if (isset($_POST['confirmar'])) {
                             $id = $_SESSION['idUsuario'];
                             bajaUsuario($id);
+                            
+                        }
+
+                        if (isset($_POST['modificarUsuario'])) {
+                            $id = $_SESSION['idUsuario'];
+                            modificarDatos($id,$_POST['name'],$_POST['last_name'],$_POST['numeroDocumento'],$_POST['telefono'],$_POST['direccion']);
                         }
                         ?>
 
@@ -261,7 +294,6 @@
 
                     </div>
                 </div>
-
 
         </main>
     </section>

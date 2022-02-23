@@ -24,12 +24,13 @@
           include "php/panel.php";
 
          ?>
-        <main id="main">
+        <main id="main" style="overflow-y: hidden">
             <?php 
                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ) {
                   echo '<h1 class="titulo-pagina"  style="margin-left: 50px;">Hola '. $user . '!</h1>';
                }else{
-                  echo '<h1 style="margin-left: 50px;" >BibliotecAr</h1>';
+                // echo '<div class="logo-inicio" ><img class="logo-inicio" src="assets/logo sin fondo.png" alt=""></div>'
+                  echo '<h1 class="titulo-pagina"  style="margin-left: 50px;" >BibliotecAr</h1>';
 
                } 
 
@@ -39,12 +40,21 @@
                 <div class="card">
                     <div class="info-paneles">
                         <div class="titulo-panel">
+                            <h4>Portal</h4>
+                        </div>
+                        <p>Ingresa al portal para ver todo el catalogo de libros disponible.</p>
+                        <a href="libros.php">Ver más</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="info-paneles">
+                        <div class="titulo-panel">
                             <h4>Mis libros</h4>
                         </div>
-                        <div class="info-reserva">
+                        <div class="info-reserva" >
                             <p class="texto-panel">
                             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ) {
-                              panelReserva($_SESSION['username']);
+                              panelReserva($_SESSION['mailL']);
                             }else{
                                 panelReserva(null);
                             }
@@ -52,58 +62,124 @@
                             </p>
                             <?php
                                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ){ ?>
-                                    <a class="ver-mas-paneles" href="cuenta.php">Ver más</a>
                             <?php
                                 }else{ ?>
-                                    <a class="ver-mas-paneles" href="login.php">Crear cuenta</a>
+                                    <a class="ver-mas-paneles" href="login.php">Ingresar</a>
                                 <?php } ?>
                             
                         </div>
                     </div>
                 </div>
+
+                <?php
+                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ) {
+                ?> 
+                
                 <div class="card">
                     <div class="info-paneles">
                         <div class="titulo-panel">
-                            <h4>Mis libros</h4>
+                            <h4>Mi cuenta</h4>
                         </div>
-                        <p>Accede a tus libros recientemente descargados y reservados.</p>
+                        <p>Accede a tu cuenta para mas detalles.</p>
                         <a href="cuenta.php">Ver más</a>
                     </div>
                 </div>
+
+                <?php } else {  ?>
+                
                 <div class="card">
                     <div class="info-paneles">
                         <div class="titulo-panel">
-                            <h4>Mis libros</h4>
+                            <h4>Contactanos</h4>
                         </div>
-                        <p>Conoce mas informacion acerca de quienes somos y como contactarnos.</p>
-                        <a href="#">Ver más</a>
+                        <p>Conoce mas informacion acerca de nuestro portal.</p>
+                        <a href="contacto.php">Ver más</a>
                     </div>
                 </div>
+
+                <?php } ?>
+    
+                <?php
+if (isset($_SESSION['rol']) && $_SESSION['rol'] == '2') {
+    ?> 
+
                 <div class="card">
                     <div class="info-paneles">
                         <div class="titulo-panel">
-                            <h4>Mis libros</h4>
+                            <h4>Gestion de libros</h4>
                         </div>
-                        <p>Accede a la seccion de administracion del portal (solo perfiles autorizados).</p>
+                        <p>Administrar libros, editoriales, categorias, y autores (solo perfiles autorizados).</p>
                         <a href="admin-libros.php">Ver más</a>
                     </div>
                 </div>
-                <div id="clockdate">
+                <!-- <div id="clockdate">
                     <div id="wrapper" class="clockdate-wrapper">
                         <div id="clock" class="clock"></div>
                         <div id="date" class="date"></div>
                     </div>
-                </div>
+                </div> -->
+
                 <div class="card">
                     <div class="info-paneles">
                         <div class="titulo-panel">
-                            <h4>Mis libros</h4>
+                            <h4>Gestion de reservas</h4>
                         </div>
-                        <p>Nos interesa tu opinion. Por favor ingresa aca si queres realizar algun comentario del
-                            sistema.</p>
-                        <a href="sugerencias.php">Ver más</a>
+                        <p>Administrar las reservas pendientes y activas (solo perfiles autorizados).</p>
+                        <a href="admin-reservas.php">Ver más</a>
                     </div>
                 </div>
+
+                <div class="card">
+                    <div class="info-paneles">
+                        <div class="titulo-panel">
+                            <h4>Contacto</h4>
+                        </div>
+                        <p>Contacta al soporte tecnico de BibliotecAr.</p>
+                        <a href="contacto.php">Ver más</a>
+                    </div>
+                </div>
+                <?php } ?>
+
+                <?php
+if (isset($_SESSION['rol']) && $_SESSION['rol'] == '3') {
+    ?> 
+
+                <div class="card">
+                    <div class="info-paneles">
+                        <div class="titulo-panel">
+                            <h4>Gestion de libros</h4>
+                        </div>
+                        <p>Administrar libros, editoriales, categorias, y autores (solo perfiles autorizados).</p>
+                        <a href="admin-libros.php">Ver más</a>
+                    </div>
+                </div>
+                <!-- <div id="clockdate">
+                    <div id="wrapper" class="clockdate-wrapper">
+                        <div id="clock" class="clock"></div>
+                        <div id="date" class="date"></div>
+                    </div>
+                </div> -->
+
+                <div class="card">
+                    <div class="info-paneles">
+                        <div class="titulo-panel">
+                            <h4>Gestion de usuarios</h4>
+                        </div>
+                        <p>Administrar los usuarios del sistema (solo perfiles autorizados).</p>
+                        <a href="admin-usuarios.php">Ver más</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="info-paneles">
+                        <div class="titulo-panel">
+                            <h4>Reportes</h4>
+                        </div>
+                        <p>Accede a las distintas estadisticas del sistema (solo perfiles autorizados).</p>
+                        <a href="reportes.php">Ver más</a>
+                    </div>
+                </div>
+                <?php } ?>
             </div>
         </main>
     </section>
