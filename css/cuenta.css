@@ -36,20 +36,22 @@ input[type="submit"]{
 #dar-de-baja{
     border: none;
     display: block;
-    color: red;
-    margin: 15px auto;
+    color: white;
+    /* margin: 15px auto; */
+    margin-left: 200px;
     height: 50px;
     width: 200px;
     border-radius: 48px;   
     cursor: pointer;
-    border: 2px solid red;
-    background: transparent !important;
+    border: 2px solid #333;
+    /* background: transparent !important; */
+    background: #333;
     font-weight: bold;
     transition: ease all 0.2s;
 }
 
 #dar-de-baja:hover{
-    background: rgba(255, 255, 255, 0.473) !important;
+    background: rgb(248, 52, 52) !important;
     transition: ease all 0.2s;
 }
 table{
@@ -223,7 +225,7 @@ input[type=submit]:hover {
   /* The Close Button */
   .close {
     position: absolute;
-    right: 21p;
+    right: 21px;
     color: #333;
     float: right;
     font-size: 35px;
@@ -291,6 +293,7 @@ button#cancelar:hover{
     padding: 2px 16px;
     background-color: #fefefe !important;
     color: #333;
+    justify-content: center;
   }
   
   .modal-body {
@@ -332,12 +335,12 @@ and (max-device-width: 1000px) {
 .modificar{
     border: 2px solid #333;
     display: block;
-    color: #333;
+    color: white;
+    background-color: #333;
     margin: 15px auto;
     height: 50px;
     width: 200px;
     border-radius: 48px;
-    background-color: transparent;
     cursor: pointer;
     transition: all ease 0.5s;
   }
@@ -345,11 +348,12 @@ and (max-device-width: 1000px) {
   .modificar-pass{
     border: 2px solid #333;
     display: block;
-    color: #333;
+    color: white;
+    background-color: #333;
     height: 50px;
     width: 200px;
     border-radius: 48px;
-    background-color: transparent;
+    /* background-color: transparent; */
     cursor: pointer;
     transition: all ease 0.5s;
     margin: 15px 22%
@@ -357,7 +361,8 @@ and (max-device-width: 1000px) {
 
   .modificar:hover, .modificar-pass:hover{
     transition: all ease 0.5s;
-    background: white;
+    background: rgb(87, 86, 86);
+    color: white;
   }
 
 #modal-datos, #modal-contrasenia {
@@ -418,7 +423,12 @@ and (max-device-width: 1000px) {
       line-height: 3;
       width: 700px;
   }
+  input#confirmarDatos:hover{
+    transition: all ease 0.5s;
+    background: rgb(87, 86, 86);
+    color: white;
 
+}
   input#confirmar{
     border: none;
     display: block;
@@ -453,9 +463,9 @@ and (max-device-width: 1000px) {
 }
 
 button#cancelar-datos:hover, button#cancelar-contrasenia:hover{
-  background: #333;
-  color: white;
   transition: all ease 0.5s;
+  background: rgb(87, 86, 86);
+  color: white;
 }
   
   .modal-header {

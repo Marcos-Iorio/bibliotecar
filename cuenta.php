@@ -16,7 +16,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     $tiempo = time();
 
     if ($tiempo >= $_SESSION['expire']) {
-        session_destroy();
+        // session_destroy();
         echo '<script type="text/javascript">
               alert("Su sesion ha expirado, por favor vuelva iniciar sesion.");
               </script>';
@@ -94,7 +94,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
   echo "- ". $campo ." = ". $valor;
 }*/
                          ?>
-                        </table>
+                        
                     </div>
 
                     <br>
@@ -175,12 +175,24 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                     }*/
                      ?>
                     <div class="modal-body">
-                        <form action="#" method="POST">
+                        <form action="#" method="POST" name="formModificarDatos">
                             <input class="confirmar" id="confirmarDatos" name="confirmarDatos" value="Confirmar" type="submit">
+                            <input hidden id="txtNombre" name="txtNombre" type="text">
+                            <input hidden id="txtApellido" name="txtApellido" type="text">
+                            <input hidden id="txtDNI" name="txtDNI" type="text">
+                            <input hidden id="txtTelefono" name="txtTelefono" type="text">
+                            <input hidden id="txtDireccion" name="txtDireccion" type="text">
+
                         </form>
                         <?php 
                         if (isset($_POST['confirmarDatos'])) {
-                            
+                            $idUsuario = $_SESSION['idUsuario'];
+                            $nombre = $_POST['txtNombre'];
+                            $apellido = $_POST['txtApellido'];
+                            $documento = $_POST['txtDNI'];
+                            $telefono = $_POST['txtTelefono'];
+                            $direccion = $_POST['txtDireccion'];
+                            modificarDatos($idUsuario, $nombre, $apellido, $documento, $telefono, $direccion);
                         } 
                         ?>
 
@@ -319,8 +331,60 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
     }
 </script>
 <script>
+
     const modalDatos = document.querySelector('#modal-datos');
     const botonModal = document.querySelector('#modificar');
+   
+    // document.getElementById("nombreUsuario").onkeyup=function(){
+    //Set nombre
+    document.getElementById("nombreUsuario").onchange=function(){
+    var txtNombre = document.getElementById("nombreUsuario").value;
+    document.formModificarDatos.txtNombre.value = txtNombre;
+    }
+    if (document.getElementById("txtNombre").value == "") {
+        var txtNombre = document.getElementById("nombreUsuario").value;
+        document.formModificarDatos.txtNombre.value = txtNombre;
+    }
+
+    //Set apellido
+    document.getElementById("apellidoUsuario").onchange=function(){
+    var txtApellido = document.getElementById("apellidoUsuario").value;
+    document.formModificarDatos.txtApellido.value = txtApellido;
+    }
+    if (document.getElementById("txtApellido").value == "") {
+        var txtApellido = document.getElementById("apellidoUsuario").value;
+        document.formModificarDatos.txtApellido.value = txtApellido;
+    }
+
+    //Set dni
+    document.getElementById("dniUsuario").onchange=function(){
+    var txtDNI = document.getElementById("dniUsuario").value;
+    document.formModificarDatos.txtDNI.value = txtDNI;
+    }
+    if (document.getElementById("txtDNI").value == "") {
+        var txtDNI = document.getElementById("dniUsuario").value;
+        document.formModificarDatos.txtDNI.value = txtDNI;
+    }
+
+    //set telefono
+    document.getElementById("telefonoUsuario").onchange=function(){
+    var txtTelefono = document.getElementById("telefonoUsuario").value;
+    document.formModificarDatos.txtTelefono.value = txtTelefono;
+    }
+    if (document.getElementById("txtTelefono").value == "") {
+        var txtTelefono = document.getElementById("telefonoUsuario").value;
+        document.formModificarDatos.txtTelefono.value = txtTelefono;
+    }
+
+    //set direccion
+    document.getElementById("direccionUsuario").onchange=function(){
+    var txtDireccion = document.getElementById("direccionUsuario").value;
+    document.formModificarDatos.txtDireccion.value = txtDireccion;
+    }
+    if (document.getElementById("txtDireccion").value == "") {
+        var txtDireccion = document.getElementById("direccionUsuario").value;
+        document.formModificarDatos.txtDireccion.value = txtDireccion;
+    }
 
     botonModal.addEventListener('click', (e) => {
         e.preventDefault();

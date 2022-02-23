@@ -29,13 +29,15 @@ function getReservas($idUsuario){
 
 if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
+  $cantidad='0';
 
   foreach($resultado as $fila):
   $nombreEstado = getReservaEstado($fila['idReservaEstado']);
   $nombreLibro = getTitulo($fila['idEjemplar']);
+  $cantidad=$cantidad+'1';
 
-
-
+    if($cantidad<='3') {
+   
   	echo "
     <tbody>
                 <tr>
@@ -47,11 +49,19 @@ if ($stmt->execute()) {
                   
                 </tr>
               </tbody>
+              
 
   	";
+  } 
   	endforeach;
 }
-  
+if ($cantidad>'3') {
+  echo "</table><br>
+  <h4>Tenes $cantidad reservas activas. <a>Ver mas</a></h4>";
+} else {
+  echo "</table>
+  <h1>La cantidad menor es: $cantidad</h1>";
+} 
 
 
 }
@@ -199,32 +209,32 @@ function datosUsuario($idUsuario){
 
 if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
-
   foreach($resultado as $fila):
+
 
 
     echo "
       <form method='POST' name='contact_form' id='contact-form'>
                   <div  class='input-group'>
                         <label for='first_name'>Nombre</label>
-                        <input name='name' type='text'  placeholder='Nombre..' value='".$fila['nombre']."' required/>
+                        <input required name='nombreUsuario' id='nombreUsuario' type='text'  placeholder='Nombre..' value='".$fila['nombre']."' required/>
                         
                         <label for='last_name'>Apellido:</label>
-                        <input name='last_name' type='text'  placeholder='Apellido..' value='".$fila['apellido']."' required/>
+                        <input required name='apellidoUsuario' id='apellidoUsuario' type='text'  placeholder='Apellido..' value='".$fila['apellido']."' required/>
                         
                         <label for='email'>Email:</label>
-                        <input name='email' type='text' id='mail'  readonly placeholder='you@dominio.com..' value='".$fila['mail']."' required/>
+                        <input required name='email' type='text' id='mail' style='background-color:#b3b2b2;' disabled placeholder='you@dominio.com..' value='".$fila['mail']."' required/>
                     </div>  
                       <br>
                     <div  class='input-group'>  
                         <label for='message'>DNI:</label>
-                        <input type='text' name='numeroDocumento' value='".$fila['numeroDocumento']."' required>
+                        <input required type='text' name='dniUsuario' id='dniUsuario' maxlength='15' value='".$fila['numeroDocumento']."' required>
                         
                         <label for='message'>Telefono:</label>
-                        <input type='text' name='telefono' value='".$fila['telefono']."'>
+                        <input required type='text' name='telefonoUsuario' id='telefonoUsuario' value='".$fila['telefono']."'>
                         
                         <label for='message'>Direccion:</label>
-                        <input type='text' name='direccion' value='".$fila['direccion']."'>
+                        <input required type='text' name='direccionUsuario'  id='direccionUsuario'value='".$fila['direccion']."'>
                         
                         </div>
                         <br>
@@ -238,6 +248,8 @@ if ($stmt->execute()) {
 
     ";
     endforeach;
+
+
 }
 
 
@@ -272,7 +284,7 @@ function modificarDatos($idUsuario, $nombre, $apellido, $documento, $telefono, $
 
 
 if ($stmt->execute()) {
-  echo "<script>swal({title:'Exito',text:'Tus datos fueron modificados correctamente.',type:'success'});</script> ";
+  echo "<script>swal({title:'Exito',text:'Tus datos fueron modificados correctamente.',type:'success', showConfirmButton: false, html: '<h6>Tus datos fueron modificados correctamente.</h6><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"cuenta.php\">OK</a></button>'});</script>";
 
 } else {
   echo "<script>swal({title:'Error',text:'Hubo un problema al modificar los datos. Por favor intenta nuevamente.',type:'error'});</script> ";
