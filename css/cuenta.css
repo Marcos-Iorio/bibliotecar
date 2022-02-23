@@ -486,6 +486,52 @@ button#cancelar-datos:hover, button#cancelar-contrasenia:hover{
     align-items: center;
 }
 
+.pass__require{
+	background-color: white;
+	border-radius: 8px;
+	padding: 20px;
+	position: absolute;
+	bottom: 25%;
+  display: none;
+	right: 40%;
+	color: #222;
+	width: 200px;
+	font-size: 15px;
+	font-weight: 400;
+	box-shadow: 2px 2px 2px 1px rgb(27, 27, 27);
+	animation-name: appear;
+	animation-duration: 3s;
+}
+
+h3{
+	font-size: 18px;
+}
+
+#passwordRe{
+	outline: none
+}
+
+.valid {
+	color: green;
+  }
+  
+  .valid:before {
+	position: relative;
+	left: -15px;
+	content: "\2705";
+  }
+  
+  /* Add a red text color and an "x" icon when the requirements are wrong */
+  .invalid {
+	color: red;
+  }
+  
+  .invalid:before {
+	position: relative;
+	left: -15px;
+	content: "\274C";
+  }
+
 @-webkit-keyframes slideIn {
     from {bottom: -300px; opacity: 0} 
     to {bottom: 300; opacity: 1}

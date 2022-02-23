@@ -52,7 +52,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
     }
 </style>
 
-<body onload="startTime()">
+<body onload="startTime(), requerimientoPass()">
     <section id="page">
         <?php 
           include "php/panel.php";
@@ -221,13 +221,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                      ?>
                     <form method='POST' name='contact_form' id='contact-form'>
                         <label for='first_name' style="width: 20%;">Contraseña actual</label>
-                        <input name='name' type='text' value='' required/>
+                        <input name='name' type='password' value='' required/>
                         <br>
                         <label for='last_name' style="width: 20%;">Nueva contraseña:</label>
-                        <input name='last_name' type='text' value='' required/>
+                        <input name='last_name' type='password' id="new-pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required/>
                         <br>
                         <label for='email' style="width: 20%;">Reingresar contraseña:</label>
-                        <input name='email' type='text' value='' required/>
+                        <input name='email' type='password' id="repeat-pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required/>
+                        <div id="error"></div>
                         <br>
                         <br>
 
@@ -306,9 +307,15 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
 
                     </div>
                 </div>
-
         </main>
     </section>
+    <div class="pass__require" id ="passRequire" style="z-index: 50;">
+        <h3>La contraseña debe contener:</h3>
+        <p id="letter" class="require invalid">Una <b>letra</b> Minúscula</p>
+        <p id="capital" class="require invalid">Una <b>letra</b> Mayúscula</p>
+        <p id="number" class="require invalid">Un <b>numero</b></p>
+        <p id="length" class="require invalid">Mínimo <b>8 carácteres</b></p>
+    </div>
 </body>
 <script>
     const btnBaja = document.querySelector('#dar-de-baja');
@@ -428,6 +435,88 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
 </script>
 
 <script src="js/navbarToggle.js"></script>
+<script>
+
+    var myInput = document.querySelector("#new-pass");
+    myInput.onfocus = function(){
+        document.querySelector("#passRequire").style.display = "block";
+    }
+    myInput.onblur = function(){
+        document.querySelector("#passRequire").style.display = "none";
+    }
+
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+
+    myInput.onkeyup = function() {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if(myInput.value.match(lowerCaseLetters)) {
+          letter.classList.remove("invalid");
+          letter.classList.add("valid");
+        } else {
+          letter.classList.remove("valid");
+          letter.classList.add("invalid");
+      }
+      
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if(myInput.value.match(upperCaseLetters)) {
+          capital.classList.remove("invalid");
+          capital.classList.add("valid");
+        } else {
+          capital.classList.remove("valid");
+          capital.classList.add("invalid");
+        }
+      
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if(myInput.value.match(numbers)) {
+          number.classList.remove("invalid");
+          number.classList.add("valid");
+        } else {
+          number.classList.remove("valid");
+          number.classList.add("invalid");
+        }
+      
+        // Validate length
+        if(myInput.value.length >= 8) {
+          length.classList.remove("invalid");
+          length.classList.add("valid");
+        } else {
+          length.classList.remove("valid");
+          length.classList.add("invalid");
+        }
+        
+        
+
+        if(myInput.value.match(numbers) && myInput.value.length >= 8 && myInput.value.match(upperCaseLetters) && (myInput.value.match(lowerCaseLetters)) && document.querySelector('#repeat-pass').value != ''){
+            document.querySelector('#modificar-pass').disabled = false;
+        }else{
+            document.querySelector('#error').textContent = "Por favor completá los campos";
+            document.querySelector('#error').style.color = "red";
+            setTimeout(function(){
+                document.querySelector('#error').textContent = '';
+            },3000)
+            document.querySelector('#modificar-pass').disabled = true
+        }
+      }
+
+      const confirmPass = document.querySelector('#repeat-pass')
+      confirmPass.onkeyup = function(){
+          if(confirmPass.value === myInput.value && myInput.value != ''){
+            document.querySelector('#modificar-pass').disabled = false
+            document.querySelector('#error').textContent = "";
+          }else{
+            document.querySelector('#error').textContent = "Las contraseñas no coinciden";
+            document.querySelector('#error').style.color = "red";
+            document.querySelector('#modificar-pass').disabled = true
+          }
+      }
+
+</script>
 
 <!-- jQuery CDN - Slim version =without AJAX -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -22,7 +22,7 @@ exit;
     
 </head>
 <body>
-    <div class="pass__require hidden" id ="passRequire" style="z-index: 50;">
+    <div class="pass__require" id ="passRequire" style="z-index: 50;">
         <h3>La contraseña debe contener:</h3>
         <p id="letter" class="require invalid">Una <b>letra</b> Minúscula</p>
         <p id="capital" class="require invalid">Una <b>letra</b> Mayúscula</p>
@@ -138,11 +138,6 @@ exit;
             </div>
         </div>
 </body>
-<footer>
-
-
-	
-</footer>
 <script>
     var myInput = document.getElementById("passwordRe");
     var letter = document.getElementById("letter");
