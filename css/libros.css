@@ -1001,7 +1001,7 @@ body {
   }
 
   .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .paginate_button.disabled:active{
-      color: #666 !important;
+      background: #666 ;
   }
 
   input#autor, input.input-libro.autor, input#categoria, input.input-libro.categoria, input#editorial, input.input-libro.editorial{
