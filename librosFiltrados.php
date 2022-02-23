@@ -45,15 +45,17 @@
           include "php/panel.php";
          ?>
         <main id="main">
-        <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
+        <div class="volver"><a href="./libros.php"><i class="fas fa-arrow-circle-left"></i></a></div>
         <div id="breadcrumbs"></div>
             <section class="contenido wrapper">
                 <div class = " filtros-busqueda ">
-                  <div class="busqueda">
-                    <i class="fas fa-search" onclick="showSearch()"></i>
-                    <input class="campo-busqueda" type="text" name="campo-busqueda" id="campo-busqueda">
-                    <input id="buscar" type="submit" value="Buscar">
-                  </div>
+                <form name="formUsuarios" action="" method = "POST" class= "form-libro">
+                    <div class="busqueda">
+                        <i class="fas fa-search" onclick="showSearch()"></i>
+                        <input class="campo-busqueda" type="text" style="background-color: #f1f1f1; color: black; height: 80%; margin-top: 20px;" name="campo-busqueda" id="campo-busqueda">
+                        <input id="buscar" name=txtBuscar type="submit" value="Buscar" style=" margin-top: 10px; height: 30px;">
+                    </div>
+                </form>
                   <div class = "filtros">
                     <button onclick="abrirFiltros()"><i class="fas fa-filter"></i></button>
                   </div>

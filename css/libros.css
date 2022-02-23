@@ -516,8 +516,8 @@ input#buscar:hover{
 }
 
 div#menu-filtro{
-    height: 100%;
-    overflow: scroll !important;
+    height: 95%;
+    overflow-y: scroll !important;
     position: fixed;
     right: 0;
     z-index: 1;
@@ -586,7 +586,7 @@ i.fas.fa-times {
 
 #breadcrumbs{
     text-align: center;
-    padding-bottom: 50px;
+
 }
 
 .fas.fa-arrow-circle-left{

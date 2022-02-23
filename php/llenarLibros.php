@@ -63,10 +63,10 @@ function busquedaLibros($criterio){
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
             INNER JOIN autores a ON la.idAutores = a.idAutores
             where l.titulo like '%$criterio%' 
-or l.descripcion like '%$criterio%'
-or a.nombreAutor like '%$criterio%'
-or c.nombreCategoria like '%$criterio%'
-or e.nombreEditorial like '%$criterio%' ORDER BY l.stock DESC");
+            or l.descripcion like '%$criterio%'
+            or a.nombreAutor like '%$criterio%'
+            or c.nombreCategoria like '%$criterio%'
+            or e.nombreEditorial like '%$criterio%' ORDER BY l.stock DESC");
 
 
 if ($stmt->execute()) {
@@ -74,39 +74,41 @@ if ($stmt->execute()) {
     
     $resultado=$stmt->fetchAll();
 
-    foreach($resultado as $fila):
-      echo '<div class="libro-prueba" id="libro-prueba">
-          <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
-              <div class="imagen-libro">
-                  <img class="imagen-libro" data-lazy="' . $fila['ruta'] . ' " alt="">
-              </div>
-              <div class="informacion">
-            <div class="custom-shape-divider-bottom-1635630968">
-                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-                </svg>
-            </div>
-                  <p class="libro-info">';
-                  echo 'Titulo:<span class="portal-info"> ' . $fila['titulo'] . '</span>  <br>';
-                  echo 'Autor:<span class="portal-info"> ' . $fila['nombreAutor']. '</span>  <br>';
-                  echo 'Categoria:<span class="portal-info"> ' . $fila['nombreCategoria'] . '</span>
-                  </p>
-              </div>
-              <div class="etiqueta">
-                  <p class="etiqueta-info" id="etiqueta-info">';
-                      if($fila['stock'] > 0 ){
-                          echo "Disponible";
-                      }else{
-                          echo "No disponible";
-                      } 
-             echo ' </div>
-          </a>
-      </div>';
-  endforeach;
-  
-if ($stmt->rowCount() == '') {
-        echo "<h6>No se han encontrado resultados</h6>";
-}
+    if(!empty($resultado)){
+    
+        foreach($resultado as $fila):
+            echo '<div class="libro-prueba" id="libro-prueba">
+                <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
+                    <div class="imagen-libro">
+                        <img class="imagen-libro" data-lazy="' . $fila['ruta'] . ' " alt="">
+                    </div>
+                    <div class="informacion">
+                    <div class="custom-shape-divider-bottom-1635630968">
+                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                        </svg>
+                    </div>
+                        <p class="libro-info">';
+                        echo 'Titulo:<span class="portal-info"> ' . $fila['titulo'] . '</span>  <br>';
+                        echo 'Autor:<span class="portal-info"> ' . $fila['nombreAutor']. '</span>  <br>';
+                        echo 'Categoria:<span class="portal-info"> ' . $fila['nombreCategoria'] . '</span>
+                        </p>
+                    </div>
+                    <div class="etiqueta">
+                        <p class="etiqueta-info" id="etiqueta-info">';
+                            if($fila['stock'] > 0 ){
+                                echo "Disponible";
+                            }else{
+                                echo "No disponible";
+                            } 
+                    echo ' </div>
+                </a>
+            </div>';
+        endforeach;
+    
+    }else {
+        echo "<h3>No se han encontrado resultados</h3>";
+    }
 
 
   }
@@ -258,14 +260,18 @@ if ($stmt->execute()) {
 }
 
 function todosLosAutores(){
+    
     include 'db.php'; 
+
+
    $stmt = $dbh->prepare('SELECT distinct nombreAutor from autores');
    // Ejecutamos
    $stmt->execute();
    // Mostramos los resultados
+    
    $resultado = $stmt->fetchAll();
    foreach($resultado as $fila):
-       echo '<li><a href="librosFiltrados.php?autor=' . $fila['nombreAutor'] . '"><span></span> ' . $fila['nombreAutor'] . ' </a></li>';
+       echo '<li><a href="librosFiltrados.php? autor=' . $fila['nombreAutor'] . '"><span></span> ' . $fila['nombreAutor'] . ' </a></li>';
 
    endforeach;
 }
@@ -273,13 +279,6 @@ function todosLosAutores(){
 
 function librosFiltrados(){
     include('db.php');
-
-    if(isset($_GET['categoria'])){
-        $variableDelFront = $_GET['categoria'];
-    }
-    if(isset($_GET['autor'])){
-        $variableDelFront = $_GET['autor'];
-    }
 
     $query ="SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
             FROM libros AS l 
@@ -290,43 +289,55 @@ function librosFiltrados(){
             INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
             INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
             INNER JOIN autores a ON la.idAutores = a.idAutores
-            WHERE a.nombreAutor LIKE '$variableDelFront%' OR c.nombreCategoria LIKE '$variableDelFront%'";
-            
+            ";
+
+    if(isset($_GET['categoria'])){
+        $variableDelFront = $_GET['categoria'];
+        $query .="WHERE c.nombreCategoria LIKE '$variableDelFront%'";
+    }
+    if(isset($_GET['autor'])){
+        $variableDelFront = $_GET['autor'];
+        $query .="WHERE a.nombreAutor LIKE '$variableDelFront%'";
+    }
+
     $stmt = $dbh->prepare($query);
 
     $stmt->execute();
 
     $resultado = $stmt->fetchAll();
-
-    foreach($resultado as $fila):
-        echo '<div class="libro-prueba" id="libro-prueba">
-        <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
-            <div class="imagen-libro">
-                <img class="imagen-libro" data-lazy="' . $fila['ruta'] . ' " alt="">
-            </div>
-            <div id="informacion" class="informacion">
-                <div class="custom-shape-divider-bottom-1635630968">
-  <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-  </svg>
-</div>															  
-                <p class="libro-info">';
-                echo 'Titulo:<span class="portal-info"> ' . $fila['titulo'] . '</span>  <br>';
-                echo 'Autor:<span class="portal-info"> ' . $fila['nombreAutor']. '</span>  <br>';
-                echo 'Categoria:<span class="portal-info"> ' . $fila['nombreCategoria'] . '</span>
-                </p>
-            </div>
-            <div class="etiqueta">
-                <p class="etiqueta-info" id="etiqueta-info">';
-                    if($fila['stock'] > 0 ){
-                        echo "Disponible";
-                    }else{
-                        echo "No disponible";
-                    } 
-           echo ' </div>
-        </a>
-    </div>';
-    endforeach;
+    if(!empty($resultado)){
+        foreach($resultado as $fila):
+            echo '<div class="libro-prueba" id="libro-prueba">
+            <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
+                <div class="imagen-libro">
+                    <img class="imagen-libro" data-lazy="' . $fila['ruta'] . ' " alt="">
+                </div>
+                <div id="informacion" class="informacion">
+                    <div class="custom-shape-divider-bottom-1635630968">
+                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                        </svg>
+                    </div>															  
+                    <p class="libro-info">';
+                    echo 'Titulo:<span class="portal-info"> ' . $fila['titulo'] . '</span>  <br>';
+                    echo 'Autor:<span class="portal-info"> ' . $fila['nombreAutor']. '</span>  <br>';
+                    echo 'Categoria:<span class="portal-info"> ' . $fila['nombreCategoria'] . '</span>
+                    </p>
+                </div>
+                <div class="etiqueta">
+                    <p class="etiqueta-info" id="etiqueta-info">';
+                        if($fila['stock'] > 0 ){
+                            echo "Disponible";
+                        }else{
+                            echo "No disponible";
+                        } 
+            echo ' </div>
+            </a>
+        </div>';
+        endforeach;
+    }else{
+        echo '<h3>No se encontraron resultados</h3><br>';
+    }
 }
 ?>
 

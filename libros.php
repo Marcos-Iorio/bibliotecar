@@ -54,7 +54,6 @@
                     <i class="fas fa-search" onclick="showSearch()"></i>
                     <input class="campo-busqueda" type="text" style="background-color: #f1f1f1; color: black; height: 80%; margin-top: 20px;" name="campo-busqueda" id="campo-busqueda">
                     <input id="buscar" name=txtBuscar type="submit" value="Buscar" style=" margin-top: 10px; height: 30px;">
-                    
                   </div>
                 </form>
 
@@ -96,31 +95,7 @@
                     } else {
                         busquedaLibros($_REQUEST["campo-busqueda"]);
                     }
-                    /* Llena el flexbox con los libros traidos de la base de datos */
-                    /* foreach($resultado as $fila):?>
-                        <div class="libro-prueba" id="libro-prueba">
-                            <a class="link" id="id-libro" href="single-book.php?sku=<?php echo $fila['idLibro'];?>">
-                                <div class="imagen-libro">
-                                    <img class="imagen-libro" data-lazy="<?php echo $fila['imagen_libro']; ?>" alt="">
-                                </div>
-                                <div class="informacion">
-                                    <p class="libro-info">
-                                    <?php echo "Titulo: " . $fila['titulo']; ?> <br>
-                                    <?php echo "Autor: " . $fila['nombreAutor']; ?> <br>
-                                    <?php echo "Categoria: " . $fila['nombreCategoria']; ?>
-                                    </p>
-                                </div>
-                                <div class="etiqueta">
-                                    <p class="etiqueta-info" id="etiqueta-info"><?php
-                                        if($fila['stock'] > 0 ){
-                                            echo "Disponible";
-                                        }else{
-                                            echo "No disponible";
-                                        } ?></p>
-                                </div>
-                            </a>
-                        </div>
-                    <?php endforeach; */ ?>
+                     ?>
 
                     </div>
                 </div>
