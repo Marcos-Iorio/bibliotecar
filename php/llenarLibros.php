@@ -221,7 +221,7 @@ function singleBook($idLibro){
                     }		*/														
   }
 
-  function gestionLibros(){
+  /* function gestionLibros(){
     include 'db.php';
     $stmt = $dbh->prepare('SELECT * FROM libros, categorias, autores');
 
@@ -246,7 +246,7 @@ function singleBook($idLibro){
     endforeach;
 
     }
-}
+} */
 
   function todasLasCategorias(){
      include 'db.php'; 
