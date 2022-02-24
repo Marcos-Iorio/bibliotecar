@@ -117,9 +117,7 @@ function editarLibro($idLibro, $titulo, $autor, $descripcion,$categoria,$editori
         $destinoPdf ="";
 
         }
-
-
-                               $stockOriginal= getStockActual($idLibro);
+          $stockOriginal= getStockActual($idLibro);
 
 
                     if ($stockOriginal <= $stock) {
