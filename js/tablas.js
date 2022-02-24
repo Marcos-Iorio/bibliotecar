@@ -22,7 +22,7 @@ function autoresReservas(){
     d3.json("php/autoresReservados.php").then(function(data){
 
             xScale.domain(data.map(function(d){return d.nombreAutor}));
-            yScale.domain([0, d3.max(data, function(d){return d.cantidad})])
+            yScale.domain([0, d3.max(data, function(d){return d.cantidad * 1.1})])
 
             g.append('g').attr('transform','translate(0,'+height+')')
                 .call(d3.axisBottom(xScale))
