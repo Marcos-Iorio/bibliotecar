@@ -3,6 +3,7 @@
 
 html{
     scroll-behavior: smooth;
+    /*height: 100%; */
 }
 
 *{
@@ -67,7 +68,7 @@ body{
     padding-right: 0px;
     padding-bottom: 150px;
     transition: padding-left 0.5s;
-    overflow-y: hidden;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -319,6 +320,7 @@ only screen and (                min-resolution: 2dppx) {
     flex-wrap: wrap;
     justify-content:space-around;
     margin-top: 50px;
+    padding-bottom: 100px;
 }
 
 .card{
@@ -333,6 +335,7 @@ only screen and (                min-resolution: 2dppx) {
     text-align: center;
     color: #333;
     transition: all ease 0.5s;
+    margin-bottom: 50px;
 }
 
 .card:hover{

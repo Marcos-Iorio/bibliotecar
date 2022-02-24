@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="es" style="height:100%;">
+<html lang="es" style="height: 100%">
   
 <?php 
   include "php/islogin.php";
@@ -232,10 +232,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                         <input name='pwdActual' id='pwdActual'  type='password' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required/>
                         <br>
                         <label for='last_name' style="width: 20%;">Nueva contraseña:</label>
-                        <input name='last_name' type='password' id="new-pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required/>
+                        <input name='last_name' type='password' id="new-pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onkeypress="return (event.charCode != 34 && event.charCode !== 32 && event.charCode !== 39 && event.charCode !== 61)" required/>
                         <br>
                         <label for='email' style="width: 20%;">Reingresar contraseña:</label>
-                        <input name='email' type='password' id="repeat-pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required/>
+                        <input name='email' type='password' id="repeat-pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onkeypress="return (event.charCode != 34 && event.charCode !== 32 && event.charCode !== 39 && event.charCode !== 61)" required/>
                         <div id="error"></div>
 
                         <button disabled style="margin-left: 120px;" class='modificar-pass' id='modificar-pass'>Cambiar contraseña</button>

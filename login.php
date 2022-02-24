@@ -36,10 +36,10 @@ exit;
              ?>
             <form method="POST">
                 <h1>Crear cuenta</h1>
-                <input type="text" placeholder="Nombre" name="username" id="username"  required/>
-                <input type="email" placeholder="Email" name="mail" id="mail" onblur="validarMail()" required />
+                <input type="text" placeholder="Nombre" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" name="username" id="username"  required/>
+                <input type="email" placeholder="Email" style="text-transform:lowercase" name="mail" id="mail" onkeypress="return (event.charCode != 34 && event.charCode !== 32 && event.charCode !== 39 && event.charCode !== 61)" lowercase onblur="validarMail()" required />
                 <div class="campo-pass">
-                  <input type="password" placeholder="Contraseña" name="passwordRe" id="passwordRe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                  <input type="password" placeholder="Contraseña" name="passwordRe" onkeypress="return (event.charCode != 34 && event.charCode !== 32 && event.charCode !== 39 && event.charCode !== 61)" id="passwordRe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                     <div id="mostrar-pass" onclick="mostrarContrasenia()">
                         <i class="fas fa-eye-slash"></i>
                         <i class="fas fa-eye mostrar"></i>
@@ -63,9 +63,9 @@ exit;
         <div class="form-container sign-in-container">
             <form action="" method="POST">
                 <h1>Iniciar sesión</h1>
-                <input type="email" placeholder="Email" name="mailL" id="mailL" required />
+                <input type="email" style="text-transform:lowercase" placeholder="Email" name="mailL" onkeypress="return (event.charCode != 34 && event.charCode !== 32 && event.charCode !== 39)" id="mailL" required />
                 <div class="campo-pass">
-                  <input type="password" placeholder="Contraseña" name="passL" id="passL" required />
+                  <input type="password" placeholder="Contraseña" name="passL" id="passL" onkeypress="return (event.charCode != 34 && event.charCode !== 32 && event.charCode !== 39)" required />
                   <div id="mostrar-pass-login" onclick="mostrarContraseniaLogin()">
                       <i class="fas fa-eye-slash login"></i>
                       <i class="fas fa-eye mostrar login"></i>

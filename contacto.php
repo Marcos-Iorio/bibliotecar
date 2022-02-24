@@ -39,13 +39,13 @@
                       <br>  <br> 
                         <form method="POST" name="contact_form" id="contact-form">
                           <label for="first_name">Nombre</label>
-                          <input name="name" type="text" required placeholder="Nombre.."/>
+                          <input name="name" type="text" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" required placeholder="Nombre.."/>
                           <br>
                           <label for="last_name">Apellido</label>
-                          <input name="last_name" type="text" required placeholder="Apellido.."/>
+                          <input name="last_name" type="text" required onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" placeholder="Apellido.."/>
                           <br>
                           <label for="email">Email</label>
-                          <input name="email" id="email" type="email" required placeholder="you@dominio.com.."/>
+                          <input name="email" id="email" type="email" required onkeypress="return (event.charCode != 34 && event.charCode !== 32 && event.charCode !== 39 && event.charCode !== 61)" placeholder="you@dominio.com.."/>
                           <br>
                           <label for="message">Mensaje</label><br>
                           <textarea style= "color: black; height: 150px;" maxlength="1000" name="body" cols="30" rows="10" type="text" placeholder="Ingresá tu mensaje ..." required></textarea>

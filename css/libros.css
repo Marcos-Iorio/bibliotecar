@@ -243,6 +243,7 @@ label {
 div#tablaLibros_length label, div#tablaLibros_filter label, div#tablaCategorias_length label, div#tablaCategorias_filter label,
 div#tablaAutores_length label, div#tablaAutores_filter label, div#tablaEditoriales_length label, div#tablaEditoriales_filter label, div#tabla-ejemplar_filter label{
     width: 100% !important;
+    white-space: wrap !important;
 }
 
 input#crear-libro{
@@ -516,8 +517,8 @@ input#buscar:hover{
 }
 
 div#menu-filtro{
-    height: 100%;
-    overflow: scroll !important;
+    height: 95%;
+    overflow-y: scroll !important;
     position: fixed;
     right: 0;
     z-index: 1;
@@ -586,7 +587,7 @@ i.fas.fa-times {
 
 #breadcrumbs{
     text-align: center;
-    padding-bottom: 50px;
+
 }
 
 .fas.fa-arrow-circle-left{
@@ -989,19 +990,32 @@ body {
 
   /* Data tables */
 
-  .dataTables_wrapper .dataTables_paginate .paginate_button{
-      background: #333 !important;
-      border-radius: 44px !important;
-  }
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    border: 1px solid black !important;
+    background: #333!important;
+    border-radius: 44px !important;
+}
 
-  .page-item .page-link{
-      background: transparent !important;
-      border: none;
-      color: white !important;
-  }
+.page-item .page-link{
+    background: transparent !important;
+    border: none;
+    color: white !important;
+}
 
-  .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .aginate_button.disabled:active{
-      color: #666 !important;
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+  transition: all ease 0.5s;
+  background: rgb(87, 86, 86)!important;
+  color: white;
+}
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .paginate_button.disabled:active{
+  border: 1px solid rgb(124, 124, 124) !important;
+  background: rgb(107, 107, 107) !important;
+
+}
+  input#autor, input.input-libro.autor, input#categoria, input.input-libro.categoria, input#editorial, input.input-libro.editorial{
+      width: 100% !important;
   }
 
   input#autor, input.input-libro.autor, input#categoria, input.input-libro.categoria, input#editorial, input.input-libro.editorial{

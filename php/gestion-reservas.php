@@ -72,18 +72,19 @@ function ingresarReserva ($idReserva){
     include 'db.php';
     //include 'sendmail.php';
 
-
-
     //echo $sql;
     $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '2' where idReserva = '$idReserva'");
 
     if ($stmt->execute()) {
 
+      if($stmt->rowCount() !== 0){
+
+      
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Reserva realizada correctamente.',type:'success', showConfirmButton: false, html: '<h5>Reserva realizada correctamente.</h5><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\">OK</a></button>'});</script>";
-
-
-
+        echo "<script>swal({title:'Exito',text:'Reserva realizada correctamente.',type:'success', showConfirmButton: false, html: '<h5>Reserva realizada correctamente.</h5><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
+      }else{
+        echo "<script>swal({title:'Error',text:'El código ingresado no corresponde a ninguna reserva.',type:'error', showConfirmButton: false, html: '<h5>El código no existe.</h5><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
+      }
     } else {
         echo "<script>swal({title:'Error',text:'Error al ingresar reserva',type:'error'});</script>";
 
@@ -136,22 +137,26 @@ include 'reservar.php';
 function obtenerIDLibro($idEjemplar){
   include 'db.php';
 
-  $stmt = $dbh->prepare("SELECT idLibro FROM ejemplares where idEjemplar='$idEjemplar'");
+  $stmt = $dbh->prepare("SELECT idLibro FROM ejemplares where idEjemplar='". $idEjemplar . "'");
 
 
   if ($stmt->execute()) {
     //$idReserva=$stmt->fetchColumn();
-      $arr=$stmt->fetch(PDO::FETCH_ASSOC);
-      $idLibro=$arr['idLibro'];
+    if($stmt->rowCount() !== 0){
+      $arr = $stmt->fetch(PDO::FETCH_ASSOC);
+      $idLibro = $arr['idLibro'];
       return $idLibro;
-      }
+    }else{
+      echo "";
+    }
+  }
 
 }
 
 function obtenerStock($idLibro){
   include 'db.php';
 
-  $stmt = $dbh->prepare("SELECT stock FROM libros where idLibro='$idLibro'");
+  $stmt = $dbh->prepare("SELECT stock FROM libros where idLibro='" . $idLibro . "'");
 
 
   if ($stmt->execute()) {
@@ -173,28 +178,28 @@ function ingresarDevolucion ($idEjemplar){
     $idLibro = obtenerIDLibro($idEjemplar);
 
 
-    $stmt = $dbh->prepare("SELECT idReserva FROM reservas where idEjemplar='$idEjemplar' and idReservaEstado = '2'");
+    $stmt = $dbh->prepare("SELECT idReserva FROM reservas where idEjemplar='" . $idEjemplar. "' and idReservaEstado = '2'");
 
 if ($stmt->execute()) {
   //$idReserva=$stmt->fetchColumn();
     $arr=$stmt->fetch(PDO::FETCH_ASSOC);
-    $idReserva=$arr['idReserva'];
-    if ($idReserva == '') {
+    /* $idReserva = $arr['idReserva']; */
+    if (empty($arr)) {
         echo "<script>swal({title:'Error',text:'Para realizar una devolucion, la reserva debe estar en estado Activo',type:'error'});</script>";
 
-} else {  
+    } else {  
   
-    cambiarEstadoEjemplar($idEjemplar, "0");
-    $stock = obtenerStock($idLibro);
-    $stock = $stock+1;
+      cambiarEstadoEjemplar($idEjemplar, "0");
+      $stock = obtenerStock($idLibro);
+      $stock = $stock+1;
 
-    $stmt = $dbh->prepare("UPDATE libros SET stock='".$stock."' where idLibro ='".$idLibro."'");
-    $stmt->execute();
+      $stmt = $dbh->prepare("UPDATE libros SET stock='".$stock."' where idLibro ='".$idLibro."'");
+      $stmt->execute();
 
-    //echo $sql;
-    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar' and idReserva= '$idReserva'");
-    //echo "UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar' and idReserva= '$idReserva'";
-    //REPONER STOCK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //echo $sql;
+      $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '" . $idEjemplar ."' and idReserva= '".$idReserva."'");
+      //echo "UPDATE reservas SET idReservaEstado = '0' where idEjemplar = '$idEjemplar' and idReserva= '$idReserva'";
+      //REPONER STOCK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     if ($stmt->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
