@@ -949,12 +949,12 @@ include('db.php');
 function buscarIdEjemplar($idLibro){
   include('db.php');
 
-  $buscarIdEjemplar = $dbh->prepare("select * from ejemplares where idLibro = '$idLibro' and idEjemplar like '%L".$idLibro."E%' and idEjemplarEstado = '0' LIMIT 1");
+  $buscarIdEjemplar = $dbh->prepare("select * from ejemplares where idLibro = '" . $idLibro . "' and idEjemplar like '%L".$idLibro."E%' and idEjemplarEstado = '0' LIMIT 1");
   $buscarIdEjemplar->execute();
   $arr = $buscarIdEjemplar->fetch(PDO::FETCH_ASSOC);
   $idEjemplar = $arr['idEjemplar'];
   
-        return $idEjemplar;
+  return $idEjemplar;
 
 }
 
@@ -964,7 +964,7 @@ function reservarEjemplar($idLibro, $estado){
 
   if (!$idEjemplar == null) {
 
-    $buscarIdEjemplar = $dbh->prepare("UPDATE ejemplares SET idEjemplarEstado = '$estado' where idEjemplar '$idEjemplar'");
+    $buscarIdEjemplar = $dbh->prepare("UPDATE ejemplares SET idEjemplarEstado = '" . $estado . "' where idEjemplar '" . $idEjemplar . "'");
     $buscarIdEjemplar->execute();
     // $arr = $buscarIdEjemplar->fetch(PDO::FETCH_ASSOC);
     // $idEjemplar = $arr['idEjemplar'];
@@ -999,7 +999,7 @@ function editarStockEjemplar($idLibro, $stock){
 function getCantidadEjemplares($idLibro){
   include('db.php');
 
-  $buscarStock = $dbh->prepare("select count(*) AS cantidad from ejemplares where idLibro = '$idLibro'");
+  $buscarStock = $dbh->prepare("select count(*) AS cantidad from ejemplares where idLibro = '". $idLibro . "'");
   $buscarStock->execute();
   $arr = $buscarStock->fetch(PDO::FETCH_ASSOC);
   $cantidadEjemplar = $arr['cantidad'];
@@ -1011,7 +1011,7 @@ function getCantidadEjemplares($idLibro){
 function getStockActual($idLibro){
   include('db.php');
 
-  $buscarStock = $dbh->prepare("select stock from libros where idLibro = '$idLibro'");
+  $buscarStock = $dbh->prepare("select stock from libros where idLibro = '" .$idLibro ."'");
   $buscarStock->execute();
 
   $arr = $buscarStock->fetch(PDO::FETCH_ASSOC);
@@ -1073,7 +1073,7 @@ if(isset($_POST['idLibro'])){
 function mostrarEjemplares($idLibro){
     include 'db.php';
 
-    $query = "SELECT idEjemplar, idEjemplarEstado from ejemplares where idLibro = $idLibro";
+    $query = "SELECT idEjemplar, idEjemplarEstado from ejemplares where idLibro = '" . $idLibro ."'";
     $stmt = $dbh->prepare($query);
 
     if ($stmt->execute()) {
@@ -1162,7 +1162,7 @@ function activarEjemplar($idEjemplar){
 function obtenerIDLibro($idEjemplar){
   include 'db.php';
 
-  $stmt = $dbh->prepare("SELECT idLibro FROM ejemplares where idEjemplar='$idEjemplar'");
+  $stmt = $dbh->prepare("SELECT idLibro FROM ejemplares where idEjemplar='" . $idEjemplar . "'");
 
 
   if ($stmt->execute()) {
@@ -1177,7 +1177,7 @@ function obtenerIDLibro($idEjemplar){
 function obtenerStockLibro($idLibro){
   include 'db.php';
 
-  $stmt = $dbh->prepare("SELECT stock FROM libros where idLibro='$idLibro'");
+  $stmt = $dbh->prepare("SELECT stock FROM libros where idLibro='" .$idLibro ."'");
 
 
   if ($stmt->execute()) {

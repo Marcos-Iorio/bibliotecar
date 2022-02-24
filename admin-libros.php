@@ -109,9 +109,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                 </thead>
                 <tbody>
                 <?php
-include "php/gestion-libros.php";
+                    include "php/gestion-libros.php";
 
-gestionLibros();
+                    gestionLibros();
 
                     if(isset($_POST['btnCrearLibro'])){
                       $_SESSION['btnCrearLibro']=$_POST['btnCrearLibro'];
@@ -167,7 +167,7 @@ gestionLibros();
                   <div class="secciones-form" style="display:flex;">
                     <label for="">Titulo:</label>
                     <input style="background-color: white; color: black;" class="input-libro" type="text" name="titulo"
-                      id="titulo" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" required placeholder="Titulo">
+                      id="titulo" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) ||(event.charCode !== 32)" required placeholder="Titulo">
                     <label for="">Autor:</label>
 
                   <select required id="select-autor" style="background-color: white; color: black; width: 20%;" class="form-control"
@@ -347,12 +347,12 @@ gestionLibros();
                     <div class="wrapper-libros">
                       <div id="autor-viejo">
                         <label for="">Autor:</label>
-                        <input class="input-libro" type="text" name="editarAutor" id="autor" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" placeholder="Autor">
+                        <input class="input-libro" type="text" name="editarAutor" id="autor" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)||(event.charCode !== 32))" placeholder="Autor">
                         <input hidden type="text" name="idAutor" id="autor" placeholder="Autor">
                       </div>
                       <div id="autor-nuevo">
                         <label for="" >Autor Nuevo:</label>
-                        <input class="input-libro autor" type="text" name="nuevoAutor" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))"  placeholder="Autor">
+                        <input class="input-libro autor" type="text" name="nuevoAutor" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)||(event.charCode !== 32))"  placeholder="Autor">
                       </div>
                     </div>
 
@@ -889,8 +889,6 @@ span.onclick = function() {
     let elementCategoria = document.getElementById('select-categoria');
     elementCategoria.value = nombreCategoria;
 
-
-
     document.getElementById('crear-libro').style.display = "none";
   
     document.getElementById('editar-libro').style.display = "block";
@@ -1000,13 +998,11 @@ spanEdit.onclick = function() {
 
   const modalEjemplar = document.querySelector('#modal-ejemplares');
 
-    for (var i = 0; i < botonEjemplar.length; i++) {
+  for (var i = 0; i < botonEjemplar.length; i++) {
     botonEjemplar[i].onclick = function () {
       modalEjemplar.style.display = "block";
     }
   };
-
-  
 
   var span = document.getElementById("close-ejemplares");
 
