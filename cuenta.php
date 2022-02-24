@@ -111,7 +111,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                                 <tr>
                                     <th>Nº Reserva</th>
                                     <th>Libro</th>
-                                    <th>Estado</th>
+                                    <th>Fecha</th>
                                 </tr>
                             </thead>
                             <tbody>

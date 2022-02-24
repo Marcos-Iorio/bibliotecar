@@ -242,7 +242,7 @@ label {
 
 div#tablaLibros_length label, div#tablaLibros_filter label, div#tablaCategorias_length label, div#tablaCategorias_filter label,
 div#tablaAutores_length label, div#tablaAutores_filter label, div#tablaEditoriales_length label, div#tablaEditoriales_filter label, div#tabla-ejemplar_filter label{
-    width: 100% !important;
+    width: 94% !important;
     white-space: wrap !important;
 }
 

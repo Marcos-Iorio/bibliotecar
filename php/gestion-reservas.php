@@ -183,7 +183,7 @@ function ingresarDevolucion ($idEjemplar){
 if ($stmt->execute()) {
   //$idReserva=$stmt->fetchColumn();
     $arr=$stmt->fetch(PDO::FETCH_ASSOC);
-    /* $idReserva = $arr['idReserva']; */
+    $idReserva = $arr['idReserva'];
     if (empty($arr)) {
         echo "<script>swal({title:'Error',text:'Para realizar una devolucion, la reserva debe estar en estado Activo',type:'error'});</script>";
 

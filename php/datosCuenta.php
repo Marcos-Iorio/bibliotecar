@@ -103,7 +103,7 @@ function getHistorial($idUsuario){
   $stmt = $dbh->prepare("SELECT * FROM usuarios LIMIT " . $page_first_result . ',' . $results_per_page);*/
   
 
-  $stmt = $dbh->prepare("SELECT * FROM reservas where idUsuario = '$idUsuario' and idReservaEstado = '0'");
+  $stmt = $dbh->prepare("SELECT *, DATE_FORMAT(fechaHasta,'%d-%m-%Y') as fechaHasta FROM reservas where idUsuario = '$idUsuario' and idReservaEstado = '0'");
 
 
 if ($stmt->execute()) {

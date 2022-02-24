@@ -89,10 +89,6 @@ function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock,
     //llenarAutorLibro();
     //llenarCategoriaLibro();
     //llenarEditorialLibro();
-
-   
-
-   
 }
 
 
@@ -242,7 +238,7 @@ $tapa=$_FILES['tapa']['name'];
                     }
 
                      if ($flagLibro="ok" || $flagEditorial="ok" || $flagAutor="ok" || $flagCategoria="ok" || $flagStock="ok") {
-                    echo "<script>swal({title:'$titulo',text:'Registro editado correctamente.',type:'$tipo', showConfirmButton: false, html: '<h6>$msjStock</h6><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
+                    echo "<script>swal({title:'$titulo',text:'Registro editado correctamente.',type:'$tipo', showConfirmButton: false, html: '<h6>$msjStock</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
 // //                      # code...
                     } else {
 // //         //echo "<script>swal({title:'Error',text:'El registro no pudo ser editado. flagLibro= $flagLibro, flagEditorial= $flagEditorial, flagAutor= $flagAutor, flagCategoria= $flagCategoria, $varLibro ',type:'error'});</script>";
@@ -310,7 +306,7 @@ function updateTapa($idLibro, $tapa){
  }
 
 
-function llenarImagen($Tapa,$contratapa){
+function llenarImagen($tapa,$contratapa){
     include('db.php');
        
   
@@ -337,11 +333,11 @@ function llenarImagen($Tapa,$contratapa){
 
             
              if ($destinoCtapa=='assets/libros/') {
-                  cargarTapaImagenLibro($idLibro,$destinoTapa,$idTapa);
+                  cargarTapaImagenLibro($idLibro,$destinoTapa, $idTapa);
 
              } else {
-                cargarCTapaImagenLibro($idLibro,$destinoCtapa,$idCtapa);
-                cargarTapaImagenLibro($idLibro,$destinoTapa,$idTapa);
+                cargarCTapaImagenLibro($idLibro,$destinoCtapa,$idCtapa, $destinoTapa);
+                /* cargarTapaImagenLibro($idLibro,$destinoTapa, $idTapa); */
 
              }
 
@@ -505,20 +501,20 @@ function llenarImagen($Tapa,$contratapa){
 
 
 
-                function cargarTapaImagenLibro($idLibro,$destinoTapa,$idCat){
+                function cargarTapaImagenLibro($idLibro,$destinoTapa, $idCat){
                     include('db.php');
                          
                          $insertTapa = $dbh->prepare("INSERT into `imagen_libros` (idLibro,ruta,idCategoriaImg) values(?,?,?)");
                          $insertTapa->bindParam(1,$idLibro); 
                          $insertTapa->bindParam(2,$destinoTapa);    
-                         $insertTapa->bindParam(3,$idCat);
+                         $insertTapa->bindParam(3, $idCat);
                         
                               //$insertTapa->execute();
 
                 if ($insertTapa->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-                    echo "<script>swal({title:'Exito',text:'Registro ingresado correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
+        echo "<script>swal({title:'Éxito',text:'Registro ingresado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Registro ingresado correctamente</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
         //gestionLibros();
 
 
@@ -528,141 +524,154 @@ function llenarImagen($Tapa,$contratapa){
 
     }
 
-                    }
+}
 
-                    function cargarCTapaImagenLibro($idLibro,$destinoCtapa,$idCat){
-                        include('db.php');
-                
-                            $insertCTapa = $dbh->prepare("INSERT into `imagen_libros` (idLibro,ruta,idCategoriaImg) values(?,?,?)");
-                            $insertCTapa->bindParam(1,$idLibro); 
-                            $insertCTapa->bindParam(2,$destinoCtapa);    
-                            $insertCTapa->bindParam(3,$idCat);
-                           
-                         
-                                //$insertCTapa->execute();
+function cargarCTapaImagenLibro($idLibro,$destinoCtapa, $idCat, $destinoTapa){
+  include('db.php');
 
-                                            $insertCTapa->execute();
+      $insertCTapa = $dbh->prepare("INSERT into `imagen_libros` (idLibro,ruta_contratapa,idCategoriaImg, ruta) values(?,?,?,?)");
+      $insertCTapa->bindParam(1,$idLibro); 
+      $insertCTapa->bindParam(2,$destinoTapa);
+      $insertCTapa->bindParam(3,$idCat);
+      $insertCTapa->bindParam(4,$destinoCtapa);    
+      
+    
+          //$insertCTapa->execute();
 
+      if ($insertCTapa->execute()) {
 
-                                
-                
-                        }
+        //enviarPwd($nombre, $mail, $pass);
+        echo "<script>swal({title:'Éxito',text:'Registro ingresado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Registro ingresado correctamente</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
+        //gestionLibros();
 
-                        function buscarIdLibro(){
-                            include('db.php');
-
-                            $buscarId = $dbh->prepare(' SELECT idLibro FROM libros ORDER BY idLibro DESC LIMIT 1');
-                            $buscarId->execute();
-                            $arr = $buscarId->fetch(PDO::FETCH_ASSOC);
-                            $idNuevo = $arr['idLibro'];
-                            
-                                  return $idNuevo;
-
-                        }
-
-                        function buscarIdTapa(){
-                            include('db.php');
-
-                            $buscarImg = $dbh->prepare('SELECT idCategoriaImg FROM categoria_imagenes where idCategoriaImg = 1');
-                            $buscarImg->execute();
-                            $arr = $buscarImg->fetch(PDO::FETCH_ASSOC);
-                            $idTapa = $arr['idCategoriaImg'];
-                             
-                                  return $idTapa;
-                        }
-                        
-                        function buscarIdcontraTapa(){
-                            include('db.php');
-
-                            $buscarImg =$dbh->prepare ('SELECT idCategoriaImg FROM categoria_imagenes where idCategoriaImg = 2');
-                            $buscarImg->execute();
-                            $arr = $buscarImg->fetch(PDO::FETCH_ASSOC);
-                            $idCtapa = $arr['idCategoriaImg'];
-
-                                  return $idCtapa;
-                        }
-
-                        function buscarIdAutor(){
-                            include('db.php');
-
-                            $buscarIdAutor = $dbh->prepare('SELECT idAutores FROM autores ORDER BY idAutores DESC LIMIT 1;');
-                            $buscarIdAutor->execute();
-                            $arr = $buscarIdAutor->fetch(PDO::FETCH_ASSOC);
-                            $idAutorNuevo = $arr['idAutores'];
-                            
-                                  return $idAutorNuevo;
-
-                        }
-
-                        function  buscarIdCategoria(){
-                            include('db.php');
-
-                            $buscarIdCategoria = $dbh->prepare('SELECT idCategoria FROM categorias ORDER BY idCategoria DESC LIMIT 1;');
-                            $buscarIdCategoria->execute();
-                            $arr = $buscarIdCategoria->fetch(PDO::FETCH_ASSOC);
-                            $idCategoriaNueva = $arr['idCategoria'];
-                            
-                                   return $idCategoriaNueva;
-                        }
+    
+      } else {
+          echo "<script>swal({title:'Error',text:'Error al ingresar el registro.',type:'error'});</script>";
+          //gestionLibros();
+  
+      }
 
 
 
-                   
-                        function buscarIdEditorial(){
-                            include('db.php');
+          
 
-                            $buscarIdEditorial = $dbh->prepare('SELECT idEditorial FROM editoriales ORDER BY  idEditorial DESC LIMIT 1;');
-                            $buscarIdEditorial ->execute();
-                            $arr = $buscarIdEditorial ->fetch(PDO::FETCH_ASSOC);
-                            $idEditorialNueva = $arr['idEditorial'];
-                            
-                                  return $idEditorialNueva;
-                        }
+  }
+
+  function buscarIdLibro(){
+      include('db.php');
+
+      $buscarId = $dbh->prepare(' SELECT idLibro FROM libros ORDER BY idLibro DESC LIMIT 1');
+      $buscarId->execute();
+      $arr = $buscarId->fetch(PDO::FETCH_ASSOC);
+      $idNuevo = $arr['idLibro'];
+      
+            return $idNuevo;
+
+  }
+
+  function buscarIdTapa(){
+      include('db.php');
+
+      $buscarImg = $dbh->prepare('SELECT idCategoriaImg FROM categoria_imagenes where idCategoriaImg = 1');
+      $buscarImg->execute();
+      $arr = $buscarImg->fetch(PDO::FETCH_ASSOC);
+      $idTapa = $arr['idCategoriaImg'];
+        
+            return $idTapa;
+  }
+  
+  function buscarIdcontraTapa(){
+      include('db.php');
+
+      $buscarImg =$dbh->prepare ('SELECT idCategoriaImg FROM categoria_imagenes where idCategoriaImg = 2');
+      $buscarImg->execute();
+      $arr = $buscarImg->fetch(PDO::FETCH_ASSOC);
+      $idCtapa = $arr['idCategoriaImg'];
+
+            return $idCtapa;
+  }
+
+  function buscarIdAutor(){
+      include('db.php');
+
+      $buscarIdAutor = $dbh->prepare('SELECT idAutores FROM autores ORDER BY idAutores DESC LIMIT 1;');
+      $buscarIdAutor->execute();
+      $arr = $buscarIdAutor->fetch(PDO::FETCH_ASSOC);
+      $idAutorNuevo = $arr['idAutores'];
+      
+            return $idAutorNuevo;
+
+  }
+
+  function  buscarIdCategoria(){
+      include('db.php');
+
+      $buscarIdCategoria = $dbh->prepare('SELECT idCategoria FROM categorias ORDER BY idCategoria DESC LIMIT 1;');
+      $buscarIdCategoria->execute();
+      $arr = $buscarIdCategoria->fetch(PDO::FETCH_ASSOC);
+      $idCategoriaNueva = $arr['idCategoria'];
+      
+              return $idCategoriaNueva;
+  }
 
 
-                      function getAutores() {
-                            include('db.php');
-
-                            $stmt = $dbh->prepare('SELECT DISTINCT nombreAutor FROM autores  ORDER BY  nombreAutor ASC');
-                            $stmt ->execute();
-                            $arr = $stmt->fetchAll();
-                            foreach($arr as $fila):
-                                echo "<option>".$fila['nombreAutor']."</option>";
-                            endforeach;  
-                      }
 
 
+  function buscarIdEditorial(){
+      include('db.php');
 
-                      function getEditoriales() {
-                            include('db.php');
-
-                            $stmt = $dbh->prepare('SELECT DISTINCT nombreEditorial FROM editoriales  ORDER BY  nombreEditorial ASC');
-                            $stmt ->execute();
-                            $arr = $stmt->fetchAll();
-                            //$editoriales = $arr['nombreEditorial'];
-                            
-                                  foreach($arr as $fila):
-
-echo "<option>".$fila['nombreEditorial']."</option>";
-                          endforeach;  
-                        
-                      }
+      $buscarIdEditorial = $dbh->prepare('SELECT idEditorial FROM editoriales ORDER BY  idEditorial DESC LIMIT 1;');
+      $buscarIdEditorial ->execute();
+      $arr = $buscarIdEditorial ->fetch(PDO::FETCH_ASSOC);
+      $idEditorialNueva = $arr['idEditorial'];
+      
+            return $idEditorialNueva;
+  }
 
 
-                      function getCategorias() {
-                            include('db.php');
+function getAutores() {
+      include('db.php');
 
-                            $stmt = $dbh->prepare('SELECT DISTINCT nombreCategoria FROM categorias  ORDER BY  nombreCategoria ASC');
-                            $stmt ->execute();
-                            $arr = $stmt->fetchAll();
-                                                    //$categorias = $arr['nombreCategoria'];
-                            
-                        foreach($arr as $fila):
+      $stmt = $dbh->prepare('SELECT DISTINCT nombreAutor FROM autores  ORDER BY  nombreAutor ASC');
+      $stmt ->execute();
+      $arr = $stmt->fetchAll();
+      foreach($arr as $fila):
+          echo "<option>".$fila['nombreAutor']."</option>";
+      endforeach;  
+}
 
-                      echo "<option>".$fila['nombreCategoria']."</option>";
 
-                          endforeach;                        
-                      }
+
+function getEditoriales() {
+      include('db.php');
+
+      $stmt = $dbh->prepare('SELECT DISTINCT nombreEditorial FROM editoriales  ORDER BY  nombreEditorial ASC');
+      $stmt ->execute();
+      $arr = $stmt->fetchAll();
+      //$editoriales = $arr['nombreEditorial'];
+      
+            foreach($arr as $fila):
+
+      echo "<option>".$fila['nombreEditorial']."</option>";
+      endforeach;  
+    
+  }
+
+
+function getCategorias() {
+      include('db.php');
+
+      $stmt = $dbh->prepare('SELECT DISTINCT nombreCategoria FROM categorias  ORDER BY  nombreCategoria ASC');
+      $stmt ->execute();
+      $arr = $stmt->fetchAll();
+                              //$categorias = $arr['nombreCategoria'];
+      
+  foreach($arr as $fila):
+
+  echo "<option>".$fila['nombreCategoria']."</option>";
+
+    endforeach;                        
+}
 
     function cargarEjemplar($stock, $fechaAlta){
                             include('db.php');
@@ -733,10 +742,14 @@ function getUltimoEjemplar($idLibro) {
 
   $buscarStock = $dbh->prepare("select substr(idEjemplar,instr(idEjemplar,'E') + 1) AS cantidad from ejemplares where idLibro= $idLibro order by idEjemplar DESC LIMIT 1");
   $buscarStock->execute();
+  if($buscarStock->rowCount() !== 0){
   $arr = $buscarStock->fetch(PDO::FETCH_ASSOC);
   $cantidadEjemplar = $arr['cantidad'];
   
    return $cantidadEjemplar;
+  }else{
+    echo "";
+  }
 }
 
 
