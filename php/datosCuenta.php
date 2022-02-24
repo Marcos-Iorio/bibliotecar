@@ -185,26 +185,7 @@ function getDescargas($idUsuario){
 
 function datosUsuario($idUsuario){
   include 'db.php';
-
-  /*if (!isset ($_GET['page']) ) {  
-            $page = 1;  
-        } else {  
-            $page = $_GET['page'];  
-        }  
-          $results_per_page = 5;  
-
-        //determine the sql LIMIT starting number for the results on the displaying page  
-        $page_first_result = ($page-1) * $results_per_page;  
-        //retrieve the selected results from database   
-        //$res = mysqli_query($this->con, $query);  
-        //$start = 1 * ($page - 1);
-        //$rows = 10;
-        //$query ="select * from producto LIMIT $start, $rows";
-
-
-  $stmt = $dbh->prepare("SELECT * FROM usuarios LIMIT " . $page_first_result . ',' . $results_per_page);*/
   
-
   $stmt = $dbh->prepare("SELECT * FROM usuarios where idUsuario = '$idUsuario'");
 
 
@@ -218,10 +199,10 @@ if ($stmt->execute()) {
       <form method='POST' name='contact_form' id='contact-form'>
                   <div  class='input-group'>
                         <label for='first_name'>Nombre</label>
-                        <input required name='nombreUsuario' id='nombreUsuario' type='text'  placeholder='Nombre..' value='".$fila['nombre']."' required/>
+                        <input required name='nombreUsuario' id='nombreUsuario' onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))' type='text'  placeholder='Nombre..' value='".$fila['nombre']."' required/>
                         
                         <label for='last_name'>Apellido:</label>
-                        <input required name='apellidoUsuario' id='apellidoUsuario' type='text'  placeholder='Apellido..' value='".$fila['apellido']."' required/>
+                        <input required name='apellidoUsuario' id='apellidoUsuario' type='text' onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))'  placeholder='Apellido..' value='".$fila['apellido']."' required/>
                         
                         <label for='email'>Email:</label>
                         <input required name='email' type='text' id='mail' style='background-color:#b3b2b2;' disabled placeholder='you@dominio.com..' value='".$fila['mail']."' required/>
@@ -235,7 +216,7 @@ if ($stmt->execute()) {
                         <input required type='text' name='telefonoUsuario' id='telefonoUsuario' value='".$fila['telefono']."'>
                         
                         <label for='message'>Direccion:</label>
-                        <input required type='text' name='direccionUsuario'  id='direccionUsuario'value='".$fila['direccion']."'>
+                        <input required type='text' name='direccionUsuario' onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))'  id='direccionUsuario'value='".$fila['direccion']."'>
                         
                         </div>
                         <br>
