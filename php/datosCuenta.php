@@ -38,7 +38,7 @@ function getReservas($idUsuario){
   $stmt = $dbh->prepare("SELECT * FROM usuarios LIMIT " . $page_first_result . ',' . $results_per_page);*/
   
 
-  $stmt = $dbh->prepare("SELECT * FROM reservas where idUsuario = '$idUsuario' and idReservaEstado = '1' or idReservaEstado = '2' ");
+  $stmt = $dbh->prepare("SELECT *, DATE_FORMAT(fechaDesde,'%d-%m-%Y') as fechaDesde,DATE_FORMAT(fechaHasta,'%d-%m-%Y') as fechaHasta FROM reservas where idUsuario = '$idUsuario' and idReservaEstado = '1' or idReservaEstado = '2' ");
 
 
 if ($stmt->execute()) {

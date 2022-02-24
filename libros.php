@@ -25,7 +25,7 @@
 
 ?>
 
-<html lang="es">
+<html lang="es" style="height: 100% !important;">
 
 <head>
     <meta charset="UTF-8">

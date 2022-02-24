@@ -21,7 +21,7 @@
   include 'db.php';
 
 
-  $query = "SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+  $query = "SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial, DATE_FORMAT(l.fechaAlta,'%d-%m-%Y') AS fechaAlta, i.ruta
             FROM libros AS l
             INNER JOIN libro_autores la ON l.idLibro = la.idLibro
             INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
@@ -48,7 +48,7 @@ if ($stmt->execute()) {
                             <td>". $fila['nombreCategoria']."</td>
                             <td>". $fila['stock']. "</td>
                             <td>" . $fila['fechaAlta']. "</td>
-                            <td><a href='#modal-libros' id='abrir-modal-libros'><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."','".$fila["descripcion"]."','".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
+                            <td><a href='#modal-libros' id='abrir-modal-libros'><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."',`".$fila["descripcion"]."`,'".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
                             <td><a href='#modal-ejemplares' id='abrir-ejemplares'><button onclick=\"javascript:cargarEjemplares('".$fila["idLibro"]."')\">Ver ejemplares</button></a></td>
                           </tr>
 
