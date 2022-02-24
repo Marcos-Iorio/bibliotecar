@@ -614,9 +614,6 @@ function cargarCTapaImagenLibro($idLibro,$destinoCtapa, $idCat, $destinoTapa){
               return $idCategoriaNueva;
   }
 
-
-
-
   function buscarIdEditorial(){
       include('db.php');
 
