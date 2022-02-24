@@ -169,7 +169,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                     <label for="">Titulo:</label>
                     <input style="background-color: white; color: black;" class="input-libro" type="text" name="titulo"
                       id="titulo" patern="[a-zA-Z0-9]+"
-                      onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
+                      onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250) || (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
                       required placeholder="Titulo">
                     <label for="">Autor:</label>
 
@@ -349,14 +349,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                   <div id="autor-viejo">
                     <label for="">Autor:</label>
                     <input class="input-libro" type="text" name="editarAutor" id="autor" patern=[0-9a-zA-Z]
-                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
+                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250) || (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
                       placeholder="Autor">
                     <input hidden type="text" name="idAutor" id="autor" placeholder="Autor">
                   </div>
                   <div id="autor-nuevo">
                     <label for="">Autor Nuevo:</label>
                     <input class="input-libro autor" type="text" name="nuevoAutor" patern=[0-9a-zA-Z]
-                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
+                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)|| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
                       placeholder="Autor">
                   </div>
                 </div>
@@ -463,7 +463,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                   <div id="categoria-vieja">
                     <label for="">Categoria:</label>
                     <input class="input-libro" type="text" name="editarCategoria" id="categoria" patern=[0-9a-zA-Z]
-                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
+                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)|| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
                       placeholder="Categoria">
                     <input hidden type="text" name="idCategoria" id="autor" placeholder="Categoria">
                   </div>
@@ -471,7 +471,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                   <div id="categoria-nueva">
                     <label for="">Categoria Nueva:</label>
                     <input class="input-libro categoria" type="text" patern=[0-9a-zA-Z]
-                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
+                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)|| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
                       name="nuevaCategoria" placeholder="Categoria">
                   </div>
 
@@ -584,7 +584,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                     <label for="">Editorial:</label>
                     <input class="input-libro" style="color: black;" type="text" name="editarEditorial"
                       patern=[0-9a-zA-Z]
-                      onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
+                      onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)|| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
                       id="editorial" placeholder="Editorial">
                     <input hidden type="text" name="idEditorial" id="autor" placeholder="Editorial">
                   </div>
@@ -592,7 +592,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                   <div id="editorial-nueva">
                     <label for="">Editorial Nueva:</label>
                     <input class="input-libro editorial" type="text" name="nuevaEditorial" patern=[0-9a-zA-Z]
-                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
+                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250)|| (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))"
                       placeholder="Editorial">
                   </div>
 
