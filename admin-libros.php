@@ -873,7 +873,8 @@ span.onclick = function() {
     document.formLibros.titulo.value = titulo;
     document.formLibros.stock.value = stock;
     //document.formUsuarios.txtRol.value=rol;
-    document.formLibros.desc.value = descripcion;
+    document.formLibros.desc.value = join(descripcion);
+    console.log(descripcion)
     document.formLibros.idLibro.value = idLibro;
     //document.formUsuarios.fechaAlta.value = fechaAlta;
     //document.formUsuarios.txtAlta.value=alta;
