@@ -232,7 +232,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                         <input style="background-color: white; color: black;"class="input-libro"  type="date" name="fechaAlta" id="fechaAlta"><br><br>-->
 
                   <label for="">Tapa:</label>
-                  <input class="input-libro" type='file' name='tapa' id="tapa" required>
+                  <input class="input-libro" type='file' name='tapa' id="tapa">
 
                   <label for="">ContraTapa (Opcional):</label>
                   <input class="input-libro" type='file' name='contratapa' id="contratapa">

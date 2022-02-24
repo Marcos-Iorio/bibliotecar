@@ -108,10 +108,25 @@ function editarLibro($idLibro, $titulo, $autor, $descripcion,$categoria,$editori
             $flagStock="error";
 
 
-        if(!$_FILES['pdf']['name'] == ""){
-                  $pdf = $_FILES['pdf']['tmp_name'];
+$tapa=$_FILES['tapa']['name'];
+    $contratapa=$_FILES['contratapa']['name'];
+    $pdf=$_FILES['pdf']['name'];
+        
+    if (!$tapa == "") {
+        updateTapa($idLibro, $tapa);        
+      }
+
+      if (!$contratapa == "") {
+        updateContratapa($idLibro, $contratapa);        
+      }
+
+      if (!$pdf == ""){
+        updatePDF($idLibro, $pdf);  
+      }
+      if(!$_FILES['pdf']['name'] == ""){
+        $pdf = $_FILES['pdf']['tmp_name'];
         $destinoPdf ="assets/libros/pdf/".$_FILES['pdf']['name'];
-        //move_uploaded_file($pdf,$destinoPdf);
+//move_uploaded_file($pdf,$destinoPdf);
 
         } else {
         $destinoPdf ="";
@@ -136,12 +151,12 @@ function editarLibro($idLibro, $titulo, $autor, $descripcion,$categoria,$editori
                     }
 
 
-                    $updateLibro = $dbh->prepare("UPDATE libros set titulo = ?, descripcion= ?, pdf= ? where idLibro = ?");
+                    $updateLibro = $dbh->prepare("UPDATE libros set titulo = ?, descripcion= ? where idLibro = ?");
 
                     $updateLibro->bindParam(1, $titulo);
                     $updateLibro->bindParam(2, $descripcion);
-                    $updateLibro->bindParam(3, $destinoPdf);
-                    $updateLibro->bindParam(4, $idLibro);
+                    //$updateLibro->bindParam(3, $destinoPdf);
+                    $updateLibro->bindParam(3, $idLibro);
 
 //$varLibro = "UPDATE libros set titulo = $titulo, descripcion= $descripcion, stock= $stock, pdf=$destinoPdf where idLibro = $idLibro";
                           if ($updateLibro->execute()) {
@@ -235,15 +250,79 @@ function editarLibro($idLibro, $titulo, $autor, $descripcion,$categoria,$editori
                     }
  }
 
+function updateTapa($idLibro, $tapa){
+  include('db.php');
+  $tmpTapa = $_FILES['tapa']['tmp_name'];
+  $destinoTapa ="assets/libros/".$_FILES['tapa']['name'];
+  move_uploaded_file($tmpTapa,$destinoTapa);
+
+     
+  $editarImagen = $dbh->prepare("UPDATE imagen_libros set ruta = '$destinoTapa', idCategoriaImg='1' where idLibro = '$idLibro'");
+
+  $editarImagen->execute();
+  //    if ($editarImagen->execute()) {
+  //          echo "<script>swal({title:'Exito',text:'Autor editado correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
+
+  //  } else {
+  //      echo "<script>swal({title:'Error',text:'Error al editar el autor. $destinoTapa',type:'error'});</script>";
+
+  //  }
+ }        
+
+ function updateContratapa($idLibro, $contratapa){
+  include('db.php');
+
+   $tmpContratapa = $_FILES['contratapa']['tmp_name'];
+   $destinoCtapa ="assets/libros/".$_FILES['contratapa']['name'];
+    move_uploaded_file($tmpContratapa,$destinoCtapa);
+     
+  $editarImagen = $dbh->prepare("UPDATE imagen_libros set idCategoriaImg='1', ruta_contratapa='$destinoCtapa' where idLibro = '$idLibro'");
+
+  $editarImagen->execute();
+  
+  //    if ($editarImagen->execute()) {
+  //          echo "<script>swal({title:'Exito',text:'Autor editado correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
+
+  //  } else {
+  //      echo "<script>swal({title:'Error',text:'Error al editar el autor., $destinoCtapa',type:'error'});</script>";
+
+  //  }
+ }   
+
+ function updatePDF($idLibro, $pdf){
+  
+  include('db.php');
+
+    $pdf = $_FILES['pdf']['tmp_name'];
+    $destinoPdf ="assets/libros/pdf/".$_FILES['pdf']['name'];
+    move_uploaded_file($pdf,$destinoPdf);
+  
+    $editarPDF = $dbh->prepare("UPDATE libros set pdf = '$destinoPdf' where idLibro = '$idLibro'");
+
+    $editarPDF->execute();
+//     if ($editarPDF->execute()) {
+//       echo "<script>swal({title:'Exito',text:'Autor editado correctamente.',type:'success', showConfirmButton: false'});</script>";
+
+// } else {
+//   echo "<script>swal({title:'Error',text:'Error al editar el autor. $pdf, $idLibro',type:'error'});</script>";
+
+// }
+ }
+
 
 function llenarImagen($Tapa,$contratapa){
     include('db.php');
        
   
 
-           $tmpTapa = $_FILES['tapa']['tmp_name'];
-           $destinoTapa ="assets/libros/".$_FILES['tapa']['name'];
-           move_uploaded_file($tmpTapa,$destinoTapa);
+            $tmpTapa = $_FILES['tapa']['tmp_name'];
+
+           if (!$tmpTapa == "") {
+            $destinoTapa = "assets/libros/".$_FILES['tapa']['name'];
+            move_uploaded_file($tmpTapa,$destinoTapa);
+           } else {
+            $destinoTapa = "assets/libros/default_book.png";
+           }
 
             $tmpContratapa = $_FILES['contratapa']['tmp_name'];
             $destinoCtapa ="assets/libros/".$_FILES['contratapa']['name'];
