@@ -214,7 +214,7 @@ function editarLibro($idLibro, $titulo, $autor, $descripcion,$categoria,$editori
 
 
                   //Editar tapa y/o contratapa
-                  //Insertar contratapa si no hay registro existente
+                  //Update contratapa si no hay registro existente
                   //Editar ejemplares, eliminar/agregar registros segun stock libro 
                   // ver js cuando hay un quote '' en el medio 
 
@@ -968,7 +968,7 @@ function reservarEjemplar($idLibro, $estado){
     $buscarIdEjemplar->execute();
     // $arr = $buscarIdEjemplar->fetch(PDO::FETCH_ASSOC);
     // $idEjemplar = $arr['idEjemplar'];
-    echo "<script>swal({title:'Cheto',text:'Error al reservar un ejemplar.',type:'error'});</script>";
+    // echo "<script>swal({title:'Cheto',text:'Error al reservar un ejemplar.',type:'error'});</script>";
 
   } else {
     echo "<script>swal({title:'Error',text:'Error al reservar un ejemplar.',type:'error'});</script>";

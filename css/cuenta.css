@@ -36,20 +36,22 @@ input[type="submit"]{
 #dar-de-baja{
     border: none;
     display: block;
-    color: red;
-    margin: 15px auto;
+    color: white;
+    /* margin: 15px auto; */
+    margin-left: 200px;
     height: 50px;
     width: 200px;
     border-radius: 48px;   
     cursor: pointer;
-    border: 2px solid red;
-    background: transparent !important;
+    border: 2px solid #333;
+    /* background: transparent !important; */
+    background: #333;
     font-weight: bold;
     transition: ease all 0.2s;
 }
 
 #dar-de-baja:hover{
-    background: rgba(255, 255, 255, 0.473) !important;
+    background: rgb(248, 52, 52) !important;
     transition: ease all 0.2s;
 }
 table{
@@ -73,10 +75,10 @@ tbody tr{
     border-bottom: 2px dashed white;
 }
 
-tbody tr:hover{
+/* tbody tr:hover{
     color: white;
     transition: ease 0.3s;
-}
+} */
 
 thead{
     background: rgba(51, 51, 51, 0.61);
@@ -268,6 +270,14 @@ input[type=submit]:hover {
   
   }
 
+  .confirmarPass:hover{
+    transition: all ease 0.5s;
+    background: rgb(87, 86, 86);
+    color: white;
+  }
+
+  
+
   button#cancelar{
     border: 2px solid #333;
     display: block;
@@ -333,12 +343,12 @@ and (max-device-width: 1000px) {
 .modificar{
     border: 2px solid #333;
     display: block;
-    color: #333;
+    color: white;
+    background-color: #333;
     margin: 15px auto;
     height: 50px;
     width: 200px;
     border-radius: 48px;
-    background-color: transparent;
     cursor: pointer;
     transition: all ease 0.5s;
   }
@@ -346,11 +356,12 @@ and (max-device-width: 1000px) {
   .modificar-pass{
     border: 2px solid #333;
     display: block;
-    color: #333;
+    color: white;
+    background-color: #333;
     height: 50px;
     width: 200px;
     border-radius: 48px;
-    background-color: transparent;
+    /* background-color: transparent; */
     cursor: pointer;
     transition: all ease 0.5s;
     margin: 15px 22%
@@ -358,7 +369,8 @@ and (max-device-width: 1000px) {
 
   .modificar:hover, .modificar-pass:hover{
     transition: all ease 0.5s;
-    background: white;
+    background: rgb(87, 86, 86);
+    color: white;
   }
 
 #modal-datos, #modal-contrasenia {
@@ -419,7 +431,12 @@ and (max-device-width: 1000px) {
       line-height: 3;
       width: 700px;
   }
+  input#confirmarDatos:hover{
+    transition: all ease 0.5s;
+    background: rgb(87, 86, 86);
+    color: white;
 
+}
   input#confirmar{
     border: none;
     display: block;
@@ -454,9 +471,9 @@ and (max-device-width: 1000px) {
 }
 
 button#cancelar-datos:hover, button#cancelar-contrasenia:hover{
-  background: #333;
-  color: white;
   transition: all ease 0.5s;
+  background: rgb(87, 86, 86);
+  color: white;
 }
   
   .modal-header {
@@ -477,6 +494,52 @@ button#cancelar-datos:hover, button#cancelar-contrasenia:hover{
     align-items: center;
 }
 
+.pass__require{
+	background-color: white;
+	border-radius: 8px;
+	padding: 20px;
+	position: absolute;
+	bottom: 25%;
+  display: none;
+	right: 40%;
+	color: #222;
+	width: 200px;
+	font-size: 15px;
+	font-weight: 400;
+	box-shadow: 2px 2px 2px 1px rgb(27, 27, 27);
+	animation-name: appear;
+	animation-duration: 3s;
+}
+
+h3{
+	font-size: 18px;
+}
+
+#passwordRe{
+	outline: none
+}
+
+.valid {
+	color: green;
+  }
+  
+  .valid:before {
+	position: relative;
+	left: -15px;
+	content: "\2705";
+  }
+  
+  /* Add a red text color and an "x" icon when the requirements are wrong */
+  .invalid {
+	color: red;
+  }
+  
+  .invalid:before {
+	position: relative;
+	left: -15px;
+	content: "\274C";
+  }
+
 @-webkit-keyframes slideIn {
     from {bottom: -300px; opacity: 0} 
     to {bottom: 300; opacity: 1}
@@ -496,3 +559,28 @@ button#cancelar-datos:hover, button#cancelar-contrasenia:hover{
     from {opacity: 0} 
     to {opacity: 1}
   }
+  .dataTables_wrapper .dataTables_paginate .paginate_button{
+    border: 1px solid black !important;
+    background: #333!important;
+    border-radius: 44px !important;
+}
+
+.page-item .page-link{
+    background: transparent !important;
+    border: none;
+    color: white !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+  transition: all ease 0.5s;
+  background: rgb(87, 86, 86)!important;
+  color: white;
+}
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .paginate_button.disabled:active{
+  border: 1px solid rgb(124, 124, 124) !important;
+  background: rgb(107, 107, 107) !important;
+
+}
+

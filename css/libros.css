@@ -990,20 +990,32 @@ body {
 
   /* Data tables */
 
-  .dataTables_wrapper .dataTables_paginate .paginate_button{
-      border: 1px solid black !important;
-      background: transparent !important;
-      border-radius: 44px !important;
-  }
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    border: 1px solid black !important;
+    background: #333!important;
+    border-radius: 44px !important;
+}
 
-  .page-item .page-link{
-      background: white !important;
-      border: none;
-      color: #333 !important;
-  }
+.page-item .page-link{
+    background: transparent !important;
+    border: none;
+    color: white !important;
+}
 
-  .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .paginate_button.disabled:active{
-      border: 1px solid rgb(124, 124, 124) !important;
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+  transition: all ease 0.5s;
+  background: rgb(87, 86, 86)!important;
+  color: white;
+}
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginatep .paginate_button.disabled:active{
+  border: 1px solid rgb(124, 124, 124) !important;
+  background: rgb(107, 107, 107) !important;
+
+}
+  input#autor, input.input-libro.autor, input#categoria, input.input-libro.categoria, input#editorial, input.input-libro.editorial{
+      width: 100% !important;
   }
 
   input#autor, input.input-libro.autor, input#categoria, input.input-libro.categoria, input#editorial, input.input-libro.editorial{

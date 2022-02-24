@@ -167,7 +167,7 @@ gestionLibros();
                   <div class="secciones-form" style="display:flex;">
                     <label for="">Titulo:</label>
                     <input style="background-color: white; color: black;" class="input-libro" type="text" name="titulo"
-                      id="titulo" required placeholder="Titulo">
+                      id="titulo" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" required placeholder="Titulo">
                     <label for="">Autor:</label>
 
                   <select required id="select-autor" style="background-color: white; color: black; width: 20%;" class="form-control"
@@ -347,12 +347,12 @@ gestionLibros();
                     <div class="wrapper-libros">
                       <div id="autor-viejo">
                         <label for="">Autor:</label>
-                        <input class="input-libro" type="text" name="editarAutor" id="autor" placeholder="Autor">
+                        <input class="input-libro" type="text" name="editarAutor" id="autor" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" placeholder="Autor">
                         <input hidden type="text" name="idAutor" id="autor" placeholder="Autor">
                       </div>
                       <div id="autor-nuevo">
                         <label for="" >Autor Nuevo:</label>
-                        <input class="input-libro autor" type="text" name="nuevoAutor"  placeholder="Autor">
+                        <input class="input-libro autor" type="text" name="nuevoAutor" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))"  placeholder="Autor">
                       </div>
                     </div>
 
@@ -455,13 +455,13 @@ gestionLibros();
                   <div class="wrapper-libros">
                     <div id="categoria-vieja">
                       <label for="">Categoria:</label>
-                      <input class="input-libro" type="text" name="editarCategoria" id="categoria" placeholder="Categoria">
+                      <input class="input-libro" type="text" name="editarCategoria" id="categoria" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" placeholder="Categoria">
                       <input hidden type="text" name="idCategoria" id="autor" placeholder="Categoria">
                     </div>
 
                     <div id="categoria-nueva">
                       <label for="">Categoria Nueva:</label>
-                      <input class="input-libro categoria" type="text" name="nuevaCategoria" placeholder="Categoria">
+                      <input class="input-libro categoria" type="text" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" name="nuevaCategoria" placeholder="Categoria">
                     </div>
 
 
@@ -569,13 +569,13 @@ gestionLibros();
 
                       <div id="editorial-vieja">
                         <label for="">Editorial:</label>
-                        <input class="input-libro" style="color: black;" type="text" name="editarEditorial" id="editorial" placeholder="Editorial">
+                        <input class="input-libro" style="color: black;" type="text" name="editarEditorial" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" id="editorial" placeholder="Editorial">
                         <input hidden type="text" name="idEditorial" id="autor" placeholder="Editorial">
                       </div>
 
                       <div id="editorial-nueva">
                         <label for="">Editorial Nueva:</label>
-                        <input class="input-libro editorial"  type="text" name="nuevaEditorial" placeholder="Editorial">
+                        <input class="input-libro editorial"  type="text" name="nuevaEditorial" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" placeholder="Editorial">
                       </div>
 
 

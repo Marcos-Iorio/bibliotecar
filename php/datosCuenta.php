@@ -1,6 +1,20 @@
 <?php
 
 
+function getCantidadReservas($idUsuario){
+  include 'db.php';
+
+  $stmt = $dbh->prepare("SELECT count(*) as cantidad FROM reservas where idUsuario = '$idUsuario' and idReservaEstado = '1' or idReservaEstado = '2' ");
+
+
+if ($stmt->execute()) {
+  $arr = $stmt->fetch(PDO::FETCH_ASSOC);
+
+   $cantidad= $arr['cantidad'];
+
+   return $cantidad;
+}
+}
 
 function getReservas($idUsuario){
   include 'db.php';
@@ -29,15 +43,16 @@ function getReservas($idUsuario){
 
 if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
+  $cantidad='0';
 
   foreach($resultado as $fila):
   $nombreEstado = getReservaEstado($fila['idReservaEstado']);
   $nombreLibro = getTitulo($fila['idEjemplar']);
+  $cantidad=$cantidad+'1';
 
-
-
+    // if($cantidad<='3') {
+   
   	echo "
-    <tbody>
                 <tr>
                   <td>" .  $fila['idReserva']. "</td>
                   <td>" .  $nombreLibro . "</td>
@@ -46,12 +61,21 @@ if ($stmt->execute()) {
                   <td>" .  $fila['fechaHasta']. "</td>
                   
                 </tr>
-              </tbody>
+              
 
   	";
+  // } 
   	endforeach;
 }
-  
+$_SESSION['cantidadReservas'] = $cantidad;
+
+//  if ($cantidad>'0') {
+//    echo "</table>
+//    <h4>Tenes $cantidad reservas activas.";
+//  } else {
+//    echo "</table>
+//    <h1>No tenes reservas activas</h1>";
+//  } 
 
 
 }
@@ -91,14 +115,12 @@ if ($stmt->execute()) {
 
 
     echo "
-    <tbody>
                 <tr>
                   <td>" .  $fila['idReserva']. "</td>
                   <td>" .  $nombreLibro . "</td>
                   <td>" .  $fila['fechaHasta']. "</td>
                   
                 </tr>
-              </tbody>
 
     ";
     endforeach;
@@ -134,38 +156,27 @@ function getDescargas($idUsuario){
   $stmt = $dbh->prepare("SELECT * FROM reservas where idUsuario = '$idUsuario' and idReservaEstado = '0'");
 
 
-if ($stmt->execute()) {
-  $resultado=$stmt->fetchAll();
-    echo "
-    <tbody>
-                <tr>
-                  <td>No hay descargas realizadas</td>
-                  <td></td>
-                  
-                </tr>
-              </tbody>
-
-    ";
-  foreach($resultado as $fila):
-
-  $nombreLibro = getTitulo($fila['idEjemplar']);
-
-    /*echo "
-    <tbody>
-                <tr>
-                  <td>" .  $nombreLibro . "</td>
-                  <td>" .  $fila['fechaHasta']. "</td>
-                  
-                </tr>
-              </tbody>
-
-    ";*/
-
-
-
-
-    endforeach;
-}
+  if ($stmt->execute()) {
+    $resultado=$stmt->fetchAll();
+  
+  
+    foreach($resultado as $fila):
+    $nombreLibro = getTitulo($fila['idEjemplar']);
+  
+  
+      echo "
+                  <tr>
+                    <td>" .  $fila['idReserva']. "</td>
+                    <td>" .  $nombreLibro . "</td>
+                    <td>" .  $fila['fechaHasta']. "</td>
+                    
+                  </tr>
+  
+      ";
+      endforeach;
+  
+  
+  }
 
 
 
@@ -199,38 +210,38 @@ function datosUsuario($idUsuario){
 
 if ($stmt->execute()) {
   $resultado=$stmt->fetchAll();
-
   foreach($resultado as $fila):
+
 
 
     echo "
       <form method='POST' name='contact_form' id='contact-form'>
                   <div  class='input-group'>
                         <label for='first_name'>Nombre</label>
-                        <input name='name' type='text'  placeholder='Nombre..' value='".$fila['nombre']."' required/>
+                        <input required name='nombreUsuario' id='nombreUsuario' type='text'  placeholder='Nombre..' value='".$fila['nombre']."' required/>
                         
                         <label for='last_name'>Apellido:</label>
-                        <input name='last_name' type='text'  placeholder='Apellido..' value='".$fila['apellido']."' required/>
+                        <input required name='apellidoUsuario' id='apellidoUsuario' type='text'  placeholder='Apellido..' value='".$fila['apellido']."' required/>
                         
                         <label for='email'>Email:</label>
-                        <input name='email' type='text' id='mail'  readonly placeholder='you@dominio.com..' value='".$fila['mail']."' required/>
+                        <input required name='email' type='text' id='mail' style='background-color:#b3b2b2;' disabled placeholder='you@dominio.com..' value='".$fila['mail']."' required/>
                     </div>  
                       <br>
                     <div  class='input-group'>  
                         <label for='message'>DNI:</label>
-                        <input type='text' name='numeroDocumento' value='".$fila['numeroDocumento']."' required>
+                        <input required type='text' name='dniUsuario' id='dniUsuario' maxlength='15' value='".$fila['numeroDocumento']."' required>
                         
                         <label for='message'>Telefono:</label>
-                        <input type='text' name='telefono' value='".$fila['telefono']."'>
+                        <input required type='text' name='telefonoUsuario' id='telefonoUsuario' value='".$fila['telefono']."'>
                         
                         <label for='message'>Direccion:</label>
-                        <input type='text' name='direccion' value='".$fila['direccion']."'>
+                        <input required type='text' name='direccionUsuario'  id='direccionUsuario'value='".$fila['direccion']."'>
                         
                         </div>
                         <br>
                         <div  class='input-group'>
 
-                        <div class='boton-modificar'>
+                        <div style='margin-top: 5px;'' class='boton-modificar'>
                             <button class='modificar' id='modificar'>Modificar</button>
                         </div>
                   </div>
@@ -238,6 +249,8 @@ if ($stmt->execute()) {
 
     ";
     endforeach;
+
+
 }
 
 
@@ -272,13 +285,40 @@ function modificarDatos($idUsuario, $nombre, $apellido, $documento, $telefono, $
 
 
 if ($stmt->execute()) {
-  echo "<script>swal({title:'Exito',text:'Tus datos fueron modificados correctamente.',type:'success'});</script> ";
+  echo "<script>swal({title:'Exito',text:'Tus datos fueron modificados correctamente.',type:'success', showConfirmButton: false, html: '<h6>Tus datos fueron modificados correctamente.</h6><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"cuenta.php\">OK</a></button>'});</script>";
 
 } else {
   echo "<script>swal({title:'Error',text:'Hubo un problema al modificar los datos. Por favor intenta nuevamente.',type:'error'});</script> ";
 
 }
 
+}
+
+function modificarPwd($idUsuario, $pwd, $pwdNueva){
+  include 'db.php';
+
+  $stmt = $dbh->prepare("SELECT contrasena from usuarios where idUsuario = '$idUsuario'");
+
+
+if ($stmt->execute()) {
+
+  $arr = $stmt->fetch(PDO::FETCH_ASSOC);
+  if(!empty($arr) && password_verify($pwd, $arr['contrasena'])){
+    
+    $passHash = password_hash($pwdNueva, PASSWORD_DEFAULT);
+    $stmt = $dbh->prepare("UPDATE usuarios SET contrasena = '$passHash' where idUsuario = '$idUsuario'");
+    
+    if ($stmt->execute()) {
+      echo "<script>swal({title:'Exito',text:'Tus datos fueron modificados correctamente.',type:'success', showConfirmButton: false, html: '<h6>Tus datos fueron modificados correctamente.</h6><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"cuenta.php\">OK</a></button>'});</script>";
+    } else {
+      echo "<script>swal({title:'Error',text:'No se pudo cambiar la contraseña. Por favor, intentelo nuevamente.',type:'error'});</script> ";
+    }
+  } else {
+    echo "<script>swal({title:'Error',text:'La contraseña actual ingresada es incorrecta.',type:'error'});</script> ";
+  }
+} else {
+echo "<script>swal({title:'Error',text:'No se pudo cambiar la contraseña. Por favor, intentelo nuevamente.',type:'error'});</script> ";
+}
 
 
   }
@@ -307,4 +347,6 @@ if ($stmt->execute()) {
       echo "<script>swal({title:'Error',text:'No hemos podido dar de baja su cuenta. Por favor contacta al administrador para mas información.',type:'error'});</script> ";
     }
   }
+
+  
 ?>

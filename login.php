@@ -15,13 +15,14 @@ exit;
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet"  href="css/login.css">
     <script src="js/sweetalert2.js"></script>
     <link rel="stylesheet" href="css/sweetalert2.css">
     
 </head>
 <body>
-    <div class="pass__require hidden" id ="passRequire">
+    <div class="pass__require" id ="passRequire" style="z-index: 50;">
         <h3>La contraseña debe contener:</h3>
         <p id="letter" class="require invalid">Una <b>letra</b> Minúscula</p>
         <p id="capital" class="require invalid">Una <b>letra</b> Mayúscula</p>
@@ -35,10 +36,10 @@ exit;
              ?>
             <form method="POST">
                 <h1>Crear cuenta</h1>
-                <input type="text" placeholder="Nombre" name="username" id="username"  required/>
-                <input type="email" placeholder="Email" name="mail" id="mail" onblur="validarMail()" required />
+                <input type="text" placeholder="Nombre" patern=[0-9a-zA-Z] onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))" name="username" id="username"  required/>
+                <input type="email" placeholder="Email" style="text-transform:lowercase" name="mail" id="mail" onkeypress="return (event.charCode != 34 && event.charCode !== 32 && event.charCode !== 39 && event.charCode !== 61)" lowercase onblur="validarMail()" required />
                 <div class="campo-pass">
-                  <input type="password" placeholder="Contraseña" name="passwordRe" id="passwordRe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                  <input type="password" placeholder="Contraseña" name="passwordRe" onkeypress="return (event.charCode != 34 && event.charCode !== 32 && event.charCode !== 39 && event.charCode !== 61)" id="passwordRe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                     <div id="mostrar-pass" onclick="mostrarContrasenia()">
                         <i class="fas fa-eye-slash"></i>
                         <i class="fas fa-eye mostrar"></i>
@@ -60,21 +61,31 @@ exit;
         </div>
         
         <div class="form-container sign-in-container">
-            <form action="php/login-back.php" method="POST">
+            <form action="" method="POST">
                 <h1>Iniciar sesión</h1>
-                <input type="email" placeholder="Email" name="mailL" id="mailL" required />
+                <input type="email" style="text-transform:lowercase" placeholder="Email" name="mailL" onkeypress="return (event.charCode != 34 && event.charCode !== 32 && event.charCode !== 39)" id="mailL" required />
                 <div class="campo-pass">
-                  <input type="password" placeholder="Contraseña" name="passL" id="passL" required />
+                  <input type="password" placeholder="Contraseña" name="passL" id="passL" onkeypress="return (event.charCode != 34 && event.charCode !== 32 && event.charCode !== 39)" required />
                   <div id="mostrar-pass-login" onclick="mostrarContraseniaLogin()">
                       <i class="fas fa-eye-slash login"></i>
                       <i class="fas fa-eye mostrar login"></i>
                   </div>
                 </div> 
                 <a href="#myModal" id="olvide_pass">¿Olvidaste tu contraseña?</a>
-                <button>Iniciar sesión</button>
+                <button name="iniciarSesion">Iniciar sesión</button>
                 <span id="resultadoL"></span>
                 <!--<h6>Volver a pagina principal</h6>-->
             </form>
+            <?php 
+            include "php/login-back.php";
+    if(isset($_POST['iniciarSesion'])){
+        
+      accederSistema($_POST['mailL'], $_POST['passL']);
+    //<?php if(isset($_POST[\'confirmarMail\'])){ registrarUsuario();} 
+    }
+
+                 ?>
+            
         </div>
         <div class="overlay-container">
             <div class="overlay">
@@ -127,11 +138,6 @@ exit;
             </div>
         </div>
 </body>
-<footer>
-
-
-	
-</footer>
 <script>
     var myInput = document.getElementById("passwordRe");
     var letter = document.getElementById("letter");
@@ -203,3 +209,4 @@ const modal  = document.querySelector('#myModal');
   }
 </script>
 <script type="text/javascript" src="js/login.js"></script>
+

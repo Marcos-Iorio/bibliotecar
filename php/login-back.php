@@ -1,23 +1,22 @@
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
+
 <?php
-session_start(); //starting the session for user profile page
+ //starting the session for user profile page
 ?>
 
 <?php
+function accederSistema($mail, $pwd){
     include('db.php');
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    session_start();
 
-    if(isset($_POST['mailL']) && isset($_POST['passL'])){
-        $GLOBALS['mail'] = strtolower($_POST['mailL']);
+// if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+    if(isset($mail) && isset($pwd)){
+        $GLOBALS['mail'] = strtolower($mail);
         //$_SESSION['loggedin'] = true;
-        $pass = $_POST['passL'];
+        $pass = $pwd;
         
-    }
+    // }
 
     $stmt = $dbh->prepare('SELECT idUsuario, idEstado, idRol, contrasena, nombre, check_mail from usuarios where mail = "' . $mail .'" LIMIT 1');
     // Ejecutamos
@@ -62,9 +61,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         }) 
                     });
                     
-                    setTimeout(function(){
-                        window.location.href = "../login.php";
-                     }, 3000);
                     </script>
                     ';
                 }elseif($arr['idEstado'] == 2){
@@ -74,7 +70,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     $(document).ready(function(){
                         Swal.fire({
                         icon: "error",
-                        title: "Tu cuenta fue dada de baja!, crea una nueva cuenta para disfrutar de todo el contenido del sitio",
+                        title: "Tu cuenta fue dada de baja.",
+                        text: "Por cualquier consulta, contactá al soporte.",
                         didOpen: () => {
                             timerInterval = setInterval(() => {
                             const content = Swal.getHtmlContainer()
@@ -97,24 +94,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         }) 
                     });
                     
-                    setTimeout(function(){
-                        window.location.href = "../login.php";
-                     }, 3000);
+
                     </script>
                     ';
                 }else{
                     $_SESSION['loggedin'] = true;
                     $_SESSION['username'] = $arr['nombre'];
-                    $_SESSION['mailL'] = $_POST['mailL'];
+                    $_SESSION['mailL'] = $mail;
                     $_SESSION['idUsuario'] = $arr['idUsuario'];
                     $_SESSION['start'] = time();
                     $_SESSION['expire'] = $_SESSION['start'] + 3600;
                     $_SESSION['rol'] = $arr['idRol'];
                     $_SESSION['mail_confirm'] = false;
                     
-                    echo'<script type="text/javascript">
-                        setTimeout(window.location.href="../index.php", 3000);
-                        </script>';
+                     echo'<script type="text/javascript">
+                         window.location.href="index.php";
+                         </script>';
+                    // header("Location: index.php");
+                    // exit;
                 }
         }else{
             echo '
@@ -146,9 +143,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     }) 
                 });
                 
-                setTimeout(function(){
-                    window.location.href = "../login.php";
-                 }, 3000);
                 </script>
                 ';
 
@@ -193,10 +187,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     }
                     }) 
                 });
-                
-                setTimeout(function(){
-                    window.location.href = "../login.php";
-                 }, 3000);
+
                 </script>
                 ';
     }
@@ -205,4 +196,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     echo "metodo no autorizado";
 }
 
+
+}
 ?>
