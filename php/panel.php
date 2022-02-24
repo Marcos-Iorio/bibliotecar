@@ -30,7 +30,7 @@
         <?php
                  } else  {
                      ?>
-                      <li id="login"><a class="scroll-link " href='login.php'><i class="fas fa-sign-in-alt"></i><span class="menu-item">Iniciar sesion</span></a></li>
+                      <li id="login"><a class="scroll-link " href='login.php'><i class="fas fa-sign-in-alt"></i><span class="menu-item">Iniciar sesión</span></a></li>
                   <?php
                  }    
                   ?>
@@ -44,7 +44,7 @@
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 if ($pid == '1' || $pid == '2' || $pid == '3' ) {
         ?>        
-                  <li ><a class="scroll-link" href="sugerencias.php" id="sugerencias"><i class="fas fa-file-signature"></i><span class="menu-item">Sugerencias</span></a></li>
+                  <!-- <li ><a class="scroll-link" href="sugerencias.php" id="sugerencias"><i class="fas fa-file-signature"></i><span class="menu-item">Sugerencias</span></a></li> -->
                   <li ><a class="scroll-link" href='contacto.php' id="contacto"><i class="fas fa-envelope"></i><span class="menu-item">Contacto</span></a></li>
                 <?php
                 }
@@ -53,7 +53,7 @@
                 if ($pid == '2' || $pid == '3') {
                 ?>
                 <li>
-                    <a href="#admin-libros" class="scroll-link" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="dropdown-toggle" role="button" aria-controls="otherSections"><i class="fas fa-list"></i><span class="menu-item">Portal de gestion </span></a>
+                    <a href="#admin-libros" class="scroll-link" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="dropdown-toggle" role="button" aria-controls="otherSections"><i class="fas fa-list"></i><span class="menu-item">Portal de gestión </span></a>
                     <ul class="collapse list-unstyled" id="admin-libros">
                       <li id="abm-libros"><a  class="scroll-link" href="admin-libros.php"><span class="item-gestion">Libros</span></a></li>
                     <?php 
@@ -86,11 +86,11 @@
             if ($pid == '3' || $pid == '2') {
             ?>
                 
-                <li id="logout"><a class="scroll-link" href="php/logout.php"><i class="fas fa-sign-out-alt"></i><span class="menu-item">Cerrar sesion</span></a></li>
+                <li id="logout"><a class="scroll-link" href="php/logout.php"><i class="fas fa-sign-out-alt"></i><span class="menu-item">Cerrar sesión</span></a></li>
             <?php
             } elseif ($pid == '1') {
             ?>
-                <li id="logout"><a href="php/logout.php"><i class="fas fa-sign-out-alt"></i><span class="menu-item">Cerrar sesion</span></a></li>
+                <li id="logout"><a href="php/logout.php"><i class="fas fa-sign-out-alt"></i><span class="menu-item">Cerrar sesión</span></a></li>
             <?php
             }
             }

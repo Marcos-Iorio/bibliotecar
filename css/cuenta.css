@@ -12,6 +12,11 @@ li{
     
 }
 
+
+#main{
+    overflow-y: auto !important;
+}
+
 .sidebar ul li.active > a, a[aria-expanded="true"] {
     background:transparent !important;
     /*color: transparent !important;*/
@@ -47,40 +52,36 @@ input[type="submit"]{
     background: rgba(255, 255, 255, 0.473) !important;
     transition: ease all 0.2s;
 }
+table{
+    border: 2px dashed white;
+}
 
-
-table {
+table.table-cuenta {
     table-layout: fixed;
- /*   width: 100%;*/
+    width: 80%;
     border-collapse: collapse;
+    border: 2px dashed white;
 }
 
 th, td{
     padding: 20px;
+    font-weight: bold;
 }
 
 tbody tr{
-    border-bottom: 2px solid #222;
     transition: ease 0.3s;
-}
-
-tbody tr:nth-child(odd) {
-    background-color: gray;
-  }
-
-tbody tr:nth-child(even) {
-    background-color: #D6EEEE;
+    border-bottom: 2px dashed white;
 }
 
 tbody tr:hover{
-    background-color: rgb(206, 206, 206);
-    color: #222;
+    color: white;
     transition: ease 0.3s;
 }
 
 thead{
+    background: rgba(51, 51, 51, 0.61);
+    border: 2px dashed white;
     color: white;
-    background: #333;
 }
 
 thead th:nth-child(1) {
@@ -221,6 +222,8 @@ input[type=submit]:hover {
   
   /* The Close Button */
   .close {
+    position: absolute;
+    right: 21px;
     color: #333;
     float: right;
     font-size: 35px;
@@ -288,6 +291,7 @@ button#cancelar:hover{
     padding: 2px 16px;
     background-color: #fefefe !important;
     color: #333;
+    justify-content: center;
   }
   
   .modal-body {
@@ -305,3 +309,190 @@ button#cancelar:hover{
 	margin-top: 25px;
 	display: inline-block;
 }
+
+@media screen and (orientation: landscape) 
+and (max-device-width: 1000px) {
+    table.table-cuenta{
+        width: 100%;
+    }
+    button#dar-de-baja{
+        width: 50% !important;
+    }
+    input[type="text"]{
+        width: 29% !important;
+    }
+}   
+
+/* Modal datos personales */
+.boton-modificar{
+    display: block;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+.modificar{
+    border: 2px solid #333;
+    display: block;
+    color: #333;
+    margin: 15px auto;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all ease 0.5s;
+  }
+
+  .modificar-pass{
+    border: 2px solid #333;
+    display: block;
+    color: #333;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all ease 0.5s;
+    margin: 15px 22%
+  }
+
+  .modificar:hover, .modificar-pass:hover{
+    transition: all ease 0.5s;
+    background: white;
+  }
+
+#modal-datos, #modal-contrasenia {
+    display: none; /* Hidden by default */
+    position: absolute; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: absolute;
+    bottom: 300px;
+    background-color: #fefefe;
+    width: 60%;
+    left: 300px;
+    border: none;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
+    box-shadow: 0px 30px 78px -47px black;
+    -webkit-box-shadow: 0px 30px 78px -47px black;
+    -moz-box-shadow: 0px 30px 78px -47px black;
+  }
+  
+  /* The Close Button */
+  .close-datos, .close-contrasenia {
+    position: absolute;
+    right: 20px;
+    color: #333;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close-datos:hover,
+  .close-datos:focus, .close-contrasenia:hover, .close-contrasenia-focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }s
+
+  .modal-header .close-datos, .close-contrasenia{
+      margin: 0px;
+  }
+
+  .modal-header h2{
+      text-align: center;
+      line-height: 3;
+      width: 700px;
+  }
+
+  input#confirmar{
+    border: none;
+    display: block;
+    color: white;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    border: 2px solid #333;
+    background-color: #333;
+    cursor: pointer;
+    transition: all ease 0.5s;
+  }
+
+  input#confirmar:hover{
+    background: white;
+    border: 2px solid #333;
+    transition: all ease 0.5s;
+    color: #333;
+  
+  }
+
+  button#cancelar-datos, button#cancelar-contrasenia{
+    border: 2px solid #333;
+    display: block;
+    color: #333;
+    height: 50px;
+    width: 200px;
+    border-radius: 48px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
+
+button#cancelar-datos:hover, button#cancelar-contrasenia:hover{
+  background: #333;
+  color: white;
+  transition: all ease 0.5s;
+}
+  
+  .modal-header {
+      text-align: center;
+    padding: 2px 16px;
+    background-color: #fefefe !important;
+    color: #333;
+  }
+  
+  .modal-body {
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+@-webkit-keyframes slideIn {
+    from {bottom: -300px; opacity: 0} 
+    to {bottom: 300; opacity: 1}
+  }
+  
+  @keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 300px; opacity: 1}
+  }
+  
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+  }

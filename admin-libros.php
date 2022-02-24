@@ -35,7 +35,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
   <script src="js/mensajes.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="css/inicio.css">
   <link rel="stylesheet" href="css/libros.css">
   <link rel="stylesheet" href="css/datatable.css">
@@ -43,6 +43,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
 
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+  
   <title>Document</title>
 </head>
 
@@ -99,9 +101,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                     <th>Titulo</th>
                     <th>Autor</th>
                     <th>Categoria</th>
-                    <th>Stock</th>
+                    <th>Stock disponible</th>
                     <th>Fecha de Alta</th>
                     <th>Editar</th>
+                    <th>Ejemplares</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -111,6 +114,7 @@ include "php/gestion-libros.php";
 gestionLibros();
 
                     if(isset($_POST['btnCrearLibro'])){
+                      $_SESSION['btnCrearLibro']=$_POST['btnCrearLibro'];
 
                       //llenarTabla ($_POST['titulo'],$_POST['autor'],$_POST['desc'] ,$_POST['categoria'],$_POST['editorial'],
                       //$_POST['stock'],$_POST['fechaAlta'], $_FILES['pdf']);
@@ -125,7 +129,7 @@ gestionLibros();
                       
 
                       if(isset($_POST['btnEditarLibro'])){
-
+                        $_SESSION["btnEditarLibro"] = $_POST['btnEditarLibro'];
                       editarLibro($_POST['idLibro'],$_POST['titulo'],$_POST['selectAutor'],$_POST['desc'] ,$_POST['selectCategoria'],$_POST['selectEditorial'],
                       $_POST['stock'], $_FILES['pdf'], $_FILES['tapa'], $_FILES['contratapa']);
 
@@ -152,33 +156,36 @@ gestionLibros();
             <button onclick="modalLibros()" class="boton-agregar-libro"><a href="#modal-libros"></a><i class="fas fa-add">Agregar Libro</i></button>
           </div>
           
+          <div id="modal-libros">
+            <span id="close">&times;</span>
+            <h3 id="titulo-libro">Modificar libro:</h3>
+            <div class="subir-libro">
+              <form name="formLibros" action="" id="form-libros" method="POST" class="form-libro"
+                enctype="multipart/form-data">
 
-        <div id="modal-libros">
-          <span id="close">&times;</span>
-          <h3 id="titulo-libro">Modificar libros:</h3>
-          <div class="subir-libro">
-            <form name="formLibros" action="" id="form-libros" method="POST" class="form-libro" enctype="multipart/form-data">
+                <div class="wrapper-libros">
+                  <div class="secciones-form" style="display:flex;">
+                    <label for="">Titulo:</label>
+                    <input style="background-color: white; color: black;" class="input-libro" type="text" name="titulo"
+                      id="titulo" required placeholder="Titulo">
+                    <label for="">Autor:</label>
 
-              <div class="wrapper-libros">
-                <div class="secciones-form" style="display:flex;">
-                  <label for="">Titulo:</label>
-                  <input style="background-color: white; color: black;" class="input-libro" type="text" name="titulo"
-                    id="titulo" required placeholder="Titulo">
-                  <label for="">Autor:</label>
                   <select required id="select-autor" style="background-color: white; color: black; width: 20%;" class="form-control"
                     name="selectAutor">
                     <option value="0" disabled selected>Seleccionar autor</option>
-                    <?php getAutores(); ?>
+                    <?php 
+                            getAutores();
+                            ?>
                   </select>
 
-                </div>
-                <br><br>
+                  </div>
+                  <br><br>
 
-                <div class="secciones-form" style="display:flex;">
+                  <div class="secciones-form" style="display:flex;">
 
                   <label for="">Descripcion: </label>
-                  <input maxlength="1000" style="background-color: white; color: black;" class="input-libro" type="text"
-                    name="desc" id="desc" required placeholder="Maximo: 1000 caracteres">
+                  <textarea maxlength="1000" style="background-color: white; color: black; width: 380px; height: 100px;" class="input-libro" type="text"
+                    name="desc" id="desc" required placeholder="Maximo: 1000 caracteres"></textarea>
 
                   <input hidden type="text" name="idLibro" id="idLibro">
                   <br><br>
@@ -191,6 +198,7 @@ gestionLibros();
                             getCategorias();
                             ?>
                   </select>
+
                 </div>
 
 
@@ -248,6 +256,7 @@ gestionLibros();
                 <input name="txtID" style="background-color: white; color: black; width: 20%;" type="hidden" name="genero"
                   id="genero" placeholder="Seleccionar">
               </div>
+              </form>
             </div>
           </div>
         </div>
@@ -263,8 +272,8 @@ gestionLibros();
             <div class="tabla-libros">-->
 
               <br>
-              <form method="POST" action="#" name="busqueda">
-<!--                 <div>
+       <!--         <form method="POST" action="#" name="busqueda">
+               <div>
 
                   <h6 >Buscar por:</h6>
                   <select class="form-control" name="txtCriterio" style="width: 200px; margin-right: 200px;">
@@ -282,8 +291,8 @@ gestionLibros();
                     <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0" />
                   </div>
                 </div>
-                <hr> -->
-              </form>
+                <hr> 
+              </form>-->
 
 
               <div class="tabla-libros">
@@ -336,15 +345,15 @@ gestionLibros();
                   <form name="formAutores" action="" id="formAutores" method="POST" class="form-autor" enctype="multipart/form-data">
 
                     <div class="wrapper-libros">
-
-                      <label for="">Autor:</label>
-                      <input class="input-libro" type="text" name="editarAutor" id="autor" placeholder="Autor">
-                      <input hidden type="text" name="idAutor" id="autor" placeholder="Autor">
-
-                      <label for="">Autor Nuevo:</label>
-                      <input class="input-libro" type="text" name="nuevoAutor" id="autor" placeholder="Autor">
-
-
+                      <div id="autor-viejo">
+                        <label for="">Autor:</label>
+                        <input class="input-libro" type="text" name="editarAutor" id="autor" placeholder="Autor">
+                        <input hidden type="text" name="idAutor" id="autor" placeholder="Autor">
+                      </div>
+                      <div id="autor-nuevo">
+                        <label for="" >Autor Nuevo:</label>
+                        <input class="input-libro autor" type="text" name="nuevoAutor"  placeholder="Autor">
+                      </div>
                     </div>
 
                     <div class="center">
@@ -444,12 +453,16 @@ gestionLibros();
                 <form action="" name="formCategorias" id="formCategorias" method="POST" class="form-libro" enctype="multipart/form-data">
 
                   <div class="wrapper-libros">
+                    <div id="categoria-vieja">
+                      <label for="">Categoria:</label>
+                      <input class="input-libro" type="text" name="editarCategoria" id="categoria" placeholder="Categoria">
+                      <input hidden type="text" name="idCategoria" id="autor" placeholder="Categoria">
+                    </div>
 
-                    <label for="">Categoria:</label>
-                    <input class="input-libro" type="text" name="editarCategoria" id="autor" placeholder="Categoria">
-                    <input hidden type="text" name="idCategoria" id="autor" placeholder="Categoria">
-                    <label for="">Categoria Nueva:</label>
-                    <input class="input-libro" type="text" name="nuevaCategoria" id="categoria" placeholder="Categoria">
+                    <div id="categoria-nueva">
+                      <label for="">Categoria Nueva:</label>
+                      <input class="input-libro categoria" type="text" name="nuevaCategoria" placeholder="Categoria">
+                    </div>
 
 
                   </div>
@@ -554,12 +567,16 @@ gestionLibros();
 
                     <div class="wrapper-libros">
 
-                      <label for="">Editorial:</label>
-                      <input class="input-libro" style="color: black;" type="text" name="editarEditorial" id="autor" placeholder="Editorial">
-                      <input hidden type="text" name="idEditorial" id="autor" placeholder="Editorial">
+                      <div id="editorial-vieja">
+                        <label for="">Editorial:</label>
+                        <input class="input-libro" style="color: black;" type="text" name="editarEditorial" id="editorial" placeholder="Editorial">
+                        <input hidden type="text" name="idEditorial" id="autor" placeholder="Editorial">
+                      </div>
 
-                      <label for="">Editorial Nueva:</label>
-                      <input class="input-libro"  type="text" name="nuevaEditorial" id="editorial" placeholder="Editorial">
+                      <div id="editorial-nueva">
+                        <label for="">Editorial Nueva:</label>
+                        <input class="input-libro editorial"  type="text" name="nuevaEditorial" placeholder="Editorial">
+                      </div>
 
 
                     </div>
@@ -578,35 +595,230 @@ gestionLibros();
           </div>
           </div>
         </div>
-        
-      <!-- Botones a los menús -->
-      <div id="circularMenu" class="circular-menu">
+     <!-- Modal ejemplares -->
 
-        <a class="floating-btn" onclick="document.getElementById('circularMenu').classList.toggle('active');">
-          <i class="fa fa-plus"></i>
-        </a>
+     <div id="modal-ejemplares" class="tabla-libros">
+      <form name="formEjemplares" action="#modal-ejemplares">
+      <input hidden type="text" name="datoLibro">
+</form>
 
-        <menu class="items-wrapper">
-        <button onclick="abrirSeccionLibro()" class="menu-item-botonera fas fa-book"><a href="#seccion-libros"></a><span class="label">Libros</span></button>
-        <button onclick="abrirSeccionAutor()" class="menu-item-botonera fas fa-user-alt"><a href="#seccion-autor" ></a><span class="label">Autores</span></button>
-        <button onclick="abrirSeccionCategoria()" class="menu-item-botonera fas fa-list-ul"><a href="#seccion-categorias"><span class="label-left">Categorias</span></a></button>
-        <button onclick="abrirSeccionEditorial()" class="menu-item-botonera far fa-newspaper"><a href="#seccion-editorial"></a><span class="label-left-2">Editoriales</span></button>
-        </menu>
+                <span id="close-ejemplares">&times;</span>
+                <table id="tabla-ejemplar" class="table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                          <th>ID Ejemplar</th>
+                          <th>Estado</th>
+                          <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
 
-      </div>
+                    </tbody>
+                </table>
+                </div>
+              </div>
+
+          <!-- Botones a los menús -->
+          <div id="circularMenu" class="circular-menu">
+
+            <a class="floating-btn" onclick="document.getElementById('circularMenu').classList.toggle('active');">
+              <i class="fa fa-plus"></i>
+            </a>
+
+            <menu class="items-wrapper">
+              <button onclick="abrirSeccionLibro()" class="menu-item-botonera fas fa-book"><a
+                  href="#seccion-libros"><span style="top:-60px; left: -50px"
+                    class="tooltip-span-libros">Libros</span></a></button>
+              <button onclick="abrirSeccionAutor()" class="menu-item-botonera fas fa-user-alt"><a
+                  href="#seccion-autor"><span style="top:-30px; left: -110px"
+                    class="tooltip-span">Autores</span></a></button>
+              <button onclick="abrirSeccionCategoria()" class="menu-item-botonera fas fa-list-ul"><a
+                  href="#seccion-categorias"><span style="top:-20px; left: -110px"
+                    class="tooltip-span">Categorias</span></a></button>
+              <button onclick="abrirSeccionEditorial()" class="menu-item-botonera far fa-newspaper"><a
+                  href="#seccion-editorial"><span style="top:-20px; left: -120px"
+                    class="tooltip-span">Editoriales</span></a></button>
+            </menu>
+
+          </div>
 
     </main>
   </section>
 </body>
 <script src="js/gestion-libro.js"></script>
 <script type="text/javascript">
+
+  function cargarEjemplares(idLibro){
+document.formEjemplares.datoLibro.value = idLibro;
+
+
+const data = {
+  'idLibro': Number(idLibro)
+};
+$.ajax({
+  type: "POST",
+  url: "php/gestion-libros.php",
+  dataType: "json",
+  data: data,
+  success: function (data) {
+    limpiarHTML()
+    $(data).each(
+      function () {
+        this.idEjemplarEstado = this.idEjemplarEstado == 1 ? 'Reservado' : this.idEjemplarEstado == 2 ? 'Inhabilitado' : 'Disponible';
+        this.ejemplarEstado = this.idEjemplarEstado == 'Reservado' ? `<button><i title="Reserva activa" class="fas fa-minus"></i></button>` : this.idEjemplarEstado == 'Inhabilitado' ? `<button onclick="activarEjemplar('${this.idEjemplar}')"><i title="Habilitar" class="fas fa-plus-circle"></i></button>` : `<button onclick="borrarEjemplar('${this.idEjemplar}')"><i title="Deshabilitar" class="fas fa-minus-circle"></i></button>`;
+        $('#tbody').append(
+          '<tr><td>' + this.idEjemplar +
+          '</td><td>' +
+          this.idEjemplarEstado +
+          '</td><td>' +
+          this.ejemplarEstado +
+          '</td></tr>')
+
+        $(document).ready(function () {
+          $('#tabla-ejemplar').DataTable({
+            "lengthMenu": [
+              [5, 10, 20, 30],
+              [5, 10, 20, 30]
+            ],
+            "responsive": true,
+            "pagingType": "simple",
+            "retrieve": true,
+            // dom: 'Bfrtip',
+            // buttons: [
+            //     'excel'
+            // ],
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'excel',
+                text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>',
+                className: 'btn btn-light'
+              }
+
+
+            ],
+            "oLanguage": {
+              "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+            },
+          });
+        });
+      })
+
+  }
+
+});
+
+
+function limpiarHTML() {
+  const tbody = document.querySelector('#tbody');
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
+    $("#tabla-ejemplar").dataTable().fnDestroy();
+
+  }
+
+}
+}
+
+function borrarEjemplar(idEjemplar) {
+  var estado = "Desactivar";
+  Swal.fire({
+    title: "¿Deseas deshabilitar este ejemplar?",
+    text: "",
+    showCancelButton: true,
+    confirmButtonColor: "#333",
+    confirmButtonText: "Confirmar",
+    cancelButtonText: "Cancelar",
+    buttonsStyling: true
+  }).then((result) => {
+    if (result.value === true) {
+      $.ajax({
+        type: "POST",
+        url: "php/gestion-libros.php",
+        data: {
+          'idEjemplar': idEjemplar,
+          'estado': estado
+        },
+        cache: false,
+        success: function (response) {
+          swal({
+            title: 'Exito',
+            text: 'Ejemplar desactivado correctamente.',
+            type: 'success',
+            showConfirmButton: false,
+            html: '<h5>Ejemplar desactivado correctamente.</h5><br><button type="submit" style="background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;" ><a  style=\"background-color: #343A40; color:white;" href="admin-libros.php">OK</a></button>'
+          });
+        },
+        failure: function (response) {
+          Swal.fire(
+            "Error",
+            "No se pudo deshabilitar el ejemplar.", // had a missing comma
+            "error"
+          )
+        }
+      })
+      // setTimeout(() => {
+      //  window.location.reload();
+      //}, 2000)
+
+    }
+  })
+}
+
+
+
+function activarEjemplar(idEjemplar) {
+  var estado = "Activar";
+  Swal.fire({
+    title: "¿Deseas habilitar este ejemplar?",
+    text: "",
+    showCancelButton: true,
+    confirmButtonColor: "#333",
+    confirmButtonText: "Confirmar",
+    cancelButtonText: "Cancelar",
+    buttonsStyling: true
+  }).then((result) => {
+    if (result.value === true) {
+      $.ajax({
+        type: "POST",
+        url: "php/gestion-libros.php",
+        data: {
+          'idEjemplar': idEjemplar,
+          'estado': estado
+        },
+        cache: false,
+        success: function (response) {
+          swal({
+            title: 'Exito',
+            text: 'Ejemplar activado correctamente.',
+            type: 'success',
+            showConfirmButton: false,
+            html: '<h5>Ejemplar activado correctamente.</h5><br><button type="submit" style="background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;" ><a  style=\"background-color: #343A40; color:white;" href="admin-libros.php">OK</a></button>'
+          });
+        },
+        failure: function (response) {
+          Swal.fire(
+            "Error",
+            "No se pudo habilitar el ejemplar.", // had a missing comma
+            "error"
+          )
+        }
+      })
+      //setTimeout(() => {
+      //window.location.reload();
+      //}, 2000)
+
+    }
+  })
+}
+
+
   function ModificarLibro(tipo) {
 
     if (tipo == 'editar') {
-      msg = "Confirma que desea modificar este registro?";
+      msg = "¿Confirma que desea modificar este registro?";
 
     } else {
-      msg = "Confirma que desea crear este registro?";
+      msg = "¿Confirma que desea crear este registro?";
 
     }
     var usr = confirm(msg);
@@ -667,11 +879,20 @@ span.onclick = function() {
     //document.formUsuarios.txtAlta.value=alta;
     //document.formUsuarios.txtEstadoUsuario.value=estado;
     //document.formUsuarios.txtID.value = id;
-    document.getElementsByName('selectAutor')[0].options[0].innerHTML = nombreAutor;
-    document.getElementsByName('selectEditorial')[0].options[0].innerHTML = nombreEditorial;
-    document.getElementsByName('selectCategoria')[0].options[0].innerHTML = nombreCategoria;
+    //document.getElementsByName('selectAutor')[0].options[0].innerHTML = nombreAutor;
+    //document.getElementsByName('selectEditorial')[0].options[0].innerHTML = nombreEditorial;
+    //document.getElementsByName('selectCategoria')[0].options[0].innerHTML = nombreCategoria;
+    let elementAutor = document.getElementById('select-autor');
+    elementAutor.value = nombreAutor;
+    let elementEditorial = document.getElementById('select-editorial');
+    elementEditorial.value = nombreEditorial;
+    let elementCategoria = document.getElementById('select-categoria');
+    elementCategoria.value = nombreCategoria;
+
+
 
     document.getElementById('crear-libro').style.display = "none";
+  
     document.getElementById('editar-libro').style.display = "block";
 
     let tituloLibro = document.getElementById('titulo-libro').innerHTML = "Modificar Libro"
@@ -747,7 +968,9 @@ spanEdit.onclick = function() {
       document.formAutores.editarAutor.value = nombre;
 
       document.getElementById('crear-autor').style.display = "none";
+      document.querySelector('#autor-nuevo').style.display ="none";
       document.getElementById('editar-autor').style.display = "block";
+      document.querySelector('#autor-viejo').style.display ="block";
     }
 
 
@@ -755,6 +978,8 @@ spanEdit.onclick = function() {
       document.formEditoriales.idEditorial.value = id;
       document.formEditoriales.editarEditorial.value = nombre;
       document.getElementById('crear-editorial').style.display = "none";
+      document.querySelector('#editorial-vieja').style.display ="block";
+      document.querySelector('#editorial-nueva').style.display ="none";
       document.getElementById('editar-editorial').style.display = "block";
     }
 
@@ -762,20 +987,37 @@ spanEdit.onclick = function() {
     if (tipo == 'Categoria') {
       document.formCategorias.idCategoria.value = id;
       document.formCategorias.editarCategoria.value = nombre;
-
       document.getElementById('crear-categoria').style.display = "none";
       document.getElementById('editar-categoria').style.display = "block";
+      document.querySelector('#categoria-nueva').style.display ="none";
+      document.querySelector('#categoria-vieja').style.display ="block";
     }
 
   }
+
+  /* Ejemplares */
+  const botonEjemplar = document.querySelectorAll('#abrir-ejemplares');
+
+  const modalEjemplar = document.querySelector('#modal-ejemplares');
+
+    for (var i = 0; i < botonEjemplar.length; i++) {
+    botonEjemplar[i].onclick = function () {
+      modalEjemplar.style.display = "block";
+    }
+  };
+
+  
+
+  var span = document.getElementById("close-ejemplares");
+
+  span.onclick = function() {
+      modalEjemplar.style.display = "none";
+  }
+
 </script>
 
 
 <script src="js/navbarToggle.js"></script>
-
-<!-- jQuery CDN - Slim version =without AJAX -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <!-- Popper.JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
   integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
@@ -790,15 +1032,15 @@ spanEdit.onclick = function() {
       
 <!--    Datatables-->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
-<!--       
-    <script type="text/javascript" src="	https://code.jquery.com/jquery-3.5.1.js	"></script>
-<script type="text/javascript" src="	https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js	"></script>
-<script type="text/javascript" src="	https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js	"></script>
-<script type="text/javascript" src="	https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js	"></script>
-<script type="text/javascript" src="	https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js	"></script>
-<script type="text/javascript" src="	https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js	"></script>
-<script type="text/javascript" src="	https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js	"></script>
-<script type="text/javascript" src="	https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js	"></script> -->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap4.min.js"></script>
 
       
     <script>
@@ -811,13 +1053,34 @@ spanEdit.onclick = function() {
         // buttons: [
         //     'excel'
         // ],
+                  dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
     });  
       });
+
+      
+
       $(document).ready(function(){
          $('#tablaAutores').DataTable({
           "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
         "responsive": true,
         "pagingType": "simple",
+                  dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
     });  
       });
       $(document).ready(function(){
@@ -825,6 +1088,15 @@ spanEdit.onclick = function() {
           "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
         "responsive": true,
         "pagingType": "simple",
+                  dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
     });
       });
       $(document).ready(function(){
@@ -832,6 +1104,15 @@ spanEdit.onclick = function() {
         "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
         "responsive": true,
         "pagingType": "simple",
+                  dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
     });
       });
 

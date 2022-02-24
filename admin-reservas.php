@@ -66,34 +66,18 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
 
                    <form method="POST" id="form-reservas" action="#" name="busqueda" >
 
-
-                    <label for="" style="width: 210px; text-align: left;">Ingresar reserva:</label>
-                    <input type="text" style="background-color: white; color: black; width: 40%;" name="ingresarReserva" id="titulo"  placeholder="Ingrese ID de reserva">
-                    <input type="submit" name="btnReserva" id="subir-libro" value="Cargar" />
-                    <br><br>
-                    
-                    <label for="" style="width: 210px; text-align: left;">Ingresar devolucion: </label>
-                    <input type="text" style="background-color: white; color: black; width: 40%;"name="ingresarDevolucion" id="autor"  placeholder="Ingrese ID de libro">
-                    <input type="submit" name="btnDevolucion" id="subir-libro" value="Cargar"/>
-                    <br>
-
-                    <!-- <div style="display: flex;justify-content: space-between;align-items: center;">
-
-                    <h6 style="width: 100px;">Buscar por:</h6>
-                    <select class="form-control"name="txtCriterio" style="width: 200px; margin-right: 200px;">
-                      <option value="" disabled selected>Seleccionar</option>
-                        <option value="mail">Nro Reserva</option> 
-                        <option value="idRol">ID Libro</option>
-                        <option value="check_mail">Usuario</option>
-                        <option value="idEstado">Estado </option>    
-                    </select>
-
-                    <input style="background-color: white; width: 200px; height: 40px; color:black;"type="text" name="txtBusqueda" value="" size="10" placeholder="Buscar...?" class="form-control" >
-                    <div style="text-align: right; height: 150px">
-                    <input style="margin-bottom: 10px !important;" type="submit"  value="Buscar" href="#?page=1" name="btnBuscar" class="btn btn-outline-dark my-2 my-sm-0"/><a href="admin-reservas.php?page=1"></a>
-                    <input type="submit" value="Limpiar" name="btnreset" class="btn btn-outline-dark my-2 my-sm-0"/>
+                    <div class="ingresar-reserva">
+                        <label class="label-reserva" for="" style="width: 210px; text-align: left;">Ingresar reserva:</label>
+                        <input type="text" style="background-color: white; color: black; width: 40%;" name="ingresarReserva" id="titulo"  placeholder="Ingrese ID de reserva">
+                        <input type="submit" name="btnReserva" id="subir-libro" value="Cargar" />
                     </div>
-                    </div> -->
+                    <div class="ingresar-devolucion">
+                        <label class="label-reserva" for="" style="width: 210px; text-align: left;">Ingresar devolución: </label>
+                        <input type="text" style="background-color: white; color: black; width: 40%;"name="ingresarDevolucion" id="autor"  placeholder="Ingrese ID de libro">
+                        <input type="submit" name="btnDevolucion" id="subir-libro" value="Cargar"/>
+                    </div>
+
+                   
 
                     <hr>
                 </form>
@@ -107,7 +91,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                   <th>Estado</th>
                   <th>Usuario</th>
                   <th>Fecha solicitud</th>
-                  <th>Fecha devolucion</th>
+                  <th>Fecha devolución</th>
                   <th>Editar</th>
                   
                         </thead>
@@ -130,7 +114,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                       }
 
                       if (isset($_POST['btnEditar'])) {
-                        editarReserva($_POST['txtReserva'], $_POST['selectEstado']);
+                        editarReserva($_POST['txtReserva'], $_POST['selectEstado'], $_POST['txtIDEjemplar']);
                       }
 
                       ?>
@@ -161,6 +145,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                   <div class="wrapper-reserva">
                     <label class="modal-reserva" for="" >Reserva:</label>
                     <input name="txtReserva" class="reserva-libro" type="text" name="titulo" id="titulo" readonly>
+                    <label hidden class="modal-reserva" for="" >idLibro:</label>
+                    <input hidden name="txtIDEjemplar" class="reserva-libro" type="text" >
                     <label class="modal-reserva" for="">Usuario: </label>
                     <input name="txtUsuario" class="reserva-libro" type="text" name="autor" id="autor" readonly>
                     <label class="modal-reserva" for="">Estado: </label>
@@ -181,11 +167,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
 
                   </form>
               </div>         
-            </section>
-            <button onclick="contacto()" class="buttonInfo tooltip">
-                <i class="fas fa-question"></i>
-                <span class="tooltiptext">¿Tenes dudas? ¡Mandanos un mail!</span>
-            </button>
+            </section>  
         </main>
       </section>
 </body>
@@ -224,10 +206,12 @@ window.onclick = function(event) {
 }
       
 
-function cargarReserva(idReserva, usuario, estadoReserva){
+function cargarReserva(idReserva, usuario, estadoReserva, idEjemplar){
 
   document.formReservas.txtReserva.value = idReserva;
   
+  document.formReservas.txtIDEjemplar.value = idEjemplar;
+
   document.formReservas.txtUsuario.value = usuario;
 
     let estado = document.getElementById('selectEstado');
@@ -256,7 +240,16 @@ function cargarReserva(idReserva, usuario, estadoReserva){
       
 <!--    Datatables-->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
-      
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap4.min.js"></script>
+
       
     <script>
       $(document).ready(function(){
@@ -264,8 +257,16 @@ function cargarReserva(idReserva, usuario, estadoReserva){
           "lengthMenu": [[5, 10, 20, 30], [5, 10, 20, 30]],
         "responsive": true,
         "pagingType": "simple",
+                  dom: 'Bfrtip',
+          buttons: [
+            { extend: 'excel', text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>', className: 'btn btn-light' }
+
+
+          ],
+          "oLanguage": {
+          "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+          },
     });  
-         
       });
     </script>
     

@@ -25,7 +25,7 @@
 
 ?>
 
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -54,7 +54,6 @@
                     <i class="fas fa-search" onclick="showSearch()"></i>
                     <input class="campo-busqueda" type="text" style="background-color: #f1f1f1; color: black; height: 80%; margin-top: 20px;" name="campo-busqueda" id="campo-busqueda">
                     <input id="buscar" name=txtBuscar type="submit" value="Buscar" style=" margin-top: 10px; height: 30px;">
-                    
                   </div>
                 </form>
 
@@ -63,7 +62,21 @@
                   </div>
                 </div>
                 <div class="menu-filtro" id="menu-filtro">
-                    <h3>FILTROS</h3>    
+                    <h3>FILTROS</h3> 
+                    <h3>STOCK</h3>
+                    <div class="checklist autores">
+                        <ul>
+                            <li><a href="librosFiltrados.php?stock=1">Disponible</a></li>
+                            <li><a href="librosFiltrados.php?stock=0">No Disponible</a></li>
+                        </ul>   
+                    </div> 
+                    <h3>PDF</h3>
+                    <div class="checklist autores">
+                        <ul>
+                            <li><a href="librosFiltrados.php?pdf=0">Sin PDF</a></li>
+                            <li><a href="librosFiltrados.php?pdf=1">Con PDF</a></li>
+                        </ul>   
+                    </div>  
                     <h3>CATEGORIAS</h3>
                     <div class="checklist categories">
                         <ul>
@@ -72,15 +85,6 @@
                             ?>
                         </ul>
                     </div>
-                    
-                    <h3>Autores</h3>
-                    <div class="checklist autores">
-                        <ul>
-                            <?php
-                                todosLosAutores();
-                            ?>
-                        </ul>   
-                    </div>
                 </div>
         <!--Seccion de los libros-->
                 <div class="container main-libros">
@@ -88,7 +92,6 @@
                                         <div class="volver"><a href="./"><i class="fas fa-arrow-circle-left"></i></a></div>
                     <div id="breadcrumbs"></div>
                     <div class="grid-libros">
-
                     <?php
                     if (!isset($_POST['txtBuscar'])) {
                         todosLosLibros();
@@ -96,31 +99,7 @@
                     } else {
                         busquedaLibros($_REQUEST["campo-busqueda"]);
                     }
-                    /* Llena el flexbox con los libros traidos de la base de datos */
-                    /* foreach($resultado as $fila):?>
-                        <div class="libro-prueba" id="libro-prueba">
-                            <a class="link" id="id-libro" href="single-book.php?sku=<?php echo $fila['idLibro'];?>">
-                                <div class="imagen-libro">
-                                    <img class="imagen-libro" data-lazy="<?php echo $fila['imagen_libro']; ?>" alt="">
-                                </div>
-                                <div class="informacion">
-                                    <p class="libro-info">
-                                    <?php echo "Titulo: " . $fila['titulo']; ?> <br>
-                                    <?php echo "Autor: " . $fila['nombreAutor']; ?> <br>
-                                    <?php echo "Categoria: " . $fila['nombreCategoria']; ?>
-                                    </p>
-                                </div>
-                                <div class="etiqueta">
-                                    <p class="etiqueta-info" id="etiqueta-info"><?php
-                                        if($fila['stock'] > 0 ){
-                                            echo "Disponible";
-                                        }else{
-                                            echo "No disponible";
-                                        } ?></p>
-                                </div>
-                            </a>
-                        </div>
-                    <?php endforeach; */ ?>
+                     ?>
 
                     </div>
                 </div>
