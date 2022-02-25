@@ -217,7 +217,7 @@ function getDescargas($idUsuario){
     $idLibro=getLibro($idEjemplar);
 
 
-    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado=0 where idReserva='".$idReserva."'");
+    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = 4 where idReserva='".$idReserva."'");
 
     if ($stmt->execute()) {
       $stmt = $dbh->prepare("UPDATE libros SET stock=stock+1 where idLibro='".$idLibro."'");

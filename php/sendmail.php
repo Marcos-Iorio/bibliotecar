@@ -207,25 +207,26 @@ function enviarMail(){
 
    function enviarReserva($name, $email, $pin){
     iconv_set_encoding("internal_encoding", "UTF-8");
-    require('./vendor/autoload.php');
 
-    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-    $dotenv->load();
 //Include required PHPMailer files
     require 'PHPMailer.php';
     require 'SMTP.php';
     require 'Exception.php';
+    require('./vendor/autoload.php');
+
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->load();
 //Define name spaces
-            
-            $subject = "Confirmacion de reserva:";
-            $body = "Hola " . $name . "! <br> <br> Te informamos que tu reserva fue ingresada con exito. Por favor guarda el codigo de abajo para poder retirar el libro al momento de presentarte en la institucion. <br> <br> Tu  codigo de reserva es: " . "<b>".$pin."<b>";
-                //cargarCodigo2($pin, $email);
+    
+    $subject = "Confirmacion de reserva:";
+    $body = "Hola " . $name . "! <br> <br> Te informamos que tu reserva fue ingresada con exito. Por favor guarda el codigo de abajo para poder retirar el libro al momento de presentarte en la institucion. <br> <br> Tu  codigo de reserva es: " . "<b>".$pin."<b>";
+        //cargarCodigo2($pin, $email);
 
 //Create instance of PHPMailer
     $mail = new PHPMailer(true);
 //Set mailer to use smtp
     $mail->isSMTP();
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+/*     $mail->SMTPDebug = SMTP::DEBUG_SERVER; */
 //Define smtp host
     //$mail->Host = "smtp.office365.com";
         $mail->Host = "smtp.gmail.com";
@@ -234,7 +235,7 @@ function enviarMail(){
     $mail->SMTPAuth = true;
 //Set smtp encryption type (ssl/tls)
     //$mail->SMTPSecure = "STARTTLS";
-    $mail->SMTPSecure = "TLS"; 
+    $mail->SMTPSecure = "tls"; 
 
 //Port to connect smtp
     $mail->Port = "587";
@@ -255,7 +256,7 @@ function enviarMail(){
     $mail->Body = utf8_decode($body);
 //Add recipient TO:
 
-            $mail->addAddress($email);
+    $mail->addAddress($email);
 
 
      //$mail->SMTPDebug = 6;
@@ -271,9 +272,9 @@ function enviarMail(){
 
     if ($mail->send()) {
     $flag='0';
-    echo "<script>swal({title:'Éxito',type:'success', showConfirmButton: false, html: '<h6>Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"libros.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
+        echo "<script>swal({title:'Éxito',type:'success', showConfirmButton: false, html: '<h6>Su reserva se ha realizado. Por favor verificá tu correo para más información.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"libros.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
     } else {
-        echo "<script>swal({title:'Atencion',text:'Su reserva se ha realizado pero no pudimos enviar el codigo de reserva a su correo. Por favor contacta al administrador para mas informacion.',type:'info'});</script> ";
+        echo "<script>swal({title:'Atención',text:'Su reserva se ha realizado pero no pudimos enviar el codigo de reserva a su correo. Por favor contacta al administrador para más información.',type:'info'});</script> ";
 
     }
     //Closing smtp connection
@@ -298,7 +299,7 @@ function enviarMail(){
         //Define name spaces
                     
                     $subject ="Usuario de BilbliotecAR creado correctamente";
-                    $body = "Bienvenido " . $name . "! <br> <br> Te informamos que tu usuario fue creado en nuestro sistema. Por favor accede al mismo utilizando tu mail y la contrasena de abajo. <br> <br> Tu contrasena es: " . "<b>".$pin."</b> <br> <br> Recorda cambiarla una vez ingresado al sistema.<br> <br>Saludos,<br> <b> Equipo BilbiotecAr";
+                    $body = "Bienvenido " . $name . "! <br> <br> Te informamos que tu usuario fue creado en nuestro sistema. Por favor accedé al mismo utilizando tu mail y la contraseña de abajo. <br> <br> Tu contraseña es: " . "<b>".$pin."</b> <br> <br> Recordá cambiarla una vez ingresado al sistema.<br> <br>Saludos,<br> <b> Equipo BilbiotecAr";
                         //cargarCodigo2($pin, $email);
 
         //Create instance of PHPMailer
