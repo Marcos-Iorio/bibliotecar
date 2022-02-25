@@ -68,13 +68,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
 
                     <div class="ingresar-reserva">
                         <label class="label-reserva" for="" style="width: 210px; text-align: left;">Ingresar reserva:</label>
-                        <input type="text" style="background-color: white; color: black; width: 40%;" name="ingresarReserva" id="titulo"  placeholder="Ingrese ID de reserva">
-                        <input type="submit" name="btnReserva" id="subir-libro" value="Cargar" />
+                        <input type="text" style="background-color: white; color: black; width: 40%;" name="ingresarReserva" id="idReserva"  placeholder="Ingrese ID de reserva">
+                        <input  type="submit" name="btnReserva" id="ingresar-reserva" value="Cargar" />
                     </div>
                     <div class="ingresar-devolucion">
                         <label class="label-reserva" for="" style="width: 210px; text-align: left;">Ingresar devolución: </label>
-                        <input type="text" style="background-color: white; color: black; width: 40%;"name="ingresarDevolucion" id="autor"  placeholder="Ingrese ID de libro">
-                        <input type="submit" name="btnDevolucion" id="subir-libro" value="Cargar"/>
+                        <input type="text" style="background-color: white; color: black; width: 40%;"name="ingresarDevolucion" id="idDevolucion"  placeholder="Ingrese ID de libro">
+                        <input  type="submit" name="btnDevolucion" id="ingresar-devolucion" value="Cargar"/>
                     </div>
 
                    
@@ -268,6 +268,9 @@ function cargarReserva(idReserva, usuario, estadoReserva, idEjemplar){
           },
     });  
       });
+
+  
+
     </script>
     
     <script src="js/Spanish.js"></script>

@@ -41,6 +41,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
   <link rel="stylesheet" href="css/datatable.css">
   <link rel="stylesheet" href="css/jquery.dataTables.min.css">
 
+  <!-- ESTE GENERA EL PROBLEMA CON EL DATATABLES -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -245,11 +248,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                 </div>
 
                 <div class="center">
-                  <input value="Editar libro" style="width: 20%;" type="submit" name="btnEditarLibro" id="editar-libro"
+                  <input value="Editar libro" style="width: 20%;" type="submit" class="btnEditarLibro" name="btnEditarLibro" id="editar-libro"
                     onclick="return ModificarLibro('editar')" />
                   <label for=""></label>
 
-                  <input value="Crear libro" style="width: 20%; " type="submit" name="btnCrearLibro" id="crear-libro"
+                  <input value="Crear libro" class="confirmarCreacionLibro" type="submit" name="btnCrearLibro" id="crear-libro"
                     onclick="return ModificarLibro('crear')" />
 
                   <input name="txtID" style="background-color: white; color: black; width: 20%;" type="hidden"
@@ -362,11 +365,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                 </div>
 
                 <div class="center">
-                  <input value="Editar autor" style="width: 20%;" type="submit" name="btnEditarAutor" id="editar-autor"
+                  <input value="Editar autor" style="width: 20%;" type="submit" name="btnEditarAutor" id="editar-autor" class="btnEditarAutor"
                     onclick="return ModificarLibro('editar')" />
                   <label for=""></label>
 
-                  <input value="Crear autor" style="width: 20%; " type="submit" name="btnCrearAutor" id="crear-autor"
+                  <input value="Crear autor" style="width: 20%; " type="submit" name="btnCrearAutor" id="crear-autor" class="btnCrearAutor"
                     onclick="return ModificarLibro('crear')" />
                 </div>
               </form>
@@ -375,9 +378,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
         </div>
       </div>
 
-
       <!--Seccion Categorias-->
-
 
       <div class="contenido wrapper" id="seccion-categorias">
         <!--Seccion de los libros-->
@@ -479,11 +480,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                 </div>
 
                 <div class="center">
-                  <input value="Editar categoria" style="width: 20%;" type="submit" name="btnEditarCategoria"
+                  <input value="Editar categoria" style="width: 20%;" type="submit" name="btnEditarCategoria" class="btnEditarCategoria"
                     id="editar-categoria" onclick="return ModificarLibro('editar')" />
                   <label for=""></label>
 
-                  <input value="Crear categoria" style="width: 20%; " type="submit" name="btnCrearCategoria"
+                  <input value="Crear categoria" style="width: 20%; " type="submit" name="btnCrearCategoria" class="btnCrearCategoria"
                     id="crear-categoria" onclick="return ModificarLibro('crear')" />
 
                 </div>
@@ -600,11 +601,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                 </div>
 
                 <div class="center">
-                  <input value="Editar Editorial" style="width: 20%;" type="submit" name="btnEditarEditorial"
+                  <input value="Editar Editorial" style="width: 20%;" type="submit" name="btnEditarEditorial" class="btnEditarEditorial"
                     id="editar-editorial" onclick="return ModificarLibro('editar')" />
                   <label for=""></label>
 
-                  <input value="Crear Editorial" style="width: 20%; " type="submit" name="btnCrearEditorial"
+                  <input value="Crear Editorial" style="width: 20%; " type="submit" name="btnCrearEditorial" class="btnCrearEditorial"
                     id="crear-editorial" onclick="return ModificarLibro('crear')" />
                 </div>
               </form>
@@ -617,10 +618,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
 
       <div id="modal-ejemplares" class="tabla-libros">
         <form name="formEjemplares" action="#modal-ejemplares">
+        <span id="close-ejemplares">&times;</span>
+
           <input hidden type="text" name="datoLibro">
+          <br>
+          <div style="text-align: center;" >
+          <!-- <input type="text" style="height:100px; width: 1000px; border: 0; text-align: center; outline: none;  font-size: 40px;" name="tituloEjemplar" id="tituloEjemplar"> -->
+        <h3 id="tituloEjemplar" name="tituloEjemplar"></h3>  
+        </div>
         </form>
 
-        <span id="close-ejemplares">&times;</span>
         <table id="tabla-ejemplar" class="table-striped table-bordered" style="width:100%">
           <thead>
             <tr>
@@ -664,10 +671,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
 </body>
 <script src="js/gestion-libro.js"></script>
 <script type="text/javascript">
-  function cargarEjemplares(idLibro) {
+  function cargarEjemplares(idLibro, titulo) {
     document.formEjemplares.datoLibro.value = idLibro;
+    // document.formEjemplares.tituloEjemplar.value = titulo;
 
+    var h = document.getElementById("tituloEjemplar");
+    h.textContent = titulo;
 
+    
     const data = {
       'idLibro': Number(idLibro)
     };
@@ -704,6 +715,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                 "responsive": true,
                 "pagingType": "simple",
                 "retrieve": true,
+                "language": {
+                  "emptyTable": "No se encontraron ejemplares",
+                   },
                 // dom: 'Bfrtip',
                 // buttons: [
                 //     'excel'
@@ -718,7 +732,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
 
                 ],
                 "oLanguage": {
-                  "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"
+                  "sInfo": "Total de ejemplares: _TOTAL_"
                 },
               });
             });
@@ -1149,8 +1163,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
           text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>',
           className: 'btn btn-light'
         }
-
-
       ],
       "oLanguage": {
         "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"

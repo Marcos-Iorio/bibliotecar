@@ -307,9 +307,9 @@ echo "</div>";
                     </div>
                   <div class="botones-usuarios">
 
-                    <input value="Editar usuario" type="submit" name="editarUsuario" id="editar-usuario"
+                    <input value="Editar usuario" type="submit" name="editarUsuario" id="editar-usuario" class="btneditarUsuario"
                       onclick="return ModificarUsuario('editar')">
-                    <input value="Crear usuario" type="submit" name="crearUsuario" id="crear-usuario"
+                    <input value="Crear usuario" type="submit" name="crearUsuario" id="crear-usuario" class="btnCrearUsuario"
                       onclick="return ModificarUsuario('crear')">
 
                   </div>

@@ -152,9 +152,24 @@ p.etiqueta-info{
     font-size: 25px;
 }
 
-#subir-libro{
+#ingresar-reserva{
     width: 20%;
     text-align: center;
+}
+#ingresar-reserva:hover{
+    transition: all ease 0.5s;
+    background: rgb(87, 86, 86);
+    color: white;
+}
+
+#ingresar-devolucion{
+    width: 20%;
+    text-align: center;
+}
+#ingresar-devolucion:hover{
+    transition: all ease 0.5s;
+    background: rgb(87, 86, 86);
+    color: white;
 }
 
 .centrar-boton{
@@ -448,8 +463,19 @@ select.form-control{
     -moz-box-shadow: -1px 3px 30px -8px rgba(0,0,0,0.75);
 }
 
-
-
+.btnConfirmarReserva{
+    background-color: #343A40; 
+    color:white; 
+    width: 160px; 
+    height: 50px; 
+    text-align:center;
+    }
+    
+    .btnConfirmarReserva:hover{
+      transition: all ease 0.5s;
+      background: rgb(87, 86, 86);
+      color: white;
+    }
 #close {
     color: black;
     float: right;

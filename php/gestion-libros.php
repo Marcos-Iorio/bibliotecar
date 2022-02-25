@@ -49,7 +49,7 @@ if ($stmt->execute()) {
                             <td>". $fila['stock']. "</td>
                             <td>" . $fila['fechaAlta']. "</td>
                             <td><a href='#modal-libros' id='abrir-modal-libros'><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."',`".$fila["descripcion"]."`,'".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
-                            <td><a href='#modal-ejemplares' id='abrir-ejemplares'><button onclick=\"javascript:cargarEjemplares('".$fila["idLibro"]."')\">Ver ejemplares</button></a></td>
+                            <td><a href='#modal-ejemplares' id='abrir-ejemplares' style='text-decoration: none;'><button class='btnVerEjemplares' onclick=\"javascript:cargarEjemplares('".$fila["idLibro"]."', '".$fila["titulo"]."')\">Ver ejemplares</button></a></td>
                           </tr>
 
 
@@ -238,7 +238,7 @@ $tapa=$_FILES['tapa']['name'];
                     }
 
                      if ($flagLibro="ok" || $flagEditorial="ok" || $flagAutor="ok" || $flagCategoria="ok" || $flagStock="ok") {
-                    echo "<script>swal({title:'$titulo',text:'Registro editado correctamente.',type:'$tipo', showConfirmButton: false, html: '<h6>$msjStock</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
+                    echo "<script>swal({title:'$titulo',text:'Registro editado correctamente.',type:'$tipo', showConfirmButton: false, html: '<h6>$msjStock</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
 // //                      # code...
                     } else {
 // //         //echo "<script>swal({title:'Error',text:'El registro no pudo ser editado. flagLibro= $flagLibro, flagEditorial= $flagEditorial, flagAutor= $flagAutor, flagCategoria= $flagCategoria, $varLibro ',type:'error'});</script>";
@@ -514,7 +514,8 @@ function llenarImagen($tapa,$contratapa){
                 if ($insertTapa->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Éxito',text:'Registro ingresado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Registro ingresado correctamente</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
+        echo "<script>swal({title:'Éxito',text:'Registro ingresado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Registro ingresado correctamente</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
         //gestionLibros();
 
 
@@ -541,7 +542,8 @@ function cargarCTapaImagenLibro($idLibro,$destinoCtapa, $idCat, $destinoTapa){
       if ($insertCTapa->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Éxito',text:'Registro ingresado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Registro ingresado correctamente</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
+        echo "<script>swal({title:'Éxito',text:'Registro ingresado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Registro ingresado correctamente</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
         //gestionLibros();
 
     
@@ -625,6 +627,8 @@ function cargarCTapaImagenLibro($idLibro,$destinoCtapa, $idCat, $destinoTapa){
             return $idEditorialNueva;
   }
 
+function getAutores() {
+      include('db.php');
 
 function getAutores() {
       include('db.php');
@@ -638,6 +642,8 @@ function getAutores() {
 }
 
 
+function getEditoriales() {
+      include('db.php');
 
 function getEditoriales() {
       include('db.php');
@@ -809,7 +815,8 @@ if ($stmt->execute()) {
                 if ($cargarAutor->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Autor ingresado correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
+        echo "<script>swal({title:'Éxito',text:'Autor ingresado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Autor ingresado correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
         //gestionAutores();
 
 
@@ -833,8 +840,9 @@ include('db.php');
                 if ($editarAutor->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-            echo "<script>swal({title:'Exito',text:'Autor editado correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
-        //gestionAutores();
+            echo "<script>swal({title:'Éxito',text:'Autor editado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Autor editado correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
+            //gestionAutores();
 
 
     } else {
@@ -900,8 +908,9 @@ function crearCategoria($nombreCategoria) {
                 if ($cargarCategoria->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-         echo "<script>swal({title:'Exito',text:'Categoria ingresada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
-        //gestionAutores();
+         echo "<script>swal({title:'Éxito',text:'Categoria ingresada correctamente.',type:'success', showConfirmButton: false, html: '<h6>Categoria ingresada correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
+         //gestionAutores();
 
 
     } else {
@@ -925,8 +934,9 @@ include('db.php');
                 if ($editarCategoria->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-            echo "<script>swal({title:'Exito',text:'Categoria editada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
-        //gestionAutores();
+            echo "<script>swal({title:'Éxito',text:'Categoria editada correctamente.',type:'success', showConfirmButton: false, html: '<h6>Categoria editada correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
+            //gestionAutores();
 
 
     } else {
@@ -996,8 +1006,9 @@ function crearEditorial($nombreEditorial) {
 
         //enviarPwd($nombre, $mail, $pass);
 
-            echo "<script>swal({title:'Exito',text:'Editorial ingresada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
-        //gestionAutores();
+            echo "<script>swal({title:'Éxito',text:'Editorial ingresada correctamente.',type:'success', showConfirmButton: false, html: '<h6>Editorial ingresada correctamente.e</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
+            //gestionAutores();
 
 
     } else {
@@ -1021,8 +1032,9 @@ include('db.php');
                 if ($editarEditorial->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-         echo "<script>swal({title:'Exito',text:'Editorial editada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
-        //gestionAutores();
+         echo "<script>swal({title:'Éxito',text:'Editorial editada correctamente.',type:'success', showConfirmButton: false, html: '<h6>Editorial editada correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
+         //gestionAutores();
 
 
     } else {
