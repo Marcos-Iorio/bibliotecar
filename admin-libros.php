@@ -33,7 +33,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="js/mensajes.js"></script>
-   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="css/inicio.css">
   <link rel="stylesheet" href="css/libros.css">
   <link rel="stylesheet" href="css/datatable.css">
@@ -376,9 +378,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
         </div>
       </div>
 
-
       <!--Seccion Categorias-->
-
 
       <div class="contenido wrapper" id="seccion-categorias">
         <!--Seccion de los libros-->
@@ -1163,8 +1163,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
           text: '<i class="fas fa-download" title="Exportar" id="exportar"></i>',
           className: 'btn btn-light'
         }
-
-
       ],
       "oLanguage": {
         "sInfo": "Mostrando registros _START_-_END_ de _TOTAL_"

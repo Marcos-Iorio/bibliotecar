@@ -211,12 +211,26 @@ label{
   }
 
   input#confirmar:hover{
-    background: white;
-    border: 2px solid #333;
     transition: all ease 0.5s;
-    color: #333;
-  
+    background: rgb(87, 86, 86);
+    color: white;
   }
+
+
+
+  .btnFinalizarReserva{
+    background-color: #343A40; 
+    color:white; 
+    width: 160px; 
+    height: 50px; 
+    text-align:center;
+    }
+    
+    .btnFinalizarReserva:hover{
+      transition: all ease 0.5s;
+      background: rgb(87, 86, 86);
+      color: white;
+    }
 
   button#cancelar{
     border: 2px solid #333;

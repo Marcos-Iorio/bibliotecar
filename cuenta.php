@@ -37,10 +37,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/cuenta.css">
     <link rel="stylesheet" href="css/inicio.css">
     <title>Mi cuenta</title>
@@ -178,48 +178,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                      ?>
                 </ul>
             </li>
-
-
-            <!-- Modal cancelar reserva -->
-            <div id="modal-contrasenia" class="modal">
-                        <!-- Modal content -->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <span class="close-contrasenia">&times;</span>
-                                <h2>¿Querés cancelar tu reserva?<?php /* echo $arr['titulo']; */?>?</h2>
-                            </div>
-                            <?php 
-                            /*if (isset($codigo)) {
-                                echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
-                                        <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
-
-                            }*/
-                            ?>
-                            <div class="modal-body">
-                                <form action="#" method="POST" name="modificarPwd">
-                                    <input class="confirmarPass" id="confirmarPass" name="confirmarPass" value="Confirmar" type="submit">
-                                    <input hidden id="txtPwd" name="txtPwd" type="text">
-                                    <input hidden id="txtPwdNueva" name="txtPwdNueva" type="text">  
-                                                    
-                                </form>
-                                <?php 
-                                if (isset($_POST['confirmarPass'])) {
-                                    $pwd=$_POST['txtPwd'];
-                                    $pwdNueva=$_POST['txtPwdNueva'];
-
-                                    modificarPwd($_SESSION['idUsuario'], $pwd, $pwdNueva);
-                                } 
-                                ?>
-
-                                <button id="cancelar-contrasenia">Cancelar</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
 
             <!-- Modal datos personales -->
             <div id="modal-datos" class="modal">
@@ -669,12 +627,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
 
 function cancelarReserva(nroReserva, flag) {
    if (flag == 1) {
-    swal({
+    Swal.fire({
               title: false,
               text: 'Ejemplar desactivado correctamente.',
               type: false,
               showConfirmButton: false,
-              html:'<form method="POST" ><br><h5>Deseas eliminar esta reserva?</h5><input hidden type="text" name="txtCancelarReserva" value="'+nroReserva+'"> <div><br><input type="submit" style="display:inline-block; background-color: #333; color:white; width: 150px; margin-right:15px;"  name="btnCancelarReserva" class="btnCancelarReserva"  value="Confirmar"><input type="submit" style="display:inline-block; background-color: gray; color:white; width: 150px;" name="cancelarEdicion" value="Cancelar"></div><br></form>',
+              html:'<form method="POST" ><br><h5>¿Deseas eliminar esta reserva?</h5><input hidden type="text" name="txtCancelarReserva" value="'+nroReserva+'"> <div><br><input type="submit" style="display:inline-block; background-color: #333; color:white; width: 150px; margin-right:15px;"  name="btnCancelarReserva" class="btnCancelarReserva"  value="Confirmar"><input type="submit" style="display:inline-block; background-color: gray; color:white; width: 150px;" name="cancelarEdicion" value="Cancelar"></div><br></form>',
 
             })
           }
@@ -717,21 +675,6 @@ function cancelarReserva(nroReserva, flag) {
         });  
 
       });
-
-    //   $(document).ready(function(){
-    //     $('#tablaDescargas').DataTable({
-    //       "lengthMenu": [[3, 5, 10], [3, 5, 10]],
-    //       "responsive": true,
-    //       "pagingType": "simple",
-    //       "deferRender": true,
-    //       dom: 'rtip',
-    //       "oLanguage": {
-    //       "sInfo": "",
-    //       },
-
-    //     });  
-
-    //   });
     </script>
 
 <script src="js/Spanish.js"></script>

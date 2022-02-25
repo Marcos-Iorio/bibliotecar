@@ -217,11 +217,13 @@ function getDescargas($idUsuario){
     $idLibro=getLibro($idEjemplar);
 
 
-    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado=0 where idReserva='".$idReserva."'");
+    $stmt = $dbh->prepare("UPDATE reservas SET idReservaEstado = 4 where idReserva='".$idReserva."'");
 
     if ($stmt->execute()) {
       $stmt = $dbh->prepare("UPDATE libros SET stock=stock+1 where idLibro='".$idLibro."'");
       if ($stmt->execute()) {
+        $stmt = $dbh->prepare("UPDATE ejemplares SET idEjemplarEstado = 0 where idEjemplar='".$idEjemplar."'");
+        $stmt->execute();
         echo "<script>swal({title:'Exito',text:'La reserva fue cancelada.',type:'success', showConfirmButton: false, html: '<h6>La reserva fue cancelada.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"cuenta.php\"><button type=\"submit\" class=\"btnConfirmarCambiosCuenta\">OK</button></a>'});</script>";
       } else {
         echo "<script>swal({title:'Error',text:'Hubo un problema al cancelar la reserva. Por favor intenta nuevamente.',type:'error'});</script> ";
