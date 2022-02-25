@@ -532,9 +532,9 @@ include('db.php');
 
     $insertCTapa = $dbh->prepare("INSERT into `imagen_libros` (idLibro,ruta_contratapa,idCategoriaImg, ruta) values(?,?,?,?)");
     $insertCTapa->bindParam(1,$idLibro); 
-    $insertCTapa->bindParam(2,$destinoTapa);
+    $insertCTapa->bindParam(2,$destinoCtapa);
     $insertCTapa->bindParam(3,$idCat);
-    $insertCTapa->bindParam(4,$destinoCtapa);    
+    $insertCTapa->bindParam(4,$destinoTapa);    
     
   
         //$insertCTapa->execute();

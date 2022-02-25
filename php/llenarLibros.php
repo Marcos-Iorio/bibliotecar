@@ -335,7 +335,7 @@ function librosFiltrados(){
                     INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
                     INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
                     INNER JOIN autores a ON la.idAutores = a.idAutores
-                    WHERE l.pdf IS NULL ORDER BY l.stock DESC";
+                    WHERE l.pdf='' OR l.pdf IS NULL ORDER BY l.stock DESC";
         }
     }
 
