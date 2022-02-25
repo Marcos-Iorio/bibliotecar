@@ -26,7 +26,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
 
 ?>
 
-<html lang="es">
+<html lang="es" style="heigth=235%!important;">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
