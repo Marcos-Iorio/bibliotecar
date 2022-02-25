@@ -195,7 +195,7 @@ function insertarUsuario($nombre, $apellido, $rol, $dni, $mail, $alta, $estado)
     if ($stmt->execute()) {
 
         enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Usuario creado correctamente. Se ha enviado un correo a $mail',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-usuarios.php\">OK</a></button>'});</script>";
+        echo "<script>swal({title:'Exito',text:'Usuario creado correctamente. Se ha enviado un correo a $mail',type:'success', showConfirmButton: false, html: '<h6>Usuario creado correctamente. Se ha enviado un correo a $mail</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-usuarios.php\"><button type=\"submit\" class=\"btnConfirmarUsuario\">OK</button></a>'});</script>";
 
     } else {
         echo "<script>swal({title:'Error',text:'El usuario no pudo ser creado INSERT INTO usuarios (nombre, apellido, idRol, numeroDocumento, mail, check_mail, idEstado, contrasena) VALUES ($nombre, $apellido, $rol, $dni, $mail, $alta, $estado, $passHash',type:'error'});</script>";
@@ -269,7 +269,7 @@ function editarUsuario($id, $nombre, $apellido, $rol, $dni, $mail, $alta, $estad
     if ($stmt->execute()) {
         $resultado = $stmt->fetchAll();
 
-            echo "<script>swal({title:'Exito',text:'El usuario fue modificado satisfactoriamente',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-usuarios.php\">OK</a></button>'});</script>";
+            echo "<script>swal({title:'Exito',text:'El usuario fue modificado satisfactoriamente',type:'success', showConfirmButton: false, html: '<h6>El usuario fue modificado satisfactoriamente</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-usuarios.php\"><button type=\"submit\" class=\"btnConfirmarUsuario\">OK</button></a>'});</script>";
 
 
     } else {

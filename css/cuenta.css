@@ -373,6 +373,21 @@ and (max-device-width: 1000px) {
     color: white;
   }
 
+
+  .btnConfirmarCambiosCuenta{
+    background-color: #343A40; 
+    color:white; 
+    width: 160px; 
+    height: 50px; 
+    text-align:center;
+    }
+    
+    .btnConfirmarCambiosCuenta:hover{
+      transition: all ease 0.5s;
+      background: rgb(87, 86, 86);
+      color: white;
+    }
+
 #modal-datos, #modal-contrasenia {
     display: none; /* Hidden by default */
     position: absolute; /* Stay in place */
@@ -458,6 +473,55 @@ and (max-device-width: 1000px) {
   
   }
 
+  #btnEstado {
+border: none;
+background-color: transparent;
+    color: #333;
+    
+  }
+/* 
+  #cancelarEdicion {
+    display:inline-block; 
+    background-color: #495F91; 
+    color:white; 
+    width: 150px; 
+    margin-right:15px;
+           
+      }
+         */
+      .cancelarEdicion:hover {
+        transition: all ease 0.5s;
+        background: rgb(87, 86, 86);
+        color: white;
+            
+          }
+
+          /* #btnCancelarReserva {
+
+            display:inline-block; 
+            background-color: gray; 
+            color:white; 
+            width: 150px;
+              } */
+
+              .btnCancelarReserva:hover {
+                transition: all ease 0.5s;
+                background: rgb(87, 86, 86);
+                color: white;
+                    
+                  }
+        
+
+
+  .fas.fa-trash{
+    color:#333; 
+    font-size: 20px;   
+}
+
+.fas.fa-trash:hover{
+  transition: all ease 0.5s;
+  color: rgb(87, 86, 86);
+}
   button#cancelar-datos, button#cancelar-contrasenia{
     border: 2px solid #333;
     display: block;
@@ -584,3 +648,6 @@ h3{
 
 }
 
+html.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown), body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){
+  height: 100% !important;
+}

@@ -22,7 +22,7 @@ function autoresReservas(){
     d3.json("php/autoresReservados.php").then(function(data){
 
             xScale.domain(data.map(function(d){return d.nombreAutor}));
-            yScale.domain([0, d3.max(data, function(d){return d.cantidad})])
+            yScale.domain([0, d3.max(data, function(d){return d.cantidad * 1.1})])
 
             g.append('g').attr('transform','translate(0,'+height+')')
                 .call(d3.axisBottom(xScale))
@@ -60,7 +60,7 @@ function autoresReservas(){
 
     function onMouseOver(d, i){
         //agarra los valores X y Y
-        var xPos = parseFloat(d3.select(this).attr('x')) + xScale.bandwidth() + 100;
+        var xPos = parseFloat(d3.select(this).attr('x')) + xScale.bandwidth() + 75;
         var yPos = parseFloat(d3.select(this).attr('y')) / 2 + height / 1.5;
     
         //Actualiza la posición del tooltip;
@@ -265,7 +265,7 @@ function librosReservados(){
 
     var svg = d3.select('#libros-treinta-dias'),
     margin = 200,
-    width = svg.attr("width") - margin,
+    width = svg.attr("width") - 0,
     height = svg.attr("height") - margin;
 
     /* Titulo */
@@ -327,8 +327,8 @@ function librosReservados(){
 
     function mouseOver(d, i){
         //agarra los valores X y Y
-        var xPos = parseFloat(d3.select(this).attr('x')) + xScale.bandwidth() + 100;
-        var yPos = parseFloat(d3.select(this).attr('y')) / 2 + height / 1.5;
+        var xPos = parseFloat(d3.select(this).attr('x')) + xScale.bandwidth() + 170;
+        var yPos = parseFloat(d3.select(this).attr('y')) / 2 + height / 0.13;
     
         //Actualiza la posición del tooltip;
         d3.select('#tooltip-libros')
@@ -336,7 +336,7 @@ function librosReservados(){
             .style('top', yPos + 'px')
             .select('#cantidad-libros').text(i.cantidad)
         
-        d3.select('#tooltip.libros')
+        d3.select('#tooltip-libros')
             .select('#nombre-libro').text(i.titulo)
         
         d3.select('#tooltip-libros').classed('hidden', false)

@@ -294,7 +294,7 @@ only screen and (                min-resolution: 2dppx) {
     font-family: 'Raleway', sans-serif;
     font-weight: 400;
     text-align: center;
-    padding: 20px 0 20px 0;
+    padding: 20px 20px 20px 0;
     font-size: 45px;
     color: white;
 
@@ -315,7 +315,7 @@ only screen and (                min-resolution: 2dppx) {
 .container-paneles{
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 80%;
     justify-items: center;
     flex-wrap: wrap;
     justify-content:space-around;
@@ -486,4 +486,17 @@ and (max-device-width: 1000px){
     #page > #sidebar{
         overflow-y: scroll !important;
     }
+}
+
+.ver-mas{
+    background: #333;
+    border-radius: 6px; 
+    padding:10px;
+    color: white;
+    text-decoration: none !important;
+}
+
+.ver-mas:hover{
+    color: white;
+    background: #444;
 }

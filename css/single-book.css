@@ -59,8 +59,8 @@ a{
     background-color: rgb(231, 231, 231);
     grid-area: descripcion;
     width: 88.3%;
-    height: 200px;
-    margin-top: 50px;
+    height: 105%;
+    margin-top: 100px;
     padding: 20px;
 	justify-self: center;
 }
@@ -133,6 +133,8 @@ label{
 
 .desc{
     text-align: center;
+    height: 76%;
+    word-break: break-word;
 }
 
 /* The Modal (background) */

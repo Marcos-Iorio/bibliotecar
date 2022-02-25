@@ -250,7 +250,7 @@ function singleBook($idLibro){
 
   function todasLasCategorias(){
      include 'db.php'; 
-    $stmt = $dbh->prepare('SELECT distinct nombreCategoria from categorias');
+    $stmt = $dbh->prepare('SELECT distinct nombreCategoria from categorias order by nombreCategoria asc');
     // Ejecutamos
     $stmt->execute();
     // Mostramos los resultados
@@ -293,9 +293,9 @@ function librosFiltrados(){
         }
     }
 
-    if(isset($_GET['autor'])){
-        $filtro = $_GET['autor'];
-        $query .="SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+    if(isset($_GET['categoria'])){
+        $filtro = $_GET['categoria'];
+        $query .= "SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
                     FROM libros AS l 
                     INNER JOIN libro_autores la ON l.idLibro = la.idLibro
                     INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
@@ -304,7 +304,7 @@ function librosFiltrados(){
                     INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
                     INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
                     INNER JOIN autores a ON la.idAutores = a.idAutores
-                    WHERE a.nombreAutor = $filtro ORDER BY l.stock DESC";
+                    WHERE c.nombreCategoria = '" . $filtro ."' ORDER BY l.stock DESC";
     }
 
     if(isset($_GET['pdf'])){
@@ -319,7 +319,7 @@ function librosFiltrados(){
                     INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
                     INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
                     INNER JOIN autores a ON la.idAutores = a.idAutores
-                    WHERE l.pdf IS NOT NULL ORDER BY l.stock DESC";
+                    WHERE l.pdf IS NOT NULL AND l.pdf!= '' ORDER BY l.stock DESC";
         }else{
             $query .= "SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
                     FROM libros AS l 

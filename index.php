@@ -25,16 +25,26 @@
 
          ?>
         <main id="main" style="overflow-y: hidden">
-            <?php 
-               if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ) {
-                  echo '<h1 class="titulo-pagina"  style="margin-left: 50px;">Hola '. $user . '!</h1>';
-               }else{
-                // echo '<div class="logo-inicio" ><img class="logo-inicio" src="assets/logo sin fondo.png" alt=""></div>'
-                  echo '<h1 class="titulo-pagina"  style="margin-left: 50px;" >BibliotecAr</h1>';
-
-               } 
-
-           ?>
+            
+            <div style="text-align:center;" >
+                <img src="assets/newlogo.png" alt="" style="width:180px;">
+                <?php 
+                    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && isset($user) ) {
+                        if($pid == 1){
+                            $pid = "Usuario";
+                        }elseif($pid == 2){
+                                $pid = "Colaborador";
+                        }else{
+                                $pid = "Administrador";
+                        }
+                        
+                        echo '<h1 class="titulo-pagina"  style="margin-left: 50px;">Hola '. $pid . '!</h1>';
+                    }else{
+                        // echo '<div class="logo-inicio" ><img class="logo-inicio" src="assets/logo sin fondo.png" alt=""></div>'
+                        echo '<h1 class="titulo-pagina"  style="margin-left: 50px;" >BibliotecAr</h1>';
+                    } 
+                ?>
+            </div>
             <div class="container-paneles">
                 <?php include "php/paneles.php"; ?>
                 <div class="card">
@@ -43,7 +53,7 @@
                             <h4>Portal</h4>
                         </div>
                         <p>Ingresa al portal para ver todo el catalogo de libros disponible.</p>
-                        <a href="libros.php">Ver más</a>
+                        <a class="ver-mas" href="libros.php">Ver más</a>
                     </div>
                 </div>
                 <div class="card">
@@ -81,7 +91,7 @@
                             <h4>Mi cuenta</h4>
                         </div>
                         <p>Accede a tu cuenta para mas detalles.</p>
-                        <a href="cuenta.php">Ver más</a>
+                        <a class="ver-mas" href="cuenta.php">Ver más</a>
                     </div>
                 </div>
 
@@ -93,7 +103,7 @@
                             <h4>Contactanos</h4>
                         </div>
                         <p>Conoce mas informacion acerca de nuestro portal.</p>
-                        <a href="contacto.php">Ver más</a>
+                        <a class="ver-mas" href="contacto.php">Ver más</a>
                     </div>
                 </div>
 
@@ -109,7 +119,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '2') {
                             <h4>Gestion de libros</h4>
                         </div>
                         <p>Administrar libros, editoriales, categorias, y autores (solo perfiles autorizados).</p>
-                        <a href="admin-libros.php">Ver más</a>
+                        <a class="ver-mas" href="admin-libros.php">Ver más</a>
                     </div>
                 </div>
                 <!-- <div id="clockdate">
@@ -125,7 +135,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '2') {
                             <h4>Gestion de reservas</h4>
                         </div>
                         <p>Administrar las reservas pendientes y activas (solo perfiles autorizados).</p>
-                        <a href="admin-reservas.php">Ver más</a>
+                        <a class="ver-mas" href="admin-reservas.php">Ver más</a>
                     </div>
                 </div>
 
@@ -135,7 +145,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '2') {
                             <h4>Contacto</h4>
                         </div>
                         <p>Contacta al soporte tecnico de BibliotecAr.</p>
-                        <a href="contacto.php">Ver más</a>
+                        <a class="ver-mas" href="contacto.php">Ver más</a>
                     </div>
                 </div>
                 <?php } ?>
@@ -150,7 +160,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '3') {
                             <h4>Gestion de libros</h4>
                         </div>
                         <p>Administrar libros, editoriales, categorias, y autores (solo perfiles autorizados).</p>
-                        <a href="admin-libros.php">Ver más</a>
+                        <a class="ver-mas" href="admin-libros.php">Ver más</a>
                     </div>
                 </div>
                 <!-- <div id="clockdate">
@@ -166,7 +176,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '3') {
                             <h4>Gestion de usuarios</h4>
                         </div>
                         <p>Administrar los usuarios del sistema (solo perfiles autorizados).</p>
-                        <a href="admin-usuarios.php">Ver más</a>
+                        <a class="ver-mas" href="admin-usuarios.php">Ver más</a>
                     </div>
                 </div>
 
@@ -176,7 +186,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '3') {
                             <h4>Reportes</h4>
                         </div>
                         <p>Accede a las distintas estadisticas del sistema (solo perfiles autorizados).</p>
-                        <a href="reportes.php">Ver más</a>
+                        <a class="ver-mas" href="reportes.php">Ver más</a>
                     </div>
                 </div>
                 <?php } ?>

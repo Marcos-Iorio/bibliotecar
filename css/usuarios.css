@@ -123,6 +123,12 @@ button.boton-agregar-libro {
     cursor: pointer;
 }
 
+button.boton-agregar-libro:hover{
+    transition: all ease 0.5s;
+    background: rgb(87, 86, 86);
+    color: white;
+  }
+
 .fas.fa-filter, .fas.fa-search{
     z-index: 99;
     position: absolute;
@@ -308,6 +314,33 @@ i.fas.fa-pencil-alt.tbody-icon{
     transition: ease 0.5s;
     cursor: pointer;
 }
+
+.btnCrearUsuario:hover{
+    transition: all ease 0.5s;
+    background: rgb(87, 86, 86);
+    color: white;
+  }
+
+.btneditarUsuario:hover{
+    transition: all ease 0.5s;
+    background: rgb(87, 86, 86);
+    color: white;
+  }
+
+  .btnConfirmarUsuario{
+    background-color: #343A40; 
+    color:white; 
+    width: 160px; 
+    height: 50px; 
+    text-align:center;
+    }
+    
+    .btnConfirmarUsuario:hover{
+      transition: all ease 0.5s;
+      background: rgb(87, 86, 86);
+      color: white;
+    }
+  
 
 button{
     background: transparent;

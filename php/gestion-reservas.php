@@ -13,7 +13,7 @@ function gestionReservas(){
 //         $page_first_result = ($page-1) * $results_per_page;  
 
   //$stmt = $dbh->prepare("SELECT * FROM reservas WHERE idReservaEstado <> '0' LIMIT " . $page_first_result . ',' . $results_per_page );
-  $stmt = $dbh->prepare("SELECT * FROM reservas WHERE idReservaEstado <> '0'");
+  $stmt = $dbh->prepare("SELECT *, DATE_FORMAT(fechaDesde,'%d-%m-%Y') as fechaDesde, DATE_FORMAT(fechaHasta,'%d-%m-%Y') as fechaHasta FROM reservas WHERE idReservaEstado <> '0'");
 
 
 
@@ -81,9 +81,11 @@ function ingresarReserva ($idReserva){
 
       
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Reserva realizada correctamente.',type:'success', showConfirmButton: false, html: '<h5>Reserva realizada correctamente.</h5><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
+        echo "<script>swal({title:'Exito',text:'Reserva realizada correctamente.',type:'success', showConfirmButton: false, html: '<h6>Reserva realizada correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\"><button type=\"submit\" class=\"btnConfirmarReserva\">OK</button></a>'});</script>";
+
       }else{
-        echo "<script>swal({title:'Error',text:'El código ingresado no corresponde a ninguna reserva.',type:'error', showConfirmButton: false, html: '<h5>El código no existe.</h5><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
+        echo "<script>swal({title:'Error',text:'El código ingresado no corresponde a ninguna reserva.',type:'error'});</script>";
+
       }
     } else {
         echo "<script>swal({title:'Error',text:'Error al ingresar reserva',type:'error'});</script>";
@@ -124,7 +126,7 @@ include 'reservar.php';
     if ($stmt->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-      echo "<script>swal({title:'Exito',text:'Reserva modificada correctamente.',type:'success', showConfirmButton: false, html: '<h5>Reserva modificada correctamente.</h5><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\">OK</a></button>'});</script>";
+      echo "<script>swal({title:'Exito',text:'Reserva modificada correctamente.',type:'success', showConfirmButton: false, html: '<h6>Reserva modificada correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\"><button type=\"submit\" class=\"btnConfirmarReserva\">OK</button></a>'});</script>";
 
 
     } else {
@@ -183,7 +185,7 @@ function ingresarDevolucion ($idEjemplar){
 if ($stmt->execute()) {
   //$idReserva=$stmt->fetchColumn();
     $arr=$stmt->fetch(PDO::FETCH_ASSOC);
-    /* $idReserva = $arr['idReserva']; */
+    $idReserva = $arr['idReserva'];
     if (empty($arr)) {
         echo "<script>swal({title:'Error',text:'Para realizar una devolucion, la reserva debe estar en estado Activo',type:'error'});</script>";
 
@@ -203,7 +205,7 @@ if ($stmt->execute()) {
     if ($stmt->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-      echo "<script>swal({title:'Exito',text:'Devolucion realizada correctamente.',type:'success', showConfirmButton: false, html: '<h5>Devolucion realizada correctamente.</h5><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\">OK</a></button>'});</script>";
+      echo "<script>swal({title:'Exito',text:'Devolucion realizada correctamente.',type:'success', showConfirmButton: false, html: '<h6>Devolucion realizada correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-reservas.php\"><button type=\"submit\" class=\"btnConfirmarReserva\">OK</button></a>'});</script>";
 
 
     } else {

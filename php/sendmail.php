@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
-<head ><meta charset="UTF-8">
-
+<head >
+<meta charset="UTF-8">
+</head>
+<body>
 <?php
+
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
 function enviarMail(){
+    iconv_set_encoding("internal_encoding", "UTF-8");
 //Include required PHPMailer files
 	require 'PHPMailer.php';
 	require 'SMTP.php';
@@ -43,8 +47,13 @@ function enviarMail(){
         }
 
 //Create instance of PHPMailer
+
+    
 	$mail = new PHPMailer(true);
+    $mail->CharSet = "UTF-8";
+    $mail->Encoding = 'base64';
 //Set mailer to use smtp
+
 	$mail->isSMTP();
     /* $mail->SMTPDebug = SMTP::DEBUG_SERVER;  */  //Habilitar para debugear
 //Define smtp host
@@ -64,7 +73,7 @@ function enviarMail(){
 //Set gmail password
 	$mail->Password = $_ENV['PW_MAIL'];
 //Email subject
-	$mail->Subject = ("$subject $email");
+    $mail->Subject = utf8_decode(("$subject $email"));
 //Set sender email FROM
 	$mail->setFrom($email);
 
@@ -73,7 +82,7 @@ function enviarMail(){
 //Attachment
 	//$mail->addAttachment('img/attachment.png');
 //Email body
-	$mail->Body = $body;
+	$mail->Body = utf8_decode($body);
 //Add recipient TO:
         if (isset($_POST['contactophp'])) {
 			$mail->addAddress('soporte.bibliotecar@gmail.com');
@@ -129,7 +138,7 @@ function enviarMail(){
 
 
    function reenviar($name, $email, $pin){
-
+    iconv_set_encoding("internal_encoding", "UTF-8");
     require('../vendor/autoload.php');
 
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
@@ -161,7 +170,7 @@ function enviarMail(){
 //Set gmail password
     $mail->Password = $_ENV['PW_MAIL'];
 //Email subject
-    $mail->Subject = ("$subject $email");
+    $mail->Subject = utf8_decode(("$subject $email"));
 //Set sender email FROM
     $mail->setFrom($email);
 
@@ -170,7 +179,7 @@ function enviarMail(){
 //Attachment
     //$mail->addAttachment('img/attachment.png');
 //Email body
-    $mail->Body = $body;
+    $mail->Body = utf8_decode($body);
 //Add recipient TO:
 
             $mail->addAddress($email);
@@ -197,6 +206,7 @@ function enviarMail(){
 }
 
    function enviarReserva($name, $email, $pin){
+    iconv_set_encoding("internal_encoding", "UTF-8");
     require('./vendor/autoload.php');
 
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
@@ -233,7 +243,7 @@ function enviarMail(){
 //Set gmail password
     $mail->Password = $_ENV['PW_MAIL'];
 //Email subject
-    $mail->Subject = ("$subject $email");
+    $mail->Subject = utf8_decode(("$subject $email"));
 //Set sender email FROM
     $mail->setFrom($email);
 
@@ -242,7 +252,7 @@ function enviarMail(){
 //Attachment
     //$mail->addAttachment('img/attachment.png');
 //Email body
-    $mail->Body = $body;
+    $mail->Body = utf8_decode($body);
 //Add recipient TO:
 
             $mail->addAddress($email);
@@ -261,7 +271,7 @@ function enviarMail(){
 
     if ($mail->send()) {
     $flag='0';
-    echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+    echo "<script>swal({title:'Éxito',type:'success', showConfirmButton: false, html: '<h6>Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"libros.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
     } else {
         echo "<script>swal({title:'Atencion',text:'Su reserva se ha realizado pero no pudimos enviar el codigo de reserva a su correo. Por favor contacta al administrador para mas informacion.',type:'info'});</script> ";
 
@@ -276,6 +286,7 @@ function enviarMail(){
 
 
     function enviarPwd($name, $email, $pin){
+        iconv_set_encoding("internal_encoding", "UTF-8");
         require('./vendor/autoload.php');
 
         $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
@@ -286,16 +297,12 @@ function enviarMail(){
             require 'Exception.php';
         //Define name spaces
                     
-                    $subject = "Usuario de BilbliotecAR creado correctamente";
+                    $subject ="Usuario de BilbliotecAR creado correctamente";
                     $body = "Bienvenido " . $name . "! <br> <br> Te informamos que tu usuario fue creado en nuestro sistema. Por favor accede al mismo utilizando tu mail y la contrasena de abajo. <br> <br> Tu contrasena es: " . "<b>".$pin."</b> <br> <br> Recorda cambiarla una vez ingresado al sistema.<br> <br>Saludos,<br> <b> Equipo BilbiotecAr";
                         //cargarCodigo2($pin, $email);
 
-                
-
-                
-
         //Create instance of PHPMailer
-            $mail = new PHPMailer();
+            $mail = new PHPMailer(true);
         //Set mailer to use smtp
             $mail->isSMTP();
         //Define smtp host
@@ -306,16 +313,16 @@ function enviarMail(){
             $mail->SMTPAuth = true;
         //Set smtp encryption type (ssl/tls)
             //$mail->SMTPSecure = "STARTTLS";
-            $mail->SMTPSecure = "TLS"; 
+            $mail->SMTPSecure = "tls"; 
 
         //Port to connect smtp
             $mail->Port = "587";
         //Set gmail username
             $mail->Username = "soporte.bibliotecar@gmail.com";
         //Set gmail password
-            $mail->Password = "Bibliotecar123";
+            $mail->Password = $_ENV['PW_MAIL'];
         //Email subject
-            $mail->Subject = ("$subject $email");
+        $mail->Subject = utf8_decode(("$subject $email"));
         //Set sender email FROM
             $mail->setFrom($email);
 
@@ -324,14 +331,14 @@ function enviarMail(){
         //Attachment
             //$mail->addAttachment('img/attachment.png');
         //Email body
-            $mail->Body = $body;
+            $mail->Body = utf8_decode($body);
         //Add recipient TO:
 
-                    $mail->addAddress($email);
+        $mail->addAddress($email);
 
 
-            //$mail->SMTPDebug = 6;
-            $mail->SMTPOptions = array(
+        //$mail->SMTPDebug = 6;
+        $mail->SMTPOptions = array(
             'ssl' => array(
                 'verify_peer' => false,
                 'verify_peer_name' => false,
@@ -342,15 +349,17 @@ function enviarMail(){
         //Finally send email
 
         if ($mail->send()) {
-        $flag='0';
+            $flag='0';
         }
-            //Closing smtp connection
-            $mail->smtpClose();
-            
-            //exit(json_encode(array("status" => $status, "response" => $response)));
+        //Closing smtp connection
+        $mail->smtpClose();
+        
+        //exit(json_encode(array("status" => $status, "response" => $response)));
 }
 
 function enviarRecuperacion($email, $token){
+    iconv_set_encoding("internal_encoding", "UTF-8");
+
     require 'PHPMailer.php';
 	require 'SMTP.php';
 	require 'Exception.php';
@@ -386,10 +395,10 @@ function enviarRecuperacion($email, $token){
     $mail->Port = "587";
     $mail->Username = "soporte.bibliotecar@gmail.com";
     $mail->Password = $_ENV['PW_MAIL'];
-    $mail->Subject = ("$subject $email");
+    $mail->Subject = utf8_decode(("$subject $email"));;
     $mail->setFrom($email);
     $mail->isHTML(true);
-    $mail->Body = $body;
+    $mail->Body = utf8_decode($body);
     $mail->addAddress($email);
 
 
@@ -436,9 +445,5 @@ function verify($response){
 }
 
 ?>
-
-	<title></title>
-</head>
-<body>
 </body>
 </html>

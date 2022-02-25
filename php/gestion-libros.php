@@ -21,7 +21,7 @@
   include 'db.php';
 
 
-  $query = "SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
+  $query = "SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial, DATE_FORMAT(l.fechaAlta,'%d-%m-%Y') AS fechaAlta, i.ruta
             FROM libros AS l
             INNER JOIN libro_autores la ON l.idLibro = la.idLibro
             INNER JOIN libro_categorias lc ON l.idLibro = lc.idLibro
@@ -48,8 +48,8 @@ if ($stmt->execute()) {
                             <td>". $fila['nombreCategoria']."</td>
                             <td>". $fila['stock']. "</td>
                             <td>" . $fila['fechaAlta']. "</td>
-                            <td><a href='#modal-libros' id='abrir-modal-libros'><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."','".$fila["descripcion"]."','".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
-                            <td><a href='#modal-ejemplares' id='abrir-ejemplares'><button onclick=\"javascript:cargarEjemplares('".$fila["idLibro"]."')\">Ver ejemplares</button></a></td>
+                            <td><a href='#modal-libros' id='abrir-modal-libros'><button onclick=\"javascript:cargarLibros('".$fila["titulo"]."','".$fila["nombreAutor"]."','".$fila["nombreCategoria"]."','".$fila["stock"]."',`".$fila["descripcion"]."`,'".$fila["nombreEditorial"]."','".$fila["idLibro"]."')\"><i class=\"fas fa-pencil-alt tbody-icon\"></i></button></a></td>
+                            <td><a href='#modal-ejemplares' id='abrir-ejemplares' style='text-decoration: none;'><button class='btnVerEjemplares' onclick=\"javascript:cargarEjemplares('".$fila["idLibro"]."', '".$fila["titulo"]."')\">Ver ejemplares</button></a></td>
                           </tr>
 
 
@@ -89,10 +89,6 @@ function llenarTabla($titulo,$autor, $descripcion,$categoria,$editorial, $stock,
     //llenarAutorLibro();
     //llenarCategoriaLibro();
     //llenarEditorialLibro();
-
-   
-
-   
 }
 
 
@@ -131,10 +127,8 @@ $tapa=$_FILES['tapa']['name'];
         } else {
         $destinoPdf ="";
 
-    }
-
-
-                               $stockOriginal= getStockActual($idLibro);
+        }
+          $stockOriginal= getStockActual($idLibro);
 
 
                     if ($stockOriginal <= $stock) {
@@ -153,7 +147,7 @@ $tapa=$_FILES['tapa']['name'];
                     }
 
 
-                    $updateLibro = $dbh->prepare("UPDATE libros set titulo = ?, descripcion= ?, where idLibro = ?");
+                    $updateLibro = $dbh->prepare("UPDATE libros set titulo = ?, descripcion= ? where idLibro = ?");
 
                     $updateLibro->bindParam(1, $titulo);
                     $updateLibro->bindParam(2, $descripcion);
@@ -244,7 +238,7 @@ $tapa=$_FILES['tapa']['name'];
                     }
 
                      if ($flagLibro="ok" || $flagEditorial="ok" || $flagAutor="ok" || $flagCategoria="ok" || $flagStock="ok") {
-                    echo "<script>swal({title:'$titulo',text:'Registro editado correctamente.',type:'$tipo', showConfirmButton: false, html: '<h6>$msjStock</h6><br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
+                    echo "<script>swal({title:'$titulo',text:'Registro editado correctamente.',type:'$tipo', showConfirmButton: false, html: '<h6>$msjStock</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
 // //                      # code...
                     } else {
 // //         //echo "<script>swal({title:'Error',text:'El registro no pudo ser editado. flagLibro= $flagLibro, flagEditorial= $flagEditorial, flagAutor= $flagAutor, flagCategoria= $flagCategoria, $varLibro ',type:'error'});</script>";
@@ -312,7 +306,7 @@ function updateTapa($idLibro, $tapa){
  }
 
 
-function llenarImagen($Tapa,$contratapa){
+function llenarImagen($tapa,$contratapa){
     include('db.php');
        
   
@@ -339,11 +333,11 @@ function llenarImagen($Tapa,$contratapa){
 
             
              if ($destinoCtapa=='assets/libros/') {
-                  cargarTapaImagenLibro($idLibro,$destinoTapa,$idTapa);
+                  cargarTapaImagenLibro($idLibro,$destinoTapa, $idTapa);
 
              } else {
-                cargarCTapaImagenLibro($idLibro,$destinoCtapa,$idCtapa);
-                cargarTapaImagenLibro($idLibro,$destinoTapa,$idTapa);
+                cargarCTapaImagenLibro($idLibro,$destinoCtapa,$idCtapa, $destinoTapa);
+                /* cargarTapaImagenLibro($idLibro,$destinoTapa, $idTapa); */
 
              }
 
@@ -507,20 +501,21 @@ function llenarImagen($Tapa,$contratapa){
 
 
 
-                function cargarTapaImagenLibro($idLibro,$destinoTapa,$idCat){
+                function cargarTapaImagenLibro($idLibro,$destinoTapa, $idCat){
                     include('db.php');
                          
                          $insertTapa = $dbh->prepare("INSERT into `imagen_libros` (idLibro,ruta,idCategoriaImg) values(?,?,?)");
                          $insertTapa->bindParam(1,$idLibro); 
                          $insertTapa->bindParam(2,$destinoTapa);    
-                         $insertTapa->bindParam(3,$idCat);
+                         $insertTapa->bindParam(3, $idCat);
                         
                               //$insertTapa->execute();
 
                 if ($insertTapa->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-                    echo "<script>swal({title:'Exito',text:'Registro ingresado correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
+        echo "<script>swal({title:'Éxito',text:'Registro ingresado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Registro ingresado correctamente</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
         //gestionLibros();
 
 
@@ -530,141 +525,152 @@ function llenarImagen($Tapa,$contratapa){
 
     }
 
-                    }
+}
 
-                    function cargarCTapaImagenLibro($idLibro,$destinoCtapa,$idCat){
-                        include('db.php');
-                
-                            $insertCTapa = $dbh->prepare("INSERT into `imagen_libros` (idLibro,ruta,idCategoriaImg) values(?,?,?)");
-                            $insertCTapa->bindParam(1,$idLibro); 
-                            $insertCTapa->bindParam(2,$destinoCtapa);    
-                            $insertCTapa->bindParam(3,$idCat);
-                           
-                         
-                                //$insertCTapa->execute();
+function cargarCTapaImagenLibro($idLibro,$destinoCtapa, $idCat, $destinoTapa){
+  include('db.php');
 
-                                            $insertCTapa->execute();
+      $insertCTapa = $dbh->prepare("INSERT into `imagen_libros` (idLibro,ruta_contratapa,idCategoriaImg, ruta) values(?,?,?,?)");
+      $insertCTapa->bindParam(1,$idLibro); 
+      $insertCTapa->bindParam(2,$destinoTapa);
+      $insertCTapa->bindParam(3,$idCat);
+      $insertCTapa->bindParam(4,$destinoCtapa);    
+      
+    
+          //$insertCTapa->execute();
 
+      if ($insertCTapa->execute()) {
 
-                                
-                
-                        }
+        //enviarPwd($nombre, $mail, $pass);
+        echo "<script>swal({title:'Éxito',text:'Registro ingresado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Registro ingresado correctamente</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
 
-                        function buscarIdLibro(){
-                            include('db.php');
+        //gestionLibros();
 
-                            $buscarId = $dbh->prepare(' SELECT idLibro FROM libros ORDER BY idLibro DESC LIMIT 1');
-                            $buscarId->execute();
-                            $arr = $buscarId->fetch(PDO::FETCH_ASSOC);
-                            $idNuevo = $arr['idLibro'];
-                            
-                                  return $idNuevo;
-
-                        }
-
-                        function buscarIdTapa(){
-                            include('db.php');
-
-                            $buscarImg = $dbh->prepare('SELECT idCategoriaImg FROM categoria_imagenes where idCategoriaImg = 1');
-                            $buscarImg->execute();
-                            $arr = $buscarImg->fetch(PDO::FETCH_ASSOC);
-                            $idTapa = $arr['idCategoriaImg'];
-                             
-                                  return $idTapa;
-                        }
-                        
-                        function buscarIdcontraTapa(){
-                            include('db.php');
-
-                            $buscarImg =$dbh->prepare ('SELECT idCategoriaImg FROM categoria_imagenes where idCategoriaImg = 2');
-                            $buscarImg->execute();
-                            $arr = $buscarImg->fetch(PDO::FETCH_ASSOC);
-                            $idCtapa = $arr['idCategoriaImg'];
-
-                                  return $idCtapa;
-                        }
-
-                        function buscarIdAutor(){
-                            include('db.php');
-
-                            $buscarIdAutor = $dbh->prepare('SELECT idAutores FROM autores ORDER BY idAutores DESC LIMIT 1;');
-                            $buscarIdAutor->execute();
-                            $arr = $buscarIdAutor->fetch(PDO::FETCH_ASSOC);
-                            $idAutorNuevo = $arr['idAutores'];
-                            
-                                  return $idAutorNuevo;
-
-                        }
-
-                        function  buscarIdCategoria(){
-                            include('db.php');
-
-                            $buscarIdCategoria = $dbh->prepare('SELECT idCategoria FROM categorias ORDER BY idCategoria DESC LIMIT 1;');
-                            $buscarIdCategoria->execute();
-                            $arr = $buscarIdCategoria->fetch(PDO::FETCH_ASSOC);
-                            $idCategoriaNueva = $arr['idCategoria'];
-                            
-                                   return $idCategoriaNueva;
-                        }
+    
+      } else {
+          echo "<script>swal({title:'Error',text:'Error al ingresar el registro.',type:'error'});</script>";
+          //gestionLibros();
+  
+      }
 
 
 
-                   
-                        function buscarIdEditorial(){
-                            include('db.php');
+          
 
-                            $buscarIdEditorial = $dbh->prepare('SELECT idEditorial FROM editoriales ORDER BY  idEditorial DESC LIMIT 1;');
-                            $buscarIdEditorial ->execute();
-                            $arr = $buscarIdEditorial ->fetch(PDO::FETCH_ASSOC);
-                            $idEditorialNueva = $arr['idEditorial'];
-                            
-                                  return $idEditorialNueva;
-                        }
+  }
+
+  function buscarIdLibro(){
+      include('db.php');
+
+      $buscarId = $dbh->prepare(' SELECT idLibro FROM libros ORDER BY idLibro DESC LIMIT 1');
+      $buscarId->execute();
+      $arr = $buscarId->fetch(PDO::FETCH_ASSOC);
+      $idNuevo = $arr['idLibro'];
+      
+            return $idNuevo;
+
+  }
+
+  function buscarIdTapa(){
+      include('db.php');
+
+      $buscarImg = $dbh->prepare('SELECT idCategoriaImg FROM categoria_imagenes where idCategoriaImg = 1');
+      $buscarImg->execute();
+      $arr = $buscarImg->fetch(PDO::FETCH_ASSOC);
+      $idTapa = $arr['idCategoriaImg'];
+        
+            return $idTapa;
+  }
+  
+  function buscarIdcontraTapa(){
+      include('db.php');
+
+      $buscarImg =$dbh->prepare ('SELECT idCategoriaImg FROM categoria_imagenes where idCategoriaImg = 2');
+      $buscarImg->execute();
+      $arr = $buscarImg->fetch(PDO::FETCH_ASSOC);
+      $idCtapa = $arr['idCategoriaImg'];
+
+            return $idCtapa;
+  }
+
+  function buscarIdAutor(){
+      include('db.php');
+
+      $buscarIdAutor = $dbh->prepare('SELECT idAutores FROM autores ORDER BY idAutores DESC LIMIT 1;');
+      $buscarIdAutor->execute();
+      $arr = $buscarIdAutor->fetch(PDO::FETCH_ASSOC);
+      $idAutorNuevo = $arr['idAutores'];
+      
+            return $idAutorNuevo;
+
+  }
+
+  function  buscarIdCategoria(){
+      include('db.php');
+
+      $buscarIdCategoria = $dbh->prepare('SELECT idCategoria FROM categorias ORDER BY idCategoria DESC LIMIT 1;');
+      $buscarIdCategoria->execute();
+      $arr = $buscarIdCategoria->fetch(PDO::FETCH_ASSOC);
+      $idCategoriaNueva = $arr['idCategoria'];
+      
+              return $idCategoriaNueva;
+  }
+
+  function buscarIdEditorial(){
+      include('db.php');
+
+      $buscarIdEditorial = $dbh->prepare('SELECT idEditorial FROM editoriales ORDER BY  idEditorial DESC LIMIT 1;');
+      $buscarIdEditorial ->execute();
+      $arr = $buscarIdEditorial ->fetch(PDO::FETCH_ASSOC);
+      $idEditorialNueva = $arr['idEditorial'];
+      
+            return $idEditorialNueva;
+  }
 
 
-                      function getAutores() {
-                            include('db.php');
+function getAutores() {
+      include('db.php');
 
-                            $stmt = $dbh->prepare('SELECT DISTINCT nombreAutor FROM autores  ORDER BY  nombreAutor ASC');
-                            $stmt ->execute();
-                            $arr = $stmt->fetchAll();
-                            foreach($arr as $fila):
-                                echo "<option>".$fila['nombreAutor']."</option>";
-                            endforeach;  
-                      }
-
-
-
-                      function getEditoriales() {
-                            include('db.php');
-
-                            $stmt = $dbh->prepare('SELECT DISTINCT nombreEditorial FROM editoriales  ORDER BY  nombreEditorial ASC');
-                            $stmt ->execute();
-                            $arr = $stmt->fetchAll();
-                            //$editoriales = $arr['nombreEditorial'];
-                            
-                                  foreach($arr as $fila):
-
-echo "<option>".$fila['nombreEditorial']."</option>";
-                          endforeach;  
-                        
-                      }
+      $stmt = $dbh->prepare('SELECT DISTINCT nombreAutor FROM autores  ORDER BY  nombreAutor ASC');
+      $stmt ->execute();
+      $arr = $stmt->fetchAll();
+      foreach($arr as $fila):
+          echo "<option>".$fila['nombreAutor']."</option>";
+      endforeach;  
+}
 
 
-                      function getCategorias() {
-                            include('db.php');
 
-                            $stmt = $dbh->prepare('SELECT DISTINCT nombreCategoria FROM categorias  ORDER BY  nombreCategoria ASC');
-                            $stmt ->execute();
-                            $arr = $stmt->fetchAll();
-                                                    //$categorias = $arr['nombreCategoria'];
-                            
-                        foreach($arr as $fila):
+function getEditoriales() {
+      include('db.php');
 
-                      echo "<option>".$fila['nombreCategoria']."</option>";
+      $stmt = $dbh->prepare('SELECT DISTINCT nombreEditorial FROM editoriales  ORDER BY  nombreEditorial ASC');
+      $stmt ->execute();
+      $arr = $stmt->fetchAll();
+      //$editoriales = $arr['nombreEditorial'];
+      
+            foreach($arr as $fila):
 
-                          endforeach;                        
-                      }
+      echo "<option>".$fila['nombreEditorial']."</option>";
+      endforeach;  
+    
+  }
+
+
+function getCategorias() {
+      include('db.php');
+
+      $stmt = $dbh->prepare('SELECT DISTINCT nombreCategoria FROM categorias  ORDER BY  nombreCategoria ASC');
+      $stmt ->execute();
+      $arr = $stmt->fetchAll();
+                              //$categorias = $arr['nombreCategoria'];
+      
+  foreach($arr as $fila):
+
+  echo "<option>".$fila['nombreCategoria']."</option>";
+
+    endforeach;                        
+}
 
     function cargarEjemplar($stock, $fechaAlta){
                             include('db.php');
@@ -735,10 +741,14 @@ function getUltimoEjemplar($idLibro) {
 
   $buscarStock = $dbh->prepare("select substr(idEjemplar,instr(idEjemplar,'E') + 1) AS cantidad from ejemplares where idLibro= $idLibro order by idEjemplar DESC LIMIT 1");
   $buscarStock->execute();
+  if($buscarStock->rowCount() !== 0){
   $arr = $buscarStock->fetch(PDO::FETCH_ASSOC);
   $cantidadEjemplar = $arr['cantidad'];
   
    return $cantidadEjemplar;
+  }else{
+    echo "";
+  }
 }
 
 
@@ -801,7 +811,8 @@ if ($stmt->execute()) {
                 if ($cargarAutor->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-        echo "<script>swal({title:'Exito',text:'Autor ingresado correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
+        echo "<script>swal({title:'Éxito',text:'Autor ingresado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Autor ingresado correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
         //gestionAutores();
 
 
@@ -825,8 +836,9 @@ include('db.php');
                 if ($editarAutor->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-            echo "<script>swal({title:'Exito',text:'Autor editado correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
-        //gestionAutores();
+            echo "<script>swal({title:'Éxito',text:'Autor editado correctamente.',type:'success', showConfirmButton: false, html: '<h6>Autor editado correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
+            //gestionAutores();
 
 
     } else {
@@ -892,8 +904,9 @@ function crearCategoria($nombreCategoria) {
                 if ($cargarCategoria->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-         echo "<script>swal({title:'Exito',text:'Categoria ingresada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
-        //gestionAutores();
+         echo "<script>swal({title:'Éxito',text:'Categoria ingresada correctamente.',type:'success', showConfirmButton: false, html: '<h6>Categoria ingresada correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
+         //gestionAutores();
 
 
     } else {
@@ -917,8 +930,9 @@ include('db.php');
                 if ($editarCategoria->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-            echo "<script>swal({title:'Exito',text:'Categoria editada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
-        //gestionAutores();
+            echo "<script>swal({title:'Éxito',text:'Categoria editada correctamente.',type:'success', showConfirmButton: false, html: '<h6>Categoria editada correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
+            //gestionAutores();
 
 
     } else {
@@ -988,8 +1002,9 @@ function crearEditorial($nombreEditorial) {
 
         //enviarPwd($nombre, $mail, $pass);
 
-            echo "<script>swal({title:'Exito',text:'Editorial ingresada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
-        //gestionAutores();
+            echo "<script>swal({title:'Éxito',text:'Editorial ingresada correctamente.',type:'success', showConfirmButton: false, html: '<h6>Editorial ingresada correctamente.e</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
+            //gestionAutores();
 
 
     } else {
@@ -1013,8 +1028,9 @@ include('db.php');
                 if ($editarEditorial->execute()) {
 
         //enviarPwd($nombre, $mail, $pass);
-         echo "<script>swal({title:'Exito',text:'Editorial editada correctamente.',type:'success', showConfirmButton: false, html: '<br><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" ><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\">OK</a></button>'});</script>";
-        //gestionAutores();
+         echo "<script>swal({title:'Éxito',text:'Editorial editada correctamente.',type:'success', showConfirmButton: false, html: '<h6>Editorial editada correctamente.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"admin-libros.php\"><button type=\"submit\" class=\"confirmarEdicionLibro\">OK</button></a>'});</script>";
+
+         //gestionAutores();
 
 
     } else {

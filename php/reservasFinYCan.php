@@ -13,8 +13,8 @@ function finYCan(){
     $query2 = " SELECT MONTHNAME(fechaDesde) AS mes,
                 sum(case when idReservaEstado = 0 then 1 else 0 end) as finalizado,
                 sum(case when idReservaEstado= 4 then 1 else 0 end) as cancelado from reservas
-                where idReservaEstado = 0 OR idReservaEstado=4 AND fechaDesde >= (DATE_SUB(NOW(), INTERVAL '90' DAY))
-                group BY mes"; 
+                where idReservaEstado IN (0,4) AND fechaDesde >= (DATE_SUB(NOW(), INTERVAL '120' DAY))
+                group BY mes order by DATE_FORMAT(fechaDesde, '%Y%m') ASC"; 
 
      $stmt = $dbh->prepare($query2);
      $stmt->execute();

@@ -88,6 +88,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                                     <th>Estado</th>
                                     <th>Fecha reserva</th>
                                     <th>Fecha devolución</th>
+                                    <th>Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,7 +112,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                                 <tr>
                                     <th>Nº Reserva</th>
                                     <th>Libro</th>
-                                    <th>Estado</th>
+                                    <th>Fecha</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -119,7 +120,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                         getHistorial($_SESSION['idUsuario']);
                         /*foreach($_POST as $campo => $valor){
   echo "- ". $campo ." = ". $valor;
-}*/
+}*/                        if (isset($_POST['btnCancelarReserva'])){
+
+                                    cancelarReservas($_POST['txtCancelarReserva']);
+                            }
                          ?>
                          </tbody>
                         </table>
@@ -135,7 +139,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                             </tr>
                         </thead>
                         <tbody>
-
+                        
                         <?php 
                         getDescargas($_SESSION['idUsuario']);
                         /*foreach($_POST as $campo => $valor){
@@ -159,13 +163,63 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
 
                 <ul class="collapse list-unstyled" id="configuracion">
                     <br>
+                    <div style="margin-left:35px; ">
+                    <h1 style="font-size: 24px;">Tu rol: <b><?php $rol= getRol($_SESSION['idUsuario']);
+                    echo $rol;
+                    ?></b></h1>
+                    
+                    
+                    <br><br>
                     <h3>Datos personales</h3>
                     <br>
+                    </div>
                     <?php 
                     datosUsuario($_SESSION['idUsuario']);
                      ?>
                 </ul>
             </li>
+
+
+            <!-- Modal cancelar reserva -->
+            <div id="modal-contrasenia" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="close-contrasenia">&times;</span>
+                                <h2>¿Querés cancelar tu reserva?<?php /* echo $arr['titulo']; */?>?</h2>
+                            </div>
+                            <?php 
+                            /*if (isset($codigo)) {
+                                echo "<script>swal({title:'Exito',text:'Su reserva se ha realizado. Por favor verifica tu correo para mas informacion.',type:'success'});</script> ";
+                                        <a class="link" id="id-libro" href="single-book.php?sku=' . $fila['idLibro'] . '">
+
+                            }*/
+                            ?>
+                            <div class="modal-body">
+                                <form action="#" method="POST" name="modificarPwd">
+                                    <input class="confirmarPass" id="confirmarPass" name="confirmarPass" value="Confirmar" type="submit">
+                                    <input hidden id="txtPwd" name="txtPwd" type="text">
+                                    <input hidden id="txtPwdNueva" name="txtPwdNueva" type="text">  
+                                                    
+                                </form>
+                                <?php 
+                                if (isset($_POST['confirmarPass'])) {
+                                    $pwd=$_POST['txtPwd'];
+                                    $pwdNueva=$_POST['txtPwdNueva'];
+
+                                    modificarPwd($_SESSION['idUsuario'], $pwd, $pwdNueva);
+                                } 
+                                ?>
+
+                                <button id="cancelar-contrasenia">Cancelar</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
 
             <!-- Modal datos personales -->
             <div id="modal-datos" class="modal">
@@ -282,7 +336,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                     <br>
                     <br>
                     <br>
-                    <button style="margin-left: 120px;" style="width: 10%;" id="dar-de-baja" value='Dar de baja'>Dar de baja</button>
+                    <button style="margin-left: 120px;" style="width: 10%;" id="dar-de-baja" value='Dar de baja'>Darme de baja</button>
                     <?php 
                     //datosUsuario('275');
                      ?>
@@ -483,6 +537,19 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
 
 </script>
 
+
+
+<script>
+    document.querySelectorAll('#estado').forEach((status) =>{
+    if(status.textContent == "activa"){
+        status.style.color = "green";
+        status.style.fontWeight = "800";
+    }else if(status.textContent == 'pendiente'){
+        status.style.color = "black";
+        status.style.fontWeight = "800";
+    }
+})
+</script>
 <script src="js/navbarToggle.js"></script>
 <script>
 
@@ -599,6 +666,22 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
  
       
     <script>
+
+function cancelarReserva(nroReserva, flag) {
+   if (flag == 1) {
+    swal({
+              title: false,
+              text: 'Ejemplar desactivado correctamente.',
+              type: false,
+              showConfirmButton: false,
+              html:'<form method="POST" ><br><h5>Deseas eliminar esta reserva?</h5><input hidden type="text" name="txtCancelarReserva" value="'+nroReserva+'"> <div><br><input type="submit" style="display:inline-block; background-color: #333; color:white; width: 150px; margin-right:15px;"  name="btnCancelarReserva" class="btnCancelarReserva"  value="Confirmar"><input type="submit" style="display:inline-block; background-color: gray; color:white; width: 150px;" name="cancelarEdicion" value="Cancelar"></div><br></form>',
+
+            })
+          }
+
+        }
+
+
       $(document).ready(function(){
         $('#tablaReservasActivas').DataTable({
           "lengthMenu": [[3, 5, 10], [3, 5, 10]],
@@ -606,10 +689,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
           "pagingType": "simple",
           "deferRender": true,
           dom: 'rtip',
+          "info": false,
           "oLanguage": {
           "sInfo": "",
           },
-
+          "language": {
+          "emptyTable": "No se encontraron reservas",
+          },
         });  
 
       });
@@ -620,11 +706,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
           "responsive": true,
           "pagingType": "simple",
           "deferRender": true,
+          "info": false,
           dom: 'rtip',
           "oLanguage": {
           "sInfo": "",
           },
-
+          "language": {
+          "emptyTable": "No se encontraron reservas",
+          },
         });  
 
       });

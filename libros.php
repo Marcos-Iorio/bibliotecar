@@ -25,7 +25,7 @@
 
 ?>
 
-<html lang="es">
+<html lang="es" style="height: 100% !important;">
 
 <head>
     <meta charset="UTF-8">
@@ -52,7 +52,7 @@
 
                   <div class="busqueda">
                     <i class="fas fa-search" onclick="showSearch()"></i>
-                    <input class="campo-busqueda" type="text" style="background-color: #f1f1f1; color: black; height: 80%; margin-top: 20px;" name="campo-busqueda" id="campo-busqueda">
+                    <input class="campo-busqueda" onkeypress="return ((event.charCode >= 65 && event.charCode <= 122) || (event.charCode >= 225 && event.charCode <= 250) || (event.charCode == 32 && event.charCode !== 0) || (event.charCode > 47 && event.charCode < 58))" type="text" style="background-color: #f1f1f1; color: black; height: 80%; margin-top: 20px;" name="campo-busqueda" id="campo-busqueda">
                     <input id="buscar" name=txtBuscar type="submit" value="Buscar" style=" margin-top: 10px; height: 30px;">
                   </div>
                 </form>
