@@ -272,7 +272,7 @@ function enviarMail(){
 
     if ($mail->send()) {
     $flag='0';
-        echo "<script>swal({title:'Éxito',type:'success', showConfirmButton: false, html: '<h6>Su reserva se ha realizado. Por favor verificá tu correo para más información.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"libros.php\"><button type=\"submit\" style=\"background-color: #343A40; color:white; width: 160px; height: 50px; text-align:center;\" >OK</button></a>'});</script>";
+        echo "<script>swal({title:'Éxito',type:'success', showConfirmButton: false, html: '<h6>Su reserva se ha realizado. Por favor verificá tu correo para más información.</h6><br><a  style=\"background-color: #343A40; color:white;\" href=\"libros.php\"><button class=\"btnFinalizarReserva\" type=\"submit\"  >OK</button></a>'});</script>";
     } else {
         echo "<script>swal({title:'Atención',text:'Su reserva se ha realizado pero no pudimos enviar el codigo de reserva a su correo. Por favor contacta al administrador para más información.',type:'info'});</script> ";
 
