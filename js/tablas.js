@@ -265,7 +265,7 @@ function librosReservados(){
 
     var svg = d3.select('#libros-treinta-dias'),
     margin = 200,
-    width = svg.attr("width") - margin,
+    width = svg.attr("width") - 0,
     height = svg.attr("height") - margin;
 
     /* Titulo */

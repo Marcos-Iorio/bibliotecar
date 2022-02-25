@@ -56,7 +56,7 @@ if ($stmt->execute()) {
                 <tr>
                   <td>" .  $fila['idReserva']. "</td>
                   <td>" .  $nombreLibro . "</td>
-                  <td>" .  $nombreEstado. "</td>
+                  <td id='estado'>" .  $nombreEstado. "</td>
                   <td>" .  $fila['fechaDesde']. "</td>
                   <td>" .  $fila['fechaHasta']. "</td>
                   

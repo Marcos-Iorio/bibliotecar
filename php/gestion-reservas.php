@@ -13,7 +13,7 @@ function gestionReservas(){
 //         $page_first_result = ($page-1) * $results_per_page;  
 
   //$stmt = $dbh->prepare("SELECT * FROM reservas WHERE idReservaEstado <> '0' LIMIT " . $page_first_result . ',' . $results_per_page );
-  $stmt = $dbh->prepare("SELECT * FROM reservas WHERE idReservaEstado <> '0'");
+  $stmt = $dbh->prepare("SELECT *, DATE_FORMAT(fechaDesde,'%d-%m-%Y') as fechaDesde, DATE_FORMAT(fechaHasta,'%d-%m-%Y') as fechaHasta FROM reservas WHERE idReservaEstado <> '0'");
 
 
 

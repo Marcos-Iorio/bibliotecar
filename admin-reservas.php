@@ -89,7 +89,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                   <th>ID Libro</th>
                   <th>Titulo</th>
                   <th>Estado</th>
-                  <th>Usuario</th>
+                  <th style="width: 155%;">Usuario</th>
                   <th>Fecha solicitud</th>
                   <th>Fecha devolución</th>
                   <th>Editar</th>

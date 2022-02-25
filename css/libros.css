@@ -410,16 +410,16 @@ thead th:nth-child(7) {
 
 .fas.fa-pencil-alt{
     color:white; 
-    font-size: 25px;   
+    font-size: 20px;   
 }
 
 i.far.fa-trash-alt {
-    font-size: 25px;
+    font-size: 20px;
     color: white;;
 }
 
 i.far.fa-trash-alt.tbody-icon{
-    font-size: 25px;
+    font-size: 20px;
     outline: none;
     border: none;
     background: none;
@@ -429,7 +429,7 @@ i.far.fa-trash-alt.tbody-icon{
 }
 
 i.fas.fa-pencil-alt.tbody-icon{
-    font-size: 25px;
+    font-size: 20px;
     outline: none;
     border: none;
     background: none;

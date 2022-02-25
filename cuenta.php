@@ -282,7 +282,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
                     <br>
                     <br>
                     <br>
-                    <button style="margin-left: 120px;" style="width: 10%;" id="dar-de-baja" value='Dar de baja'>Dar de baja</button>
+                    <button style="margin-left: 120px;" style="width: 10%;" id="dar-de-baja" value='Dar de baja'>Dame de baja</button>
                     <?php 
                     //datosUsuario('275');
                      ?>
@@ -482,7 +482,17 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
 
 
 </script>
-
+<script>
+    document.querySelectorAll('#estado').forEach((status) =>{
+    if(status.textContent == "activa"){
+        status.style.color = "green";
+        status.style.fontWeight = "800";
+    }else if(status.textContent == 'pendiente'){
+        status.style.color = "black";
+        status.style.fontWeight = "800";
+    }
+})
+</script>
 <script src="js/navbarToggle.js"></script>
 <script>
 
