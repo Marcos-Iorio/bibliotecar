@@ -12,7 +12,7 @@ function autoresReservas(){
         .attr("x",250)
         .attr("y", 50)
         .attr("font-size", "24px")
-        .text("Autores reservados en los últimos 90 días")
+        .text("Autores más reservados en los últimos 90 días")
 
     var xScale = d3.scaleBand().range([0, 1000]).padding(0.4),
         yScale = d3.scaleLinear().range([height, 0]);
@@ -26,6 +26,8 @@ function autoresReservas(){
 
             g.append('g').attr('transform','translate(0,'+height+')')
                 .call(d3.axisBottom(xScale))
+                .selectAll(".tick text")
+                .call(wrap, xScale.bandwidth());
             
             g.append('g').call(d3.axisLeft(yScale).tickFormat(function(d){
                 return d;
@@ -79,6 +81,30 @@ function autoresReservas(){
     
         d3.select('#tooltip').classed('hidden', true)
     }
+
+    function wrap(text, width) {
+        text.each(function() {
+          var text = d3.select(this),
+              words = text.text().split(/\s+/).reverse(),
+              word,
+              line = [],
+              lineNumber = 0,
+              lineHeight = 1.1, // ems
+              y = text.attr("y"),
+              dy = parseFloat(text.attr("dy")),
+              tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+          while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+              line.pop();
+              tspan.text(line.join(" "));
+              line = [word];
+              tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+            }
+          }
+        });
+      }
 }
 
 function historialReserva(){
@@ -272,10 +298,10 @@ function librosReservados(){
 
     svg.append("text")
         .attr("transform", "translate(100,0)")
-        .attr("x",250)
+        .attr("x",120)
         .attr("y", 50)
         .attr("font-size", "24px")
-        .text("Libros reservados en los últimos 30 días.")
+        .text("Libros más reservados en los últimos 30 días.")
 
     var xScale = d3.scaleBand().range([0, 1000]).padding(0.4),
         yScale = d3.scaleLinear().range([height, 0]);
@@ -327,7 +353,7 @@ function librosReservados(){
 
     function mouseOver(d, i){
         //agarra los valores X y Y
-        var xPos = parseFloat(d3.select(this).attr('x')) + xScale.bandwidth() + 170;
+        var xPos = parseFloat(d3.select(this).attr('x')) + xScale.bandwidth() + 235;
         var yPos = parseFloat(d3.select(this).attr('y')) / 2 + height / 0.13;
     
         //Actualiza la posición del tooltip;

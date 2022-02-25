@@ -87,7 +87,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
                     <p><strong id="nombre-libro">sdads</strong></p>
                     <p><span id="cantidad-libros">100</span></p>
                 </div>
-                <svg width="850" height="500" id="libros-treinta-dias"></svg>
+                <svg width="870" height="500" id="libros-treinta-dias"></svg>
             </div>
         </main>
     </section>

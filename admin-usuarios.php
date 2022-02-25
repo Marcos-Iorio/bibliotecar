@@ -66,7 +66,7 @@ include "php/panel.php";
         </div> -->
         <!--Seccion de los libros-->
         <div class="container main-libros">
-          <h3 class="titulo-pagina">Gestion de usuarios!</h3>
+          <h3 class="titulo-pagina">Gestión de usuarios!</h3>
           <!--<form method="POST" action="#" name="busqueda">
               <div>
 

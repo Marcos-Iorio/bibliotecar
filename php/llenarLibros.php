@@ -157,7 +157,14 @@ function singleBook($idLibro){
             $contratapa=$arr['ruta'];
         }
 
-
+        if (isset($_SESSION['mailL'])) {
+            $botonReservar= '<div class="boton-reservar">
+                <button class="reservar" id="reservar">Reservar</button>
+            </div>';
+        } else {
+            $botonReservar= '<h3 class="boton-reservar" style="text-align:center;">Iniciá sesión o registrate para acceder a las reservas.</h3>';
+        
+        }
     echo '
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <div id="imagenes-libros" class="carousel slide" data-ride="carousel" >
@@ -205,13 +212,11 @@ function singleBook($idLibro){
             <input type="name" name="dates" id="datePicker" value="00/00/0000 - 00/00/0000">
         </div>
     </form>   
-    <div class="boton-reservar">
-        <button class="reservar" id="reservar">Reservar</button>
-    </div>
+    '.$botonReservar.'
     
 </div>
 <div class = "descripcion">
-    <h3 class= "titulo-desc">Descripcion</h3>
+    <h3 class= "titulo-desc">Descripción</h3>
     <p class = "desc">' . $arr['descripcion'] . '</p>
 </div>';
 
@@ -319,7 +324,7 @@ function librosFiltrados(){
                     INNER JOIN categorias c ON lc.idCategoria = c.idCategoria
                     INNER JOIN editoriales e ON le.idEditorial = e.idEditorial
                     INNER JOIN autores a ON la.idAutores = a.idAutores
-                    WHERE l.pdf IS NOT NULL AND l.pdf!= '' ORDER BY l.stock DESC";
+                    WHERE l.pdf IS NOT NULL AND l.pdf != '' ORDER BY l.stock DESC";
         }else{
             $query .= "SELECT distinct l.idLibro, l.titulo,l.descripcion,l.pdf,l.stock, c.nombreCategoria, a.nombreAutor, e.nombreEditorial,l.fechaAlta, i.ruta
                     FROM libros AS l 

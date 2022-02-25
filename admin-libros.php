@@ -57,7 +57,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false || !isset($_
           include "php/panel.php";
          ?>
     <main id="main">
-      <h1 class="titulo-pagina">Gestion de libros</h1>
+      <h1 class="titulo-pagina">Gestión de libros</h1>
       <div class="subtitulo-pagina">Podes ver, editar y añadir nuevas editoriales, libros, autores y categorias.</div>
 
 

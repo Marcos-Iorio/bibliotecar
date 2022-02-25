@@ -11,7 +11,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -88,10 +87,10 @@
                                     
                                     mainReservar($mail, $_GET['sku'], $startDate, $endDate);
                                 } else {
-                                    echo "<script>swal({title:'Error',text:'Por favor ingrese con su cuenta de usuario para poder realizar una reserva.',type:'info'});</script> ";
+                                    echo "<script>swal({title:'Error',text:'Por favor ingrese con su cuenta de usuario para poder realizar una reserva.',type:'info'})</script> ";
                                 }
                             }else{
-                                echo "<script>swal({title:'Error',text:'Ya tenés una reserva activa de este libro, anda a MI CUENTA o devolvelo para poder reservarlo de nuevo.',type:'info'});</script> ";
+                                echo "<script>swal({title:'Error',text:'Ya tenés una reserva activa de este libro, anda a MI CUENTA o devolvelo para poder reservarlo de nuevo.',type:'info'})</script> ";
                             }
                             
                         } 
@@ -125,7 +124,7 @@
 <script>
     /* Idenfitica si no tiene stock y deshabilita el boton */
     function esconderBoton() {
-        let span = document.querySelector("#stock");;
+        let span = document.querySelector("#stock");
         let button = document.getElementById('reservar');
         button.style.display = "none";
         button.addEventListener("change", stateHandle());
