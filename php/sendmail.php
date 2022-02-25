@@ -11,7 +11,7 @@
     use PHPMailer\PHPMailer\Exception;
 
 function enviarMail(){
-    iconv_set_encoding("internal_encoding", "UTF-8");
+    /* iconv_set_encoding("internal_encoding", "UTF-8"); */
 //Include required PHPMailer files
 	require 'PHPMailer.php';
 	require 'SMTP.php';
@@ -138,7 +138,7 @@ function enviarMail(){
 
 
    function reenviar($name, $email, $pin){
-    iconv_set_encoding("internal_encoding", "UTF-8");
+    /* iconv_set_encoding("internal_encoding", "UTF-8"); */
     require('../vendor/autoload.php');
 
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
@@ -206,7 +206,7 @@ function enviarMail(){
 }
 
    function enviarReserva($name, $email, $pin){
-    iconv_set_encoding("internal_encoding", "UTF-8");
+    /* iconv_set_encoding("internal_encoding", "UTF-8"); */
 
 //Include required PHPMailer files
     require 'PHPMailer.php';
@@ -287,7 +287,7 @@ function enviarMail(){
 
 
     function enviarPwd($name, $email, $pin){
-        iconv_set_encoding("internal_encoding", "UTF-8");
+        /* iconv_set_encoding("internal_encoding", "UTF-8"); */
         require('./vendor/autoload.php');
 
         $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
@@ -359,7 +359,7 @@ function enviarMail(){
 }
 
 function enviarRecuperacion($email, $token){
-    iconv_set_encoding("internal_encoding", "UTF-8");
+    /* iconv_set_encoding("internal_encoding", "UTF-8"); */
 
     require 'PHPMailer.php';
 	require 'SMTP.php';
