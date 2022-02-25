@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/Logo sin fondo.PNG">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -52,7 +53,7 @@
                         <div class="titulo-panel">
                             <h4>Portal</h4>
                         </div>
-                        <p>Ingresa al portal para ver todo el catalogo de libros disponible.</p>
+                        <p>Ingresá al portal para ver todo el catálogo de libros disponible.</p>
                         <a class="ver-mas" href="libros.php">Ver más</a>
                     </div>
                 </div>
@@ -90,7 +91,7 @@
                         <div class="titulo-panel">
                             <h4>Mi cuenta</h4>
                         </div>
-                        <p>Accede a tu cuenta para mas detalles.</p>
+                        <p>Accedé a tu cuenta para más detalles.</p>
                         <a class="ver-mas" href="cuenta.php">Ver más</a>
                     </div>
                 </div>
@@ -102,7 +103,7 @@
                         <div class="titulo-panel">
                             <h4>Contactanos</h4>
                         </div>
-                        <p>Conoce mas informacion acerca de nuestro portal.</p>
+                        <p>Conoce más información acerca de nuestro portal.</p>
                         <a class="ver-mas" href="contacto.php">Ver más</a>
                     </div>
                 </div>
@@ -116,7 +117,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '2') {
                 <div class="card">
                     <div class="info-paneles">
                         <div class="titulo-panel">
-                            <h4>Gestion de libros</h4>
+                            <h4>Gestión de libros</h4>
                         </div>
                         <p>Administrar libros, editoriales, categorias, y autores (solo perfiles autorizados).</p>
                         <a class="ver-mas" href="admin-libros.php">Ver más</a>
@@ -132,7 +133,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '2') {
                 <div class="card">
                     <div class="info-paneles">
                         <div class="titulo-panel">
-                            <h4>Gestion de reservas</h4>
+                            <h4>Gestión de reservas</h4>
                         </div>
                         <p>Administrar las reservas pendientes y activas (solo perfiles autorizados).</p>
                         <a class="ver-mas" href="admin-reservas.php">Ver más</a>
@@ -144,7 +145,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '2') {
                         <div class="titulo-panel">
                             <h4>Contacto</h4>
                         </div>
-                        <p>Contacta al soporte tecnico de BibliotecAr.</p>
+                        <p>Contactá al soporte técnico de BibliotecAr.</p>
                         <a class="ver-mas" href="contacto.php">Ver más</a>
                     </div>
                 </div>
@@ -157,7 +158,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '3') {
                 <div class="card">
                     <div class="info-paneles">
                         <div class="titulo-panel">
-                            <h4>Gestion de libros</h4>
+                            <h4>Gestión de libros</h4>
                         </div>
                         <p>Administrar libros, editoriales, categorias, y autores (solo perfiles autorizados).</p>
                         <a class="ver-mas" href="admin-libros.php">Ver más</a>
@@ -173,7 +174,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '3') {
                 <div class="card">
                     <div class="info-paneles">
                         <div class="titulo-panel">
-                            <h4>Gestion de usuarios</h4>
+                            <h4>Gestión de usuarios</h4>
                         </div>
                         <p>Administrar los usuarios del sistema (solo perfiles autorizados).</p>
                         <a class="ver-mas" href="admin-usuarios.php">Ver más</a>
@@ -185,7 +186,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == '3') {
                         <div class="titulo-panel">
                             <h4>Reportes</h4>
                         </div>
-                        <p>Accede a las distintas estadisticas del sistema (solo perfiles autorizados).</p>
+                        <p>Accedé a las distintas estadisticas del sistema (solo perfiles autorizados).</p>
                         <a class="ver-mas" href="reportes.php">Ver más</a>
                     </div>
                 </div>
